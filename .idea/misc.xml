@@ -4,7 +4,15 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/Torikago-Shop-main/Torikago-Shop-main/Torikago-Shop/pom.xml" />
+=======
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/Torikago-Shop/pom.xml" />
+=======
+        <option value="$PROJECT_DIR$/Torikago-Shop-main/Torikago-Shop/pom.xml" />
+>>>>>>> origin/main
+>>>>>>> origin/main
       </list>
     </option>
   </component>
