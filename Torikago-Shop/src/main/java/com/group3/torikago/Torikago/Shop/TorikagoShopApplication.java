@@ -9,5 +9,4 @@ public class TorikagoShopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TorikagoShopApplication.class, args);
 	}
-
 }

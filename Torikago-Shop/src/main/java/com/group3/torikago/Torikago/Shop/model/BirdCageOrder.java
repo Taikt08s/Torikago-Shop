@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 //import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -17,12 +19,12 @@ import java.util.Date;
 public class BirdCageOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String orderID;
+    private int orderID;
     private float orderValue;
     private String paymentMethod;
-    private Date orderDate;
+    private LocalDateTime orderDate;
     private String status;
     private String shippedAddress;
-    private Date shippedDate;
+    private LocalDateTime shippedDate;
     private String userID;
 }

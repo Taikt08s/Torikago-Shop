@@ -29,6 +29,4 @@ public class Bird_Cage{
     private String Status;
     @OneToMany(mappedBy = "pro")
     private List<OrderDetails> orderdetails;
-    
-    
 }

@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Voucher {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private String voucherID;
+    private int voucherID;
     private String voucherName;
     private float voucherValue;
 }

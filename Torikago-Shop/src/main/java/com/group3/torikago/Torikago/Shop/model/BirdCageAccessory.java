@@ -14,7 +14,7 @@ import lombok.*;
 public class BirdCageAccessory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String accessoryID;
+    private int accessoryID;
     private String getAccessoryName;
     private float price;
 }
