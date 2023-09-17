@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +10,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Register</title>
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 </head>
 <body class="bg-gradient-primary">
 <div class="container">
@@ -20,56 +23,119 @@
             <div class="row">
                 <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                 <div class="col-lg-7">
+                    <div th:if="${param.fail}" class="alert alert-danger">
+                        Username or email already exists!
+                    </div>
                     <div class="p-5">
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                         </div>
-                        <form class="user">
+                        <form class="user" method="post" role="form" th:action="@{/register/save}" th:object="${user}">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                    <input type="text"
+                                           class="form-control form-control-user"
+                                           id="fname"
+                                           name="fname"
+                                           th:field="*{fname}"
                                            placeholder="First Name">
+                                    <p th:if="${#fields.hasErrors('fname')}" class="text-danger" th:errors="*{fname}"></p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                    <input type="text"
+                                           class="form-control form-control-user"
+                                           id="lname"
+                                           name="lname"
+                                           th:field="*{lname}"
                                            placeholder="Last Name">
+                                    <p th:if="${#fields.hasErrors('lname')}" class="text-danger" th:errors="*{lname}"></p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="gender-options">
+                                <input type="text"
+                                       class="form-control form-control-user"
+                                       id="address"
+                                       name="address"
+                                       th:field="*{address}"
+                                       placeholder="Address">
+                                <p th:if="${#fields.hasErrors('address')}" class="text-danger" th:errors="*{address}"></p>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text"
+                                           class="form-control form-control-user"
+                                           id="userName"
+                                           name="userName"
+                                           th:field="*{userName}"
+                                           placeholder="User Name">
+                                    <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="email"
+                                           class="form-control form-control-user"
+                                           id="email"
+                                           name="email"
+                                           th:field="*{email}"
+                                           placeholder="Email">
+                                    <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="password"
+                                           class="form-control form-control-user"
+                                           id="password"
+                                           name="password"
+                                           th:field="*{password}"
+                                           placeholder="Password">
+                                    <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="password"
+                                           class="form-control form-control-user"
+                                           id="exampleRepeatPassword"
+                                           placeholder="Repeat Password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <input type="tel"
+                                           class="form-control form-control-user"
+                                           id="phoneNumber"
+                                           name="phoneNumber"
+                                           th:field="*{phoneNumber}"
+                                           placeholder="Phone Number">
+                                    <p th:if="${#fields.hasErrors('phoneNumber')}" class="text-danger" th:errors="*{phoneNumber}"></p>
+                                </div>
+                                <div class="gender-options col-sm-6" style="margin-top: 10px">
+                                    <label class="mb-2">Gender </label>
                                     <label for="male">
-                                        <input type="radio" name="gender" id="male" value="male"> Male
+                                        <input type="radio"
+                                               name="gender"
+                                               id="male"
+                                               value="true"
+                                               th:field="*{gender}"> Male
                                     </label>
                                     <label for="female">
-                                        <input type="radio" name="gender" id="female" value="female"> Female
+                                        <input type="radio"
+                                               name="gender"
+                                               id="female"
+                                               value="false"
+                                               th:field="*{gender}"> Female
                                     </label>
+                                    <p th:if="${#fields.hasErrors('gender')}" class="text-danger" th:errors="*{gender}"></p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                       placeholder="Email Address">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user"
-                                           id="exampleInputPassword" placeholder="Password">
-                                </div>
-                                <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user"
-                                           id="exampleRepeatPassword" placeholder="Repeat Password">
-                                </div>
-                            </div>
-                            <a href="login.html" class="btn btn-primary btn-user btn-block">
+                            <button th:href="@{/register}" class="btn btn-primary btn-user btn-block">
                                 Register Account
-                            </a>
-                            <hr>
+                            </button>
                         </form>
                         <hr>
                         <div class="text-center">
                             <a class="small" href="forgot-password.html">Forgot Password?</a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="login.html">Already have an account? Login!</a>
+                            <a class="small" th:href="@{/login}">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>
@@ -77,9 +143,10 @@
         </div>
     </div>
 </div>
+</body>
+<div th:insert="~{user-layout :: footer}"></div>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
-</body>
 </html>

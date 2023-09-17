@@ -28,8 +28,10 @@ public class User {
     private String lname;
     @Column(name = "phone_number",length = 12)
     private String phoneNumber;
-    @Column(name = "gender",length = 5)
-    private String gender;
+    @Column(name = "gender")
+    private boolean gender;
+    @Column(name = "address",length = 150)
+    private String address;
     @Column(name = "profile_pic",length = 64)
     private String profilePic;
     @Column(name = "reset_password_token", length = 50)
