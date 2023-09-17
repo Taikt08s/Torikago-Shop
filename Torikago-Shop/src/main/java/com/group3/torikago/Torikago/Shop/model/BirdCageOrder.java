@@ -21,10 +21,17 @@ public class BirdCageOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderID;
     private float orderValue;
+    @Column(name = "order_value",length = 10)
     private String paymentMethod;
+    @Column(name = "payment_method",length = 50)
     private LocalDateTime orderDate;
+    @Column(name = "order_date",length = 10)
     private String status;
+    @Column(name = "status",length = 50)
     private String shippedAddress;
+    @Column(name = "shipped_address",length = 50)
     private LocalDateTime shippedDate;
+    @Column(name = "shipped_date",length = 50)
     private String userID;
+    @Column(name = "user_id",length = 10)
 }
