@@ -16,5 +16,7 @@ public class BirdCageAccessory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accessoryID;
     private String getAccessoryName;
+    @Column(name = "accessory_name",length = 50)
     private float price;
+    @Column(name = "price",length = 10)
 }
