@@ -9,14 +9,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name ="BirdCageAccessory")
+@Entity(name ="BirdCageAccessory")
 public class BirdCageAccessory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int accessoryID;
-    private String getAccessoryName;
+    private Long accessoryID;
     @Column(name = "accessory_name",length = 50)
-    private float price;
+    private String getAccessoryName;
     @Column(name = "price",length = 10)
+    private float price;    
 }
