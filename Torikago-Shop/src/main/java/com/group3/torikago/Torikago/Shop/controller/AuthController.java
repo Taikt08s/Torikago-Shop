@@ -19,6 +19,11 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
+    }
+
     @GetMapping("/register")
     public String getRegisterForm(Model model) {
         RegisterDTO user = new RegisterDTO();
@@ -42,6 +47,6 @@ public class AuthController {
             return "register";
         }
         userService.saveUser(user);
-        return "redirect:shopping-page?success";
+        return "redirect:/torikago?success";
     }
 }

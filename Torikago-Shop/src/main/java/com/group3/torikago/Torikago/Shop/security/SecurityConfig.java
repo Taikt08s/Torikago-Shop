@@ -19,7 +19,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/forgot_password", "/register", "/register/**", "/css/**", "/js/**","/vendor/**","/scss/**").permitAll())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/clubs")
+                        .defaultSuccessUrl("/torikago")
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
