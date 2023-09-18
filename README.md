@@ -9,7 +9,7 @@ Welcome to Torikago-Shop, your one-stop online bird cage eCommerce platform!
 - **Members:**
   - Bùi Duy Khang <img src="https://media.tenor.com/D4uJ1UIPUgIAAAAd/fu-xuan-hsr.gif" width="40" >
   - Đinh Hoàng Dương 
-  - Dương Hoàng Tuấn Kiệt <img src="https://media.tenor.com/Cj05cPY-V9MAAAAC/minato-gun.gif" width="40" >
+  - Dương Hoàng Tuấn Kiệt <img src="https://media.tenor.com/Cj05cPY-V9MAAAAC/minato-gun.gif" width="100" >
 
 ## About
 
