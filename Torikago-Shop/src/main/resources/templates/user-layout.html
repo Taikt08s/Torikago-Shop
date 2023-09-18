@@ -107,10 +107,14 @@
                 </div>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
-            <li class="nav-item dropdown no-arrow">
+            <li th:if="${#authorization.expression('!isAuthenticated()')}" class="nav-item">
+                <a class="nav-link" th:href="@{/login}">Login</a></li>
+            <li th:if="${#authorization.expression('!isAuthenticated()')}" class="nav-item">
+                <a class="nav-link" th:href="@{/register}">Register</a></li>
+            <li th:if="${#authorization.expression('isAuthenticated()')}" class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.name}"></span>
                     <img class="img-profile rounded-circle"
                          src="img/undraw_profile.svg">
                 </a>
@@ -141,7 +145,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
                     </div>
                 </div>
             </div>
@@ -160,24 +164,32 @@
 </a>
 
 </body>
-<footer class="bg-white py-4">
-    <footer class="bg-white py-4 mt-auto">
-        <div class="container px-5">
-            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                <div class="col-auto">
-                    <div class="small m-0 text-dark">Copyright &copy; Anime Group 2023</div>
-                </div>
-                <div class="col-auto">
-                    <a class="link-light small" href="#!">Privacy</a>
-                    <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="#!">Terms</a>
-                    <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="#!">Contact</a>
+<div class="d-flex flex-column min-vh-100" th:fragment="footer">
+    <section class="py-5 bg-dark" style="margin-top: auto;">
+        <div class="container px-5 my-5">
+            <h2 class="display-4 fw-bolder mb-4 text-white">Let's shop!</h2>
+            <a class="btn btn-lg btn-primary" href="#!">Contact Us</a>
+        </div>
+    </section>
+    <footer class="bg-white py-4">
+        <footer class="bg-white py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                    <div class="col-auto">
+                        <div class="small m-0 text-dark">Copyright &copy; Anime Group 2023</div>
+                    </div>
+                    <div class="col-auto">
+                        <a class="link-light small" href="#!">Privacy</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Terms</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Contact</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </footer>
     </footer>
-</footer>
+</div>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
