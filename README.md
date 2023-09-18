@@ -7,8 +7,8 @@ Welcome to Torikago-Shop, your one-stop online bird cage eCommerce platform!
 - **Mentor:** Nguyễn Thị Cẩm Hương
 - **Leader:** Đặng Đình Tài
 - **Members:**
-  - Bùi Duy Khang
-  - Đinh Hoàng Dương
+  - Bùi Duy Khang <img src="https://media.tenor.com/D4uJ1UIPUgIAAAAd/fu-xuan-hsr.gif" width="40" >
+  - Đinh Hoàng Dương 
   - Dương Hoàng Tuấn Kiệt
 
 ## About
