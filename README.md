@@ -28,3 +28,7 @@ Torikago-Shop is an eCommerce website specializing in bird cages. We aim to prov
 - Frontend: HTML, CSS, JavaScript
 - Backend: Spring boot, Spring Framework
 - Database: MSSQL
+
+
+![Animated GIF](https://media.tenor.com/T8pE5uK3nKAAAAAC/aris-dancing-arisu-blue-archive.gif)
+
