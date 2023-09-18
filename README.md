@@ -8,7 +8,7 @@ Welcome to Torikago-Shop, your one-stop online bird cage eCommerce platform!
 - **Leader:** Đặng Đình Tài <img src="https://cdn3.emoji.gg/emojis/4094-floppa-shake.gif" width="40" >
 - **Members:**
   - Bùi Duy Khang <img src="https://media.tenor.com/D4uJ1UIPUgIAAAAd/fu-xuan-hsr.gif" width="40" >
-  - Đinh Hoàng Dương 
+  - Đinh Hoàng Dương <img src="https://cdn3.emoji.gg/emojis/6643_Dank_Rainbow_Frog.gif" width="40" >
   - Dương Hoàng Tuấn Kiệt <img src="https://media.tenor.com/Cj05cPY-V9MAAAAC/minato-gun.gif" width="100" >
 
 ## About
@@ -23,7 +23,7 @@ Torikago-Shop is an eCommerce website specializing in bird cages. We aim to prov
 - Secure payment processing.
 - User accounts for order history and tracking.
 
-## Technologies Used
+## Technologies Used <img src="https://cdn3.emoji.gg/emojis/3878_Nyan_Cat_animated.gif" width="40" >
 
 - Frontend: HTML, CSS, JavaScript
 - Backend: Spring boot, Spring Framework
