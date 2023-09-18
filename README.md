@@ -1,11 +1,11 @@
-# Torikago-Shop
+# Torikago-Shop <img src="https://cdn5.vectorstock.com/i/1000x1000/67/64/birdhouse-with-bird-circle-icon-vector-8846764.jpg" width="40" >
 
 Welcome to Torikago-Shop, your one-stop online bird cage eCommerce platform!
 
 ## Group 3 <img src="https://media.tenor.com/T8pE5uK3nKAAAAAC/aris-dancing-arisu-blue-archive.gif" width="40" >
 
 - **Mentor:** Nguyễn Thị Cẩm Hương
-- **Leader:** Đặng Đình Tài
+- **Leader:** Đặng Đình Tài <img src="https://cdn3.emoji.gg/emojis/4094-floppa-shake.gif" width="40" >
 - **Members:**
   - Bùi Duy Khang <img src="https://media.tenor.com/D4uJ1UIPUgIAAAAd/fu-xuan-hsr.gif" width="40" >
   - Đinh Hoàng Dương 
