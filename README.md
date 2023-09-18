@@ -2,7 +2,7 @@
 
 Welcome to Torikago-Shop, your one-stop online bird cage eCommerce platform!
 
-## Group 3
+## Group 3 <img src="https://media.tenor.com/T8pE5uK3nKAAAAAC/aris-dancing-arisu-blue-archive.gif" width="40" >
 
 - **Mentor:** Nguyễn Thị Cẩm Hương
 - **Leader:** Đặng Đình Tài
@@ -30,5 +30,5 @@ Torikago-Shop is an eCommerce website specializing in bird cages. We aim to prov
 - Database: MSSQL
 
 
-![Animated GIF](https://media.tenor.com/T8pE5uK3nKAAAAAC/aris-dancing-arisu-blue-archive.gif)
+
 
