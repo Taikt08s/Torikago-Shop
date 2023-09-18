@@ -19,21 +19,20 @@
 <div th:insert="~{user-layout :: header}"></div>
 <body id="page-top">
     <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-
-
-            <div th:if="${param.success}" class="alert alert-success">
-                Successfully register!
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="d-flex align-items-center">
+                <div th:if="${param.success}" class="alert alert-success">
+                    Successfully registered! Please check your email for verification.
+                </div>
             </div>
-
-
         </div>
+
+
+
     </div>
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
 </body>
 <div th:insert="~{user-layout :: footer}"></div>
 <script src="vendor/jquery/jquery.min.js"></script>

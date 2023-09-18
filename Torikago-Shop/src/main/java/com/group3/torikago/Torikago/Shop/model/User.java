@@ -43,4 +43,6 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private List<Role> roles = new ArrayList<>();
+    @Column(name = "isEnable")
+    private boolean enabled;
 }
