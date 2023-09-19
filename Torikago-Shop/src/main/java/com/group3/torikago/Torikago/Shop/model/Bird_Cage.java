@@ -7,14 +7,12 @@ package com.group3.torikago.Torikago.Shop.model;
 import jakarta.persistence.*;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity(name = "Bird-cage Product")
 public class Bird_Cage{
     @Id
