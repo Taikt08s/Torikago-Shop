@@ -31,8 +31,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // luu y khi muon test thi disable csrf!! .csrf().disable()
         http
-                .authorizeRequests(auth -> auth
-                        .requestMatchers("/login", "/forgot_password", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**", "/scss/**").permitAll())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/forgot_password", "/", "/torikago", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**", "/scss/**").permitAll()
+                        )
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin").hasAnyAuthority("ADMIN").anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/torikago")
@@ -43,7 +46,7 @@ public class SecurityConfig {
                 .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                );
+                ).exceptionHandling((exception) -> exception.accessDeniedPage("/403"));
         return http.build();
     }
 
