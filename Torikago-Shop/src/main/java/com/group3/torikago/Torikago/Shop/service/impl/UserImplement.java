@@ -1,33 +1,15 @@
 package com.group3.torikago.Torikago.Shop.service.impl;
 
-<<<<<<< HEAD
-import com.group3.torikago.Torikago.Shop.model.Bird_Cage;
-import com.group3.torikago.Torikago.Shop.model.User;
-=======
 import com.group3.torikago.Torikago.Shop.dto.RegisterDTO;
 import com.group3.torikago.Torikago.Shop.model.Role;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.repository.RoleRepository;
->>>>>>> b30e9d69f466fba3d77974c918771e4e0ee9317b
 import com.group3.torikago.Torikago.Shop.repository.UserRepository;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import java.util.List;
-import java.util.stream.Collectors;
-
-@Service
-public class UserImplement implements UserService {
-private UserRepository userRepository;
-
-    public UserImplement(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-=======
 import java.util.Arrays;
 
 @Service
@@ -69,5 +51,4 @@ public class UserImplement implements UserService {
     public User findByUsername(String userName) {
         return userRepository.findByUserName(userName);
     }
->>>>>>> b30e9d69f466fba3d77974c918771e4e0ee9317b
 }
