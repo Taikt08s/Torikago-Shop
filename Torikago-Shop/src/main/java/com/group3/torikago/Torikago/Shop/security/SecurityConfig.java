@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/forgot_password", "/", "/torikago", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**", "/scss/**").permitAll()
                         )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin").hasAnyAuthority("ADMIN").anyRequest().authenticated())
+                        .requestMatchers("/admin","/admin/product-table").hasAnyAuthority("ADMIN").anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/torikago")

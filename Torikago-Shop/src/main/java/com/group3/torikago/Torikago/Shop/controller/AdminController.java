@@ -12,4 +12,10 @@ public class AdminController {
     public String adminPage(){
         return "admin-dashboard";
     }
+
+    @GetMapping("/admin/product-table")
+    @RolesAllowed({"ADMIN"})
+    public String getListProduct(){
+        return "admin-product";
+    }
 }

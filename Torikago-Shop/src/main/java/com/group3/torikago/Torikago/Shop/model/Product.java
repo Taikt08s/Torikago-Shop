@@ -27,7 +27,7 @@ public class Product{
     private Long productId;
     @Column(name = "product_name", length = 50)
     private String productName;
-    @Column(name = "dimension", length = 20)
+    @Column(name = "image", length = 64)
     private String image;
     @Column(name = "unit_price", length = 10)
     private double unitPrice;
