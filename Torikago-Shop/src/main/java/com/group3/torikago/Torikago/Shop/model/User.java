@@ -36,21 +36,17 @@ public class User {
     private String profilePic;
     @Column(name = "reset_password_token", length = 50)
     private String resetPasswordToken;
+    @Column(name = "isEnable")
+    private boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")}
     )
-<<<<<<< HEAD
     private List<Role> roles;
     @OneToMany(mappedBy = "userOrder")
     private List<BirdCageOrder> birdCageOrders;
     @OneToMany(mappedBy = "userVoucher")
     private List<Voucher> vouchers;
-=======
-    private List<Role> roles = new ArrayList<>();
-    @Column(name = "isEnable")
-    private boolean enabled;
->>>>>>> 0151d0a51e910581a97d2fbed6829b2740602bdb
 }
