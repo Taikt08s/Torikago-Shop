@@ -13,18 +13,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "OrderDetails")
-public class OrderDetails {
-    @Column(name = "quantity", length = 10)
-    private int quantity;
-    @Column(name = "unit_price", length = 10)
-    private double unitPrice; 
+@Table(name = "BirdCageDetails")
+public class BirdCageDetail {
     @Id
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    private BirdCageOrder order;
-    @Id
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-    private Product product ;
+    private Product productdetail;
+    @Column(name = "dimension", length = 20)
+    private String dimension;
+    @Column(name = "cage_shape", length = 50)
+    private String cageShape;
+    @Column(name = "bar_spacing", length = 10)
+    private double barSpacing;
+    @Column(name = "bird_wingspan", length = 10)
+    private double birdWingSpan;
 }

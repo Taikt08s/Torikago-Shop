@@ -1,8 +1,6 @@
 package com.group3.torikago.Torikago.Shop.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,11 +10,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity (name = "Voucher")
+@Entity 
+@Table(name = "Voucher")
 public class Voucher {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int voucherID;
+    @Column(name = "voucher_id")  
+    private Long voucherID;
+    @Column(name = "voucher_name",length = 50)  
     private String voucherName;
+    @Column(name = "voucher_value",length = 5)  
     private float voucherValue;
+    @OneToOne(mappedBy = "voucher")
+    private BirdCageOrder birdCageOrder;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User userVoucher;
 }

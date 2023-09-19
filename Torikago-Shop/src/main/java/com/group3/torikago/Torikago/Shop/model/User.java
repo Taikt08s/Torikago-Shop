@@ -2,7 +2,6 @@ package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,6 +14,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
     @Column(name = "user_name",length = 50)
     private String userName;
@@ -39,8 +39,12 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")}
     )
-    private List<Role> roles = new ArrayList<>();
+    private List<Role> roles;
+    @OneToMany(mappedBy = "userOrder")
+    private List<BirdCageOrder> birdCageOrders;
+    @OneToMany(mappedBy = "userVoucher")
+    private List<Voucher> vouchers;
 }

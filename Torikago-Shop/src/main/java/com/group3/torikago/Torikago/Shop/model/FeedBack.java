@@ -1,6 +1,7 @@
 package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +15,18 @@ import org.hibernate.annotations.Check;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name ="FeedBack")
+@Table(name ="Feedback")
 @Check(constraints = "rating >= 1 and rating <= 5")
-public class FeedBack {
+public class Feedback {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int feedBackID;
-    private String feedBackConten;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private BirdCageOrder orderFeedback;
+    @Column(name = "feedback_content", length = 255)
+    private String feedbackContent;
+    @Column(name = "feedback_date", columnDefinition = "TIMESTAMP")  // add feedbackDate to ERD
+    private LocalDateTime feedbackDate;
     @Column(name = "rating")
     private int rating;
 }
+

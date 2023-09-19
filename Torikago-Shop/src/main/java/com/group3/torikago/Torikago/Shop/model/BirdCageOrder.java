@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import java.util.List;
 //import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -13,13 +13,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name ="BirdCageOrder")
+@Entity
+@Table(name ="BirdCageOrder")
 public class BirdCageOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderID;
+    @Column(name = "order_id")
+    private Long orderId;
     @Column(name = "order_value",length = 10)
-    private float orderValue;  
+    private double orderValue;  
     @Column(name = "payment_method",length = 50) 
     private String paymentMethod;
     @Column(name = "order_date",length = 10)    
@@ -28,8 +30,16 @@ public class BirdCageOrder {
     private String status;
     @Column(name = "shipped_address",length = 50)   
     private String shippedAddress;
-    @Column(name = "shipped_date")  
+    @Column(name = "shipped_date", columnDefinition = "TIMESTAMP")  
     private LocalDateTime shippedDate;
-    @Column(name = "user_id",length = 10)  
-    private String userID;   
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetails> orderdetails;
+    @OneToOne(mappedBy = "orderFeedback")
+    private Feedback feedback;
+    @OneToOne
+    @JoinColumn(name = "voucher_id", referencedColumnName = "voucher_id")
+    private Voucher voucher;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User userOrder;
 }
