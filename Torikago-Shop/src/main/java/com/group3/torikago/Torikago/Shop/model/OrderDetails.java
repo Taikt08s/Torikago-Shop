@@ -21,5 +21,5 @@ public class OrderDetails {
     @ManyToOne
     @JoinColumn(name = "OrderDetailsID")
     private Bird_Cage product ;
-//    private BirdCageAccessory accessory;
+    private BirdCageAccessory accessory;
 }

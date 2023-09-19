@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,12 +7,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Login</title>
-    <link rel="icon" type="image/x-icon" href="assets/Arisu_(Maid).png"/>
-    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
-    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
 <body class="bg-gradient-primary">
 <div class="container">
     <div class="row justify-content-center">
@@ -24,33 +21,20 @@
                 <div class="card-body p-0">
                     <div class="row">
                         <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6" >
-                            <div th:if="${param.error}" class="alert alert-warning" style="margin-top: 10px;margin-right: 10px">
-                                Invalid username and password
-                            </div>
-                            <div th:if="${param.logout}" class="alert alert-success" style="margin-top: 10px;margin-right: 10px">
-                                You have been logged out
-                            </div>
+                        <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form class="user" method="post" th:action="@{/login}">
+                                <form class="user">
                                     <div class="form-group">
-                                        <input type="text"
-                                               class="form-control form-control-user"
-                                               id="username"
-                                               name="username"
-                                               maxlength="50"
-                                               placeholder="Enter Username...">
+                                        <input type="email" class="form-control form-control-user"
+                                               id="exampleInputEmail" aria-describedby="emailHelp"
+                                               placeholder="Enter Email Address...">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password"
-                                               class="form-control form-control-user"
-                                               id="password"
-                                               name="password"
-                                               maxlength="50"
-                                               placeholder="Password">
+                                        <input type="password" class="form-control form-control-user"
+                                               id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -59,14 +43,14 @@
                                                 Me</label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
                                         Login
-                                    </button>
+                                    </a>
                                     <hr>
-                                    <a href="" class="btn btn-google btn-user btn-block">
+                                    <a href="index.html" class="btn btn-google btn-user btn-block">
                                         <i class="fab fa-google fa-fw"></i> Login with Google
                                     </a>
-                                    <a href="" class="btn btn-facebook btn-user btn-block">
+                                    <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                         <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                     </a>
                                 </form>
@@ -75,7 +59,7 @@
                                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" th:href="@{/register}">Create an Account!</a>
+                                    <a class="small" href="register.html">Create an Account!</a>
                                 </div>
                             </div>
                         </div>
@@ -90,5 +74,4 @@
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
 </body>
-<div th:insert="~{user-layout :: footer}"></div>
 </html>

@@ -20,7 +20,7 @@ public class User {
     private String userName;
     @Column(name = "email",length = 50)
     private String email;
-    @Column(name = "password",length = 64)
+    @Column(name = "password",length = 50)
     private String password;
     @Column(name = "f_name",length = 80)
     private String fname;
@@ -28,10 +28,8 @@ public class User {
     private String lname;
     @Column(name = "phone_number",length = 12)
     private String phoneNumber;
-    @Column(name = "gender")
-    private boolean gender;
-    @Column(name = "address",length = 150)
-    private String address;
+    @Column(name = "gender",length = 5)
+    private String gender;
     @Column(name = "profile_pic",length = 64)
     private String profilePic;
     @Column(name = "reset_password_token", length = 50)
@@ -43,6 +41,4 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private List<Role> roles = new ArrayList<>();
-    @Column(name = "isEnable")
-    private boolean enabled;
 }

@@ -29,6 +29,6 @@ public class Bird_Cage{
     private double BarSpacing;
     private double BirdWingSpan;
     private String Status;
-//    @OneToMany(mappedBy = "pro")
-//    private List<OrderDetails> orderdetails;
+    @OneToMany(mappedBy = "pro")
+    private List<OrderDetails> orderdetails;
 }

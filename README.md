@@ -1,15 +1,15 @@
-# Torikago-Shop <img src="https://cdn5.vectorstock.com/i/1000x1000/67/64/birdhouse-with-bird-circle-icon-vector-8846764.jpg" width="40" >
+# Torikago-Shop
 
 Welcome to Torikago-Shop, your one-stop online bird cage eCommerce platform!
 
-## Group 3 <img src="https://media.tenor.com/T8pE5uK3nKAAAAAC/aris-dancing-arisu-blue-archive.gif" width="40" >
+## Group 3
 
 - **Mentor:** Nguyễn Thị Cẩm Hương
-- **Leader:** Đặng Đình Tài <img src="https://cdn3.emoji.gg/emojis/4094-floppa-shake.gif" width="40" >
+- **Leader:** Đặng Đình Tài
 - **Members:**
-  - Bùi Duy Khang <img src="https://media.tenor.com/D4uJ1UIPUgIAAAAd/fu-xuan-hsr.gif" width="40" >
-  - Đinh Hoàng Dương <img src="https://cdn3.emoji.gg/emojis/6643_Dank_Rainbow_Frog.gif" width="40" >
-  - Dương Hoàng Tuấn Kiệt <img src="https://media.tenor.com/Cj05cPY-V9MAAAAC/minato-gun.gif" width="100" >
+  - Bùi Duy Khang
+  - Đinh Hoàng Dương
+  - Dương Hoàng Tuấn Kiệt
 
 ## About
 
@@ -23,12 +23,8 @@ Torikago-Shop is an eCommerce website specializing in bird cages. We aim to prov
 - Secure payment processing.
 - User accounts for order history and tracking.
 
-## Technologies Used <img src="https://cdn3.emoji.gg/emojis/3878_Nyan_Cat_animated.gif" width="40" >
+## Technologies Used
 
 - Frontend: HTML, CSS, JavaScript
 - Backend: Spring boot, Spring Framework
 - Database: MSSQL
-
-
-
-

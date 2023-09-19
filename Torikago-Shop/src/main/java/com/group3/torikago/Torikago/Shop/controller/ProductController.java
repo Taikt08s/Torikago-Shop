@@ -3,9 +3,7 @@ package com.group3.torikago.Torikago.Shop.controller;
 import com.group3.torikago.Torikago.Shop.DTO.Bird_CageDTO;
 import com.group3.torikago.Torikago.Shop.model.Bird_Cage;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
-import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,17 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-
 @Controller
-public class AdminController {
-    @GetMapping("/admin")
-    @RolesAllowed({"ADMIN"})
-    public String adminPage(){
-        return "admin-dashboard";
-    }
+public class ProductController {
     private ProductService productService;
-    @Autowired
-    public AdminController(ProductService productService) {
+@Autowired
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
