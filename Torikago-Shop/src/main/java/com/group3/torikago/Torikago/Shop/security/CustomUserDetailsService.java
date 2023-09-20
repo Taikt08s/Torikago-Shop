@@ -23,7 +23,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findFirstByUserName(username);
-        if (user != null) {
+        if (user != null ) {
+            if (!user.isEnabled()) {
+                throw new UsernameNotFoundException("Invalid username or password");
+            }
             org.springframework.security.core.userdetails.User authUser = new org.springframework.security.core.userdetails.User(
                     user.getEmail(),
                     user.getPassword(),
@@ -31,7 +34,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                             .collect(Collectors.toList())
             );
             return authUser;
-        } else {
+
+        }  else {
             throw new UsernameNotFoundException("Invalid username or password");
         }
     }

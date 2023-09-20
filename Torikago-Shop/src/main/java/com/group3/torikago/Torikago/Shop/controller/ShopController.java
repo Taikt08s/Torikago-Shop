@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ShopController {
-//    @GetMapping("/")
-//    public String shoppingPageDefault(){
-//        return "shopping-page";
-//    }
-    @GetMapping("/torikago")
+    @GetMapping(value = {"/torikago","/"})
     public String shoppingPage(){
         return "shopping-page";
     }
