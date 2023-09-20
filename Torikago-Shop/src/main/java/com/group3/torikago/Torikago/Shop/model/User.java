@@ -49,4 +49,6 @@ public class User {
     private List<BirdCageOrder> birdCageOrders;
     @OneToMany(mappedBy = "userVoucher")
     private List<Voucher> vouchers;
+    @Column(name = "verification_code",length = 64,updatable = false)
+    private String verificationCode;
 }

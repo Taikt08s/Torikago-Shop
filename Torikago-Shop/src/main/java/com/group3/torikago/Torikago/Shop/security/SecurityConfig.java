@@ -32,7 +32,7 @@ public class SecurityConfig {
         // luu y khi muon test thi disable csrf!! .csrf().disable()
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/forgot_password", "/", "/torikago", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**", "/scss/**").permitAll()
+                        .requestMatchers("/login", "/forgot_password","/verify" ,"/", "/torikago", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**", "/scss/**").permitAll()
                         )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin","/admin/product-table").hasAnyAuthority("ADMIN").anyRequest().authenticated())

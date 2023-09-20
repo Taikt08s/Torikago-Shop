@@ -40,4 +40,5 @@ public class RegisterDTO {
     @NotNull(message = "Gender is required")
     private Boolean gender;
     private String profilePic;
+    private String verificationCode;
 }
