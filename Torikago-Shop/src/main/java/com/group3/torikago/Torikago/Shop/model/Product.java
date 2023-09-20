@@ -27,6 +27,8 @@ public class Product{
     private Long productId;
     @Column(name = "product_name", length = 50)
     private String productName;
+    @Column(name = "product_type", length = 10)
+    private String productType;
     @Column(name = "image", length = 64)
     private String image;
     @Column(name = "unit_price", length = 10)
@@ -38,9 +40,11 @@ public class Product{
     @Column(name = "status", length = 5)
     private String status;
     @OneToMany(mappedBy = "product")
-    private List<OrderDetails> orderdetails;
-    @OneToOne(mappedBy = "productdetail")
-    private BirdCageDetail birdcagedetail;
+    private List<OrderDetails> orderDetails;
+    @OneToOne(mappedBy = "birdCage")
+    private BirdCageDetail birdCageDetail;
+    @OneToOne(mappedBy = "accessory")
+    private AccessoryDetail accessoryDetail;
 }
 
 
