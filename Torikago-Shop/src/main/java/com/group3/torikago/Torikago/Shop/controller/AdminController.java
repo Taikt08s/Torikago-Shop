@@ -1,7 +1,6 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
 import jakarta.annotation.security.RolesAllowed;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -18,4 +17,10 @@ public class AdminController {
     public String getListProduct(){
         return "admin-product";
     }
+    @GetMapping("/admin/product-table/bird-cage/add")
+    @RolesAllowed({"ADMIN"})
+    public String addBirdCage(){
+        return "bird-cage";
+    }
+
 }

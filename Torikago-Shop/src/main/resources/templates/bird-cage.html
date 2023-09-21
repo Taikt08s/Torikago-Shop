@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin</title>
+    <link rel="icon" type="image" href="assets/Arisu_(Maid).png"/>
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none"
+           th:href="@{/torikago}">
+            <div class="sidebar-brand-text mx-3">Torikago Shop</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/admin}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">
+            CRUD
+        </div>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/product-table}">
+                <i class="fas fa-fw fa-box-open"></i>
+                <span>Products</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="charts.html">
+                <i class="fas fa-fw fa-user-tie"></i>
+                <span>Managers</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="tables.html">
+                <i class="fas fa-fw fa-user-shield"></i>
+                <span>Users</span></a>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+    </ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="container-fluid">
+<!--            th:action="@{/register/save}" th:object="${user}"-->
+
+            <form class="user" method="post" role="form" style="padding-bottom: 540px;">
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="text"
+                               class="form-control form-control-user"
+                               id="fname"
+                               name="fname"
+                               placeholder="First Name"
+                               maxlength="80">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text"
+                               class="form-control form-control-user"
+                               id="lname"
+                               name="lname"
+                               placeholder="Last Name"
+                               maxlength="40">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text"
+                           class="form-control form-control-user"
+                           id="address"
+                           name="address"
+                           placeholder="Address">
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <input type="text"
+                               class="form-control form-control-user"
+                               id="userName"
+                               name="userName"
+                               placeholder="User Name"
+                               maxlength="50">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text"
+                               class="form-control form-control-user"
+                               id="email"
+                               name="email"
+                               placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password"
+                           class="form-control form-control-user"
+                           id="password"
+                           name="password"
+                           placeholder="Password"
+                           maxlength="50">
+                    <div class="form-group">
+                        <div class="password-strength-meter">
+                            <div id="password-strength" class="password-strength"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="tel"
+                               class="form-control form-control-user"
+                               id="phoneNumber"
+                               name="phoneNumber"
+                               placeholder="Phone Number">
+                    </div>
+                    <div class="gender-options col-sm-6" style="margin-top: 12px">
+                        <label class="mb-2">Gender </label>
+                        <label for="male">
+                            <input type="radio"
+                                   name="gender"
+                                   id="male"
+                                   value="true"> Male
+                        </label>
+                        <label for="female">
+                            <input type="radio"
+                                   name="gender"
+                                   id="female"
+                                   value="false"> Female
+                        </label>
+
+                    </div>
+                </div>
+                <button th:href="@{/register}" class="btn btn-primary btn-user btn-block">
+                    Register Account
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</body>
+<div th:insert="~{admin-layout :: footer}"></div>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+</html>
