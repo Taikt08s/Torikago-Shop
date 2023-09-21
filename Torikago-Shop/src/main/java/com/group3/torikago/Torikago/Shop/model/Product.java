@@ -11,10 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- *
- * @author huvo2
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
