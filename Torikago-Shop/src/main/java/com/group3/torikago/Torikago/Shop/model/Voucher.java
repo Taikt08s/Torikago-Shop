@@ -22,7 +22,4 @@ public class Voucher {
     private float voucherValue;
     @OneToOne(mappedBy = "voucher")
     private BirdCageOrder birdCageOrder;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User userVoucher;
 }

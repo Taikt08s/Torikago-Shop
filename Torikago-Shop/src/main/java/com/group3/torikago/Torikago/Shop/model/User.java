@@ -39,13 +39,11 @@ public class User {
     private String resetPasswordToken;
     @Column(name = "isEnable")
     private boolean enabled;
+    @Column(name = "verification_code",length = 64,updatable = false)
+    private String verificationCode;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "role", referencedColumnName = "name")
     private Role role;
     @OneToMany(mappedBy = "userOrder")
     private List<BirdCageOrder> birdCageOrders;
-    @OneToMany(mappedBy = "userVoucher")
-    private List<Voucher> vouchers;
-    @Column(name = "verification_code",length = 64,updatable = false)
-    private String verificationCode;
 }
