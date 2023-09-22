@@ -27,4 +27,6 @@ public class BirdCageDetail {
     private double barSpacing;
     @Column(name = "bird_wingspan", length = 10)
     private double birdWingSpan;
+    @Column(name = "description", length = 250)
+    private String description;
 }
