@@ -25,13 +25,6 @@ public class AdminController {
         return "admin-dashboard";
     }
 
-
-    @GetMapping("/admin/product-table")
-    @RolesAllowed({"ADMIN"})
-    public String getListProduct(){
-        return "admin-product";
-    }
-
     private ProductService productService;
     @Autowired
     public AdminController(ProductService productService) {
@@ -39,22 +32,25 @@ public class AdminController {
     }
 
 
-    @GetMapping("/products")
-    public String listBirdCage(Model model){
+    @GetMapping("/admin/product-table")
+    @RolesAllowed({"ADMIN"})
+    public String getListProduct(Model model){
         List<ProductDTO> products=productService.findAllProducts();
         model.addAttribute("products",products);
-        return "products-list";
+        return "admin-product";
     }
-    @GetMapping("/products/new")
-    public String createBirdcage(Model model){
+
+    @GetMapping("/admin/product-table/bird-cage/add")
+    @RolesAllowed({"ADMIN"})
+    public String addBirdCage(Model model){
         Product product=new Product();
         model.addAttribute("product",product);
-        return "products-create";
+        return "bird-cage";
     }
-    @PostMapping("/products/new")
+    @PostMapping("/admin/product-table/bird-cage/add")
     public String saveBirdcage(@ModelAttribute("product") Product product){
         productService.saveBirdCage(product);
-        return "redirect:/product";
+        return "redirect:/admin";
     }
 
 
@@ -64,19 +60,12 @@ public class AdminController {
 //        model.addAttribute("birdCage",birdCage);
 //        return "Bird-cage-edit";
 //    }
-    @PostMapping("/products/{productID}/edit")
-    public String updateProduct(@PathVariable("productID")long productId, @ModelAttribute("product") ProductDTO product){
+    @PostMapping("/admin/product-table/{productID}/edit")
+    public String updateProduct(@PathVariable("productID")Long productId, @ModelAttribute("product") ProductDTO product){
         product.setProductId(productId);
         productService.updateProduct(product);
-        return "redirect:/product";
+        return "redirect:/admin";
     }
-
-    @GetMapping("/admin/product-table/bird-cage/add")
-    @RolesAllowed({"ADMIN"})
-    public String addBirdCage(){
-        return "bird-cage";
-    }
-
 
 }
 

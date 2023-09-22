@@ -29,7 +29,7 @@ public class ProductDTO {
     @NotEmpty(message = "Status")
     private String status;
 
-    private List<OrderDetails> orderDetails;
+
 
     private BirdCageDetail birdCageDetail;
 

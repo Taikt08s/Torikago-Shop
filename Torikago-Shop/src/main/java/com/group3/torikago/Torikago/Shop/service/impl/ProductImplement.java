@@ -36,7 +36,6 @@ public class ProductImplement implements ProductService {
                 .unitsInStock(product.getUnitsInStock())
                 .accessoryDetail(product.getAccessoryDetail())
                 .birdCageDetail(product.getBirdCageDetail())
-                .orderDetails(product.getOrderDetails())
                 .build();
         return productDTO;
     }
@@ -68,7 +67,7 @@ public class ProductImplement implements ProductService {
                 .unitsInStock(product.getUnitsInStock())
                 .accessoryDetail(product.getAccessoryDetail())
                 .birdCageDetail(product.getBirdCageDetail())
-                .orderDetails(product.getOrderDetails())
+
                 .build();
         return productDTO;
     }
