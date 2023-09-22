@@ -3,7 +3,6 @@ package com.group3.torikago.Torikago.Shop.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter

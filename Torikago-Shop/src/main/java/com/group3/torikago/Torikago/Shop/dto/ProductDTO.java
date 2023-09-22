@@ -1,4 +1,4 @@
-package com.group3.torikago.Torikago.Shop.DTO;
+package com.group3.torikago.Torikago.Shop.dto;
 
 import com.group3.torikago.Torikago.Shop.model.AccessoryDetail;
 import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;

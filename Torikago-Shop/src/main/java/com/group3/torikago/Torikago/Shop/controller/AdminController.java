@@ -1,6 +1,6 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
-import com.group3.torikago.Torikago.Shop.DTO.ProductDTO;
+import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import jakarta.annotation.security.RolesAllowed;

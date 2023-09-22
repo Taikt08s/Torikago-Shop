@@ -16,10 +16,10 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 public class Role {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private long id;
+    @Id
     @Column(name = "name", length = 10)
     private String name;
     @OneToMany(mappedBy = "role")
