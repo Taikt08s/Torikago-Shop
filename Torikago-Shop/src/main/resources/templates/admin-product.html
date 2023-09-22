@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Admin</title>
-    <link rel="icon" type="image/x-icon" href="assets/Arisu_(Maid).png"/>
+    <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
     <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -21,7 +21,7 @@
 <div id="wrapper">
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none"
-           th:href="@{/}">
+           th:href="@{/torikago}">
             <div class="sidebar-brand-text mx-3">Torikago Shop</div>
         </a>
         <hr class="sidebar-divider my-0">
@@ -59,10 +59,10 @@
                 </button>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown no-arrow">
-                            <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
+                        <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -76,7 +76,8 @@
                         <form
                                 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                <input type="text" class="form-control bg-light border-0 small"
+                                       placeholder="Search for..."
                                        aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button">
@@ -85,10 +86,11 @@
                                 </div>
                             </div>
                         </form>
-                        <a href="#" class="btn btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-plus"></i>
-                                        </span>
+                        <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal"
+                           data-target="#createModal">
+                        <span class="icon text-white-50">
+                             <i class="fas fa-plus"></i>
+                        </span>
                             <span class="text">Create</span>
                         </a>
                     </div>
@@ -154,10 +156,45 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Create New Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="text-center mb-4">
+                        <a th:href="@{/admin/product-table/bird-cage/add}" class="btn btn-success btn-icon-split btn-lg mb-2">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-feather"></i>
+                            </span>
+                            <span class="text">Bird Cage</span>
+                        </a>
+                        <a href="#" class="btn btn-info btn-icon-split btn-lg mb-2">
+                            <span class="icon text-white-50">
+                                <i class="fab fa-envira"></i>
+                            </span>
+                            <span class="text">Accessory</span>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <div th:insert="~{admin-layout :: footer}"></div>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>

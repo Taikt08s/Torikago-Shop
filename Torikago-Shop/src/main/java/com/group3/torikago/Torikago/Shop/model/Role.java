@@ -22,6 +22,6 @@ public class Role {
     private long id;
     @Column(name = "name", length = 10)
     private String name;
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
 }

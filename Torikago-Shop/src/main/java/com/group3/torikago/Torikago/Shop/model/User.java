@@ -3,6 +3,7 @@ package com.group3.torikago.Torikago.Shop.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -38,17 +39,11 @@ public class User {
     private String resetPasswordToken;
     @Column(name = "isEnable")
     private boolean enabled;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")}
-    )
-    private List<Role> roles;
-    @OneToMany(mappedBy = "userOrder")
-    private List<BirdCageOrder> birdCageOrders;
-    @OneToMany(mappedBy = "userVoucher")
-    private List<Voucher> vouchers;
     @Column(name = "verification_code",length = 64,updatable = false)
     private String verificationCode;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role", referencedColumnName = "name")
+    private Role role;
+    @OneToMany(mappedBy = "userOrder")
+    private List<BirdCageOrder> birdCageOrders;
 }

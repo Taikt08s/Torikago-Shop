@@ -4,8 +4,10 @@ import com.group3.torikago.Torikago.Shop.DTO.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import jakarta.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,7 @@ public class AdminController {
     public String getListProduct(){
         return "admin-product";
     }
+
     private ProductService productService;
     @Autowired
     public AdminController(ProductService productService) {
@@ -67,5 +70,13 @@ public class AdminController {
         productService.updateProduct(product);
         return "redirect:/product";
     }
+
+    @GetMapping("/admin/product-table/bird-cage/add")
+    @RolesAllowed({"ADMIN"})
+    public String addBirdCage(){
+        return "bird-cage";
+    }
+
+
 }
 

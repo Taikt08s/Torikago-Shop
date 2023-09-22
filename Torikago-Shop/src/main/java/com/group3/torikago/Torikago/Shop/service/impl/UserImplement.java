@@ -47,7 +47,7 @@ public class UserImplement implements UserService {
         user.setGender(registerDTO.getGender());
         user.setEnabled(false);
         Role role = roleRepository.findByName("USER");
-        user.setRoles(Arrays.asList(role));
+        user.setRole(role);
 //set randomVerificationCode in to a random string with length 64
         String randomVerificationCode = RandomString.make(64);
         user.setVerificationCode(randomVerificationCode);
