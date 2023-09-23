@@ -1,6 +1,7 @@
 package com.group3.torikago.Torikago.Shop.service.impl;
 
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
+import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.repository.ProductRepository;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
@@ -22,10 +23,10 @@ public class ProductImplement implements ProductService {
     @Override
     public List<ProductDTO> findAllProducts() {
         List<Product> birdCages=productRepository.findAll();
-        return birdCages.stream().map((product)->mapToBirdcageDTO(product)).collect(Collectors.toList());
+        return birdCages.stream().map((product)->mapToProductDTO(product)).collect(Collectors.toList());
     }
 
-    private ProductDTO mapToBirdcageDTO(Product product) {
+    private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO=ProductDTO.builder()
                 .productId(product.getProductId())
                 .productName(product.getProductName())
@@ -41,22 +42,28 @@ public class ProductImplement implements ProductService {
     }
 
     @Override
-    public Product saveBirdCage(Product product) {
+    public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
 
-//    @Override
-//    public Bird_CageDTO findProductById(Long productID) {
-//        return null;
-//    }
+
 
     @Override
     public void updateProduct(ProductDTO productDTO) {
-        Product product=mapToBirdcage(productDTO);
+        Product product=mapToProduct(productDTO);
         productRepository.save(product);
     }
 
-    private Product mapToBirdcage(ProductDTO product) {
+
+
+    @Override
+    public ProductDTO findProductById(Long productId) {
+        Product product = productRepository.findById(productId).get();
+        return mapToProductDTO(product);
+    }
+
+
+    private Product mapToProduct(ProductDTO product) {
         Product productDTO =Product.builder()
                 .productId(product.getProductId())
                 .productName(product.getProductName())
@@ -67,7 +74,6 @@ public class ProductImplement implements ProductService {
                 .unitsInStock(product.getUnitsInStock())
                 .accessoryDetail(product.getAccessoryDetail())
                 .birdCageDetail(product.getBirdCageDetail())
-
                 .build();
         return productDTO;
     }

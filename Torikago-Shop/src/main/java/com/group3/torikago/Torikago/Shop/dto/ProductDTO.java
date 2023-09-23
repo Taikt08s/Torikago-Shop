@@ -20,18 +20,11 @@ public class ProductDTO {
     private String productName;
     @NotEmpty(message = "Image is required")
     private String image;
-
     private double unitPrice;
-
     private int unitsInStock;
-
     private int unitsOnOrder;
     @NotEmpty(message = "Status")
     private String status;
-
-
-
     private BirdCageDetail birdCageDetail;
-
     private AccessoryDetail accessoryDetail;
 }
