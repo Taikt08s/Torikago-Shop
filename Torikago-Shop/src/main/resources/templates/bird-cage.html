@@ -65,97 +65,148 @@
                         </a>
                     </li>
                 </ul>
-            </nav>
+                </nav>
         </div>
         <div class="container-fluid">
-<!--            th:action="@{/register/save}" th:object="${user}"-->
 
-            <form class="user" method="post" role="form" style="padding-bottom: 540px;">
-                <div class="form-group row">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="text"
-                               class="form-control form-control-user"
-                               id="fname"
-                               name="fname"
-                               placeholder="First Name"
-                               maxlength="80">
-                    </div>
-                    <div class="col-sm-6">
-                        <input type="text"
-                               class="form-control form-control-user"
-                               id="lname"
-                               name="lname"
-                               placeholder="Last Name"
-                               maxlength="40">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text"
-                           class="form-control form-control-user"
-                           id="address"
-                           name="address"
-                           placeholder="Address">
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="text"
-                               class="form-control form-control-user"
-                               id="userName"
-                               name="userName"
-                               placeholder="User Name"
-                               maxlength="50">
-                    </div>
-                    <div class="col-sm-6">
-                        <input type="text"
-                               class="form-control form-control-user"
-                               id="email"
-                               name="email"
-                               placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="password"
-                           class="form-control form-control-user"
-                           id="password"
-                           name="password"
-                           placeholder="Password"
-                           maxlength="50">
-                    <div class="form-group">
-                        <div class="password-strength-meter">
-                            <div id="password-strength" class="password-strength"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-10 col-lg-12 col-md-9">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <div class="row">
+                                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                    <div class="col-lg-6">
+                                        <div class="p-5">
+                                            <div class="text-center">
+                                                <h1 class="h4 text-gray-900 mb-4">Add New Bird Cage</h1>
+                                            </div>
+                                            <form class="user" method="post"
+                                                  th:action="@{/admin/product-table/bird-cage/add}">
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="productName"
+                                                               name="productName"
+                                                               maxlength="80"
+                                                               th:field="*{product.productName}"
+                                                               placeholder="Enter Bird Cage Name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="fileInput"
+                                                                   th:field="*{product.image}">
+                                                            <label class="custom-file-label" for="fileInput">Upload
+                                                                Image</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <input type="text"
+                                                                   class="form-control form-control-user"
+                                                                   id="unitPrice"
+                                                                   name="unitPrice"
+                                                                   maxlength="50"
+                                                                   placeholder="Enter Price"
+                                                                   th:field="*{product.unitPrice}">
+                                                            <div class="input-group-append">
+                                                                <span class="form-control form-control-user input-group-text">VND</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="productType"
+                                                               name="productType"
+                                                               maxlength="50"
+                                                               placeholder="productType"
+                                                               th:field="*{product.productType}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="unitsInStock"
+                                                               name="unitsInStock"
+                                                               maxlength="50"
+                                                               placeholder="unitsInStock"
+                                                               th:field="*{product.unitsInStock}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="unitsOnOrder"
+                                                               name="unitsOnOrder"
+                                                               maxlength="50"
+                                                               placeholder="unitsOnOrder"
+                                                               th:field="*{product.unitsOnOrder}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="status"
+                                                               name="status"
+                                                               maxlength="50"
+                                                               placeholder="status"
+                                                               th:field="*{product.status}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="dimension"
+                                                               name="dimension"
+                                                               maxlength="50"
+                                                               placeholder="Dimension"
+                                                               th:field="*{birdCageDetail.dimension}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="cageShape"
+                                                               name="cageShape"
+                                                               maxlength="50"
+                                                               placeholder="Cage Shape"
+                                                               th:field="*{birdCageDetail.cageShape}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="barSpacing"
+                                                               name="barSpacing"
+                                                               maxlength="50"
+                                                               placeholder="Bar Spacing"
+                                                               th:field="*{birdCageDetail.barSpacing}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="birdWingSpan"
+                                                               name="birdWingSpan"
+                                                               maxlength="50"
+                                                               placeholder="Bird Wing Span"
+                                                               th:field="*{birdCageDetail.birdWingSpan}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="description"
+                                                               name="description"
+                                                               maxlength="200"
+                                                               placeholder="Description"
+                                                               th:field="*{birdCageDetail.description}">
+                                                    </div>                                              
+                                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                        Add Bird Cage
+                                                    </button>                                              
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <input type="tel"
-                               class="form-control form-control-user"
-                               id="phoneNumber"
-                               name="phoneNumber"
-                               placeholder="Phone Number">
-                    </div>
-                    <div class="gender-options col-sm-6" style="margin-top: 12px">
-                        <label class="mb-2">Gender </label>
-                        <label for="male">
-                            <input type="radio"
-                                   name="gender"
-                                   id="male"
-                                   value="true"> Male
-                        </label>
-                        <label for="female">
-                            <input type="radio"
-                                   name="gender"
-                                   id="female"
-                                   value="false"> Female
-                        </label>
-
-                    </div>
-                </div>
-                <button th:href="@{/register}" class="btn btn-primary btn-user btn-block">
-                    Register Account
-                </button>
-            </form>
+            </div>
 
         </div>
     </div>
@@ -169,4 +220,7 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>

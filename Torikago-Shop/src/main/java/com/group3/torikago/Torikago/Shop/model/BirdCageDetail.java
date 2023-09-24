@@ -18,6 +18,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "BirdCageDetails")
 public class BirdCageDetail {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product birdCage;

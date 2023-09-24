@@ -27,8 +27,9 @@ public class AdminController {
     public String adminPage(){
         return "admin-dashboard";
     }
-
+ 
     private ProductService productService;
+    @Autowired
     private BirdCageService birdCageService;
     @Autowired
     public AdminController(ProductService productService) {
@@ -44,48 +45,52 @@ public class AdminController {
         return "admin-product";
     }
 
-    @GetMapping("/admin/product-table/bird-cage/add")
-    @RolesAllowed({"ADMIN"})
-    public String addProduct(Model model){
-        Product product=new Product();
-        model.addAttribute("product",product);
-        return "bird-cage";
-    }
-    @PostMapping("/admin/product-table/bird-cage/add")
-    public String saveProduct(@ModelAttribute("product") Product product){
-        productService.saveProduct(product);
-        return "redirect:/admin";
-    }
+//    @GetMapping("/admin/product-table/bird-cage/add")
+//    @RolesAllowed({"ADMIN"})
+//    public String addProduct(Model model){
+//        Product product=new Product();
+//        model.addAttribute("product",product);
+//        return "bird-cage";
+//    }
+//    @PostMapping("/admin/product-table/bird-cage/add")
+//    public String saveProduct(@ModelAttribute("product") Product product){
+//        productService.saveProduct(product);
+//        return "redirect:/admin";
+//    }
     @GetMapping("/admin/product-table/bird-cage/add")
     @RolesAllowed({"ADMIN"})
     public String addBirdCage(Model model){
         BirdCageDetail birdCageDetail=new BirdCageDetail();
+        Product product=new Product();
+        model.addAttribute("product",product);
         model.addAttribute("birdCageDetail",birdCageDetail);
         return "bird-cage";
     }
     @PostMapping("/admin/product-table/bird-cage/add")
-    public String saveBirdCage(@ModelAttribute("birdCageDetail") BirdCageDetail birdCageDetail){
-        birdCageService.saveBirdCage(birdCageDetail);
+    public String saveBirdCage(@ModelAttribute("birdCageDetail") BirdCageDTO birdCageDTO, 
+            @ModelAttribute("product") ProductDTO productDTO){
+        productService.saveProduct(productDTO);
+        birdCageService.saveBirdCage(birdCageDTO, productDTO);
         return "redirect:/admin";
     }
-    @GetMapping("/admin/product-table/{productID}/edit")
-    public String editProduct(@PathVariable("productID")Long productId, Model model){
-       ProductDTO birdCage=productService.findProductById(productId);
-        model.addAttribute("birdCage",birdCage);
-      return "Bird-cage";
-   }
-    @PostMapping("/admin/product-table/{productID}/edit")
-    public String updateProduct(@PathVariable("productID")Long productId, @ModelAttribute("product") ProductDTO product){
-        product.setProductId(productId);
-        productService.updateProduct(product);
-        return "redirect:/admin";
-    }
-    @PostMapping("/admin/product-table/{productID}/edit")
-    public String updateBirdCage(@PathVariable("productID")Product birdCageId, @ModelAttribute("birdCage") BirdCageDTO birdCage){
-        birdCage.setBirdCage(birdCageId);
-        birdCageService.updateBirdCage(birdCage);
-        return "redirect:/admin";
-    }
+//    @GetMapping("/admin/product-table/{productID}/edit")
+//    public String editProduct(@PathVariable("productID")Long productId, Model model){
+//       ProductDTO birdCage=productService.findProductById(productId);
+//        model.addAttribute("birdCage",birdCage);
+//      return "Bird-cage";
+//   }
+//    @PostMapping("/admin/product-table/{productID}/edit")
+//    public String updateProduct(@PathVariable("productID")Long productId, @ModelAttribute("product") ProductDTO product){
+//        product.setProductId(productId);
+//        productService.updateProduct(product);
+//        return "redirect:/admin";
+//    }
+//    @PostMapping("/admin/product-table/{productID}/edit")
+//    public String updateBirdCage(@PathVariable("productID")Product birdCageId, @ModelAttribute("birdCage") BirdCageDTO birdCage){
+//        birdCage.setBirdCage(birdCageId);
+//        birdCageService.updateBirdCage(birdCage);
+//        return "redirect:/admin";
+//    }
 
 }
 

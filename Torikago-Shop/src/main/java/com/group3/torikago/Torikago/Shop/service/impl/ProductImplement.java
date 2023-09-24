@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 @Service
 public class ProductImplement implements ProductService {
     private ProductRepository productRepository;
+    
+    public ProductImplement() {
+    }
 
     @Autowired
     public ProductImplement(ProductRepository productRepository) {
@@ -28,21 +31,20 @@ public class ProductImplement implements ProductService {
 
     private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO=ProductDTO.builder()
-                .productId(product.getProductId())
                 .productName(product.getProductName())
+                .productType(product.getProductType())
                 .image(product.getImage())
                 .status(product.getStatus())
                 .unitPrice(product.getUnitPrice())
                 .unitsOnOrder(product.getUnitsOnOrder())
                 .unitsInStock(product.getUnitsInStock())
-                .accessoryDetail(product.getAccessoryDetail())
-                .birdCageDetail(product.getBirdCageDetail())
                 .build();
         return productDTO;
     }
 
     @Override
-    public Product saveProduct(Product product) {
+    public Product saveProduct(ProductDTO productDTO) {
+        Product product = mapToProduct(productDTO);
         return productRepository.save(product);
     }
 
@@ -63,18 +65,16 @@ public class ProductImplement implements ProductService {
     }
 
 
-    private Product mapToProduct(ProductDTO product) {
-        Product productDTO =Product.builder()
-                .productId(product.getProductId())
-                .productName(product.getProductName())
-                .image(product.getImage())
-                .status(product.getStatus())
-                .unitPrice(product.getUnitPrice())
-                .unitsOnOrder(product.getUnitsOnOrder())
-                .unitsInStock(product.getUnitsInStock())
-                .accessoryDetail(product.getAccessoryDetail())
-                .birdCageDetail(product.getBirdCageDetail())
+    public Product mapToProduct(ProductDTO productDTO) {
+        Product product =Product.builder()
+                .productName(productDTO.getProductName())
+                .productType(productDTO.getProductType())
+                .image(productDTO.getImage())
+                .status(productDTO.getStatus())
+                .unitPrice(productDTO.getUnitPrice())
+                .unitsOnOrder(productDTO.getUnitsOnOrder())
+                .unitsInStock(productDTO.getUnitsInStock())
                 .build();
-        return productDTO;
+        return product;
     }
 }

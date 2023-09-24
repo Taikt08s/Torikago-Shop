@@ -14,10 +14,10 @@ import java.util.List;
 @Builder
 
 public class ProductDTO {
-    private Long productId;
     @NotEmpty(message = "Product name is required")
     @Length(max = 50,message = "No more than 50 characters")
     private String productName;
+    private String productType;
     @NotEmpty(message = "Image is required")
     private String image;
     private double unitPrice;
@@ -25,6 +25,4 @@ public class ProductDTO {
     private int unitsOnOrder;
     @NotEmpty(message = "Status")
     private String status;
-    private BirdCageDetail birdCageDetail;
-    private AccessoryDetail accessoryDetail;
 }

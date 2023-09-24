@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 @Builder
 public class BirdCageDTO {
-    private Product birdCage;
 
     private String dimension;
 
