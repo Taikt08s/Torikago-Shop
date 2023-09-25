@@ -11418,3 +11418,14 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
     width: 100%
 }
+
+ .dashed-box {
+     border: 2px dashed #ccc;
+     padding: 20px;
+     text-align: center;
+     cursor: pointer;
+ }
+
+input[type="file"] {
+    display: none;
+}
