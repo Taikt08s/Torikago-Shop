@@ -25,7 +25,7 @@ public class Product{
     private Long productId;
     @Column(name = "product_name", length = 50)
     private String productName;
-    @Column(name = "product_type", length = 10)
+    @Column(name = "product_type", length = 15)
     private String productType;
     @Column(name = "image", length = 64)
     private String image;

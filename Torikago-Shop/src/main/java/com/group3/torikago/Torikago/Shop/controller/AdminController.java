@@ -27,10 +27,10 @@ public class AdminController {
     public String adminPage(){
         return "admin-dashboard";
     }
- 
     private ProductService productService;
     @Autowired
-    private BirdCageService birdCageService;
+     private BirdCageService birdCageService;
+    
     @Autowired
     public AdminController(ProductService productService) {
         this.productService = productService;
@@ -69,7 +69,6 @@ public class AdminController {
     @PostMapping("/admin/product-table/bird-cage/add")
     public String saveBirdCage(@ModelAttribute("birdCageDetail") BirdCageDTO birdCageDTO, 
             @ModelAttribute("product") ProductDTO productDTO){
-        productService.saveProduct(productDTO);
         birdCageService.saveBirdCage(birdCageDTO, productDTO);
         return "redirect:/admin";
     }
