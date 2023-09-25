@@ -101,6 +101,14 @@
                                                            placeholder="Enter Bird Cage Name">
                                                 </div>
                                                 <div class="form-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="fileInput"
+                                                               >
+                                                        <label class="custom-file-label" for="fileInput">Upload
+                                                            Image</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
                                                     <div class="input-group">
                                                         <input type="number"
                                                                class="form-control form-control-user"
@@ -216,4 +224,62 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Get the dashed box element
+    const dashedBox = document.getElementById("image-drop-area");
+
+    // Get the file input element
+    const fileInput = document.getElementById("file-input");
+
+    // Add event listeners for drag and drop
+    dashedBox.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dashedBox.classList.add("dragover");
+    });
+
+    dashedBox.addEventListener("dragleave", () => {
+        dashedBox.classList.remove("dragover");
+    });
+
+    dashedBox.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dashedBox.classList.remove("dragover");
+
+        const files = e.dataTransfer.files;
+
+        if (files.length > 0) {
+            // Handle the dropped files (you can upload them here)
+            handleFiles(files);
+        }
+    });
+
+    // Add event listener for clicking the dashed box
+    dashedBox.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    // Add event listener for file input change
+    fileInput.addEventListener("change", (e) => {
+        const files = e.target.files;
+
+        if (files.length > 0) {
+            // Handle the selected files (you can upload them here)
+            handleFiles(files);
+        }
+    });
+
+    // Function to handle uploaded files
+    function handleFiles(files) {
+        // Iterate through the files and perform actions on each file
+        for (const file of files) {
+            // Check file type (PNG, GIF, JPEG)
+            if (file.type.startsWith("image/")) {
+                // You can upload the file here or perform other actions
+                console.log("Uploading file:", file.name);
+            } else {
+                console.log("Unsupported file type:", file.type);
+            }
+        }
+    }
+</script>
 </html>
