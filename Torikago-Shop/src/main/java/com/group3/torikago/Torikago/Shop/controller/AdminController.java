@@ -24,28 +24,29 @@ import java.util.List;
 public class AdminController {
     @GetMapping("/admin")
     @RolesAllowed({"ADMIN"})
-    public String adminPage(){
+    public String adminPage() {
         return "admin-dashboard";
     }
-    private ProductService productService;
-    @Autowired
-     private BirdCageService birdCageService;
-    
-    @Autowired
-    public AdminController(ProductService productService) {
-        this.productService = productService;
-    }
 
+    private ProductService productService;
+
+    private BirdCageService birdCageService;
+
+    @Autowired
+    public AdminController(ProductService productService, BirdCageService birdCageService) {
+        this.productService = productService;
+        this.birdCageService = birdCageService;
+    }
 
     @GetMapping("/admin/product-table")
     @RolesAllowed({"ADMIN"})
-    public String getListProduct(Model model){
-        List<ProductDTO> products=productService.findAllProducts();
-        model.addAttribute("products",products);
+    public String getListProduct(Model model) {
+        List<ProductDTO> products = productService.findAllProducts();
+        model.addAttribute("products", products);
         return "admin-product";
     }
 
-//    @GetMapping("/admin/product-table/bird-cage/add")
+    //    @GetMapping("/admin/product-table/bird-cage/add")
 //    @RolesAllowed({"ADMIN"})
 //    public String addProduct(Model model){
 //        Product product=new Product();
@@ -59,16 +60,17 @@ public class AdminController {
 //    }
     @GetMapping("/admin/product-table/bird-cage/add")
     @RolesAllowed({"ADMIN"})
-    public String addBirdCage(Model model){
-        BirdCageDetail birdCageDetail=new BirdCageDetail();
-        Product product=new Product();
-        model.addAttribute("product",product);
-        model.addAttribute("birdCageDetail",birdCageDetail);
+    public String addBirdCage(Model model) {
+        BirdCageDetail birdCageDetail = new BirdCageDetail();
+        Product product = new Product();
+        model.addAttribute("product", product);
+        model.addAttribute("birdCageDetail", birdCageDetail);
         return "bird-cage";
     }
+
     @PostMapping("/admin/product-table/bird-cage/add")
-    public String saveBirdCage(@ModelAttribute("birdCageDetail") BirdCageDTO birdCageDTO, 
-            @ModelAttribute("product") ProductDTO productDTO){
+    public String saveBirdCage(@ModelAttribute("birdCageDetail") BirdCageDTO birdCageDTO,
+                               @ModelAttribute("product") ProductDTO productDTO) {
         birdCageService.saveBirdCage(birdCageDTO, productDTO);
         return "redirect:/admin";
     }
