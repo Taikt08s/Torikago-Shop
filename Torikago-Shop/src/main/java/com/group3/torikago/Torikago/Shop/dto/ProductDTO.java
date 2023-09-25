@@ -12,17 +12,12 @@ import java.util.List;
 
 @Data
 @Builder
-
 public class ProductDTO {
-    @NotEmpty(message = "Product name is required")
-    @Length(max = 50,message = "No more than 50 characters")
     private String productName;
     private String productType;
-    @NotEmpty(message = "Image is required")
     private String image;
     private double unitPrice;
     private int unitsInStock;
     private int unitsOnOrder;
-    @NotEmpty(message = "Status")
     private String status;
 }

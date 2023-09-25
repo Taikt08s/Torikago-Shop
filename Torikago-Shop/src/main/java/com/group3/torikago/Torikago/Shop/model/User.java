@@ -34,7 +34,7 @@ public class User {
     private String address;
     @Column(name = "profile_pic",length = 64)
     private String profilePic;
-    @Column(name = "reset_password_token", length = 50)
+    @Column(name = "reset_password_token", length = 64)
     private String resetPasswordToken;
     @Column(name = "isEnable")
     private boolean enabled;
