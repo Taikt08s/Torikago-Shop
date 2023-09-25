@@ -11,7 +11,8 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @Builder
 public class BirdCageDTO {
-
+    @NotEmpty(message = "Dimension is required")
+    @Length(max = 20,message = "No more than 20 characters")
     private String dimension;
 
     private String cageShape;

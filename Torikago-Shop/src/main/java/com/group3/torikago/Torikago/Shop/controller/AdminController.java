@@ -74,7 +74,7 @@ public class AdminController {
     public String saveBirdCage(@ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO, BindingResult result,
                                @ModelAttribute("product") @Valid ProductDTO productDTO,BindingResult birdCageBindingResult,
                                BindingResult productBindingResult) {
-        if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
+        if (birdCageBindingResult.hasErrors() == productBindingResult.hasErrors()) {
             // If there are validation errors, return to the form page with errors
             return "bird-cage";
         }

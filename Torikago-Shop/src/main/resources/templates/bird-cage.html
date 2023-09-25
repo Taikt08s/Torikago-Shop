@@ -104,7 +104,8 @@
                                                            maxlength="80"
                                                            th:field="*{product.productName}"
                                                            placeholder="Enter a name ...">
-                                                    <p th:if="${#fields.hasErrors('product.productName')}" class="text-danger"
+                                                    <p th:if="${#fields.hasErrors('product.productName')}"
+                                                       class="text-danger"
                                                        th:errors="*{product.productName}"></p>
                                                 </div>
                                                 <div class="form-group">
@@ -120,6 +121,9 @@
                                                         <div class="input-group-append">
                                                             <span class="form-control form-control-user input-group-text">VND</span>
                                                         </div>
+                                                        <p th:if="${#fields.hasErrors('product.unitPrice')}"
+                                                           class="text-danger"
+                                                           th:errors="*{product.unitPrice}"></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -161,6 +165,9 @@
                                                            maxlength="50"
                                                            placeholder="Dimension (e.g. 61cm x 91.5cm x 122cm)"
                                                            th:field="*{birdCageDetail.dimension}">
+                                                    <p th:if="${#fields.hasErrors('birdCageDetail.dimension')}"
+                                                       class="text-danger"
+                                                       th:errors="*{birdCageDetail.dimension}"></p>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Cage Shape</label>
@@ -199,13 +206,14 @@
                                                     <textarea
                                                             class="form-control"
                                                             style="height: 500px;"
-                                                            id="default-editor"
-                                                            name="birdCageDetail.description"
+                                                            id="description"
+                                                            name="description"
                                                             maxlength="200"
                                                             placeholder="Description..."
                                                             th:field="*{birdCageDetail.description}">
                                                     </textarea>
-                                                    <p th:if="${#fields.hasErrors('birdCageDetail.description')}" class="text-danger"
+                                                    <p th:if="${#fields.hasErrors('birdCageDetail.description')}"
+                                                       class="text-danger"
                                                        th:errors="*{birdCageDetail.description}"></p>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -224,9 +232,6 @@
         </div>
     </div>
 </div>
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
 </body>
 <div th:insert="~{admin-layout :: footer}"></div>
 <script src="vendor/jquery/jquery.min.js"></script>
