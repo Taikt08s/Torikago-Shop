@@ -225,49 +225,34 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    // Get the dashed box element
     const dashedBox = document.getElementById("image-drop-area");
-
-    // Get the file input element
     const fileInput = document.getElementById("file-input");
-
-    // Add event listeners for drag and drop
     dashedBox.addEventListener("dragover", (e) => {
         e.preventDefault();
         dashedBox.classList.add("dragover");
     });
-
     dashedBox.addEventListener("dragleave", () => {
         dashedBox.classList.remove("dragover");
     });
-
     dashedBox.addEventListener("drop", (e) => {
         e.preventDefault();
         dashedBox.classList.remove("dragover");
-
         const files = e.dataTransfer.files;
-
         if (files.length > 0) {
-            // Handle the dropped files (you can upload them here)
             handleFiles(files);
         }
     });
-
-    // Add event listener for clicking the dashed box
     dashedBox.addEventListener("click", () => {
         fileInput.click();
     });
 
-    // Add event listener for file input change
     fileInput.addEventListener("change", (e) => {
         const files = e.target.files;
 
         if (files.length > 0) {
-            // Handle the selected files (you can upload them here)
             handleFiles(files);
         }
     });
-
     function handleFiles(files) {
         for (const file of files) {
             if (file.type.startsWith("image/")) {
