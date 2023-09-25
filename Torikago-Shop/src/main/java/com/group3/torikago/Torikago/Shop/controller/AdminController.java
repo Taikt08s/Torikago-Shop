@@ -69,7 +69,6 @@ public class AdminController {
     @PostMapping("/admin/product-table/bird-cage/add")
     public String saveBirdCage(@ModelAttribute("birdCageDetail") BirdCageDTO birdCageDTO, 
             @ModelAttribute("product") ProductDTO productDTO){
-        productService.saveProduct(productDTO);
         birdCageService.saveBirdCage(birdCageDTO, productDTO);
         return "redirect:/admin";
     }
