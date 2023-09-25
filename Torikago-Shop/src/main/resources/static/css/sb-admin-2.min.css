@@ -11421,9 +11421,20 @@ body.sidebar-toggled footer.sticky-footer {
 
 .dashed-box {
     border: 2px dashed #ccc;
-    padding: 20px;
     text-align: center;
     cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    .dashed-box {
+        padding: 120px;
+    }
+}
+
+@media (max-width: 991px) {
+    .dashed-box {
+        padding: 60px;
+    }
 }
 
 input[type="file"] {

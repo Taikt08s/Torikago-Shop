@@ -8,11 +8,13 @@ import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import jakarta.annotation.security.RolesAllowed;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,8 +71,13 @@ public class AdminController {
     }
 
     @PostMapping("/admin/product-table/bird-cage/add")
-    public String saveBirdCage(@ModelAttribute("birdCageDetail") BirdCageDTO birdCageDTO,
-                               @ModelAttribute("product") ProductDTO productDTO) {
+    public String saveBirdCage(@ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO, BindingResult result,
+                               @ModelAttribute("product") @Valid ProductDTO productDTO,BindingResult birdCageBindingResult,
+                               BindingResult productBindingResult) {
+        if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
+            // If there are validation errors, return to the form page with errors
+            return "bird-cage";
+        }
         productDTO.setProductType("bird cage");
         productDTO.setUnitsOnOrder(0);
         birdCageService.saveBirdCage(birdCageDTO, productDTO);
