@@ -27,10 +27,10 @@ public class AdminController {
     public String adminPage(){
         return "admin-dashboard";
     }
- 
     private ProductService productService;
     @Autowired
-    private BirdCageService birdCageService;
+     private BirdCageService birdCageService;
+    
     @Autowired
     public AdminController(ProductService productService) {
         this.productService = productService;

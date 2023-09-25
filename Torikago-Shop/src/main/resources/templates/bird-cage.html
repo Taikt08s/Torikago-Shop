@@ -102,11 +102,10 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="input-group">
-                                                            <input type="text"
+                                                            <input type="number"
                                                                    class="form-control form-control-user"
                                                                    id="unitPrice"
                                                                    name="unitPrice"
-                                                                   maxlength="50"
                                                                    placeholder="Enter Price"
                                                                    th:field="*{product.unitPrice}">
                                                             <div class="input-group-append">
@@ -115,12 +114,10 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text"
-                                                               class="form-control form-control-user"
+                                                        <input type="hidden"
                                                                id="productType"
                                                                name="productType"
-                                                               maxlength="50"
-                                                               placeholder="productType"
+                                                               value="bird-cage"
                                                                th:field="*{product.productType}">
                                                     </div>
                                                     <div class="form-group">
@@ -133,12 +130,10 @@
                                                                th:field="*{product.unitsInStock}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text"
-                                                               class="form-control form-control-user"
+                                                        <input type="hidden"
                                                                id="unitsOnOrder"
                                                                name="unitsOnOrder"
-                                                               maxlength="50"
-                                                               placeholder="unitsOnOrder"
+                                                               value="0"
                                                                th:field="*{product.unitsOnOrder}">
                                                     </div>
                                                     <div class="form-group">
