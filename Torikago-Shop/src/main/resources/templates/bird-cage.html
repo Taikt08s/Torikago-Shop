@@ -268,13 +268,9 @@
         }
     });
 
-    // Function to handle uploaded files
     function handleFiles(files) {
-        // Iterate through the files and perform actions on each file
         for (const file of files) {
-            // Check file type (PNG, GIF, JPEG)
             if (file.type.startsWith("image/")) {
-                // You can upload the file here or perform other actions
                 console.log("Uploading file:", file.name);
             } else {
                 console.log("Unsupported file type:", file.type);
