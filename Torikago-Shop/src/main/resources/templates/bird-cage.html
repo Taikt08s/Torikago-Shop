@@ -74,13 +74,21 @@
                     <div class="col-xl-10 col-lg-12 col-md-9">
                         <div class="card o-hidden border-0 shadow-lg my-5">
                             <div class="card-body p-0">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4" style="margin-top: 10px">Add New Bird Cage</h1>
+                                </div>
+                                <hr>
                                 <div class="row">
-                                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                    <div class="col-lg-6 d-none d-lg-block">
+                                        <div class="p-5">
+                                        <div class="dashed-box" id="image-drop-area">
+                                            <p>Drag & Drop or Click to Upload</p>
+                                            <input th:field="*{product.image}" type="file" accept="image/png, image/gif, image/jpeg" id="file-input">
+                                        </div>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-6">
                                         <div class="p-5">
-                                            <div class="text-center">
-                                                <h1 class="h4 text-gray-900 mb-4">Add New Bird Cage</h1>
-                                            </div>
                                             <form class="user" method="post"
                                                   th:action="@{/admin/product-table/bird-cage/add}">
                                                 <div class="form-group">
@@ -95,7 +103,7 @@
                                                 <div class="form-group">
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="fileInput"
-                                                               th:field="*{product.image}">
+                                                               >
                                                         <label class="custom-file-label" for="fileInput">Upload
                                                             Image</label>
                                                     </div>
@@ -216,4 +224,58 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Get the dashed box element
+    const dashedBox = document.getElementById("image-drop-area");
+
+    // Get the file input element
+    const fileInput = document.getElementById("file-input");
+
+    // Add event listeners for drag and drop
+    dashedBox.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dashedBox.classList.add("dragover");
+    });
+
+    dashedBox.addEventListener("dragleave", () => {
+        dashedBox.classList.remove("dragover");
+    });
+
+    dashedBox.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dashedBox.classList.remove("dragover");
+
+        const files = e.dataTransfer.files;
+
+        if (files.length > 0) {
+            // Handle the dropped files (you can upload them here)
+            handleFiles(files);
+        }
+    });
+
+    // Add event listener for clicking the dashed box
+    dashedBox.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    // Add event listener for file input change
+    fileInput.addEventListener("change", (e) => {
+        const files = e.target.files;
+
+        if (files.length > 0) {
+            // Handle the selected files (you can upload them here)
+            handleFiles(files);
+        }
+    });
+
+    function handleFiles(files) {
+        for (const file of files) {
+            if (file.type.startsWith("image/")) {
+                console.log("Uploading file:", file.name);
+            } else {
+                console.log("Unsupported file type:", file.type);
+            }
+        }
+    }
+</script>
 </html>
