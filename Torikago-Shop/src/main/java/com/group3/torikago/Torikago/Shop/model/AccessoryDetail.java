@@ -6,6 +6,7 @@ package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,9 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "AccessoryDetails")
 public class AccessoryDetail {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( name ="id")
+    private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product accessory;

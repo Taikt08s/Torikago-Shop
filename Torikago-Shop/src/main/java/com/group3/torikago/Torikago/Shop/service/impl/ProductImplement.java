@@ -7,13 +7,14 @@ import com.group3.torikago.Torikago.Shop.repository.ProductRepository;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
 public class ProductImplement implements ProductService {
     private ProductRepository productRepository;
-    
+
     public ProductImplement() {
     }
 
