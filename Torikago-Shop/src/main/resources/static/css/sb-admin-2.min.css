@@ -11427,7 +11427,7 @@ body.sidebar-toggled footer.sticky-footer {
 
 @media (min-width: 992px) {
     .dashed-box {
-        padding: 120px;
+        padding: 20px;
     }
 }
 
@@ -11439,4 +11439,28 @@ body.sidebar-toggled footer.sticky-footer {
 
 input[type="file"] {
     display: none;
+}
+.password-strength-meter {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.password-strength {
+    width: 100%;
+    height: 5px;
+    background-color: #ccc;
+    border-radius: 5px;
+}
+
+.password-weak {
+    background-color: #ff6060;
+}
+
+.password-medium {
+    background-color: #ffc040;
+}
+
+.password-strong {
+    background-color: #60ff60;
 }
