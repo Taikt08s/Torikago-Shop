@@ -34,6 +34,7 @@ public class BirdCageImplement implements BirdCageService {
         Product product = productImplement.mapToProduct(productDTO);
         BirdCageDetail birdCageDTO=BirdCageDetail.builder()
                 .birdCage(product)
+                .dimension(birdCage.getDimension())
                 .cageShape(birdCage.getCageShape())
                 .birdWingSpan(birdCage.getBirdWingSpan())
                 .barSpacing(birdCage.getBarSpacing())

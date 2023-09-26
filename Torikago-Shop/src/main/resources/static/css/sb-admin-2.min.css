@@ -11016,7 +11016,7 @@ a:focus {
 }
 
 .bg-password-image {
-    background: url(https://source.unsplash.com/oWTW-jNGl9I/600x800);
+    background: url(https://i5.walmartimages.com/asr/2b8530dc-0dc7-46d7-ab13-7fa32b13ca18.fa3c91dcbb85f6c548555c1e33a935cc.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF/600x800/600x800);
     background-position: center;
     background-size: cover
 }
@@ -11417,4 +11417,26 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
     width: 100%
+}
+
+.dashed-box {
+    border: 2px dashed #ccc;
+    text-align: center;
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    .dashed-box {
+        padding: 120px;
+    }
+}
+
+@media (max-width: 991px) {
+    .dashed-box {
+        padding: 60px;
+    }
+}
+
+input[type="file"] {
+    display: none;
 }

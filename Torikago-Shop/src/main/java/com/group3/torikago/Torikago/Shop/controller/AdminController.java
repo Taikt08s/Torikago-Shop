@@ -8,11 +8,13 @@ import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import jakarta.annotation.security.RolesAllowed;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,28 +26,29 @@ import java.util.List;
 public class AdminController {
     @GetMapping("/admin")
     @RolesAllowed({"ADMIN"})
-    public String adminPage(){
+    public String adminPage() {
         return "admin-dashboard";
     }
- 
-    private ProductService productService;
-    @Autowired
-    private BirdCageService birdCageService;
-    @Autowired
-    public AdminController(ProductService productService) {
-        this.productService = productService;
-    }
 
+    private ProductService productService;
+
+    private BirdCageService birdCageService;
+
+    @Autowired
+    public AdminController(ProductService productService, BirdCageService birdCageService) {
+        this.productService = productService;
+        this.birdCageService = birdCageService;
+    }
 
     @GetMapping("/admin/product-table")
     @RolesAllowed({"ADMIN"})
-    public String getListProduct(Model model){
-        List<ProductDTO> products=productService.findAllProducts();
-        model.addAttribute("products",products);
+    public String getListProduct(Model model) {
+        List<ProductDTO> products = productService.findAllProducts();
+        model.addAttribute("products", products);
         return "admin-product";
     }
 
-//    @GetMapping("/admin/product-table/bird-cage/add")
+    //    @GetMapping("/admin/product-table/bird-cage/add")
 //    @RolesAllowed({"ADMIN"})
 //    public String addProduct(Model model){
 //        Product product=new Product();
@@ -59,16 +62,24 @@ public class AdminController {
 //    }
     @GetMapping("/admin/product-table/bird-cage/add")
     @RolesAllowed({"ADMIN"})
-    public String addBirdCage(Model model){
-        BirdCageDetail birdCageDetail=new BirdCageDetail();
-        Product product=new Product();
-        model.addAttribute("product",product);
-        model.addAttribute("birdCageDetail",birdCageDetail);
+    public String addBirdCage(Model model) {
+        BirdCageDetail birdCageDetail = new BirdCageDetail();
+        Product product = new Product();
+        model.addAttribute("product", product);
+        model.addAttribute("birdCageDetail", birdCageDetail);
         return "bird-cage";
     }
+
     @PostMapping("/admin/product-table/bird-cage/add")
-    public String saveBirdCage(@ModelAttribute("birdCageDetail") BirdCageDTO birdCageDTO, 
-            @ModelAttribute("product") ProductDTO productDTO){
+    public String saveBirdCage(@ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO, BindingResult result,
+                               @ModelAttribute("product") @Valid ProductDTO productDTO,BindingResult birdCageBindingResult,
+                               BindingResult productBindingResult) {
+        if (birdCageBindingResult.hasErrors() == productBindingResult.hasErrors()) {
+            // If there are validation errors, return to the form page with errors
+            return "bird-cage";
+        }
+        productDTO.setProductType("bird cage");
+        productDTO.setUnitsOnOrder(0);
         birdCageService.saveBirdCage(birdCageDTO, productDTO);
         return "redirect:/admin";
     }

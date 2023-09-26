@@ -1,7 +1,11 @@
 package com.group3.torikago.Torikago.Shop.service;
 
 import com.group3.torikago.Torikago.Shop.dto.RegisterDTO;
+
 import com.group3.torikago.Torikago.Shop.model.Role;
+
+import com.group3.torikago.Torikago.Shop.exception.UserNotFoundException;
+
 import com.group3.torikago.Torikago.Shop.model.User;
 import jakarta.mail.MessagingException;
 
@@ -22,9 +26,13 @@ public interface UserService {
 
     boolean verify(String code);
 
+
     List<Role> listRoles();
     User get(Long id);
 
 
+
+
+    void updateResetPasswordToken(String token ,String email) throws UserNotFoundException;
 
 }
