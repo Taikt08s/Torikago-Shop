@@ -71,10 +71,11 @@ public class AdminController {
     }
 
     @PostMapping("/admin/product-table/bird-cage/add")
-    public String saveBirdCage(@ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO, BindingResult result,
-                               @ModelAttribute("product") @Valid ProductDTO productDTO,BindingResult birdCageBindingResult,
+    public String saveBirdCage(@ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO,
+                               BindingResult birdCageBindingResult,
+                               @ModelAttribute("product") @Valid ProductDTO productDTO,
                                BindingResult productBindingResult) {
-        if (birdCageBindingResult.hasErrors() == productBindingResult.hasErrors()) {
+        if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
             // If there are validation errors, return to the form page with errors
             return "bird-cage";
         }

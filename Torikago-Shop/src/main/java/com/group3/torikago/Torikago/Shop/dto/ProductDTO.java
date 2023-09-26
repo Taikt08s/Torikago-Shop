@@ -15,13 +15,14 @@ public class ProductDTO {
     private String productName;
     private String productType;
     private String image;
-    //    @NotNull(message = "*Product price is required")
-//    @Min(value = 0, message = "Price must be greater than or equal to 0")
+    @NotNull(message = "*Product price is required")
     private Double unitPrice;
-
+    @NotNull(message = "*In Stock is required")
+    @Min(value = 1, message = "In Stock must be greater than or equal to 1")
     private int unitsInStock;
-    @Min(value = 0)
+    
     private int unitsOnOrder;
-
+    @NotEmpty(message = "*Status is required")
+    @Length(max = 20,message = "No more than 20 characters")
     private String status;
 }
