@@ -12,19 +12,19 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @Builder
 public class BirdCageDTO {
-    @NotEmpty(message = "*Dimension is required")
-    @Length(max = 20,message = "No more than 20 characters")
+    @NotEmpty(message = "*Required")
+    @Length(max = 20,message = "Max 20 characters")
     private String dimension;
-    @NotEmpty(message = "*Shape is required")
-    @Length(max = 20,message = "No more than 20 characters")
+    @NotEmpty(message = "*Required")
+    @Length(max = 20,message = "Max 20 characters")
     private String cageShape;
-    @NotNull(message = "*Bar Spacing is required")
-    @Digits(integer = 3, fraction = 2, message = "Value must have up to 3 integral digits and 2 fractional digits")
+    @NotNull(message = "*Required")
+    @Digits(integer = 3, fraction = 2, message = "Invalid number format")
     private double barSpacing;
-    @NotNull(message = "*Bird Wingspan is required")
-    @Digits(integer = 3, fraction = 2, message = "Value must have up to 3 integral digits and 2 fractional digits")
+    @NotNull(message = "*Required")
+    @Digits(integer = 3, fraction = 2, message = "Invalid number format")
     private double birdWingSpan;
-    @NotEmpty(message = "*Description is required")
+    @NotEmpty(message = "*Required")
     @Length(max = 250,message = "No more than 250 characters")
     private String description;
 }

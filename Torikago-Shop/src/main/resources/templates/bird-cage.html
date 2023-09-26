@@ -90,7 +90,8 @@
                                                     <input th:field="*{product.image}" type="file"
                                                            accept="image/png, image/gif, image/jpeg" id="file-input"
                                                            name="image">
-                                                    <img alt="Image Preview" id="thumbnail-extra1" style="max-width: 100%; max-height: 600px; display: none;">
+                                                    <img alt="Image Preview" id="thumbnail-extra1"
+                                                         style="max-width: 100%; max-height: 600px; display: none;">
                                                 </div>
                                             </div>
                                             <div class="p-5">
@@ -99,7 +100,8 @@
                                                     <input th:field="*{product.image}" type="file"
                                                            accept="image/png, image/gif, image/jpeg" id="file-input2"
                                                            name="extra-image">
-                                                    <img alt="Image Preview" id="thumbnail-extra2" style="max-width: 100%; max-height: 600px; display: none;">
+                                                    <img alt="Image Preview" id="thumbnail-extra2"
+                                                         style="max-width: 100%; max-height: 600px; display: none;">
                                                 </div>
                                             </div>
                                             <div class="p-5">
@@ -108,7 +110,8 @@
                                                     <input th:field="*{product.image}" type="file"
                                                            accept="image/png, image/gif, image/jpeg" id="file-input3"
                                                            name="extra-image">
-                                                    <img alt="Image Preview" id="thumbnail" style="max-width: 100%; max-height: 600px; display: none;">
+                                                    <img alt="Image Preview" id="thumbnail"
+                                                         style="max-width: 100%; max-height: 600px; display: none;">
                                                 </div>
                                             </div>
                                         </div>
@@ -118,9 +121,10 @@
                                             <form class="user" method="post"
                                                   th:action="@{/admin/product-table/bird-cage/add}">
                                                 <div class="form-group">
+                                                    <label>Product Name</label>
                                                     <label th:if="${#fields.hasErrors('product.productName')}"
                                                            class="text-danger"
-                                                           th:errors="*{product.productName}">Product Name</label>
+                                                           th:errors="*{product.productName}"></label>
                                                     <input type="text"
                                                            class="form-control form-control-user"
                                                            id="product.productName"
@@ -128,12 +132,12 @@
                                                            maxlength="80"
                                                            th:field="*{product.productName}"
                                                            placeholder="Enter a name ...">
-                                                    <p></p>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label>Product Price</label>
                                                     <label th:if="${#fields.hasErrors('product.unitPrice')}"
                                                            class="text-danger"
-                                                           th:errors="*{product.unitPrice}">Product Price</label>
+                                                           th:errors="*{product.unitPrice}"></label>
                                                     <div class="input-group">
                                                         <input type="number"
                                                                class="form-control form-control-user"
@@ -154,6 +158,9 @@
                                                 <div class="form-group row">
                                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                                         <label>In Stock</label>
+                                                        <label th:if="${#fields.hasErrors('product.unitsInStock')}"
+                                                               class="text-danger"
+                                                               th:errors="*{product.unitsInStock}"></label>
                                                         <input type="text"
                                                                class="form-control form-control-user"
                                                                id="unitsInStock"
@@ -164,12 +171,15 @@
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label>Status</label>
+                                                        <label th:if="${#fields.hasErrors('product.status')}"
+                                                               class="text-danger"
+                                                               th:errors="*{product.status}"></label>
                                                         <input type="text"
                                                                class="form-control form-control-user"
                                                                id="status"
                                                                name="status"
                                                                maxlength="50"
-                                                               placeholder="status"
+                                                               placeholder="e.g. Available or Unavailable"
                                                                th:field="*{product.status}">
                                                     </div>
                                                 </div>
@@ -178,9 +188,10 @@
                                                            th:field="*{product.unitsOnOrder}">
                                                 </div>
                                                 <div class="form-group">
+                                                    <label>Dimension</label>
                                                     <label th:if="${#fields.hasErrors('birdCageDetail.dimension')}"
                                                            class="text-danger"
-                                                           th:errors="*{birdCageDetail.dimension}">Dimension</label>
+                                                           th:errors="*{birdCageDetail.dimension}"></label>
                                                     <input type="text"
                                                            class="form-control form-control-user"
                                                            id="dimension"
@@ -190,9 +201,10 @@
                                                            th:field="*{birdCageDetail.dimension}">
                                                 </div>
                                                 <div class="form-group">
+                                                    <label>Cage Shape</label>
                                                     <label th:if="${#fields.hasErrors('birdCageDetail.cageShape')}"
                                                            class="text-danger"
-                                                           th:errors="*{birdCageDetail.cageShape}">Cage Shape</label>
+                                                           th:errors="*{birdCageDetail.cageShape}"></label>
                                                     <input type="text"
                                                            class="form-control form-control-user"
                                                            id="cageShape"
@@ -224,9 +236,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group" style="margin-bottom: 20px;">
+                                                    <label>Description</label>
                                                     <label th:if="${#fields.hasErrors('birdCageDetail.description')}"
                                                            class="text-danger"
-                                                           th:errors="*{birdCageDetail.description}">Description</label>
+                                                           th:errors="*{birdCageDetail.description}"></label>
                                                     <textarea
                                                             class="form-control"
                                                             style="height: 500px;"
@@ -347,7 +360,6 @@
             handleFiles(files, thumbnailExtra2);
         }
     });
-
 
 
     dashedBox3.addEventListener("dragover", (e) => {
