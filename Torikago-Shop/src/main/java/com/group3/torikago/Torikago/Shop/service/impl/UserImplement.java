@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserImplement implements UserService {
@@ -98,5 +99,17 @@ public class UserImplement implements UserService {
             return true;
         }
     }
+
+    @Override
+    public List<Role> listRoles() {
+        return roleRepository.findAll();
+    }
+
+    @Override
+    public User get(Long id) {
+        return userRepository.findById(id).get();
+    }
+
+
 
 }
