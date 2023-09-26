@@ -55,17 +55,17 @@ public class ForgotPasswordController {
         //MimeMail: sending email messages using the JavaMail API
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom("contact@animeclub.com", "Anime Club support");
+        helper.setFrom("styematic@gmail.com", "Customer Service Team at Torikago");
         helper.setTo(email);
         String subject = "Here's the link to reset your password";
         String content = "<p>Dear Customer, </p>"
                 + "<p>Our Support Service would like to assist you.</p>"
                 + "<p>We have received a requested to reset your password</p>"
-                + "<p>Please click the link below to reset your password</p>"
-                + "<p><a href=\"" + resetPasswordLink + "\">RESET YOUR PASSWORD HERE</a><br></p>"
+                + "<p>Please click the button below to reset your password</p>"
+                + "<p><a href=\"" + resetPasswordLink + "\"><button style=\"background-color: blue; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer;\">RESET YOUR PASSWORD HERE</button></a><br></p>"
                 + "<p>Ignore this mail if you remember your password</p>"
                 + "<p>Have a nice day! (ɔ◔‿◔)ɔ♥</p>"
-                + "<p>Anime club support team</p>";
+                + "<p>Customer Service Team</p>";
         helper.setSubject(subject);
         helper.setText(content, true);
         mailSender.send(message);

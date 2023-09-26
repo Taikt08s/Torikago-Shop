@@ -22,7 +22,7 @@ public class RegisterDTO {
     @NotEmpty(message = "Email is required")
     @Email(message = "Invalid email format")
     private String email;
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).{8,}$"
             , message = "Minimum 8 characters, at least one uppercase letter and number")
     @NotEmpty(message = "Password is required")
     private String password;

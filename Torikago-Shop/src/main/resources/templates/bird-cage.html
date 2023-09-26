@@ -96,7 +96,9 @@
                                             <form class="user" method="post"
                                                   th:action="@{/admin/product-table/bird-cage/add}">
                                                 <div class="form-group">
-                                                    <label>Product Name</label>
+                                                    <label th:if="${#fields.hasErrors('product.productName')}"
+                                                           class="text-danger"
+                                                           th:errors="*{product.productName}">Product Name</label>
                                                     <input type="text"
                                                            class="form-control form-control-user"
                                                            id="product.productName"
@@ -104,12 +106,12 @@
                                                            maxlength="80"
                                                            th:field="*{product.productName}"
                                                            placeholder="Enter a name ...">
-                                                    <p th:if="${#fields.hasErrors('product.productName')}"
-                                                       class="text-danger"
-                                                       th:errors="*{product.productName}"></p>
+                                                    <p ></p>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Product Price</label>
+                                                    <label th:if="${#fields.hasErrors('product.unitPrice')}"
+                                                           class="text-danger"
+                                                           th:errors="*{product.unitPrice}">Product Price</label>
                                                     <div class="input-group">
                                                         <input type="number"
                                                                class="form-control form-control-user"
@@ -121,9 +123,6 @@
                                                         <div class="input-group-append">
                                                             <span class="form-control form-control-user input-group-text">VND</span>
                                                         </div>
-                                                        <p th:if="${#fields.hasErrors('product.unitPrice')}"
-                                                           class="text-danger"
-                                                           th:errors="*{product.unitPrice}"></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -157,7 +156,9 @@
                                                            th:field="*{product.unitsOnOrder}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Dimension</label>
+                                                    <label th:if="${#fields.hasErrors('birdCageDetail.dimension')}"
+                                                           class="text-danger"
+                                                           th:errors="*{birdCageDetail.dimension}">Dimension</label>
                                                     <input type="text"
                                                            class="form-control form-control-user"
                                                            id="dimension"
@@ -165,12 +166,11 @@
                                                            maxlength="50"
                                                            placeholder="Dimension (e.g. 61cm x 91.5cm x 122cm)"
                                                            th:field="*{birdCageDetail.dimension}">
-                                                    <p th:if="${#fields.hasErrors('birdCageDetail.dimension')}"
-                                                       class="text-danger"
-                                                       th:errors="*{birdCageDetail.dimension}"></p>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Cage Shape</label>
+                                                    <label th:if="${#fields.hasErrors('birdCageDetail.cageShape')}"
+                                                           class="text-danger"
+                                                           th:errors="*{birdCageDetail.cageShape}">Cage Shape</label>
                                                     <input type="text"
                                                            class="form-control form-control-user"
                                                            id="cageShape"
@@ -202,7 +202,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group" style="margin-bottom: 20px;">
-                                                    <label>Description</label>
+                                                    <label th:if="${#fields.hasErrors('birdCageDetail.description')}"
+                                                           class="text-danger"
+                                                           th:errors="*{birdCageDetail.description}">Description</label>
                                                     <textarea
                                                             class="form-control"
                                                             style="height: 500px;"
@@ -212,9 +214,6 @@
                                                             placeholder="Description..."
                                                             th:field="*{birdCageDetail.description}">
                                                     </textarea>
-                                                    <p th:if="${#fields.hasErrors('birdCageDetail.description')}"
-                                                       class="text-danger"
-                                                       th:errors="*{birdCageDetail.description}"></p>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                                     Add Bird Cage
