@@ -4,6 +4,7 @@ import com.group3.torikago.Torikago.Shop.dto.BirdCageDTO;
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.Product;
+import com.group3.torikago.Torikago.Shop.service.AccessoryService;
 import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import jakarta.annotation.security.RolesAllowed;
@@ -26,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class AdminController {
@@ -38,6 +40,7 @@ public class AdminController {
     private ProductService productService;
 
     private BirdCageService birdCageService;
+    
 
     @Autowired
     public AdminController(ProductService productService, BirdCageService birdCageService) {
@@ -48,7 +51,7 @@ public class AdminController {
     @GetMapping("/admin/product-table")
     @RolesAllowed({"ADMIN"})
     public String getListProduct(Model model) {
-        List<ProductDTO> products = productService.findAllProducts();
+        List<Product> products = productService.findAllProducts();
         model.addAttribute("products", products);
         return "admin-product";
     }
@@ -68,8 +71,7 @@ public class AdminController {
                                @ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO,
                                BindingResult birdCageBindingResult,
                                @ModelAttribute("product") @Valid ProductDTO productDTO,
-                               BindingResult productBindingResult
-    ) throws IOException {
+                               BindingResult productBindingResult) throws IOException{
 //,
 //        @RequestParam("extra-image") MultipartFile[] extraMultipartFile
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
@@ -109,6 +111,18 @@ public class AdminController {
 //            FileUploadUtil.saveFile(uploadDir, extraMultipart, fileName);
 //        }
         return "redirect:/admin";
+    }
+    @GetMapping("/admin/product-table/{productType}/{productId}/delete")
+    @RolesAllowed({"ADMIN"})
+    public String deleteBirdCage(@PathVariable("productType") String productType,
+                                @PathVariable("productId") Long productId) {
+        if (productType.equalsIgnoreCase("Bird Cage")) {
+            productService.deleteProduct(productId);
+            return "redirect:/admin/product-table";
+        } else if (productType.equalsIgnoreCase("Accessory")) {
+            return "redirect:/admin/product-table";
+        }   
+        return "redirect:/admin/product-table";
     }
 
 }

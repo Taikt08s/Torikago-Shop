@@ -217,7 +217,7 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.barSpacing')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.barSpacing}"></label>
-                                                        <input type="number"
+                                                        <input type="number" step="any"
                                                                class="form-control form-control-user"
                                                                id="barSpacing"
                                                                name="barSpacing"
@@ -230,7 +230,7 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.birdWingSpan')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.birdWingSpan}"></label>
-                                                        <input type="number"
+                                                        <input type="number" step="any"
                                                                class="form-control form-control-user"
                                                                id="birdWingSpan"
                                                                name="birdWingSpan"

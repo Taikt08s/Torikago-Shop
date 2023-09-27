@@ -8,4 +8,6 @@ public interface BirdCageService {
     BirdCageDetail saveBirdCage(BirdCageDTO birdCageDTO, ProductDTO productDTO);
 
     void updateBirdCage(BirdCageDTO birdCage);
+    
+    void deleteBirdCage(Long productId);
 }

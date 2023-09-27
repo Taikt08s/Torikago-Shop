@@ -125,8 +125,8 @@
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr th:each="product,productID : ${products}">
-                                        <td scope="row" th:text="${productID.index + 1}"></td>
+                                    <tr th:each="product : ${products}">
+                                        <td scope="row" th:text="${product.id}"></td>
                                         <td th:text="${product.productType}"></td>
                                         <td th:text="${product.productName}"></td>
                                         <td th:text="${product.unitPrice}+ ' VND'"></td>
@@ -140,7 +140,9 @@
                                             <span class="text">Edit</span>
                                         </a>
                                         </th>
-                                        <th><a href="#" class="btn btn-danger btn-icon-split">
+                                        <th><a th:href="@{/admin/product-table/{productType}/{productId}/delete(productType=${product.productType}, productId=${product.id})}" 
+                                               class="btn btn-danger btn-icon-split"
+                                               onclick="return confirm('Delete this post?')">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-trash"></i>
                                         </span>

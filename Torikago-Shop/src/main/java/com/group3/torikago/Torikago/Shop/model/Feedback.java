@@ -20,7 +20,7 @@ import org.hibernate.annotations.Check;
 public class Feedback {
     @Id
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private BirdCageOrder orderFeedback;
     @Column(name = "feedback_content", length = 255)
     private String feedbackContent;

@@ -25,9 +25,15 @@ public class ProductImplement implements ProductService {
 
 
     @Override
-    public List<ProductDTO> findAllProducts() {
+    public List<ProductDTO> findAllProductDTOs() {
         List<Product> birdCages=productRepository.findAll();
         return birdCages.stream().map((product)->mapToProductDTO(product)).collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<Product> findAllProducts() {
+        List<Product> birdCages=productRepository.findAll();
+        return birdCages;
     }
 
     @Override
@@ -61,8 +67,13 @@ public class ProductImplement implements ProductService {
         Product product=mapToProduct(productDTO);
         productRepository.save(product);
     }
-
-
+      
+    
+    @Override
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+    }
+    
 
     @Override
     public ProductDTO findProductById(Long productId) {
@@ -83,4 +94,5 @@ public class ProductImplement implements ProductService {
                 .build();
         return product;
     }
+
 }
