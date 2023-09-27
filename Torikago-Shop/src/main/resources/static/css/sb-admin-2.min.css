@@ -11427,13 +11427,13 @@ body.sidebar-toggled footer.sticky-footer {
 
 @media (min-width: 992px) {
     .dashed-box {
-        padding: 20px;
+        padding: 10px;
     }
 }
 
 @media (max-width: 991px) {
     .dashed-box {
-        padding: 60px;
+        padding: 10px;
     }
 }
 

@@ -1,5 +1,6 @@
 package com.group3.torikago.Torikago.Shop.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -16,6 +17,8 @@ public class ProductDTO {
     private String productName;
     private String productType;
     private String image;
+//    private String image2;
+//    private String image3;
     @NotNull(message = "*Required")
     private Double unitPrice;
     @NotNull(message = "*Required")

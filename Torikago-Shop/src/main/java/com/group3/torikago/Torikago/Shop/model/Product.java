@@ -27,12 +27,12 @@ public class Product{
     private String productName;
     @Column(name = "product_type", length = 15)
     private String productType;
-    @Column(name = "image", length = 45)
+    @Column(name = "image", length = 64)
     private String image;
-    @Column(name = "extra_image_2", length = 45)
-    private String image2;
-    @Column(name = "extra_image_3", length = 45)
-    private String image3;
+//    @Column(name = "extra_image_2", length = 45)
+//    private String image2;
+//    @Column(name = "extra_image_3", length = 45)
+//    private String image3;
     @Column(name = "unit_price", length = 10)
     private double unitPrice;
     @Column(name = "unit_in_stock", length = 10)
