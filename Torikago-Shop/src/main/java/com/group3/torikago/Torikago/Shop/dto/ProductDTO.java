@@ -1,5 +1,7 @@
 package com.group3.torikago.Torikago.Shop.dto;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -10,18 +12,20 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @Builder
 public class ProductDTO {
-    @NotEmpty(message = "*Product name is required")
+    @NotEmpty(message = "*Required")
     @Length(max = 80,message = "No more than 80 characters")
     private String productName;
     private String productType;
     private String image;
-    //    @NotNull(message = "*Product price is required")
-//    @Min(value = 0, message = "Price must be greater than or equal to 0")
+//    private String image2;
+//    private String image3;
+    @NotNull(message = "*Required")
     private Double unitPrice;
-
+    @NotNull(message = "*Required")
+    @Min(value = 1, message = "*Greater or equal to 1")
     private int unitsInStock;
-    @Min(value = 0)
     private int unitsOnOrder;
-
+    @NotEmpty(message = "*Required")
+    @Length(max = 20,message = "No more than 20 characters")
     private String status;
 }

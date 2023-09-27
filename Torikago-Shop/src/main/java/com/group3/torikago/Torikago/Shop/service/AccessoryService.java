@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AccessoryService {
     List<AccessoryDTO> findAllAccessories();
-    AccessoryDetail saveProduct(AccessoryDTO accessoryDTO, ProductDTO productDTO);
+    AccessoryDetail saveAccessory(AccessoryDTO accessoryDTO, ProductDTO productDTO);
 
     void updateAccessory(AccessoryDTO accessoryDTO);
 

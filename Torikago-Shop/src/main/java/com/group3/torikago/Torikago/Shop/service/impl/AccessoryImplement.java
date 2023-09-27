@@ -25,7 +25,7 @@ public class AccessoryImplement implements AccessoryService {
     }
 
     @Override
-    public AccessoryDetail saveProduct(AccessoryDTO accessoryDTO,ProductDTO productDTO) {
+    public AccessoryDetail saveAccessory(AccessoryDTO accessoryDTO,ProductDTO productDTO) {
         AccessoryDetail result = mapToAccessory(accessoryDTO, productDTO);
         accessoryRepository.save(result);
         return result;
