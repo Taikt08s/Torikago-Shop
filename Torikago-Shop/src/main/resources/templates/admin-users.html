@@ -10,7 +10,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Admin</title>
-    <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
     <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -59,10 +58,10 @@
         </div>
         <div class="container-fluid">
             <div class="table-container" style="padding-bottom: 500px;">
-                <h1 class="h3 mb-2 text-gray-800">Torikago Products</h1>
+                <h1 class="h3 mb-2 text-gray-800">Torikago Users</h1>
                 <div class="card shadow mb-4">
                     <div class="d-flex justify-content-between card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary mt-2">All products</h6>
+                        <h6 class="m-0 font-weight-bold text-primary mt-2">All Users</h6>
                         <form
                                 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
@@ -90,13 +89,11 @@
                                 <table class="table table-striped" id="dataTable">
                                     <thead>
                                     <tr>
-                                        <th>Product ID</th>
-                                        <th>Type</th>
+                                        <th>User ID</th>
                                         <th>Name</th>
+                                        <th>Email</th>
                                         <th>Image</th>
-                                        <th>Price</th>
-                                        <th>In stock</th>
-                                        <th>On order</th>
+                                        <th>Role</th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                         <th>Remove</th>
@@ -104,28 +101,24 @@
                                     </thead>
                                     <tfoot>
                                     <tr>
-                                        <th>Product ID</th>
-                                        <th>Type</th>
+                                        <th>User ID</th>
                                         <th>Name</th>
+                                        <th>Email</th>
                                         <th>Image</th>
-                                        <th>Price</th>
-                                        <th>In stock</th>
-                                        <th>On order</th>
+                                        <th>Role</th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                         <th>Remove</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr th:each="product : ${products}">
-                                        <td th:text="${product.id}"></td>
-                                        <td th:text="${product.productType}"></td>
-                                        <td th:text="${product.productName}"></td>
-                                        <td> <img th:src="@{${product.getMainImagePath()}}" alt="Product Image" width="100"/></td>
-                                        <td th:text="${product.unitPrice}+ ' VND'"></td>
-                                        <td th:text="${product.unitsInStock}"></td>
-                                        <td th:text="${product.unitsOnOrder}"></td>
-                                        <th th:text="${product.status}"></th>
+                                    <tr th:each="user,role : ${users}">
+                                        <td th:text="${user.getId()}"></td>
+                                        <td th:text="${user.userName}"></td>
+                                        <td th:text="${user.email}"></td>
+                                        <td> <img th:src="@{${user}}" alt="User Image" width="100"/></td>
+                                        <td th:text="${user.getRole()}"></td>
+                                        <td th:text="${user.isEnabled()}"></td>
                                         <th><a href="#" class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-pen-square"></i>
@@ -133,9 +126,7 @@
                                             <span class="text">Edit</span>
                                         </a>
                                         </th>
-                                        <th><a th:href="@{/admin/product-table/{productId}/delete(productId=${product.id})}" 
-                                               class="btn btn-danger btn-icon-split"
-                                               onclick="return confirm('Delete this product?')">
+                                        <th><a href="#" class="btn btn-danger btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-trash"></i>
                                         </span>
