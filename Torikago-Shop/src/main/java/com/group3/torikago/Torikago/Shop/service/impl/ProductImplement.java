@@ -37,9 +37,13 @@ public class ProductImplement implements ProductService {
 
     private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO=ProductDTO.builder()
+                .id(product.getId())
                 .productName(product.getProductName())
                 .productType(product.getProductType())
-                .image(product.getImage())
+                .mainImage(product.getImageMain())
+                .extraImage1(product.getExtraImage1())
+                .extraImage2(product.getExtraImage2())
+                .extraImage3(product.getExtraImage3())
                 .status(product.getStatus())
                 .unitPrice(product.getUnitPrice())
                 .unitsOnOrder(product.getUnitsOnOrder())
@@ -62,6 +66,11 @@ public class ProductImplement implements ProductService {
         productRepository.save(product);
     }
 
+    
+    @Override
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+    }
 
 
     @Override
@@ -73,9 +82,13 @@ public class ProductImplement implements ProductService {
 
     public Product mapToProduct(ProductDTO productDTO) {
         Product product =Product.builder()
+                .id(productDTO.getId())
                 .productName(productDTO.getProductName())
                 .productType(productDTO.getProductType())
-                .image(productDTO.getImage())
+                .imageMain(productDTO.getMainImage())
+                .extraImage1(productDTO.getExtraImage1())
+                .extraImage2(productDTO.getExtraImage2())
+                .extraImage3(productDTO.getExtraImage3())
                 .status(productDTO.getStatus())
                 .unitPrice(productDTO.getUnitPrice())
                 .unitsOnOrder(productDTO.getUnitsOnOrder())

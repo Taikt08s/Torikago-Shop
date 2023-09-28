@@ -26,7 +26,7 @@ public interface UserService {
 
     boolean verify(String code);
 
-
+    List<User> listAllUsers();
     List<Role> listRoles();
     User get(Long id);
 

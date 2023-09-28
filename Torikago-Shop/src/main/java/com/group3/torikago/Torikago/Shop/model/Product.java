@@ -6,7 +6,9 @@ package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.OneToOne;
+
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,24 +20,26 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Table(name = "Product")
-public class Product{
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
-    private Long productId;
+    @Column(name = "id")
+    private Long id;
     @Column(name = "product_name", length = 80)
     private String productName;
     @Column(name = "product_type", length = 15)
     private String productType;
-    @Column(name = "image", length = 64)
-    private String image;
-//    @Column(name = "extra_image_2", length = 45)
-//    private String image2;
-//    @Column(name = "extra_image_3", length = 45)
-//    private String image3;
+    @Column(name = "imageMain", length = 45)
+    private String imageMain;
+    @Column(name = "extra_image1", length = 45, nullable = false)
+    private String extraImage1;
+    @Column(name = "extra_image2", length = 45, nullable = false)
+    private String extraImage2;
+    @Column(name = "extra_image3", length = 45, nullable = false)
+    private String extraImage3;
     @Column(name = "unit_price", length = 10)
     private double unitPrice;
-    @Column(name = "unit_in_stock", length = 10)
+    @Column(name = "unit_in_stock", length = 11)
     private int unitsInStock;
     @Column(name = "unit_on_order", length = 10)
     private int unitsOnOrder;
@@ -47,6 +51,8 @@ public class Product{
     private BirdCageDetail birdCageDetail;
     @OneToOne(mappedBy = "accessory")
     private AccessoryDetail accessoryDetail;
+
+
 }
 
 

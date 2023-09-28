@@ -7,8 +7,11 @@ import com.group3.torikago.Torikago.Shop.model.AccessoryDetail;
 import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.service.AccessoryService;
+import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
+import com.group3.torikago.Torikago.Shop.service.UserService;
+import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
+
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class AdminController {
@@ -39,12 +39,14 @@ public class AdminController {
     }
 
     private ProductService productService;
+    private UserService userService;
     private BirdCageService birdCageService;
     private AccessoryService accessoryService;
 
     @Autowired
-    public AdminController(ProductService productService, BirdCageService birdCageService, AccessoryService accessoryService) {
+    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService,AccessoryService accessoryService) {
         this.productService = productService;
+        this.userService = userService;
         this.birdCageService = birdCageService;
         this.accessoryService = accessoryService;
     }
@@ -79,23 +81,23 @@ public class AdminController {
         return "bird-cage";
     }
     @PostMapping("/admin/product-table/bird-cage/add")
-    public String saveBirdCage(@RequestParam("file-input") MultipartFile multipartFile,
+    public String saveBirdCage(@RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
                                @ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO,
                                BindingResult birdCageBindingResult,
                                @ModelAttribute("product") @Valid ProductDTO productDTO,
-                               BindingResult productBindingResult
-    ) throws IOException {
-//,
-//        @RequestParam("extra-image") MultipartFile[] extraMultipartFile
-        String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        productDTO.setImage(filename);
-//        int count = 0;
-//        for (MultipartFile extraMultipart : extraMultipartFile) {
-//            String extraImageName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
-//            if (count == 0) productDTO.setImage2(extraImageName);
-//            if (count == 1) productDTO.setImage3(extraImageName);
-//            count++;
-//        }
+                               BindingResult productBindingResult) throws IOException {
+
+//        String mainImageName = StringUtils.cleanPath(mainMultipartFile.getOriginalFilename());
+//        productDTO.setMainImage(mainImageName);
+        int count = 0;
+        for (MultipartFile extraMultipart : extraMultipartFiles) {
+            String extraImageName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
+            if (count == 0) productDTO.setMainImage(extraImageName);
+            if (count == 1) productDTO.setExtraImage1(extraImageName);
+            if (count == 2) productDTO.setExtraImage2(extraImageName);
+            if (count == 3) productDTO.setExtraImage3(extraImageName);
+            count++;
+        }
 
         if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
             // If there are validation errors, return to the form page with errors
@@ -106,23 +108,12 @@ public class AdminController {
 
         BirdCageDetail savedProduct = birdCageService.saveBirdCage(birdCageDTO, productDTO);
 
-        String uploadDir = "./img/product-img/" + savedProduct.getId();
-        Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
+        String uploadDir = "./product-images/" + savedProduct.getId();
+
+        for (MultipartFile extraMultipart : extraMultipartFiles) {
+            String fileName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
+            FileUploadUtil.saveFile(uploadDir, extraMultipart, fileName);
         }
-        try {
-            InputStream inputStream = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(filename);
-            System.out.println(filePath.toString());
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new IOException("Couldn't saved the uploaded file:" + filename);
-        }
-//        for (MultipartFile extraMultipart : extraMultipartFile) {
-//            String fileName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
-//            FileUploadUtil.saveFile(uploadDir, extraMultipart, fileName);
-//        }
         return "redirect:/admin";
     }
     @GetMapping("/admin/product-table/accessory/add")
@@ -167,5 +158,19 @@ public class AdminController {
 //        return "redirect:/admin";
 //    }
 
+    @GetMapping("/admin/product-table/{productId}/delete")
+    @RolesAllowed({"ADMIN"})
+    public String deleteBirdCage(@PathVariable("productId") Long productId) {
+        productService.deleteProduct(productId);
+        return "redirect:/admin/product-table";
+    }
+
+    @GetMapping("/admin/users-table")
+    @RolesAllowed({"ADMIN"})
+    public String getListUsers(Model model) {
+        List<User> users = userService.listAllUsers();
+        model.addAttribute("users", users);
+        return "admin-users";
+    }
 }
 

@@ -2,6 +2,7 @@ package com.group3.torikago.Torikago.Shop.service.impl;
 
 import com.group3.torikago.Torikago.Shop.dto.RegisterDTO;
 import com.group3.torikago.Torikago.Shop.exception.UserNotFoundException;
+import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.Role;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.repository.RoleRepository;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserImplement implements UserService {
@@ -103,6 +105,11 @@ public class UserImplement implements UserService {
     }
 
     @Override
+    public List<User> listAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
 
     public List<Role> listRoles() {
         return roleRepository.findAll();
@@ -112,8 +119,6 @@ public class UserImplement implements UserService {
     public User get(Long id) {
         return userRepository.findById(id).get();
     }
-
-
 
 
     public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
