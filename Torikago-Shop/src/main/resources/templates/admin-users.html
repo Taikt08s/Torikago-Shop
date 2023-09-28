@@ -83,7 +83,7 @@
                             <span class="text">Create</span>
                         </a>
                     </div>
-                    <form method="post" th:action="@{/admin/product-table}" th:object="${products}">
+                    <form method="post" th:action="@{/admin/users-table}" th:object="${users}">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped" id="dataTable">
@@ -112,7 +112,7 @@
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr th:each="user,role : ${users}">
+                                    <tr th:each="user : ${users}">
                                         <td th:text="${user.getId()}"></td>
                                         <td th:text="${user.userName}"></td>
                                         <td th:text="${user.email}"></td>

@@ -31,11 +31,11 @@ public class Product {
     private String productType;
     @Column(name = "imageMain", length = 45)
     private String imageMain;
-    @Column(name = "extra_image1", length = 45)
+    @Column(name = "extra_image1", length = 45, nullable = false)
     private String extraImage1;
-    @Column(name = "extra_image2", length = 45)
+    @Column(name = "extra_image2", length = 45, nullable = false)
     private String extraImage2;
-    @Column(name = "extra_image3", length = 45)
+    @Column(name = "extra_image3", length = 45, nullable = false)
     private String extraImage3;
     @Column(name = "unit_price", length = 10)
     private double unitPrice;

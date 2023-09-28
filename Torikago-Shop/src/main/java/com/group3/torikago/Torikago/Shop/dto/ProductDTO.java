@@ -19,13 +19,13 @@ public class ProductDTO {
     @Length(max = 80, message = "No more than 80 characters")
     private String productName;
     private String productType;
-    @Getter
+
     private String mainImage;
-    @Getter
+
     private String extraImage1;
-    @Getter
+
     private String extraImage2;
-    @Getter
+
     private String extraImage3;
     @NotNull(message = "*Required")
     private Double unitPrice;
@@ -36,22 +36,6 @@ public class ProductDTO {
     @NotEmpty(message = "*Required")
     @Length(max = 20, message = "No more than 20 characters")
     private String status;
-
-    public void setMainImage(String mainImage) {
-        this.mainImage = mainImage;
-    }
-
-    public void setExtraImage1(String extraImage1) {
-        this.extraImage1 = extraImage1;
-    }
-
-    public void setExtraImage2(String extraImage2) {
-        this.extraImage2 = extraImage2;
-    }
-
-    public void setExtraImage3(String extraImage3) {
-        this.extraImage3 = extraImage3;
-    }
 
     @Transient
     public String getMainImagePath() {

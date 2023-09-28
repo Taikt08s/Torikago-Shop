@@ -4,8 +4,10 @@ import com.group3.torikago.Torikago.Shop.dto.BirdCageDTO;
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.Product;
+import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
+import com.group3.torikago.Torikago.Shop.service.UserService;
 import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
@@ -34,11 +37,14 @@ public class AdminController {
 
     private ProductService productService;
 
+    private UserService userService;
+
     private BirdCageService birdCageService;
 
     @Autowired
-    public AdminController(ProductService productService, BirdCageService birdCageService) {
+    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService) {
         this.productService = productService;
+        this.userService = userService;
         this.birdCageService = birdCageService;
     }
 
@@ -96,12 +102,20 @@ public class AdminController {
         }
         return "redirect:/admin";
     }
+
     @GetMapping("/admin/product-table/{productId}/delete")
     @RolesAllowed({"ADMIN"})
     public String deleteBirdCage(@PathVariable("productId") Long productId) {
-            productService.deleteProduct(productId);
+        productService.deleteProduct(productId);
         return "redirect:/admin/product-table";
     }
 
+    @GetMapping("/admin/users-table")
+    @RolesAllowed({"ADMIN"})
+    public String getListUsers(Model model) {
+        List<User> users = userService.listAllUsers();
+        model.addAttribute("users", users);
+        return "admin-users";
+    }
 }
 
