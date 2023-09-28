@@ -47,7 +47,7 @@
                 <span>Managers</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" th:href="@{/admin/users-table}">
                 <i class="fas fa-fw fa-user-shield"></i>
                 <span>Users</span></a>
         </li>
@@ -88,10 +88,10 @@
                                                   enctype="multipart/form-data">
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area1">
-                                                        <label>Drag & Drop or Click to Upload Picture 1</label>
-                                                        <label th:if="${#fields.hasErrors('product.mainImage')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.mainImage}"></label>
+                                                        <label>Drag & Drop or Click to Upload Picture Main</label>
+<!--                                                        <label th:if="${#fields.hasErrors('mainImage')}"-->
+<!--                                                               class="text-danger"-->
+<!--                                                               th:errors="*{product.mainImage}"></label>-->
                                                         <input type="file"
                                                                accept="image/png, image/gif, image/jpeg"
                                                                id="file-input1"
