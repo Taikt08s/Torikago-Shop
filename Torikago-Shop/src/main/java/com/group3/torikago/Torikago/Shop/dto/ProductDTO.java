@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @Builder
 public class ProductDTO {
-    private Long productId;
+    private Long id;
     @NotEmpty(message = "*Required")
     @Length(max = 80, message = "No more than 80 characters")
     private String productName;
@@ -55,31 +55,31 @@ public class ProductDTO {
 
     @Transient
     public String getMainImagePath() {
-        if (productId == null || mainImage == null) {
+        if (id == null || mainImage == null) {
             return null;
         }
-        return "/product-images/" + productId + "/" + mainImage;
+        return "/product-images/" + id + "/" + mainImage;
     }
 
     @Transient
     public String getExtraImagePath1() {
-        if (productId == null || extraImage1 == null) {
+        if (id == null || extraImage1 == null) {
             return null;
         }
-        return "/product-images/" + productId + "/" + extraImage1;
+        return "/product-images/" + id + "/" + extraImage1;
     }
     @Transient
     public String getExtraImagePath2() {
-        if (productId == null || extraImage2 == null) {
+        if (id == null || extraImage2 == null) {
             return null;
         }
-        return "/product-images/" + productId + "/" + extraImage2;
+        return "/product-images/" + id + "/" + extraImage2;
     }
     @Transient
     public String getExtraImagePath3() {
-        if (productId == null || extraImage3 == null) {
+        if (id == null || extraImage3 == null) {
             return null;
         }
-        return "/product-images/" + productId + "/" + extraImage3;
+        return "/product-images/" + id + "/" + extraImage3;
     }
 }

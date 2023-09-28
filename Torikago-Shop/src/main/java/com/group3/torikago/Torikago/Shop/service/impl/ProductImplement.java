@@ -37,7 +37,7 @@ public class ProductImplement implements ProductService {
 
     private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO=ProductDTO.builder()
-                .productId(product.getProductId())
+                .id(product.getId())
                 .productName(product.getProductName())
                 .productType(product.getProductType())
                 .mainImage(product.getImageMain())
@@ -66,6 +66,11 @@ public class ProductImplement implements ProductService {
         productRepository.save(product);
     }
 
+    
+    @Override
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+    }
 
 
     @Override
@@ -77,7 +82,7 @@ public class ProductImplement implements ProductService {
 
     public Product mapToProduct(ProductDTO productDTO) {
         Product product =Product.builder()
-                .productId(productDTO.getProductId())
+                .id(productDTO.getId())
                 .productName(productDTO.getProductName())
                 .productType(productDTO.getProductType())
                 .imageMain(productDTO.getMainImage())

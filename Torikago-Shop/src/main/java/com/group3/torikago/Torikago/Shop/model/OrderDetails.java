@@ -21,10 +21,10 @@ public class OrderDetails {
     private double unitPrice; 
     @Id
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private BirdCageOrder order;
     @Id
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product ;
 }

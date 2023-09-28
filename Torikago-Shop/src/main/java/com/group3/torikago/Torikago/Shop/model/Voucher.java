@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "Voucher")
 public class Voucher {
     @Id
-    @Column(name = "voucher_id")  
-    private Long voucherID;
+    @Column(name = "id")  
+    private Long id;
     @Column(name = "voucher_name",length = 50)  
     private String voucherName;
     @Column(name = "voucher_value",length = 5)  

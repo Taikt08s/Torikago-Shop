@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class AdminController {
@@ -94,6 +95,12 @@ public class AdminController {
             FileUploadUtil.saveFile(uploadDir, extraMultipart, fileName);
         }
         return "redirect:/admin";
+    }
+    @GetMapping("/admin/product-table/{productId}/delete")
+    @RolesAllowed({"ADMIN"})
+    public String deleteBirdCage(@PathVariable("productId") Long productId) {
+            productService.deleteProduct(productId);
+        return "redirect:/admin/product-table";
     }
 
 }
