@@ -7,10 +7,12 @@ import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.repository.AccessoryRepository;
 import com.group3.torikago.Torikago.Shop.service.AccessoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class AccessoryImplement implements AccessoryService {
     private AccessoryRepository accessoryRepository;
     @Autowired

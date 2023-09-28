@@ -139,7 +139,7 @@ public class AdminController {
     public String saveAccessory(@ModelAttribute("accessoryDetail") @Valid AccessoryDTO accessoryDTO, BindingResult result,
                                 @ModelAttribute("product") @Valid ProductDTO productDTO, BindingResult accessoryBindingResult,
                                 BindingResult productBindingResult) {
-        if (accessoryBindingResult.hasErrors() == productBindingResult.hasErrors()) {
+        if (accessoryBindingResult.hasErrors() || productBindingResult.hasErrors()) {
             // If there are validation errors, return to the form page with errors
             return "accessory";
         }
