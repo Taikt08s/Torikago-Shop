@@ -30,9 +30,6 @@ public interface UserService {
     List<Role> listRoles();
     User get(Long id);
 
-
-
-
     void updateResetPasswordToken(String token ,String email) throws UserNotFoundException;
 
 }

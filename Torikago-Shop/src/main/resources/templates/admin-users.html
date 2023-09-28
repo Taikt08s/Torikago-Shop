@@ -44,7 +44,7 @@
                 <span>Managers</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" th:href="@{/admin/users-table}">
                 <i class="fas fa-fw fa-user-shield"></i>
                 <span>Users</span></a>
         </li>
@@ -113,12 +113,18 @@
                                     </tfoot>
                                     <tbody>
                                     <tr th:each="user : ${users}">
-                                        <td th:text="${user.getId()}"></td>
+                                        <td th:text="${user.id}"></td>
                                         <td th:text="${user.userName}"></td>
                                         <td th:text="${user.email}"></td>
                                         <td> <img th:src="@{${user}}" alt="User Image" width="100"/></td>
                                         <td th:text="${user.getRole()}"></td>
-                                        <td th:text="${user.isEnabled()}"></td>
+                                        <td>
+                                            <form th:action="@{'/admin/toggleUserStatus/' + ${user.id}}" method="post">
+                                                <button type="submit" class="btn btn-sm btn-primary">
+                                                    Toggle Status
+                                                </button>
+                                            </form>
+                                        </td>
                                         <th><a href="#" class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-pen-square"></i>

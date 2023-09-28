@@ -15,6 +15,8 @@ import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -53,9 +55,16 @@ public class AdminController {
 
     @GetMapping("/admin/product-table")
     @RolesAllowed({"ADMIN"})
-    public String getListProduct(Model model) {
-        List<ProductDTO> products = productService.findAllProducts();
-        model.addAttribute("products", products);
+    public String getListProduct(Model model,
+                                 @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+                                 @RequestParam(name = "pageSize", defaultValue = "8") int pageSize,
+                                 @RequestParam(name = "sortField", defaultValue = "id") String sortField,
+                                 @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
+        // Use these parameters to fetch a paginated and sorted list of products
+        Page<ProductDTO> productsPage = productService.findPaginatedProducts(pageNumber, pageSize, sortField, sortDir);
+        model.addAttribute("productsPage", productsPage);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
         return "admin-product";
     }
 

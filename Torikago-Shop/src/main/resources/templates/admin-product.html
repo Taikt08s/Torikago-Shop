@@ -90,24 +90,55 @@
                                 <table class="table table-striped" id="dataTable">
                                     <thead>
                                     <tr>
-                                        <th>Product ID</th>
+                                        <th>
+                                            <a th:href="@{/admin/product-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Product ID
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
                                         <th>Type</th>
-                                        <th>Name</th>
+                                        <th>
+                                            <a th:href="@{/admin/product-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Name
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
                                         <th>Image</th>
-                                        <th>Price(VND)</th>
-                                        <th>In stock</th>
-                                        <th>On order</th>
+                                        <th>
+                                            <a th:href="@{/admin/product-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Price(VND)
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a th:href="@{/admin/product-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                In stock
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a th:href="@{/admin/product-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                On order
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                         <th>Remove</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="product : ${products}">
+                                    <tr th:each="product : ${productsPage.content}">
                                         <td th:text="${product.id}"></td>
                                         <td th:text="${product.productType}"></td>
                                         <td th:text="${product.productName}"></td>
-                                        <td> <img th:src="@{${product.getMainImagePath()}}" alt="Product Image" width="100"/></td>
+                                        <td><img th:src="@{${product.getMainImagePath()}}" alt="Product Image"
+                                                 width="100"/></td>
                                         <td th:text="${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 1, 'POINT')}"></td>
                                         <td th:text="${product.unitsInStock}"></td>
                                         <td th:text="${product.unitsOnOrder}"></td>
@@ -119,14 +150,15 @@
                                             <span class="text">Edit</span>
                                         </a>
                                         </th>
-                                        <th><a th:href="@{/admin/product-table/{productId}/delete(productId=${product.id})}" 
+                                        <th>
+                                            <a th:href="@{/admin/product-table/{productId}/delete(productId=${product.id})}"
                                                class="btn btn-danger btn-icon-split"
                                                onclick="return confirm('Delete this product?')">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-trash"></i>
                                         </span>
-                                            <span class="text">Remove</span>
-                                        </a>
+                                                <span class="text">Remove</span>
+                                            </a>
                                         </th>
                                     </tr>
                                     </tbody>
@@ -134,6 +166,50 @@
                             </div>
                         </div>
                     </form>
+                    <nav aria-label="Page navigation">
+<!--                        This code represents the "First" pagination link.-->
+<!--                        ${productsPage.first} is a Thymeleaf expression that checks if you are on the first page. -->
+<!--                        If you are on the first page, the page-item disabled class is applied to the <li> element to make it appear disabled.-->
+<!--                        If you are not on the first page (th:if="${not productsPage.first}"), -->
+<!--                        a link is generated with th:href that takes you to the first page while carrying over the sortField and sortDir parameters for sorting. -->
+<!--                        The aria-label attribute provides an accessible label for screen readers.-->
+<!--                        The &laquo;&laquo; is the double left arrow icon, indicating the "First" page.-->
+                        <ul class="pagination justify-content-center">
+                            <li th:class="${productsPage.first} ? 'page-item disabled' : 'page-item'">
+                                <a th:if="${not productsPage.first}"
+                                   th:href="@{/admin/product-table(pageNumber=1, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:class="${productsPage.first} ? 'page-item disabled' : 'page-item'">
+                                <a th:if="${not productsPage.first}"
+                                   th:href="@{/admin/product-table(pageNumber=${productsPage.number + 1}, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(1, productsPage.totalPages)}"
+                                th:class="${i == productsPage.number + 1} ? 'page-item active' : 'page-item'">
+                                <a th:href="@{/admin/product-table(pageNumber=${i}, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" th:text="${i}"></a>
+                            </li>
+                            <li th:class="${productsPage.last} ? 'page-item disabled' : 'page-item'">
+                                <a th:if="${not productsPage.last}"
+                                   th:href="@{/admin/product-table(pageNumber=${productsPage.number + 2}, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li th:class="${productsPage.last} ? 'page-item disabled' : 'page-item'">
+                                <a th:if="${not productsPage.last}"
+                                   th:href="@{/admin/product-table(pageNumber=${productsPage.totalPages}, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
