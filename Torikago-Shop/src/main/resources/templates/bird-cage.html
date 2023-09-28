@@ -88,31 +88,41 @@
                                                   enctype="multipart/form-data">
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area">
-                                                        <label>Drag & Drop or Click to Upload Picture 1</label>
+                                                        <label>Drag & Drop or Click to Upload Main Picture</label>
                                                         <input type="file"
                                                                accept="image/png, image/gif, image/jpeg" id="file-input"
-                                                               name="file-input">
-                                                        <img alt="Image Preview" id="thumbnail-extra1"
+                                                               name="primary-image">
+                                                        <img alt="Image Preview" id="thumbnail"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
                                                 </div>
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area2">
-                                                        <label>Drag & Drop or Click to Upload Picture 2</label>
+                                                        <label>Drag & Drop or Click to Upload Picture 1</label>
                                                         <input  type="file"
                                                                 accept="image/png, image/gif, image/jpeg" id="file-input2"
+                                                                name="extra-image">
+                                                        <img alt="Image Preview" id="thumbnail-extra1"
+                                                             style="max-width: 100%; max-height: 600px; display: none;">
+                                                    </div>
+                                                </div>
+                                                <div class="p-5">
+                                                    <div class="dashed-box" id="image-drop-area3">
+                                                        <label>Drag & Drop or Click to Upload Picture 2</label>
+                                                        <input  type="file"
+                                                                accept="image/png, image/gif, image/jpeg" id="file-input3"
                                                                 name="extra-image">
                                                         <img alt="Image Preview" id="thumbnail-extra2"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
                                                 </div>
                                                 <div class="p-5">
-                                                    <div class="dashed-box" id="image-drop-area3">
+                                                    <div class="dashed-box" id="image-drop-area4">
                                                         <label>Drag & Drop or Click to Upload Picture 3</label>
                                                         <input  type="file"
-                                                                accept="image/png, image/gif, image/jpeg" id="file-input3"
+                                                                accept="image/png, image/gif, image/jpeg" id="file-input4"
                                                                 name="extra-image">
-                                                        <img alt="Image Preview" id="thumbnail"
+                                                        <img alt="Image Preview" id="thumbnail-extra3"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
                                                 </div>
@@ -217,7 +227,7 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.barSpacing')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.barSpacing}"></label>
-                                                        <input type="number"
+                                                        <input type="text"
                                                                class="form-control form-control-user"
                                                                id="barSpacing"
                                                                name="barSpacing"
@@ -283,13 +293,15 @@
     const dashedBox1 = document.getElementById("image-drop-area");
     const dashedBox2 = document.getElementById("image-drop-area2");
     const dashedBox3 = document.getElementById("image-drop-area3");
+    const dashedBox4 = document.getElementById("image-drop-area4");
     const fileInput1 = document.getElementById("file-input");
     const fileInput2 = document.getElementById("file-input2");
     const fileInput3 = document.getElementById("file-input3");
-    const thumbnailExtra3 = document.getElementById("thumbnail");
-    const thumbnailExtra1 = document.getElementById("thumbnail-extra1");
-    const thumbnailExtra2 = document.getElementById("thumbnail-extra2");
-
+    const fileInput4 = document.getElementById("file-input4");
+    const thumbnailExtra1 = document.getElementById("thumbnail");
+    const thumbnailExtra2 = document.getElementById("thumbnail-extra1");
+    const thumbnailExtra3 = document.getElementById("thumbnail-extra2");
+    const thumbnailExtra4 = document.getElementById("thumbnail-extra3");
     function handleFiles(files, thumbnail) {
         for (const file of files) {
             if (file.type.startsWith("image/")) {
@@ -393,6 +405,36 @@
 
         if (files.length > 0) {
             handleFiles(files, thumbnailExtra3);
+        }
+    });
+
+    dashedBox4.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dashedBox4.classList.add("dragover");
+    });
+
+    dashedBox4.addEventListener("dragleave", () => {
+        dashedBox4.classList.remove("dragover");
+    });
+
+    dashedBox4.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dashedBox4.classList.remove("dragover");
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFiles(files, thumbnailExtra4);
+        }
+    });
+
+    dashedBox4.addEventListener("click", () => {
+        fileInput4.click();
+    });
+
+    fileInput4.addEventListener("change", (e) => {
+        const files = e.target.files;
+
+        if (files.length > 0) {
+            handleFiles(files, thumbnailExtra4);
         }
     });
     tinymce.init({

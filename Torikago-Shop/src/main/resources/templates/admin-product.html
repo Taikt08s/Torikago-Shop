@@ -54,21 +54,11 @@
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="dropdown-item" th:href="@{/logout}" data-toggle="modal" data-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
-                        </a>
-                    </li>
-                </ul>
+
             </nav>
         </div>
         <div class="container-fluid">
-            <div class="table-container" style="padding-bottom: 540px;">
+            <div class="table-container" style="padding-bottom: 500px;">
                 <h1 class="h3 mb-2 text-gray-800">Torikago Products</h1>
                 <div class="card shadow mb-4">
                     <div class="d-flex justify-content-between card-header py-3">
@@ -103,6 +93,7 @@
                                         <th>Product ID</th>
                                         <th>Type</th>
                                         <th>Name</th>
+                                        <th>Image</th>
                                         <th>Price</th>
                                         <th>In stock</th>
                                         <th>On order</th>
@@ -116,6 +107,7 @@
                                         <th>Product ID</th>
                                         <th>Type</th>
                                         <th>Name</th>
+                                        <th>Image</th>
                                         <th>Price</th>
                                         <th>In stock</th>
                                         <th>On order</th>
@@ -125,10 +117,11 @@
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr th:each="product,productID : ${products}">
-                                        <td scope="row" th:text="${productID.index + 1}"></td>
+                                    <tr th:each="product : ${products}">
+                                        <td th:text="${product.getProductId()}"></td>
                                         <td th:text="${product.productType}"></td>
                                         <td th:text="${product.productName}"></td>
+                                        <td> <img th:src="@{${product.getExtraImagePath1()}}" alt="Product Image" width="100"/></td>
                                         <td th:text="${product.unitPrice}+ ' VND'"></td>
                                         <td th:text="${product.unitsInStock}"></td>
                                         <td th:text="${product.unitsOnOrder}"></td>
