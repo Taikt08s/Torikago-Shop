@@ -87,12 +87,12 @@
                                                   th:action="@{/admin/product-table/bird-cage/add}"
                                                   enctype="multipart/form-data">
                                                 <div class="p-5">
-                                                    <div class="dashed-box" id="image-drop-area">
-                                                        <label>Drag & Drop or Click to Upload Main Picture</label>
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg" id="file-input"
-                                                               name="primary-image">
-                                                        <img alt="Image Preview" id="thumbnail"
+                                                    <div class="dashed-box" id="image-drop-area1">
+                                                        <label>Drag & Drop or Click to Upload Picture 1</label>
+                                                        <input  type="file"
+                                                                accept="image/png, image/gif, image/jpeg" id="file-input1"
+                                                                name="extra-image">
+                                                        <img alt="Image Preview" id="thumbnail-main"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
                                                 </div>
@@ -290,15 +290,15 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-    const dashedBox1 = document.getElementById("image-drop-area");
+    const dashedBox1 = document.getElementById("image-drop-area1");
     const dashedBox2 = document.getElementById("image-drop-area2");
     const dashedBox3 = document.getElementById("image-drop-area3");
     const dashedBox4 = document.getElementById("image-drop-area4");
-    const fileInput1 = document.getElementById("file-input");
+    const fileInput1 = document.getElementById("file-input1");
     const fileInput2 = document.getElementById("file-input2");
     const fileInput3 = document.getElementById("file-input3");
     const fileInput4 = document.getElementById("file-input4");
-    const thumbnailExtra1 = document.getElementById("thumbnail");
+    const thumbnailExtra1 = document.getElementById("thumbnail-main");
     const thumbnailExtra2 = document.getElementById("thumbnail-extra1");
     const thumbnailExtra3 = document.getElementById("thumbnail-extra2");
     const thumbnailExtra4 = document.getElementById("thumbnail-extra3");

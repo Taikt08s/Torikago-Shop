@@ -60,21 +60,21 @@ public class AdminController {
     }
 
     @PostMapping("/admin/product-table/bird-cage/add")
-    public String saveBirdCage(@RequestParam("primary-image") MultipartFile mainMultipartFile,
-                               @RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
+    public String saveBirdCage(@RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
                                @ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO,
                                BindingResult birdCageBindingResult,
                                @ModelAttribute("product") @Valid ProductDTO productDTO,
                                BindingResult productBindingResult) throws IOException {
 
-        String mainImageName = StringUtils.cleanPath(mainMultipartFile.getOriginalFilename());
-        productDTO.setMainImage(mainImageName);
+//        String mainImageName = StringUtils.cleanPath(mainMultipartFile.getOriginalFilename());
+//        productDTO.setMainImage(mainImageName);
         int count = 0;
         for (MultipartFile extraMultipart : extraMultipartFiles) {
             String extraImageName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
-            if (count == 0) productDTO.setExtraImage1(extraImageName);
-            if (count == 1) productDTO.setExtraImage2(extraImageName);
-            if (count == 2) productDTO.setExtraImage3(extraImageName);
+            if (count == 0) productDTO.setMainImage(extraImageName);
+            if (count == 1) productDTO.setExtraImage1(extraImageName);
+            if (count == 2) productDTO.setExtraImage2(extraImageName);
+            if (count == 3) productDTO.setExtraImage3(extraImageName);
             count++;
         }
 
