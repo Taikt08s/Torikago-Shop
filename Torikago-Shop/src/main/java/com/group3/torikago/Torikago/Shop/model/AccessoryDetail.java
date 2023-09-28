@@ -22,7 +22,7 @@ public class AccessoryDetail {
     @Column( name ="id")
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product accessory;
     @Column(name = "type_of_accessory", length = 20)
     private String accessoryType;

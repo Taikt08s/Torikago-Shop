@@ -22,7 +22,7 @@ public class BirdCageDetail {
     @Column(name = "id")
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product birdCage;
     @Column(name = "dimension", length = 20)
     private String dimension;

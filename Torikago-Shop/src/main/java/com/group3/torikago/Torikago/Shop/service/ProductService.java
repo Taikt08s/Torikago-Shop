@@ -7,15 +7,11 @@ import com.group3.torikago.Torikago.Shop.model.Product;
 import java.util.List;
 
 public interface ProductService {
-    List<ProductDTO> findAllProductDTOs();
-    
-    List<Product> findAllProducts();
+    List<ProductDTO> findAllProducts();
 
     Product saveProduct(ProductDTO productDTO);
 
     void updateProduct(ProductDTO product);
 
     ProductDTO findProductById(Long productId);
-    
-    void deleteProduct(Long productId);
 }

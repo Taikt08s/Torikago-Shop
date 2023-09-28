@@ -28,11 +28,6 @@ public class BirdCageImplement implements BirdCageService {
 //        BirdCageDetail birdCage=mapToBirdCage(birdCageDTO);
 //        birdCageRepository.save(birdCage);
     }
-    
-    @Override
-    public void deleteBirdCage(Long productId) {
-        birdCageRepository.deleteById(productId);
-    }
 
     private BirdCageDetail mapToBirdCage(BirdCageDTO birdCage, ProductDTO productDTO) {
         ProductImplement productImplement = new ProductImplement();

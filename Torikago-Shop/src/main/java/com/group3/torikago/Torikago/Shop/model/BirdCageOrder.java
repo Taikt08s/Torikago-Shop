@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class BirdCageOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "order_id")
     private Long orderId;
     @Column(name = "order_value",length = 10)
     private double orderValue;  
@@ -37,7 +37,7 @@ public class BirdCageOrder {
     @OneToOne(mappedBy = "orderFeedback")
     private Feedback feedback;
     @OneToOne
-    @JoinColumn(name = "voucher_id", referencedColumnName = "id")
+    @JoinColumn(name = "voucher_id", referencedColumnName = "voucher_id")
     private Voucher voucher;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
