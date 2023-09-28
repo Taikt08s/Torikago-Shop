@@ -89,13 +89,9 @@
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area1">
                                                         <label>Drag & Drop or Click to Upload Picture 1</label>
-                                                        <label th:if="${#fields.hasErrors('product.mainImage')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.mainImage}"></label>
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg"
-                                                               id="file-input1"
-                                                               name="extra-image">
+                                                        <input  type="file"
+                                                                accept="image/png, image/gif, image/jpeg" id="file-input1"
+                                                                name="extra-image">
                                                         <img alt="Image Preview" id="thumbnail-main"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
@@ -103,13 +99,9 @@
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area2">
                                                         <label>Drag & Drop or Click to Upload Picture 1</label>
-                                                        <label th:if="${#fields.hasErrors('product.extraImage1')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.extraImage1}"></label>
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg"
-                                                               id="file-input2"
-                                                               name="extra-image">
+                                                        <input  type="file"
+                                                                accept="image/png, image/gif, image/jpeg" id="file-input2"
+                                                                name="extra-image">
                                                         <img alt="Image Preview" id="thumbnail-extra1"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
@@ -117,13 +109,9 @@
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area3">
                                                         <label>Drag & Drop or Click to Upload Picture 2</label>
-                                                        <label th:if="${#fields.hasErrors('product.extraImage2')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.extraImage2}"></label>
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg"
-                                                               id="file-input3"
-                                                               name="extra-image">
+                                                        <input  type="file"
+                                                                accept="image/png, image/gif, image/jpeg" id="file-input3"
+                                                                name="extra-image">
                                                         <img alt="Image Preview" id="thumbnail-extra2"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
@@ -131,13 +119,9 @@
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area4">
                                                         <label>Drag & Drop or Click to Upload Picture 3</label>
-                                                        <label th:if="${#fields.hasErrors('product.extraImage3')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.extraImage3}"></label>
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg"
-                                                               id="file-input4"
-                                                               name="extra-image">
+                                                        <input  type="file"
+                                                                accept="image/png, image/gif, image/jpeg" id="file-input4"
+                                                                name="extra-image">
                                                         <img alt="Image Preview" id="thumbnail-extra3"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
@@ -322,7 +306,6 @@
     const thumbnailExtra2 = document.getElementById("thumbnail-extra1");
     const thumbnailExtra3 = document.getElementById("thumbnail-extra2");
     const thumbnailExtra4 = document.getElementById("thumbnail-extra3");
-
     function handleFiles(files, thumbnail) {
         for (const file of files) {
             if (file.type.startsWith("image/")) {
@@ -470,7 +453,6 @@
         ],
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
     });
-
     function formatCurrency(input) {
         const value = input.value.replace(/\s+/g, ''); // Remove existing spaces
         input.value = addSpaces(value);

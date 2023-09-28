@@ -94,7 +94,7 @@
                                         <th>Type</th>
                                         <th>Name</th>
                                         <th>Image</th>
-                                        <th>Price</th>
+                                        <th>Price(VND)</th>
                                         <th>In stock</th>
                                         <th>On order</th>
                                         <th>Status</th>
@@ -102,27 +102,13 @@
                                         <th>Remove</th>
                                     </tr>
                                     </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Product ID</th>
-                                        <th>Type</th>
-                                        <th>Name</th>
-                                        <th>Image</th>
-                                        <th>Price</th>
-                                        <th>In stock</th>
-                                        <th>On order</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                    </tfoot>
                                     <tbody>
                                     <tr th:each="product : ${products}">
                                         <td th:text="${product.id}"></td>
                                         <td th:text="${product.productType}"></td>
                                         <td th:text="${product.productName}"></td>
                                         <td> <img th:src="@{${product.getMainImagePath()}}" alt="Product Image" width="100"/></td>
-                                        <td th:text="${product.unitPrice}+ ' VND'"></td>
+                                        <td th:text="${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 1, 'POINT')}"></td>
                                         <td th:text="${product.unitsInStock}"></td>
                                         <td th:text="${product.unitsOnOrder}"></td>
                                         <th th:text="${product.status}"></th>

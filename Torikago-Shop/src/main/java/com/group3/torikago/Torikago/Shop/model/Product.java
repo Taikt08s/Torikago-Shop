@@ -39,7 +39,7 @@ public class Product {
     private String extraImage3;
     @Column(name = "unit_price", length = 10)
     private double unitPrice;
-    @Column(name = "unit_in_stock", length = 10)
+    @Column(name = "unit_in_stock", length = 11)
     private int unitsInStock;
     @Column(name = "unit_on_order", length = 10)
     private int unitsOnOrder;

@@ -26,6 +26,6 @@ public class Role {
     private List<User> users = new ArrayList<>();
     @Override
     public String toString() {
-        return "USER";
+        return name;
     }
 }
