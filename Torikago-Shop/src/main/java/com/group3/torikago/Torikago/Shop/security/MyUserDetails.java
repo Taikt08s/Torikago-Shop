@@ -35,6 +35,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
+        System.out.println("Username: " + user.getUserName());
         return user.getUserName();
     }
 

@@ -27,7 +27,7 @@ public class ForgotPasswordController {
     private JavaMailSender mailSender;
 
     @GetMapping("/forgot_password")
-    public String forogotPasswordForm() {
+    public String forgotPasswordForm() {
         return "forgot-password";
     }
     @PostMapping("/forgot_password")

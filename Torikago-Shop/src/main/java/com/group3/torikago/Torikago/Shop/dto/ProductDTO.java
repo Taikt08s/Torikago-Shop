@@ -19,13 +19,13 @@ public class ProductDTO {
     @Length(max = 80, message = "No more than 80 characters")
     private String productName;
     private String productType;
-    @NotEmpty(message = "*Required")
+//    @NotEmpty(message = "*Required")
     private String mainImage;
-    @NotEmpty(message = "*Required")
+//    @NotEmpty(message = "*Required")
     private String extraImage1;
-    @NotEmpty(message = "*Required")
+//    @NotEmpty(message = "*Required")
     private String extraImage2;
-    @NotEmpty(message = "*Required")
+//    @NotEmpty(message = "*Required")
     private String extraImage3;
     @NotNull(message = "*Required")
     private Double unitPrice;

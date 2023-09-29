@@ -15,10 +15,9 @@ import java.util.List;
 public interface UserService {
 
 
-
     void saveUser(RegisterDTO registerDTO);
 
-    void sendVerificationEmail( String siteURL, User user) throws MessagingException, UnsupportedEncodingException;
+    void sendVerificationEmail(String siteURL, User user) throws MessagingException, UnsupportedEncodingException;
 
     User findByEmail(String email);
 
@@ -27,9 +26,11 @@ public interface UserService {
     boolean verify(String code);
 
     List<User> listAllUsers();
+
     List<Role> listRoles();
+
     User get(Long id);
 
-    void updateResetPasswordToken(String token ,String email) throws UserNotFoundException;
+    void updateResetPasswordToken(String token, String email) throws UserNotFoundException;
 
 }
