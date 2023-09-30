@@ -17,9 +17,34 @@
             rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
+    <script>
+        "use strict";
+        !function() {
+            var t = window.driftt = window.drift = window.driftt || [];
+            if (!t.init) {
+                if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+                t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
+                    t.factory = function(e) {
+                        return function() {
+                            var n = Array.prototype.slice.call(arguments);
+                            return n.unshift(e), t.push(n), t;
+                        };
+                    }, t.methods.forEach(function(e) {
+                    t[e] = t.factory(e);
+                }), t.load = function(t) {
+                    var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+                    var i = document.getElementsByTagName("script")[0];
+                    i.parentNode.insertBefore(o, i);
+                };
+            }
+        }();
+        drift.SNIPPET_VERSION = '0.3.1';
+        drift.load('cd5zcgtmmek9');
+    </script>
 </head>
 <div th:insert="~{user-layout :: header}"></div>
-<body id="page-top" class="bg-gray-200">
+<body class="bg-gray-200">
 <div id="wrapper">
     <div class="container d-flex justify-content-center align-items-center">
         <div class="d-flex align-items-center">
@@ -94,9 +119,6 @@
 
 
 </div>
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
 </body>
 <div th:insert="~{user-layout :: footer}"></div>
 <script src="vendor/jquery/jquery.min.js"></script>
@@ -107,7 +129,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#myCarousel').carousel({interval: 2000}); // Adjust the interval (in milliseconds) for auto sliding
+        $('#myCarousel').carousel({interval: 6000}); // Adjust the interval (in milliseconds) for auto sliding
     });
 </script>
 </html>
