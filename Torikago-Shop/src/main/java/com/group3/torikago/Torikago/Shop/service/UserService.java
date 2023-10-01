@@ -33,4 +33,7 @@ public interface UserService {
 
     void updateResetPasswordToken(String token, String email) throws UserNotFoundException;
 
+    List<Role> getRoles();
+
+    User saveEditAdminUser(User user);
 }
