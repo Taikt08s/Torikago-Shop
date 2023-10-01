@@ -55,6 +55,7 @@ public class AccessoryImplement implements AccessoryService {
         ProductImplement productImplement = new ProductImplement();
         Product product = productImplement.mapToProduct(productDTO);
         AccessoryDetail accessoryDetail=AccessoryDetail.builder()
+                .id(accessoryDTO.getId())
                 .accessory(product)
                 .accessoryType(accessoryDTO.getAccessoryType())
                 .description(accessoryDTO.getDescription())
@@ -63,6 +64,7 @@ public class AccessoryImplement implements AccessoryService {
     }
     private AccessoryDetail mapToAccessory(AccessoryDTO accessoryDTO) {
         AccessoryDetail accessoryDetail=AccessoryDetail.builder()
+                .id(accessoryDTO.getId())
                 .accessory(accessoryDTO.getAccessory())
                 .accessoryType(accessoryDTO.getAccessoryType())
                 .description(accessoryDTO.getDescription())
@@ -72,6 +74,7 @@ public class AccessoryImplement implements AccessoryService {
 
     private AccessoryDTO mapToAccessoryDTO(AccessoryDetail accessoryDetail) {
         AccessoryDTO accessoryDTO = AccessoryDTO.builder()
+                .id(accessoryDetail.getId())
                 .accessory(accessoryDetail.getAccessory())
                 .accessoryType(accessoryDetail.getAccessoryType())
                 .description(accessoryDetail.getDescription())

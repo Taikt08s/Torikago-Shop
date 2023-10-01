@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 @Data
 public class AccessoryDTO {
+    private Long id;
     private Product accessory;
     @Length(max = 80,message = "No more than 20 characters")
     private String accessoryType;
