@@ -1,6 +1,7 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
 import com.group3.torikago.Torikago.Shop.dto.RegisterDTO;
+import com.group3.torikago.Torikago.Shop.model.Role;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import com.group3.torikago.Torikago.Shop.util.Util;
@@ -8,22 +9,23 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Controller
 public class AuthController {
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService,PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/login")
@@ -82,6 +84,19 @@ public class AuthController {
         model.addAttribute("user", user);
         return "user-profile";
     }
-
+    @GetMapping("/users/edit/{id}")
+    public String editUserAdmin(@PathVariable("id") Long id, Model model) {
+        User user = userService.get(id);
+        List<Role> listRoles = userService.getRoles();
+        model.addAttribute("user", user);
+        model.addAttribute("listRoles", listRoles);
+        return "user-form";
+    }
+    @PostMapping("/users/save")
+    public String saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.saveEditAdminUser(user);
+        return "redirect:/admin/users-table";
+    }
 
 }

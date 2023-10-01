@@ -131,6 +131,17 @@ public class UserImplement implements UserService {
         }
 
     }
+
+    @Override
+    public List<Role> getRoles() {
+        return roleRepository.findAll();
+    }
+
+    @Override
+    public User saveEditAdminUser(User user) {
+        return userRepository.save(user);
+    }
+
     public User get(String resetPasswordToken) {
         return userRepository.findByResetPasswordToken(resetPasswordToken);
     }
