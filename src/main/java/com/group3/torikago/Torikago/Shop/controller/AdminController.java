@@ -3,11 +3,8 @@ package com.group3.torikago.Torikago.Shop.controller;
 import com.group3.torikago.Torikago.Shop.dto.AccessoryDTO;
 import com.group3.torikago.Torikago.Shop.dto.BirdCageDTO;
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
-import com.group3.torikago.Torikago.Shop.model.AccessoryDetail;
-import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
-import com.group3.torikago.Torikago.Shop.model.Product;
+import com.group3.torikago.Torikago.Shop.model.*;
 import com.group3.torikago.Torikago.Shop.service.AccessoryService;
-import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
@@ -17,7 +14,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -45,13 +42,15 @@ public class AdminController {
     private UserService userService;
     private BirdCageService birdCageService;
     private AccessoryService accessoryService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService,AccessoryService accessoryService) {
+    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService, AccessoryService accessoryService, PasswordEncoder passwordEncoder) {
         this.productService = productService;
         this.userService = userService;
         this.birdCageService = birdCageService;
         this.accessoryService = accessoryService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/admin/product-table")
@@ -69,18 +68,6 @@ public class AdminController {
         return "admin-product";
     }
 
-    //    @GetMapping("/admin/product-table/bird-cage/add")
-//    @RolesAllowed({"ADMIN"})
-//    public String addProduct(Model model){
-//        Product product=new Product();
-//        model.addAttribute("product",product);
-//        return "bird-cage";
-//    }
-//    @PostMapping("/admin/product-table/bird-cage/add")
-//    public String saveProduct(@ModelAttribute("product") Product product){
-//        productService.saveProduct(product);
-//        return "redirect:/admin";
-//    }
     @GetMapping("/admin/product-table/bird-cage/add")
     @RolesAllowed({"ADMIN"})
     public String addBirdCage(Model model) {
@@ -90,6 +77,7 @@ public class AdminController {
         model.addAttribute("birdCageDetail", birdCageDetail);
         return "bird-cage";
     }
+
     @PostMapping("/admin/product-table/bird-cage/add")
     public String saveBirdCage(@RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
                                @ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO,
@@ -126,6 +114,7 @@ public class AdminController {
         }
         return "redirect:/admin";
     }
+
     @GetMapping("/admin/product-table/accessory/add")
     @RolesAllowed({"ADMIN"})
     public String addAccessory(Model model) {
@@ -140,7 +129,7 @@ public class AdminController {
     public String saveAccessory(@RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
                                 @ModelAttribute("accessoryDetail") @Valid AccessoryDTO accessoryDTO, BindingResult result,
                                 @ModelAttribute("product") @Valid ProductDTO productDTO, BindingResult accessoryBindingResult,
-                                BindingResult productBindingResult) throws IOException{
+                                BindingResult productBindingResult) throws IOException {
         if (accessoryBindingResult.hasErrors() || productBindingResult.hasErrors()) {
             // If there are validation errors, return to the form page with errors
             return "accessory";
@@ -158,7 +147,7 @@ public class AdminController {
 
         productDTO.setProductType("accessory");
         productDTO.setUnitsOnOrder(0);
-        AccessoryDetail savedProduct =  accessoryService.saveAccessory(accessoryDTO, productDTO);
+        AccessoryDetail savedProduct = accessoryService.saveAccessory(accessoryDTO, productDTO);
 
         String uploadDir = "./product-images/" + savedProduct.getAccessory().getId();
 
@@ -216,25 +205,6 @@ public class AdminController {
 
     }
 
-//    @GetMapping("/admin/product-table/{productID}/edit")
-//    public String editProduct(@PathVariable("productID")Long productId, Model model){
-//       ProductDTO birdCage=productService.findProductById(productId);
-//        model.addAttribute("birdCage",birdCage);
-//      return "Bird-cage";
-//   }
-//    @PostMapping("/admin/product-table/{productID}/edit")
-//    public String updateProduct(@PathVariable("productID")Long productId, @ModelAttribute("product") ProductDTO product){
-//        product.setProductId(productId);
-//        productService.updateProduct(product);
-//        return "redirect:/admin";
-//    }
-//    @PostMapping("/admin/product-table/{productID}/edit")
-//    public String updateBirdCage(@PathVariable("productID")Product birdCageId, @ModelAttribute("birdCage") BirdCageDTO birdCage){
-//        birdCage.setBirdCage(birdCageId);
-//        birdCageService.updateBirdCage(birdCage);
-//        return "redirect:/admin";
-//    }
-
     @GetMapping("/admin/product-table/{productId}/delete")
     @RolesAllowed({"ADMIN"})
     public String deleteBirdCage(@PathVariable("productId") Long productId) {
@@ -248,6 +218,22 @@ public class AdminController {
         List<User> users = userService.listAllUsers();
         model.addAttribute("users", users);
         return "admin-users";
+    }
+
+    @PostMapping("/users/save")
+    public String saveUserEditedByAdmin(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.saveEditAdminUser(user);
+        return "redirect:/admin/users-table";
+    }
+
+    @GetMapping("/users/edit/{id}")
+    public String editUserAdmin(@PathVariable("id") Long id, Model model) {
+        User user = userService.get(id);
+        List<Role> listRoles = userService.getRoles();
+        model.addAttribute("user", user);
+        model.addAttribute("listRoles", listRoles);
+        return "admin-user-edit";
     }
 }
 

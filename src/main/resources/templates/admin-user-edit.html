@@ -1,0 +1,356 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form th:action="@{/users/save}" th:object="${user}"-->
+<!--      method="post" style="max-width: 600px; margin: 0 auto;">-->
+<!--    <input type="hidden" th:field="*{id}" />-->
+<!--    <div class="form-group row">-->
+<!--        <label class="col-4 col-form-label">Address: </label>-->
+<!--        <div class="col-8">-->
+<!--            <input type="text" th:field="*{address}" class="form-control"-->
+<!--                   required minlength="6" maxlength="10"/>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="m-3">-->
+<!--        <div class="form-group row">-->
+<!--            <label class="col-4 col-form-label">E-mail: </label>-->
+<!--            <div class="col-8">-->
+<!--                <input type="email" th:field="*{email}" class="form-control" required />-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="form-group row">-->
+<!--            <label class="col-4 col-form-label">Password: </label>-->
+<!--            <div class="col-8">-->
+<!--                <input type="password" th:field="*{password}" class="form-control"-->
+<!--                       required minlength="6" maxlength="10"/>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-group row">-->
+<!--            <label class="col-4 col-form-label">Phone: </label>-->
+<!--            <div class="col-8">-->
+<!--                <input type="text" th:field="*{phoneNumber}" class="form-control"-->
+<!--                       required minlength="6" maxlength="10"/>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-group row">-->
+<!--            <label class="col-4 col-form-label">User name: </label>-->
+<!--            <div class="col-8">-->
+<!--                <input type="text" th:field="*{userName}" class="form-control"-->
+<!--                       required minlength="6" maxlength="10"/>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="form-group row">-->
+<!--            <label class="col-4 col-form-label">First Name: </label>-->
+<!--            <div class="col-8">-->
+<!--                <input type="text" th:field="*{fname}" class="form-control"-->
+<!--                       required minlength="2" maxlength="20"/>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="form-group row">-->
+<!--            <label class="col-4 col-form-label">Last Name: </label>-->
+<!--            <div class="col-8">-->
+<!--                <input type="text" th:field="*{lname}" class="form-control"-->
+<!--                       required minlength="2" maxlength="20" />-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-group row">-->
+<!--            <label class="col-4 col-form-label">Enabled: </label>-->
+<!--            <div class="col-8">-->
+<!--                <input type="checkbox" th:field="*{enabled}" class="form-control"-->
+<!--                        />-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="gender-options col-sm-6" style="margin-top: 12px">-->
+<!--            <label class="mb-2">Gender </label>-->
+<!--            <label for="male">-->
+<!--                <input type="radio"-->
+<!--                       name="gender"-->
+<!--                       id="male"-->
+<!--                       value="true"-->
+<!--                       th:field="*{gender}"> Male-->
+<!--            </label>-->
+<!--            <label for="female">-->
+<!--                <input type="radio"-->
+<!--                       name="gender"-->
+<!--                       id="female"-->
+<!--                       value="false"-->
+<!--                       th:field="*{gender}"> Female-->
+<!--            </label>-->
+<!--            <p th:if="${#fields.hasErrors('gender')}" class="text-danger"-->
+<!--               th:errors="*{gender}"></p>-->
+<!--        </div>-->
+<!--        <div class="gender-options col-sm-6" style="margin-top: 12px"-->
+<!--             th:each="role: ${listRoles}">-->
+
+<!--            <label th:if="${role.name == 'ADMIN'}">-->
+<!--                <input type="radio"-->
+<!--                       id="admin"-->
+<!--                       value="ADMIN"-->
+<!--                       th:field="*{role.name}"> Admin-->
+<!--            </label>-->
+<!--            <label th:if="${role.name == 'USER'}">-->
+<!--                <input type="radio"-->
+<!--                       id="user"-->
+<!--                       value="USER"-->
+<!--                       th:field="*{role.name}"> User-->
+<!--            </label>-->
+<!--           <label th:if="${role.name == 'MANAGER'}">-->
+<!--            <input type="radio"-->
+<!--                   id="manager"-->
+<!--                   value="MANAGER"-->
+<!--                   th:field="*{role.name}"> Manager-->
+<!--            </label>-->
+
+
+<!--        </div>-->
+
+<!--        <div>-->
+<!--            <button type="submit" class="btn btn-primary">Update</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</form>-->
+
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin</title>
+    <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none"
+           th:href="@{/torikago}">
+            <div class="sidebar-brand-text mx-3">Torikago Shop</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/admin}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">
+            CRUD
+        </div>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/product-table}">
+                <i class="fas fa-fw fa-box-open"></i>
+                <span>Products</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="charts.html">
+                <i class="fas fa-fw fa-user-tie"></i>
+                <span>Managers</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/users-table}">
+                <i class="fas fa-fw fa-user-shield"></i>
+                <span>Users</span></a>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+    </ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+            </nav>
+        </div>
+        <div class="container" style=" margin-bottom: 100px">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card shadow mb-5">
+                        <div class="card-body p-5">
+                            <div class="text-left">
+                                <h1 class="h4 text-gray-900 mb-4">Users profile</h1>
+                            </div>
+                            <hr>
+                            <form th:action="@{/users/save}" th:object="${user}"
+                                  method="post" style="max-width: 600px; margin: 0 auto;">
+                                <input type="hidden" th:field="*{id}"/>
+                                <div class="form-group row">
+                                    <label class="text-gray-600">Address</label>
+                                        <input type="text" th:field="*{address}" class="form-control form-control-user text-gray-900"
+                                               required minlength="6" maxlength="10"/>
+                                </div>
+                                <div class="m-3">
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">E-mail</label>
+                                        <div class="col-8">
+                                            <input type="email" th:field="*{email}" class="form-control" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Password</label>
+                                        <div class="col-8">
+                                            <input type="password" th:field="*{password}" class="form-control"
+                                                    minlength="6" maxlength="10"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Phone: </label>
+                                        <div class="col-8">
+                                            <input type="text" th:field="*{phoneNumber}" class="form-control"
+                                                   required minlength="6" maxlength="10"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">User name </label>
+                                        <div class="col-8">
+                                            <input type="text" th:field="*{userName}" class="form-control"
+                                                   required minlength="6" maxlength="10"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">First Name </label>
+                                        <div class="col-8">
+                                            <input type="text" th:field="*{fname}" class="form-control"
+                                                   required minlength="2" maxlength="20"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Last Name </label>
+                                        <div class="col-8">
+                                            <input type="text" th:field="*{lname}" class="form-control"
+                                                   required minlength="2" maxlength="20"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Enabled </label>
+                                        <div class="col-8">
+                                            <input type="checkbox" th:field="*{enabled}" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="gender-options col-sm-6" style="margin-top: 12px">
+                                        <label class="mb-2">Gender </label>
+                                        <label for="male">
+                                            <input type="radio"
+                                                   name="gender"
+                                                   id="male"
+                                                   value="true"
+                                                   th:field="*{gender}"> Male
+                                        </label>
+                                        <label for="female">
+                                            <input type="radio"
+                                                   name="gender"
+                                                   id="female"
+                                                   value="false"
+                                                   th:field="*{gender}"> Female
+                                        </label>
+                                        <p th:if="${#fields.hasErrors('gender')}" class="text-danger"
+                                           th:errors="*{gender}"></p>
+                                    </div>
+                                    <div class="gender-options col-sm-6" style="margin-top: 12px"
+                                         th:each="role: ${listRoles}">
+                                        <label th:if="${role.name == 'ADMIN'}">
+                                            <input type="radio"
+                                                   id="admin"
+                                                   value="ADMIN"
+                                                   th:field="*{role.name}"> Admin
+                                        </label>
+                                        <label th:if="${role.name == 'USER'}">
+                                            <input type="radio"
+                                                   id="user"
+                                                   value="USER"
+                                                   th:field="*{role.name}"> User
+                                        </label>
+                                        <label th:if="${role.name == 'MANAGER'}">
+                                            <input type="radio"
+                                                   id="manager"
+                                                   value="MANAGER"
+                                                   th:field="*{role.name}"> Manager
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        <button type="reset" class="btn btn-primary">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Create New Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="text-center mb-4">
+                        <a th:href="@{/admin/product-table/bird-cage/add}"
+                           class="btn btn-success btn-icon-split btn-lg mb-2">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-feather"></i>
+                            </span>
+                            <span class="text">Bird Cage</span>
+                        </a>
+                        <a th:href="@{/admin/product-table/accessory/add}"
+                           class="btn btn-info btn-icon-split btn-lg mb-2">
+                            <span class="icon text-white-50">
+                                <i class="fab fa-envira"></i>
+                            </span>
+                            <span class="text">Accessory</span>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:insert="~{admin-layout :: footer}"></div>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>
+
+
+
+

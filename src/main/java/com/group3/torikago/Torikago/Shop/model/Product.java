@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
@@ -51,8 +47,12 @@ public class Product {
     private BirdCageDetail birdCageDetail;
     @OneToOne(mappedBy = "accessory")
     private AccessoryDetail accessoryDetail;
-
-
+    @Transient
+    public String getMainImagePath() {
+        String imagePath = "/product-images/" + id + "/" + imageMain;
+        System.out.println("Image Path: " + imagePath);
+        return imagePath;
+    }
 }
 
 

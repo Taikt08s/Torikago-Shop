@@ -39,8 +39,8 @@ public class SecurityConfig {
         // luu y khi muon test thi disable csrf!! .csrf().disable()
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/reset_password", "/login", "/forgot_password", "/verify", "/"
-                                , "/torikago", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**", "/scss/**", "/403").permitAll()
+                        .requestMatchers("/","/reset_password", "/login", "/forgot_password", "/verify", "/"
+                                , "/torikago", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**", "/scss/**", "/403","/product-images/**").permitAll()
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin", "/admin/product-table",

@@ -11464,3 +11464,27 @@ input[type="file"] {
 .password-strong {
     background-color: #60ff60;
 }
+.card-img-top {
+    max-width: 100%;
+    height: 200px; /* Set a fixed height for the images */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+
+.product-card {
+    position: relative;
+    transition: transform 0.3s;
+    border: 1px solid #ddd; /* Add a default border */
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+}
+
+.product-card .card-border {
+    border: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.product-card:hover .card-border {
+    border-color: rgba(0, 123, 255, 0.8);
+}
