@@ -15,7 +15,7 @@ COPY . .
 RUN ls -la
 
 # Run Maven build with debugging information
-RUN mvn clean package -X -DskipTests
+# RUN mvn clean package -X -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
 COPY --from=build /target/torikago-0.0.1-SNAPSHOT.jar demo.jar
