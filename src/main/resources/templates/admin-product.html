@@ -128,7 +128,6 @@
                                         </th>
                                         <th>Status</th>
                                         <th>Edit</th>
-                                        <th>Remove</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -148,16 +147,6 @@
                                         </span>
                                             <span class="text">Edit</span>
                                         </a>
-                                        </th>
-                                        <th>
-                                            <a th:href="@{/admin/product-table/{productId}/delete(productId=${product.id})}"
-                                               class="btn btn-danger btn-icon-split"
-                                               onclick="return confirm('Delete this product?')">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                                <span class="text">Remove</span>
-                                            </a>
                                         </th>
                                     </tr>
                                     </tbody>
