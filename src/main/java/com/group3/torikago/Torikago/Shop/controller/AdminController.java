@@ -176,17 +176,29 @@ public class AdminController {
             // If there are validation errors, return to the form page with errors
             return "accessory-edit";
         }
+        AccessoryDTO accessory = accessoryService.findAccessoryById(id);
         int count = 0;
         for (MultipartFile extraMultipart : extraMultipartFiles) {
             String extraImageName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
-            if (count == 0) productDTO.setMainImage(extraImageName);
-            if (count == 1) productDTO.setExtraImage1(extraImageName);
-            if (count == 2) productDTO.setExtraImage2(extraImageName);
-            if (count == 3) productDTO.setExtraImage3(extraImageName);
+            if (count == 0) {
+                if (extraImageName.isEmpty()) productDTO.setMainImage(accessory.getAccessory().getImageMain());
+                else productDTO.setMainImage(extraImageName);
+            }
+            if (count == 1) {
+                if (extraImageName.isEmpty()) productDTO.setExtraImage1(accessory.getAccessory().getExtraImage1());
+                else productDTO.setExtraImage1(extraImageName);
+            }
+            if (count == 2) {
+                if (extraImageName.isEmpty()) productDTO.setExtraImage2(accessory.getAccessory().getExtraImage2());
+                else productDTO.setExtraImage2(extraImageName);
+            }
+            if (count == 3) {
+                if (extraImageName.isEmpty()) productDTO.setExtraImage3(accessory.getAccessory().getExtraImage3());
+                else productDTO.setExtraImage3(extraImageName);
+            }
+
             count++;
         }
-
-        AccessoryDTO accessory = accessoryService.findAccessoryById(id);
         accessoryDTO.setId(id);
         productDTO.setId(accessory.getAccessory().getId());
         productDTO.setProductType(accessory.getAccessory().getProductType());
@@ -195,14 +207,12 @@ public class AdminController {
         accessoryDTO.setAccessory(productImplement.mapToProduct(productDTO));
         accessoryService.updateAccessory(accessoryDTO);
         String uploadDir = "./product-images/" + accessory.getAccessory().getId();
-
         for (MultipartFile extraMultipart : extraMultipartFiles) {
             String fileName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
+            if (fileName.isEmpty()) continue;
             FileUploadUtil.saveFile(uploadDir, extraMultipart, fileName);
         }
         return "redirect:/admin";
-
-
     }
 
     @GetMapping("/admin/product-table/{productId}/delete")
