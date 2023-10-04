@@ -55,9 +55,9 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="container">
             <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
@@ -96,7 +96,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="container">
         <div class="card mb-5 py-4 border-bottom-primary" style="margin-top: 20px">
             <div class="row justify-content-center">
                 <div class="col-md-4 text-center border-end">
@@ -114,17 +114,77 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div th:each="product, iterStat : ${shoppingPage}" class="col-md-3 mb-3" th:classappend="${iterStat.index > 0 and iterStat.index % 5 == 0}? 'first-in-row' : ''">
-                <div class="card product-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
-                    <img th:src="@{${product.getMainImagePath()}}" class="card-img-top" alt="Product Image" style="max-width: 100%;max-height: 100%">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${product.productName}"></h5>
-                        <p class="card-text" th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 0, 'POINT')}"></p>
-                        <a href="#" class="btn btn-info"><i class="fas fa-shopping-cart"></i></a>
+    <div class="col-xl-12">
+        <div class="col-xl-12">
+            <div class="card mb-3 py-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 text-center border-end">
+                        <i class="far fa-check-circle"></i>
+                        <label>100% Genuine Products</label>
                     </div>
-                    <div class="card-border"></div>
+                    <div class="col-md-4 text-center border-end">
+                        <i class="fas fa-headset"></i>
+                        <label>Personal assistant</label>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="fas fa-truck-loading"></i>
+                        <label>Fast and on-time delivery</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        Search Filter
+                    </div>
+                    <div class="card-body">
+                        <!-- Add your filtering options here -->
+                        <form>
+                            <div class="mb-3">
+                                <label for="category">By Category</label>
+                                <select class="form-select" id="category">
+                                    <option value="all">All</option>
+                                    <option value="electronics">Bird Cage</option>
+                                    <option value="clothing">Accessory</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <label for="priceRange">Price Range</label>
+                                <input type="range" class="form-range" id="priceRange">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Apply</button>
+                            <hr>
+                            <div class="mb-3">
+                                <label>Review</label>
+                                    <p href="" value="5" style="color: gold;">★★★★★</p>
+                                    <p value="4" style="color: gold;">★★★★☆</p>
+                                    <p value="3" style="color: gold;">★★★☆☆</p>
+                                    <p value="2" style="color: gold;">★★☆☆☆</p>
+                                    <p value="1" style="color: gold;">★☆☆☆☆</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Listing -->
+            <div class="col-md-10">
+                <div class="row">
+                    <div th:each="product, iterStat : ${shoppingPage}" class="col-md-2 mb-3" th:classappend="${iterStat.index > 0 and iterStat.index % 5 == 0}? 'first-in-row' : ''">
+                        <div class="card product-card" onmouseover="hoverCard(this)" onmouseout="unhoverCard(this)">
+                            <img th:src="@{${product.getMainImagePath()}}" class="card-img-top" alt="Product Image" style="max-width: 100%;max-height: 100%">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${product.productName}"></h5>
+                                <p class="card-text" th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 0, 'POINT')}"></p>
+                                <a href="#" class="btn btn-info"><i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                            <div class="card-border"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
