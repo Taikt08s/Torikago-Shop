@@ -11,11 +11,11 @@
     <meta name="author" content="">
     <title>Torikago Shop</title>
     <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
-    <link rel="stylesheet" th:href="@{/vendor/fontawesome-free/css/all.min.css}" >
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome-free/css/all.min.css}">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
+          rel="stylesheet">
     <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
     <script>
         "use strict";
         !function () {
@@ -46,50 +46,51 @@
 <body class="bg-gray-200">
 <div class="container mt-5">
     <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3">
+        <div class="col-md-12">
             <div class="card shadow mb-4">
-                <div class="card-body">
-                    <div class="card">
-                        <a class="nav-link " th:href="@{/profile}" id="userDropdown">
-                            <img class="img-profile rounded-circle w-25"
-                                 src="img/undraw_profile.svg">
-                            <span class=" d-none d-lg-inline text-gray-600 small"
-                                  th:text="${#authentication.name}"></span>
-                        </a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-body p-5">
+                            <img th:src="${product.getMainImagePath()}" class="img-fluid rounded" alt="Product Image">
+                        </div>
                     </div>
-                    <h5 class="font-weight-bold text-primary mt-4">
-                        <i class="far fa-user-circle"></i>
-                        Account
-                    </h5>
-                    <ul class="list-group">
-                        <li class="list-group-item text-gray-700" href="">
-                            <i class="fas fa-key"></i>
-                            Password
-                        </li>
-                        <li class="list-group-item text-gray-700" href="">
-                            <i class="fas fa-receipt"></i>
-                            Order History
-                        </li>
-                    </ul>
+                    <div class="col-md-6 mt-5">
+                        <h3 th:text="${product.productName}" class="mt-3"></h3>
+                        <p href="" value="5" style="color: gold;">5.0★★★★★</p>
+                        <div class="border-right pr-3">
+                            <p class="text-muted mb-0">In stock <p class="font-weight-bold" th:text="${product.unitsInStock}"></p></p>
+                        </div>
+                        <div class="bg-gray-100">
+                            <h2 th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'COMMA', 0, 'POINT')}" class=""></h2>
+                        </div>
+                        <button class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="col-md-12">
+                    <label></label>
+                    <div class="card-body p-5">
+                        <div class="bg-gray-100">
+                            <th:block th:utext="${product.birdCageDetail.description}" class="mb-3"></th:block>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-9">
-            <div class="card shadow mb-5">
-                <div class="card-body p-5">
 
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class="card shadow">
+        <div class="card-body p-5">
+            <!-- Additional content goes here if needed -->
         </div>
     </div>
 </div>
 </body>
 <div th:insert="~{user-layout :: footer}"></div>
-<script th:src="@{vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
-<script th:src="@{js/sb-admin-2.min.js}"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
 </html>

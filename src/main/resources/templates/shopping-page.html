@@ -195,7 +195,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title" th:text="${product.productName}"></h5>
                                     <p class="card-text"
-                                       th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 0, 'POINT')}"></p>
+                                       th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'COMMA', 0, 'POINT')}"></p>
                                     <a href="#" class="btn btn-info"><i class="fas fa-shopping-cart"></i></a>
                                 </div>
                                 <div class="card-border"></div>
