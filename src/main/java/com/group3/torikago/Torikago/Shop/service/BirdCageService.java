@@ -5,7 +5,10 @@ import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 
 public interface BirdCageService {
-    BirdCageDetail saveBirdCage(BirdCageDTO birdCageDTO, ProductDTO productDTO);
+    BirdCageDetail saveBirdCage(BirdCageDTO birdCageDTO);
 
-    void updateBirdCage(BirdCageDTO birdCage);
+    BirdCageDetail updateBirdCage(BirdCageDetail birdCage);
+
+    BirdCageDetail findBirdCageByID(Long productID);
+
 }

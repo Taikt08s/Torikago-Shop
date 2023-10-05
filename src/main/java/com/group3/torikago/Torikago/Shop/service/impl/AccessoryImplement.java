@@ -46,9 +46,9 @@ public class AccessoryImplement implements AccessoryService {
     }
 
     @Override
-    public AccessoryDTO findAccessoryById(Long accessoryID) {
-        AccessoryDetail accessoryDetail = accessoryRepository.findById(accessoryID).get();
-        return mapToAccessoryDTO(accessoryDetail);
+    public AccessoryDetail findAccessoryById(Long accessoryID) {
+        AccessoryDetail accessoryDetail = accessoryRepository.findByaccessory_Id(accessoryID);
+        return accessoryDetail;
     }
 
     private AccessoryDetail mapToAccessory(AccessoryDTO accessoryDTO, ProductDTO productDTO) {

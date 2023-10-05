@@ -12,6 +12,8 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @Builder
 public class BirdCageDTO {
+    private Long id;
+    private ProductDTO birdCage;
     @NotEmpty(message = "*Required")
     @Length(max = 20,message = "Max 20 characters")
     private String dimension;

@@ -10,6 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ShoppingProductImplement implements ShoppingProductService {
     private ShoppingProductsRepository shoppingProductsRepository;
@@ -25,5 +28,16 @@ public class ShoppingProductImplement implements ShoppingProductService {
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
         return shoppingProductsRepository.findAll(pageable);
+    }
+
+    @Override
+    public Product findProductById(Long id) {
+        return shoppingProductsRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Product> searchProducts(String query) {
+        List<Product> products = shoppingProductsRepository.searchClub(query);
+        return products.stream().collect(Collectors.toList());
     }
 }

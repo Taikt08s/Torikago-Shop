@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BirdCageRepository extends JpaRepository<BirdCageDetail,Long> {
 
+    public BirdCageDetail findByBirdCage_Id(Long productId);
 }

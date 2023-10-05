@@ -460,27 +460,5 @@
         ],
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
     });
-
-    function formatCurrency(input) {
-        const value = input.value.replace(/\s+/g, ''); // Remove existing spaces
-        input.value = addSpaces(value);
-    }
-
-    function addSpaces(str) {
-        let result = '';
-        let count = 0;
-
-        for (let i = str.length - 1; i >= 0; i--) {
-            result = str.charAt(i) + result;
-            count++;
-
-            if (count === 3 && i !== 0) {
-                result = ' ' + result;
-                count = 0;
-            }
-        }
-
-        return result;
-    }
 </script>
 </html>

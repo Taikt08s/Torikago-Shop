@@ -26,7 +26,7 @@ public class Product {
     @Column(name = "product_type", length = 15)
     private String productType;
     @Column(name = "imageMain", length = 45)
-    private String imageMain;
+    private String mainImage;
     @Column(name = "extra_image1", length = 45, nullable = false)
     private String extraImage1;
     @Column(name = "extra_image2", length = 45, nullable = false)
@@ -49,9 +49,30 @@ public class Product {
     private AccessoryDetail accessoryDetail;
     @Transient
     public String getMainImagePath() {
-        String imagePath = "/product-images/" + id + "/" + imageMain;
+        String imagePath = "/product-images/" + id + "/" + mainImage;
         System.out.println("Image Path: " + imagePath);
         return imagePath;
+    }
+    @Transient
+    public String getExtraImagePath1() {
+        if (id == null || extraImage1 == null) {
+            return null;
+        }
+        return "/product-images/" + id + "/" + extraImage1;
+    }
+    @Transient
+    public String getExtraImagePath2() {
+        if (id == null || extraImage2 == null) {
+            return null;
+        }
+        return "/product-images/" + id + "/" + extraImage2;
+    }
+    @Transient
+    public String getExtraImagePath3() {
+        if (id == null || extraImage3 == null) {
+            return null;
+        }
+        return "/product-images/" + id + "/" + extraImage3;
     }
 }
 
