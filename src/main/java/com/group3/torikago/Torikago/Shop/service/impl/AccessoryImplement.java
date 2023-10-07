@@ -30,13 +30,13 @@ public class AccessoryImplement implements AccessoryService {
 
     @Override
     public AccessoryDetail updateAccessory(AccessoryDTO accessoryDTO, ProductDTO productDTO) {
-        AccessoryDetail accessoryDetail=mapToAccessory(accessoryDTO);
+        AccessoryDetail accessoryDetail=mapToAccessory(accessoryDTO, productDTO);
         return accessoryRepository.save(accessoryDetail);
     }
 
     @Override
     public AccessoryDetail findAccessoryById(Long accessoryID) {
-        AccessoryDetail accessoryDetail = accessoryRepository.findByaccessory_Id(accessoryID);
+        AccessoryDetail accessoryDetail = accessoryRepository.findByAccessory_Id(accessoryID);
         return accessoryDetail;
     }
 
@@ -46,15 +46,6 @@ public class AccessoryImplement implements AccessoryService {
         AccessoryDetail accessoryDetail=AccessoryDetail.builder()
                 .id(accessoryDTO.getId())
                 .accessory(product)
-                .accessoryType(accessoryDTO.getAccessoryType())
-                .description(accessoryDTO.getDescription())
-                .build();
-        return accessoryDetail;
-    }
-    private AccessoryDetail mapToAccessory(AccessoryDTO accessoryDTO) {
-        AccessoryDetail accessoryDetail=AccessoryDetail.builder()
-                .id(accessoryDTO.getId())
-                .accessory(accessoryDTO.getAccessory())
                 .accessoryType(accessoryDTO.getAccessoryType())
                 .description(accessoryDTO.getDescription())
                 .build();

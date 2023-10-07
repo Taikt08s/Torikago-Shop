@@ -122,14 +122,40 @@ public class AdminController {
         model.addAttribute("accessoryDetail", accessoryDetail);
         return "accessory";
     }
+    
+    @PostMapping("/admin/product-table/accessory/add")
+    public String saveAccessory(@RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
+                                  @ModelAttribute("accessoryDetail") @Valid AccessoryDTO accessoryDTO, 
+                                  BindingResult accessoryBindingResult,
+                                  @ModelAttribute("product") @Valid ProductDTO productDTO, 
+                                  BindingResult productBindingResult) throws IOException {
+        if (accessoryBindingResult.hasErrors() || productBindingResult.hasErrors()) {
+            return "accessory";
+        }
+        
+        int count = 0;
+        for (MultipartFile extraMultipart : extraMultipartFiles) {
+            String extraImageName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
+            if (count == 0) productDTO.setMainImage(extraImageName);
+            if (count == 1) productDTO.setExtraImage1(extraImageName);
+            if (count == 2) productDTO.setExtraImage2(extraImageName);
+            if (count == 3) productDTO.setExtraImage3(extraImageName);
+            count++;
+        }
 
-    @GetMapping("/admin/product-table/accessory/edit/{ID}/edit")
-    @RolesAllowed({"ADMIN"})
-    public String editAccessory(@PathVariable("ID") Long id, Model model) {
-        AccessoryDetail accessoryDTO = accessoryService.findAccessoryById(id);
-        model.addAttribute("product", accessoryDTO.getAccessory());
-        model.addAttribute("accessoryDetail", accessoryDTO);
-        return "accessory-edit";
+        productDTO.setProductType("Accessory");
+        productDTO.setUnitsOnOrder(0);
+
+        AccessoryDetail savedProduct = accessoryService.saveAccessory(accessoryDTO, productDTO);
+
+        String uploadDir = "./product-images/" + savedProduct.getAccessory().getId();
+
+        for (MultipartFile extraMultipart : extraMultipartFiles) {
+            String fileName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
+            if (fileName.isEmpty()) continue;
+            FileUploadUtil.saveFile(uploadDir, extraMultipart, fileName);
+        }
+        return "redirect:/admin/product-table";
     }
 
     @GetMapping("/admin/product-table/{productType}/{productId}/edit")
@@ -150,53 +176,54 @@ public class AdminController {
         return "redirect:/admin/product-table";
     }
 
-//   @PostMapping("/admin/product-table/accessory/{productId}/edit")
-//    public String updateAccessory(@PathVariable("ID") Long id, @RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
-//                                  @ModelAttribute("accessoryDetail") @Valid AccessoryDTO accessoryDTO, BindingResult result,
-//                                  @ModelAttribute("product") @Valid ProductDTO productDTO, BindingResult accessoryBindingResult,
-//                                  BindingResult productBindingResult) throws IOException {
-//        if (accessoryBindingResult.hasErrors() || productBindingResult.hasErrors()) {
-//            // If there are validation errors, return to the form page with errors
-//            return "accessory-edit";
-//        }
-//        AccessoryDetail accessory = accessoryService.findAccessoryById(id);
-//        int count = 0;
-//        for (MultipartFile extraMultipart : extraMultipartFiles) {
-//            String extraImageName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
-//            if (count == 0) {
-//                if (extraImageName.isEmpty()) productDTO.setMainImage(accessory.getAccessory().getMainImage());
-//                else productDTO.setMainImage(extraImageName);
-//            }
-//            if (count == 1) {
-//                if (extraImageName.isEmpty()) productDTO.setExtraImage1(accessory.getAccessory().getExtraImage1());
-//                else productDTO.setExtraImage1(extraImageName);
-//            }
-//            if (count == 2) {
-//                if (extraImageName.isEmpty()) productDTO.setExtraImage2(accessory.getAccessory().getExtraImage2());
-//                else productDTO.setExtraImage2(extraImageName);
-//            }
-//            if (count == 3) {
-//                if (extraImageName.isEmpty()) productDTO.setExtraImage3(accessory.getAccessory().getExtraImage3());
-//                else productDTO.setExtraImage3(extraImageName);
-//            }
-//
-//            count++;
-//        }
-//        accessoryDTO.setId(id);
-//        productDTO.setId(accessory.getAccessory().getId());
-//        productDTO.setProductType(accessory.getAccessory().getProductType());
-//        productDTO.setUnitsOnOrder(accessory.getAccessory().getUnitsOnOrder());
-//        ProductImplement productImplement = new ProductImplement();
-//        accessoryDTO.setAccessory(productImplement.mapToProduct(productDTO));
-//        accessoryService.updateAccessory(accessoryDTO);
-//        String uploadDir = "./product-images/" + accessory.getAccessory().getId();
-//        for (MultipartFile extraMultipart : extraMultipartFiles) {
-//            String fileName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
-//            if (fileName.isEmpty()) continue;
-//            FileUploadUtil.saveFile(uploadDir, extraMultipart, fileName);
-//        }
-//        return "redirect:/admin/product-table";
-//    }
+   @PostMapping("/admin/product-table/accessory/{productId}/edit")
+    public String updateAccessory(@RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
+                                  @ModelAttribute("accessoryDetail") @Valid AccessoryDTO accessoryDTO, 
+                                  BindingResult accessoryBindingResult,
+                                  @ModelAttribute("accessory") @Valid ProductDTO productDTO, 
+                                  BindingResult productBindingResult,
+                                  @PathVariable("productId") Long productId) throws IOException {
+        if (accessoryBindingResult.hasErrors() || productBindingResult.hasErrors()) {
+            return "accessory-edit";
+        }
+        
+        AccessoryDetail accessory = accessoryService.findAccessoryById(productId);
+        int count = 0;
+        for (MultipartFile extraMultipart : extraMultipartFiles) {
+            String extraImageName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
+            if (count == 0) {
+                if (extraImageName.isEmpty()) productDTO.setMainImage(accessory.getAccessory().getMainImage());
+                else productDTO.setMainImage(extraImageName);
+            }
+            if (count == 1) {
+                if (extraImageName.isEmpty()) productDTO.setExtraImage1(accessory.getAccessory().getExtraImage1());
+                else productDTO.setExtraImage1(extraImageName);
+            }
+            if (count == 2) {
+                if (extraImageName.isEmpty()) productDTO.setExtraImage2(accessory.getAccessory().getExtraImage2());
+                else productDTO.setExtraImage2(extraImageName);
+            }
+            if (count == 3) {
+                if (extraImageName.isEmpty()) productDTO.setExtraImage3(accessory.getAccessory().getExtraImage3());
+                else productDTO.setExtraImage3(extraImageName);
+            }
+
+            count++;
+        }
+        accessoryDTO.setId(accessory.getId());
+        productDTO.setId(productId);
+        productDTO.setProductType("Accessory");
+        productDTO.setUnitsOnOrder(accessory.getAccessory().getUnitsOnOrder());
+        accessoryService.updateAccessory(accessoryDTO, productDTO);
+        
+        String uploadDir = "./product-images/" + accessory.getAccessory().getId();
+        for (MultipartFile extraMultipart : extraMultipartFiles) {
+            String fileName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
+            if (fileName.isEmpty()) continue;
+            FileUploadUtil.saveFile(uploadDir, extraMultipart, fileName);
+        }
+        return "redirect:/admin/product-table";
+    }
 
     @PostMapping("/admin/product-table/bird-cage/{productId}/edit")
     public String updateBirdCage(@RequestParam("extra-image") MultipartFile[] extraMultipartFiles,
@@ -206,7 +233,7 @@ public class AdminController {
                                BindingResult productBindingResult, 
                                @PathVariable("productId") Long productId) throws IOException {
         if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
-            return "bird-cage";
+            return "bird-cage-edit";
         }
         
         BirdCageDetail birdCageDetail = birdCageService.findBirdCageByID(productId);
@@ -236,10 +263,9 @@ public class AdminController {
         productDTO.setId(productId);
         productDTO.setProductType("Bird Cage");
         productDTO.setUnitsOnOrder(birdCageDetail.getBirdCage().getUnitsOnOrder());
+        birdCageService.updateBirdCage(birdCageDTO, productDTO);
 
-        BirdCageDetail savedProduct = birdCageService.updateBirdCage(birdCageDTO, productDTO);
-
-        String uploadDir = "./product-images/" + savedProduct.getBirdCage().getId();
+        String uploadDir = "./product-images/" + birdCageDetail.getBirdCage().getId();
 //        FileUploadUtil.resetDirectory(uploadDir);
 
         for (MultipartFile extraMultipart : extraMultipartFiles) {
