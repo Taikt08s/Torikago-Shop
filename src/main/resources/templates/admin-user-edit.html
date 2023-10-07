@@ -193,6 +193,7 @@
                             <form th:action="@{/users/save}" th:object="${user}"
                                   method="post" style="max-width: 600px; margin: 0 auto;">
                                 <input type="hidden" th:field="*{id}"/>
+                                <input type="hidden" th:field="*{role.id}"/>
                                 <div class="form-group row">
                                     <label class="text-gray-600">Address</label>
                                         <input type="text" th:field="*{address}" class="form-control form-control-user text-gray-900"

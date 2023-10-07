@@ -26,6 +26,6 @@ public class AccessoryDetail {
     private Product accessory;
     @Column(name = "type_of_accessory", length = 20)
     private String accessoryType;
-    @Column(name = "description", length = 250)
+    @Column(name = "description", length = 2000)
     private String description;  
 }

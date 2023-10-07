@@ -13,6 +13,6 @@ public class AccessoryDTO {
     private Product accessory;
     @Length(max = 80,message = "No more than 20 characters")
     private String accessoryType;
-    @Length(max = 250,message = "No more than 250 characters")
+    @Length(max = 2000,message = "No more than 2000 characters")
     private String description;
 }

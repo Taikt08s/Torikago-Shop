@@ -119,7 +119,7 @@
                                         <td th:text="${user.userName}"></td>
                                         <td th:text="${user.email}"></td>
                                         <td> <img th:src="@{${user}}" alt="User Image" width="100"/></td>
-                                        <td th:text="${user.getRole()}"></td>
+                                        <td th:text="${user.role}"></td>
                                         <td th:text="${user.isEnabled()}"></td>
                                         <th><a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">

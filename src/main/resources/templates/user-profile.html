@@ -85,6 +85,7 @@
                     <hr>
                     <form class="user" method="post" role="form" th:action="@{/profile}" th:object="${user}">
                         <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{role.id}"/>
                         <div class="form-group row">
                             <label class="col-4 col-form-label"></label>
                             <div class="col-8">

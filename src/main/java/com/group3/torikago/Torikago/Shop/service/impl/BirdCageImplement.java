@@ -17,30 +17,39 @@ public class BirdCageImplement implements BirdCageService {
     public BirdCageImplement(BirdCageRepository birdCageRepository) {
         this.birdCageRepository = birdCageRepository;
     }
+
+    @Override
+    public BirdCageDetail findBirdCageByID(Long productId) {
+        BirdCageDetail product = birdCageRepository.findByBirdCage_Id(productId);
+        return product;
+    }
+
+
     @Override
     public BirdCageDetail saveBirdCage(BirdCageDTO birdCageDTO, ProductDTO productDTO) {
-        BirdCageDetail detail = mapToBirdCage(birdCageDTO, productDTO);
-        return birdCageRepository.save(detail);
+        BirdCageDetail birdCage = mapToBirdCage(birdCageDTO, productDTO);
+        return birdCageRepository.save(birdCage);
     }
 
     @Override
-    public void updateBirdCage(BirdCageDTO birdCageDTO) {
-//        BirdCageDetail birdCage=mapToBirdCage(birdCageDTO);
-//        birdCageRepository.save(birdCage);
+    public BirdCageDetail updateBirdCage(BirdCageDTO birdCageDTO, ProductDTO productDTO) {
+        BirdCageDetail birdCage = mapToBirdCage(birdCageDTO, productDTO);
+        return birdCageRepository.save(birdCage);
     }
 
 
-    private BirdCageDetail mapToBirdCage(BirdCageDTO birdCage, ProductDTO productDTO) {
+    private BirdCageDetail mapToBirdCage(BirdCageDTO birdCageDTO, ProductDTO productDTO) {
         ProductImplement productImplement = new ProductImplement();
-        Product product = productImplement.mapToProduct(productDTO);
-        BirdCageDetail birdCageDTO=BirdCageDetail.builder()
-                .birdCage(product)
-                .dimension(birdCage.getDimension())
-                .cageShape(birdCage.getCageShape())
-                .birdWingSpan(birdCage.getBirdWingSpan())
-                .barSpacing(birdCage.getBarSpacing())
-                .description(birdCage.getDescription())
+        BirdCageDetail birdCage=BirdCageDetail.builder()
+                .id(birdCageDTO.getId())
+                .birdCage(productImplement.mapToProduct(productDTO))
+                .dimension(birdCageDTO.getDimension())
+                .cageShape(birdCageDTO.getCageShape())
+                .birdWingSpan(birdCageDTO.getBirdWingSpan())
+                .barSpacing(birdCageDTO.getBarSpacing())
+                .description(birdCageDTO.getDescription())
                 .build();
-        return birdCageDTO;
+        return birdCage;
     }
+
 }

@@ -35,17 +35,12 @@ public class ProductImplement implements ProductService {
 //        return birdCages.stream().map((product) -> mapToProductDTO(product)).collect(Collectors.toList());
 //    }
 
-    @Override
-    public Product saveProduct(ProductDTO productDTO) {
-        return null;
-    }
-
     private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO = ProductDTO.builder()
                 .id(product.getId())
                 .productName(product.getProductName())
                 .productType(product.getProductType())
-                .mainImage(product.getImageMain())
+                .mainImage(product.getMainImage())
                 .extraImage1(product.getExtraImage1())
                 .extraImage2(product.getExtraImage2())
                 .extraImage3(product.getExtraImage3())
@@ -57,6 +52,7 @@ public class ProductImplement implements ProductService {
         return productDTO;
     }
 
+
 //    @Override
 //    public Product saveProduct(ProductDTO productDTO) {
 //        Product product = mapToProduct(productDTO);
@@ -64,17 +60,17 @@ public class ProductImplement implements ProductService {
 //    }
 
 
-    @Override
-    public void updateProduct(ProductDTO productDTO) {
-//        Product product=mapToProduct(productDTO);
-//        productRepository.save(product);
-    }
+//    @Override
+//    public void updateProduct(ProductDTO productDTO) {
+////        Product product=mapToProduct(productDTO);
+////        productRepository.save(product);
+//    }
 
 
-    @Override
-    public void deleteProduct(Long productId) {
-//        productRepository.deleteById(productId);
-    }
+//    @Override
+//    public void deleteProduct(Long productId) {
+////        productRepository.deleteById(productId);
+//    }
 
 
     public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
@@ -86,16 +82,15 @@ public class ProductImplement implements ProductService {
             Page<Product> productsPage =  productRepository.findAll(keyword,pageable);
             return productsPage.map(this::mapToProductDTO);
         }
-         Page<Product> productsPage = productRepository.findAll(pageable);
-         return productsPage.map(this::mapToProductDTO);
+        Page<Product> productsPage = productRepository.findAll(pageable);
+        return productsPage.map(this::mapToProductDTO);
 
     }
 
 
     @Override
     public ProductDTO findProductById(Long productId) {
-//        Product product = productRepository.findById(productId).get();
-//        return mapToProductDTO(product);
+
         return null;
     }
 
@@ -104,7 +99,7 @@ public class ProductImplement implements ProductService {
                 .id(productDTO.getId())
                 .productName(productDTO.getProductName())
                 .productType(productDTO.getProductType())
-                .imageMain(productDTO.getMainImage())
+                .mainImage(productDTO.getMainImage())
                 .extraImage1(productDTO.getExtraImage1())
                 .extraImage2(productDTO.getExtraImage2())
                 .extraImage3(productDTO.getExtraImage3())

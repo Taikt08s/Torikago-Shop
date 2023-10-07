@@ -136,16 +136,16 @@ public class UserImplement implements UserService {
     }
 
     @Override
-    public User saveUserEditedByAdmin(User user) {
+    public void save(User user) {
 
-        String OldData=user.getPassword();
-       if(!user.getPassword().isEmpty()){
-           user.setPassword(OldData);
-           userRepository.save(user);
+        if(!user.getPassword().isEmpty()){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
 
-       }
-        return null;
+        }
+
     }
+
 
     @Override
     public User updateAccountOfUser(User user) {
