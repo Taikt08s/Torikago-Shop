@@ -18,5 +18,5 @@ public interface ProductService {
     
     void deleteProduct(Long productId);
 
-    Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir);
+    Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword);
 }

@@ -25,9 +25,9 @@ public interface UserService {
 
     boolean verify(String code);
 
-    List<User> listAllUsers();
+   List<User> listAllUsers(String keyword);
 
-    List<Role> listRoles();
+
 
     User get(Long id);
 
@@ -35,5 +35,7 @@ public interface UserService {
 
     List<Role> getRoles();
 
-    User saveEditAdminUser(User user);
+    User saveUserEditedByAdmin(User user);
+
+    User updateAccountOfUser(User user);
 }

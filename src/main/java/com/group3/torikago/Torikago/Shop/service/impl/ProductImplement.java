@@ -76,15 +76,19 @@ public class ProductImplement implements ProductService {
 //        productRepository.deleteById(productId);
     }
 
-    @Override
-    public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir) {
+
+    public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        Page<Product> productsPage = productRepository.findAll(pageable);
+        if(keyword!=null){
+            Page<Product> productsPage =  productRepository.findAll(keyword,pageable);
+            return productsPage.map(this::mapToProductDTO);
+        }
+         Page<Product> productsPage = productRepository.findAll(pageable);
+         return productsPage.map(this::mapToProductDTO);
 
-        return productsPage.map(this::mapToProductDTO);
     }
 
 

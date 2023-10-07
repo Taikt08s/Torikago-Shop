@@ -14,6 +14,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,12 +60,14 @@ public class AdminController {
                                  @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
                                  @RequestParam(name = "pageSize", defaultValue = "8") int pageSize,
                                  @RequestParam(name = "sortField", defaultValue = "id") String sortField,
-                                 @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
+                                 @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
+                                 @Param("keyword") String keyword) {
         // Use these parameters to fetch a paginated and sorted list of products
-        Page<ProductDTO> productsPage = productService.findPaginatedProducts(pageNumber, pageSize, sortField, sortDir);
+        Page<ProductDTO> productsPage = productService.findPaginatedProducts(pageNumber, pageSize, sortField, sortDir,keyword);
         model.addAttribute("productsPage", productsPage);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword",keyword);
         return "admin-product";
     }
 
@@ -214,16 +217,18 @@ public class AdminController {
 
     @GetMapping("/admin/users-table")
     @RolesAllowed({"ADMIN"})
-    public String getListUsers(Model model) {
-        List<User> users = userService.listAllUsers();
+    public String getListUsers(Model model, @Param("keyword") String keyword) {
+        List<User> users = userService.listAllUsers(keyword);
         model.addAttribute("users", users);
+        model.addAttribute("keyword",keyword);
         return "admin-users";
     }
 
     @PostMapping("/users/save")
-    public String saveUserEditedByAdmin(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.saveEditAdminUser(user);
+    public String saveUserEditedByAdmin(User user ) {
+
+     user.setPassword(user.getPassword());
+        userService.saveUserEditedByAdmin(user);
         return "redirect:/admin/users-table";
     }
 

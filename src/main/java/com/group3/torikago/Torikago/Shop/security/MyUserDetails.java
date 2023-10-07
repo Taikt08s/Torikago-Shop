@@ -58,4 +58,12 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.isEnabled() ;
     }
+
+
+    public void setFirstName(String fname){
+        this.user.setFname(fname);
+    }
+    public void setLastName(String lname){
+        this.user.setFname(lname);
+    }
 }
