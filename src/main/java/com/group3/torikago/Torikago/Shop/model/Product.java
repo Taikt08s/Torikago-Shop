@@ -39,8 +39,8 @@ public class Product {
     private int unitsInStock;
     @Column(name = "unit_on_order", length = 10)
     private int unitsOnOrder;
-    @Column(name = "status", length = 20)
-    private String status;
+    @Column(name = "status")
+    private Boolean status;
     @OneToMany(mappedBy = "product")
     private List<OrderDetails> orderDetails;
     @OneToOne(mappedBy = "birdCage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

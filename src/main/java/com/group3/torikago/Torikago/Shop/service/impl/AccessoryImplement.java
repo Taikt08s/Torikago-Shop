@@ -20,11 +20,6 @@ public class AccessoryImplement implements AccessoryService {
         this.accessoryRepository = accessoryRepository;
     }
 
-    @Override
-    public List<AccessoryDTO> findAllAccessories() {
-        List<AccessoryDetail> accessoryDetails = accessoryRepository.findAll();
-        return accessoryDetails.stream().map((accessoryDetail)->mapToAccessoryDTO(accessoryDetail)).collect(Collectors.toList());
-    }
 
     @Override
     public AccessoryDetail saveAccessory(AccessoryDTO accessoryDTO,ProductDTO productDTO) {
@@ -34,15 +29,9 @@ public class AccessoryImplement implements AccessoryService {
     }
 
     @Override
-    public void updateAccessory(AccessoryDTO accessoryDTO) {
+    public AccessoryDetail updateAccessory(AccessoryDTO accessoryDTO, ProductDTO productDTO) {
         AccessoryDetail accessoryDetail=mapToAccessory(accessoryDTO);
-        accessoryRepository.save(accessoryDetail);
-    }
-
-    @Override
-    public void deleteAccessory(AccessoryDTO accessoryDTO) {
-        AccessoryDetail accessoryDetail=mapToAccessory(accessoryDTO);
-        accessoryRepository.delete(accessoryDetail);
+        return accessoryRepository.save(accessoryDetail);
     }
 
     @Override

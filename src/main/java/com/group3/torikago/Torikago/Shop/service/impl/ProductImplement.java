@@ -35,11 +35,6 @@ public class ProductImplement implements ProductService {
 //        return birdCages.stream().map((product) -> mapToProductDTO(product)).collect(Collectors.toList());
 //    }
 
-    @Override
-    public Product saveProduct(ProductDTO productDTO) {
-        return null;
-    }
-
     private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO = ProductDTO.builder()
                 .id(product.getId())
@@ -55,25 +50,6 @@ public class ProductImplement implements ProductService {
                 .unitsInStock(product.getUnitsInStock())
                 .build();
         return productDTO;
-    }
-
-//    @Override
-//    public Product saveProduct(ProductDTO productDTO) {
-//        Product product = mapToProduct(productDTO);
-//        return productRepository.save(product);
-//    }
-
-
-    @Override
-    public void updateProduct(ProductDTO productDTO) {
-//        Product product=mapToProduct(productDTO);
-//        productRepository.save(product);
-    }
-
-
-    @Override
-    public void deleteProduct(Long productId) {
-//        productRepository.deleteById(productId);
     }
 
     @Override
