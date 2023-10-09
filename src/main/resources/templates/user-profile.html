@@ -19,19 +19,19 @@
     <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
     <script>
         "use strict";
-        !function() {
+        !function () {
             var t = window.driftt = window.drift = window.driftt || [];
             if (!t.init) {
                 if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
-                t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
-                    t.factory = function(e) {
-                        return function() {
+                t.invoked = !0, t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"],
+                    t.factory = function (e) {
+                        return function () {
                             var n = Array.prototype.slice.call(arguments);
                             return n.unshift(e), t.push(n), t;
                         };
-                    }, t.methods.forEach(function(e) {
+                    }, t.methods.forEach(function (e) {
                     t[e] = t.factory(e);
-                }), t.load = function(t) {
+                }), t.load = function (t) {
                     var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
                     o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
                     var i = document.getElementsByTagName("script")[0];
@@ -105,14 +105,14 @@
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label class="text-gray-600">User Name</label>
                                 <input type="hidden"
-                                   id="userName" th:field="*{userName}"
-                                   th:text="*{userName}">
+                                       id="userName" th:field="*{userName}"
+                                       th:text="*{userName}">
                             </div>
                             <div class="col-sm-6">
                                 <label class="text-gray-600">Email</label>
                                 <input type="hidden"
-                                   id="email" th:field="*{email}"
-                                   th:text="*{email}">
+                                       id="email" th:field="*{email}"
+                                       th:text="*{email}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -161,7 +161,7 @@
                                 <p th:if="${#fields.hasErrors('phoneNumber')}" class="text-danger"
                                    th:errors="*{phoneNumber}"></p>
                             </div>
-                            <div class="gender-options col-sm-6" style="margin-top: 45px" >
+                            <div class="gender-options col-sm-6" style="margin-top: 45px">
                                 <label class="text-gray-600">Gender </label>
                                 <label for="male">
                                     <input type="radio"
@@ -193,8 +193,7 @@
 
                             </div>
                         </div>
-
-                        <button th:href="@{/register}" class="btn btn-primary btn-user">
+                        <button type="submit" class="btn btn-primary btn-user">
                             Save
                         </button>
                         <button class="btn btn-primary btn-user" type="reset">

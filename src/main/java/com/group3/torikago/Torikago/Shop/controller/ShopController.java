@@ -25,7 +25,7 @@ public class ShopController {
     @GetMapping(value = {"/torikago", "/"})
     public String shoppingPageListProducts(Model model,
                                            @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
-                                           @RequestParam(name = "pageSize", defaultValue = "8") int pageSize,
+                                           @RequestParam(name = "pageSize", defaultValue = "16") int pageSize,
                                            @RequestParam(name = "sortField", defaultValue = "id") String sortField,
                                            @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
         // Use these parameters to fetch a paginated and sorted list of products
@@ -48,14 +48,10 @@ public class ShopController {
         return "shopping-product-detail";
     }
     @GetMapping("/torikago/search")
-    public String searchShoppingProducts(@RequestParam(value = "query") String query, Model model,
-                                         @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
-                                         @RequestParam(name = "pageSize", defaultValue = "8") int pageSize,
-                                         @RequestParam(name = "sortField", defaultValue = "id") String sortField,
-                                         @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
+    public String searchShoppingProducts(@RequestParam(value = "query") String query, Model model) {
         List<Product> products = shoppingProductService.searchProducts(query);
         model.addAttribute("products", products);
-        return "shopping-product-search-list";
+        return "shopping-page";
 //        return "shopping-product-search-list";
     }
 }

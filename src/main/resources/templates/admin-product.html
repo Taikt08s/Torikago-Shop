@@ -54,11 +54,9 @@
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small"
-
                                placeholder="Search for..."
                                aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
                         <div class="input-group-append">
@@ -68,7 +66,6 @@
                         </div>
                     </div>
                 </form>
-
             </nav>
         </div>
         <div class="container-fluid">
@@ -85,7 +82,7 @@
                                        placeholder="Search for..."
                                        aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
+                                    <button class="btn btn-primary" type="submit">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
                                 </div>
@@ -177,14 +174,7 @@
                                 <a th:if="${not productsPage.first}"
                                    th:href="@{/admin/product-table(pageNumber=1, sortField=${sortField}, sortDir=${sortDir})}"
                                    class="page-link" aria-label="First">
-                                    <span aria-hidden="true">&laquo;&laquo;</span>
-                                </a>
-                            </li>
-                            <li th:class="${productsPage.first} ? 'page-item disabled' : 'page-item'">
-                                <a th:if="${not productsPage.first}"
-                                   th:href="@{/admin/product-table(pageNumber=${productsPage.number + 1}, sortField=${sortField}, sortDir=${sortDir})}"
-                                   class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
+                                    <span aria-hidden="true">First</span>
                                 </a>
                             </li>
                             <li th:each="i : ${#numbers.sequence(1, productsPage.totalPages)}"
@@ -194,16 +184,9 @@
                             </li>
                             <li th:class="${productsPage.last} ? 'page-item disabled' : 'page-item'">
                                 <a th:if="${not productsPage.last}"
-                                   th:href="@{/admin/product-table(pageNumber=${productsPage.number + 2}, sortField=${sortField}, sortDir=${sortDir})}"
-                                   class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            <li th:class="${productsPage.last} ? 'page-item disabled' : 'page-item'">
-                                <a th:if="${not productsPage.last}"
                                    th:href="@{/admin/product-table(pageNumber=${productsPage.totalPages}, sortField=${sortField}, sortDir=${sortDir})}"
                                    class="page-link" aria-label="Last">
-                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                    <span aria-hidden="true">Last</span>
                                 </a>
                             </li>
                         </ul>
