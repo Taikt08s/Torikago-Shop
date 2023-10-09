@@ -6,11 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ShoppingProductsRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT p from Product p WHERE p.productName LIKE concat('%', :query,'%') ")
-    List<Product> searchClub(String query);
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:search%")
+    Page<Product> findAll(@Param("search") String search, Pageable pageable);
 
 }

@@ -4,6 +4,7 @@ import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.service.ShoppingProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,14 @@ public class ShopController {
                                            @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
                                            @RequestParam(name = "pageSize", defaultValue = "16") int pageSize,
                                            @RequestParam(name = "sortField", defaultValue = "id") String sortField,
-                                           @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
+                                           @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
+                                           @RequestParam(name = "search", required = false) String search) {
         // Use these parameters to fetch a paginated and sorted list of products
-        Page<Product> shoppingPage = shoppingProductService.findPaginatedShoppingProducts(pageNumber, pageSize, sortField, sortDir);
+        Page<Product> shoppingPage = shoppingProductService.findPaginatedShoppingProducts(pageNumber, pageSize, sortField, sortDir, search);
         model.addAttribute("products", shoppingPage);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
+        model.addAttribute("search", search);
         return "shopping-page";
     }
 
@@ -47,11 +50,11 @@ public class ShopController {
         model.addAttribute("product", product);
         return "shopping-product-detail";
     }
-    @GetMapping("/torikago/search")
-    public String searchShoppingProducts(@RequestParam(value = "query") String query, Model model) {
-        List<Product> products = shoppingProductService.searchProducts(query);
-        model.addAttribute("products", products);
-        return "shopping-page";
-//        return "shopping-product-search-list";
-    }
+//    @GetMapping("/torikago/search")
+//    public String searchShoppingProducts(@RequestParam(value = "query") String query, Model model) {
+//        List<Product> products = shoppingProductService.searchProducts(query);
+//        model.addAttribute("products", products);
+//        return "shopping-page";
+////        return "shopping-product-search-list";
+//    }
 }
