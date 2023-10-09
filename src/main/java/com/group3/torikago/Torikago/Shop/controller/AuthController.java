@@ -3,6 +3,7 @@ package com.group3.torikago.Torikago.Shop.controller;
 import com.group3.torikago.Torikago.Shop.dto.RegisterDTO;
 import com.group3.torikago.Torikago.Shop.model.Role;
 import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.security.MyUserDetails;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import com.group3.torikago.Torikago.Shop.util.Util;
 import jakarta.mail.MessagingException;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -76,8 +79,20 @@ public class AuthController {
     public String editUser(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails, Model model) {
         String email = myUserDetails.getUsername();
         User user = userService.findByEmail(email);
+        List<Role> listRoles = userService.getRoles();
         model.addAttribute("user", user);
+        model.addAttribute("listRoles", listRoles);
         return "user-profile";
     }
+@PostMapping("/profile")
+    public String saveUser( User user, RedirectAttributes redirectAttributes) {
+        userService.updateAccountOfUser(user);
 
+       user.setFname(user.getFname());
+       user.setLname(user.getLname());
+        redirectAttributes.addFlashAttribute("message","Updated successfully");
+
+
+        return "redirect:/profile";
+}
 }

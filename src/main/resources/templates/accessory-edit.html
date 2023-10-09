@@ -3,415 +3,401 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Admin</title>
-    <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
-    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
-    <link
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Admin</title>
+        <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
+        <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+        <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
-    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-    <script src="https://cdn.tiny.cloud/1/pv6bp7c7sbs6abz8ue3xn733snrbtxp5sge9f2v9oijnxayn/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"></script>
-</head>
-<body>
-<div id="wrapper">
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-        <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none"
-           th:href="@{/torikago}">
-            <div class="sidebar-brand-text mx-3">Torikago Shop</div>
-        </a>
-        <hr class="sidebar-divider my-0">
-        <li class="nav-item active">
-            <a class="nav-link" th:href="@{/admin}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-        <hr class="sidebar-divider">
-        <div class="sidebar-heading">
-            CRUD
-        </div>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/product-table}">
-                <i class="fas fa-fw fa-box-open"></i>
-                <span>Products</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-user-tie"></i>
-                <span>Managers</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/users-table}">
-                <i class="fas fa-fw fa-user-shield"></i>
-                <span>Users</span></a>
-        </li>
-        <hr class="sidebar-divider d-none d-md-block">
-    </ul>
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <ul class="navbar-nav ml-auto">
-                </ul>
-            </nav>
-        </div>
-        <div class="container-fluid">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-12 col-lg-12 col-md-9">
-                        <div class="card o-hidden border-0 shadow-lg my-5">
-                            <div class="card-body p-0">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4" style="margin-top: 10px">Add New Accessory</h1>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="p-5">
-                                            <form class="user" method="post"
-                                                  th:action="@{/admin/product-table/accessory/edit/{accessoryID}/edit(accessoryID=${accessoryDetail.id})}"
-                                                  enctype="multipart/form-data">
+        <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+        <script src="https://cdn.tiny.cloud/1/pv6bp7c7sbs6abz8ue3xn733snrbtxp5sge9f2v9oijnxayn/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none"
+                   th:href="@{/torikago}">
+                    <div class="sidebar-brand-text mx-3">Torikago Shop</div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/admin}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    CRUD
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/product-table}">
+                        <i class="fas fa-fw fa-box-open"></i>
+                        <span>Products</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="charts.html">
+                        <i class="fas fa-fw fa-user-tie"></i>
+                        <span>Managers</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/users-table}">
+                        <i class="fas fa-fw fa-user-shield"></i>
+                        <span>Users</span></a>
+                </li>
+                <hr class="sidebar-divider d-none d-md-block">
+            </ul>
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <ul class="navbar-nav ml-auto">
+                        </ul>
+                    </nav>
+                </div>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-12 col-lg-12 col-md-9">
+                                <div class="card o-hidden border-0 shadow-lg my-5">
+                                    <div class="card-body p-0">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4" style="margin-top: 10px">Edit Accessory</h1>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-lg-12">
                                                 <div class="p-5">
-                                                    <div class="dashed-box" id="image-drop-area1">
-                                                        <label>Drag & Drop or Click to Upload Picture Main</label>
-                                                        <!--                                                        <label th:if="${#fields.hasErrors('mainImage')}"-->
-                                                        <!--                                                               class="text-danger"-->
-                                                        <!--                                                               th:errors="*{product.mainImage}"></label>-->
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg"
-                                                               id="file-input1"
-                                                               name="extra-image">
-                                                        <img alt="Image Preview" id="thumbnail-main"
-                                                             style="max-width: 100%; max-height: 600px;display: block" th:src="@{${product.getMainImagePath()}}">
-                                                    </div>
-                                                </div>
-                                                <div class="p-5">
-                                                    <div class="dashed-box" id="image-drop-area2">
-                                                        <label>Drag & Drop or Click to Upload Picture 1</label>
-                                                        <label th:if="${#fields.hasErrors('product.extraImage1')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.extraImage1}"></label>
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg"
-                                                               id="file-input2"
-                                                               name="extra-image">
-                                                        <img alt="Image Preview" id="thumbnail-extra1"
-                                                             style="max-width: 100%; max-height: 600px;display: block" th:src="@{${product.getExtraImagePath1()}}">
-                                                    </div>
-                                                </div>
-                                                <div class="p-5">
-                                                    <div class="dashed-box" id="image-drop-area3">
-                                                        <label>Drag & Drop or Click to Upload Picture 2</label>
-                                                        <label th:if="${#fields.hasErrors('product.extraImage2')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.extraImage2}"></label>
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg"
-                                                               id="file-input3"
-                                                               name="extra-image">
-                                                        <img alt="Image Preview" id="thumbnail-extra2"
-                                                             style="max-width: 100%; max-height: 600px;display: block" th:src="@{${product.getExtraImagePath2()}}">
-                                                    </div>
-                                                </div>
-                                                <div class="p-5">
-                                                    <div class="dashed-box" id="image-drop-area4">
-                                                        <label>Drag & Drop or Click to Upload Picture 3</label>
-                                                        <label th:if="${#fields.hasErrors('product.extraImage3')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.extraImage3}"></label>
-                                                        <input type="file"
-                                                               accept="image/png, image/gif, image/jpeg"
-                                                               id="file-input4"
-                                                               name="extra-image">
-                                                        <img alt="Image Preview" id="thumbnail-extra3"
-                                                             style="max-width: 100%; max-height: 600px;display: block" th:src="@{${product.getExtraImagePath3()}}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                                        <label>Product Name</label>
-                                                        <label th:if="${#fields.hasErrors('product.productName')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.productName}"></label>
-                                                        <input type="text"
-                                                               class="form-control form-control-user"
-                                                               id="product.productName"
-                                                               name="product.productName"
-                                                               maxlength="80"
-                                                               th:field="*{product.productName}"
-                                                               placeholder="Enter a name ...">
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label>Product Price</label>
-                                                        <label th:if="${#fields.hasErrors('product.unitPrice')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.unitPrice}"></label>
-                                                        <div class="input-group">
-                                                            <input type="text"
-                                                                   class="form-control form-control-user"
-                                                                   id="unitPrice"
-                                                                   name="unitPrice"
-                                                                   placeholder="Enter Price"
-                                                                   maxlength="11"
-                                                                   th:field="*{product.unitPrice}"
-                                                                   oninput="formatCurrency(this)"
-                                                                   style="text-align: right;">
-                                                            <div class="input-group-append">
-                                                                <span class="form-control form-control-user input-group-text">VND</span>
+                                                    <form class="user" method="post"
+                                                          th:action="@{/admin/product-table/accessory/{productId}/edit(productId=${accessory.id})}"
+                                                          enctype="multipart/form-data">
+                                                        <div class="p-5">
+                                                            <div class="dashed-box" id="image-drop-area1">
+                                                                <label>Drag & Drop or Click to Upload Picture Main</label>
+                                                                <input type="file"
+                                                                       accept="image/png, image/gif, image/jpeg"
+                                                                       id="file-input1"
+                                                                       name="extra-image">
+                                                                <img alt="Image Preview" id="thumbnail-main"
+                                                                     style="max-width: 100%; max-height: 600px;display: block" th:src="@{${accessory.getMainImagePath()}}">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="hidden"
-                                                           th:field="*{product.productType}">
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                                        <label>In Stock</label>
-                                                        <label th:if="${#fields.hasErrors('product.unitsInStock')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.unitsInStock}"></label>
-                                                        <input type="text"
-                                                               class="form-control form-control-user"
-                                                               id="unitsInStock"
-                                                               name="unitsInStock"
-                                                               maxlength="50"
-                                                               placeholder="Units In Stock..."
-                                                               th:field="*{product.unitsInStock}">
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label>Status</label>
-                                                        <label th:if="${#fields.hasErrors('product.status')}"
-                                                               class="text-danger"
-                                                               th:errors="*{product.status}"></label>
-                                                        <input type="text"
-                                                               class="form-control form-control-user"
-                                                               id="status"
-                                                               name="status"
-                                                               maxlength="50"
-                                                               placeholder="e.g. Available or Unavailable"
-                                                               th:field="*{product.status}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="hidden"
-                                                           th:field="*{product.unitsOnOrder}">
-                                                </div>
-                                                <div class="form-group" style="margin-bottom: 20px;">
-                                                    <label>Accessory type</label>
-                                                    <input
-                                                            type="text"
-                                                            class="form-control form-control-user"
-                                                            id="accessoryType"
-                                                            name="accessoryType"
-                                                            maxlength="50"
-                                                            placeholder="Type for accessory"
-                                                            th:field="*{accessoryDetail.accessoryType}"/>
+                                                        <div class="p-5">
+                                                            <div class="dashed-box" id="image-drop-area2">
+                                                                <label>Drag & Drop or Click to Upload Picture 1</label>
+                                                                <input type="file"
+                                                                       accept="image/png, image/gif, image/jpeg"
+                                                                       id="file-input2"
+                                                                       name="extra-image">
+                                                                <img alt="Image Preview" id="thumbnail-extra1"
+                                                                     style="max-width: 100%; max-height: 600px;display: block" th:src="@{${accessory.getExtraImagePath1()}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="p-5">
+                                                            <div class="dashed-box" id="image-drop-area3">
+                                                                <label>Drag & Drop or Click to Upload Picture 2</label>
+                                                                <input type="file"
+                                                                       accept="image/png, image/gif, image/jpeg"
+                                                                       id="file-input3"
+                                                                       name="extra-image">
+                                                                <img alt="Image Preview" id="thumbnail-extra2"
+                                                                     style="max-width: 100%; max-height: 600px;display: block" th:src="@{${accessory.getExtraImagePath2()}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="p-5">
+                                                            <div class="dashed-box" id="image-drop-area4">
+                                                                <label>Drag & Drop or Click to Upload Picture 3</label>
+                                                                <input type="file"
+                                                                       accept="image/png, image/gif, image/jpeg"
+                                                                       id="file-input4"
+                                                                       name="extra-image">
+                                                                <img alt="Image Preview" id="thumbnail-extra3"
+                                                                     style="max-width: 100%; max-height: 600px;display: block" th:src="@{${accessory.getExtraImagePath3()}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                                <label>Product Name</label>
+                                                                <label th:if="${#fields.hasErrors('accessory.productName')}"
+                                                                       class="text-danger"
+                                                                       th:errors="*{accessory.productName}"></label>
+                                                                <input type="text"
+                                                                       class="form-control form-control-user"
+                                                                       id="product.productName"
+                                                                       name="product.productName"
+                                                                       maxlength="80"
+                                                                       th:field="*{accessory.productName}"
+                                                                       placeholder="Enter a name ...">
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label>Product Price</label>
+                                                                <label th:if="${#fields.hasErrors('accessory.unitPrice')}"
+                                                                       class="text-danger"
+                                                                       th:errors="*{accessory.unitPrice}"></label>
+                                                                <div class="input-group">
+                                                                    <input type="text"
+                                                                           class="form-control form-control-user"
+                                                                           id="unitPrice"
+                                                                           name="unitPrice"
+                                                                           placeholder="Enter Price"
+                                                                           maxlength="11"
+                                                                           th:field="*{accessory.unitPrice}"
+                                                                           oninput="formatCurrency(this)"
+                                                                           style="text-align: right;">
+                                                                    <div class="input-group-append">
+                                                                        <span class="form-control form-control-user input-group-text">VND</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                                <label>In Stock</label>
+                                                                <label th:if="${#fields.hasErrors('accessory.unitsInStock')}"
+                                                                       class="text-danger"
+                                                                       th:errors="*{accessory.unitsInStock}"></label>
+                                                                <input type="text"
+                                                                       class="form-control form-control-user"
+                                                                       id="unitsInStock"
+                                                                       name="unitsInStock"
+                                                                       maxlength="50"
+                                                                       placeholder="Units In Stock..."
+                                                                       th:field="*{accessory.unitsInStock}">
+                                                            </div>
+                                                            <div class="col-sm-6" >
+                                                                <label>Status</label></br>
+                                                                <label for="available">
+                                                                    <input type="radio"
+                                                                           name="status"
+                                                                           id="available"
+                                                                           value="true"
+                                                                           th:field="*{accessory.status}"> Available
+                                                                </label>
+                                                                <label for="unavailable">
+                                                                    <input type="radio"
+                                                                           name="status"
+                                                                           id="unavailable"
+                                                                           value="false"
+                                                                           th:field="*{accessory.status}"> Unavailable
+                                                                </label>
+                                                                <p th:if="${#fields.hasErrors('accessory.status')}" 
+                                                                   class="text-danger" th:errors="*{accessory.status}"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" style="margin-bottom: 20px;">
+                                                            <label>Accessory type</label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control form-control-user"
+                                                                id="accessoryType"
+                                                                name="accessoryType"
+                                                                maxlength="50"
+                                                                placeholder="Type for accessory"
+                                                                th:field="*{accessoryDetail.accessoryType}"/>
 
+                                                        </div>
+                                                        <div class="form-group" style="margin-bottom: 20px;">
+                                                            <label>Description</label>
+                                                            <textarea
+                                                                class="form-control"
+                                                                style="height: 500px;"
+                                                                id="description"
+                                                                name="description"
+                                                                maxlength="200"
+                                                                placeholder="Description for accessory"
+                                                                th:field="*{accessoryDetail.description}">
+                                                            </textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                            Add Accessory
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                                <div class="form-group" style="margin-bottom: 20px;">
-                                                    <label>Description</label>
-                                                    <textarea
-                                                            class="form-control"
-                                                            style="height: 500px;"
-                                                            id="description"
-                                                            name="description"
-                                                            maxlength="200"
-                                                            placeholder="Description for accessory"
-                                                            th:field="*{accessoryDetail.description}">
-                                                    </textarea>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                    Add Accessory
-                                                </button>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
-</body>
-<div th:insert="~{admin-layout :: footer}"></div>
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="js/sb-admin-2.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    const dashedBox1 = document.getElementById("image-drop-area1");
-    const dashedBox2 = document.getElementById("image-drop-area2");
-    const dashedBox3 = document.getElementById("image-drop-area3");
-    const dashedBox4 = document.getElementById("image-drop-area4");
-    const fileInput1 = document.getElementById("file-input1");
-    const fileInput2 = document.getElementById("file-input2");
-    const fileInput3 = document.getElementById("file-input3");
-    const fileInput4 = document.getElementById("file-input4");
-    const thumbnailExtra1 = document.getElementById("thumbnail-main");
-    const thumbnailExtra2 = document.getElementById("thumbnail-extra1");
-    const thumbnailExtra3 = document.getElementById("thumbnail-extra2");
-    const thumbnailExtra4 = document.getElementById("thumbnail-extra3");
+    </body>
+    <div th:insert="~{admin-layout :: footer}"></div>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        const dashedBox1 = document.getElementById("image-drop-area1");
+        const dashedBox2 = document.getElementById("image-drop-area2");
+        const dashedBox3 = document.getElementById("image-drop-area3");
+        const dashedBox4 = document.getElementById("image-drop-area4");
+        const fileInput1 = document.getElementById("file-input1");
+        const fileInput2 = document.getElementById("file-input2");
+        const fileInput3 = document.getElementById("file-input3");
+        const fileInput4 = document.getElementById("file-input4");
+        const thumbnailExtra1 = document.getElementById("thumbnail-main");
+        const thumbnailExtra2 = document.getElementById("thumbnail-extra1");
+        const thumbnailExtra3 = document.getElementById("thumbnail-extra2");
+        const thumbnailExtra4 = document.getElementById("thumbnail-extra3");
 
-    function handleFiles(files, thumbnail) {
-        for (const file of files) {
-            if (file.type.startsWith("image/")) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    thumbnail.src = e.target.result;
-                    thumbnail.style.display = "block";
-                };
-                reader.readAsDataURL(file);
-            } else {
-                console.log("Unsupported file type:", file.type);
+        function handleFiles(files, thumbnail) {
+            for (const file of files) {
+                if (file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        thumbnail.src = e.target.result;
+                        thumbnail.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    console.log("Unsupported file type:", file.type);
+                }
             }
         }
-    }
 
-    dashedBox1.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dashedBox1.classList.add("dragover");
-    });
+        dashedBox1.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dashedBox1.classList.add("dragover");
+        });
 
-    dashedBox1.addEventListener("dragleave", () => {
-        dashedBox1.classList.remove("dragover");
-    });
+        dashedBox1.addEventListener("dragleave", () => {
+            dashedBox1.classList.remove("dragover");
+        });
 
-    dashedBox1.addEventListener("drop", (e) => {
-        e.preventDefault();
-        dashedBox1.classList.remove("dragover");
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            handleFiles(files, thumbnailExtra1);
-        }
-    });
+        dashedBox1.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dashedBox1.classList.remove("dragover");
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFiles(files, thumbnailExtra1);
+            }
+        });
 
-    dashedBox1.addEventListener("click", () => {
-        fileInput1.click();
-    });
+        dashedBox1.addEventListener("click", () => {
+            fileInput1.click();
+        });
 
-    fileInput1.addEventListener("change", (e) => {
-        const files = e.target.files;
+        fileInput1.addEventListener("change", (e) => {
+            const files = e.target.files;
 
-        if (files.length > 0) {
-            handleFiles(files, thumbnailExtra1);
-        }
-    });
+            if (files.length > 0) {
+                handleFiles(files, thumbnailExtra1);
+            }
+        });
 
-    dashedBox2.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dashedBox2.classList.add("dragover");
-    });
+        dashedBox2.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dashedBox2.classList.add("dragover");
+        });
 
-    dashedBox2.addEventListener("dragleave", () => {
-        dashedBox2.classList.remove("dragover");
-    });
+        dashedBox2.addEventListener("dragleave", () => {
+            dashedBox2.classList.remove("dragover");
+        });
 
-    dashedBox2.addEventListener("drop", (e) => {
-        e.preventDefault();
-        dashedBox2.classList.remove("dragover");
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            handleFiles(files, thumbnailExtra2);
-        }
-    });
+        dashedBox2.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dashedBox2.classList.remove("dragover");
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFiles(files, thumbnailExtra2);
+            }
+        });
 
-    dashedBox2.addEventListener("click", () => {
-        fileInput2.click();
-    });
+        dashedBox2.addEventListener("click", () => {
+            fileInput2.click();
+        });
 
-    fileInput2.addEventListener("change", (e) => {
-        const files = e.target.files;
+        fileInput2.addEventListener("change", (e) => {
+            const files = e.target.files;
 
-        if (files.length > 0) {
-            handleFiles(files, thumbnailExtra2);
-        }
-    });
+            if (files.length > 0) {
+                handleFiles(files, thumbnailExtra2);
+            }
+        });
 
 
-    dashedBox3.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dashedBox3.classList.add("dragover");
-    });
+        dashedBox3.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dashedBox3.classList.add("dragover");
+        });
 
-    dashedBox3.addEventListener("dragleave", () => {
-        dashedBox3.classList.remove("dragover");
-    });
+        dashedBox3.addEventListener("dragleave", () => {
+            dashedBox3.classList.remove("dragover");
+        });
 
-    dashedBox3.addEventListener("drop", (e) => {
-        e.preventDefault();
-        dashedBox3.classList.remove("dragover");
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            handleFiles(files, thumbnailExtra3);
-        }
-    });
+        dashedBox3.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dashedBox3.classList.remove("dragover");
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFiles(files, thumbnailExtra3);
+            }
+        });
 
-    dashedBox3.addEventListener("click", () => {
-        fileInput3.click();
-    });
+        dashedBox3.addEventListener("click", () => {
+            fileInput3.click();
+        });
 
-    fileInput3.addEventListener("change", (e) => {
-        const files = e.target.files;
+        fileInput3.addEventListener("change", (e) => {
+            const files = e.target.files;
 
-        if (files.length > 0) {
-            handleFiles(files, thumbnailExtra3);
-        }
-    });
+            if (files.length > 0) {
+                handleFiles(files, thumbnailExtra3);
+            }
+        });
 
-    dashedBox4.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dashedBox4.classList.add("dragover");
-    });
+        dashedBox4.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dashedBox4.classList.add("dragover");
+        });
 
-    dashedBox4.addEventListener("dragleave", () => {
-        dashedBox4.classList.remove("dragover");
-    });
+        dashedBox4.addEventListener("dragleave", () => {
+            dashedBox4.classList.remove("dragover");
+        });
 
-    dashedBox4.addEventListener("drop", (e) => {
-        e.preventDefault();
-        dashedBox4.classList.remove("dragover");
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            handleFiles(files, thumbnailExtra4);
-        }
-    });
+        dashedBox4.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dashedBox4.classList.remove("dragover");
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFiles(files, thumbnailExtra4);
+            }
+        });
 
-    dashedBox4.addEventListener("click", () => {
-        fileInput4.click();
-    });
+        dashedBox4.addEventListener("click", () => {
+            fileInput4.click();
+        });
 
-    fileInput4.addEventListener("change", (e) => {
-        const files = e.target.files;
+        fileInput4.addEventListener("change", (e) => {
+            const files = e.target.files;
 
-        if (files.length > 0) {
-            handleFiles(files, thumbnailExtra4);
-        }
-    });
-    tinymce.init({
-        selector: 'textarea',
-        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
-        mergetags_list: [
-            {value: 'First.Name', title: 'First Name'},
-            {value: 'Email', title: 'Email'},
-        ],
-        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
-    });
-</script>
+            if (files.length > 0) {
+                handleFiles(files, thumbnailExtra4);
+            }
+        });
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                {value: 'First.Name', title: 'First Name'},
+                {value: 'Email', title: 'Email'},
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
+        });
+    </script>
 </html>

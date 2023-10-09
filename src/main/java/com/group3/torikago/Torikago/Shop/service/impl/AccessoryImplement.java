@@ -20,11 +20,6 @@ public class AccessoryImplement implements AccessoryService {
         this.accessoryRepository = accessoryRepository;
     }
 
-    @Override
-    public List<AccessoryDTO> findAllAccessories() {
-        List<AccessoryDetail> accessoryDetails = accessoryRepository.findAll();
-        return accessoryDetails.stream().map((accessoryDetail)->mapToAccessoryDTO(accessoryDetail)).collect(Collectors.toList());
-    }
 
     @Override
     public AccessoryDetail saveAccessory(AccessoryDTO accessoryDTO,ProductDTO productDTO) {
@@ -34,20 +29,14 @@ public class AccessoryImplement implements AccessoryService {
     }
 
     @Override
-    public void updateAccessory(AccessoryDTO accessoryDTO) {
-        AccessoryDetail accessoryDetail=mapToAccessory(accessoryDTO);
-        accessoryRepository.save(accessoryDetail);
-    }
-
-    @Override
-    public void deleteAccessory(AccessoryDTO accessoryDTO) {
-        AccessoryDetail accessoryDetail=mapToAccessory(accessoryDTO);
-        accessoryRepository.delete(accessoryDetail);
+    public AccessoryDetail updateAccessory(AccessoryDTO accessoryDTO, ProductDTO productDTO) {
+        AccessoryDetail accessoryDetail=mapToAccessory(accessoryDTO, productDTO);
+        return accessoryRepository.save(accessoryDetail);
     }
 
     @Override
     public AccessoryDetail findAccessoryById(Long accessoryID) {
-        AccessoryDetail accessoryDetail = accessoryRepository.findByaccessory_Id(accessoryID);
+        AccessoryDetail accessoryDetail = accessoryRepository.findByAccessory_Id(accessoryID);
         return accessoryDetail;
     }
 
@@ -57,15 +46,6 @@ public class AccessoryImplement implements AccessoryService {
         AccessoryDetail accessoryDetail=AccessoryDetail.builder()
                 .id(accessoryDTO.getId())
                 .accessory(product)
-                .accessoryType(accessoryDTO.getAccessoryType())
-                .description(accessoryDTO.getDescription())
-                .build();
-        return accessoryDetail;
-    }
-    private AccessoryDetail mapToAccessory(AccessoryDTO accessoryDTO) {
-        AccessoryDetail accessoryDetail=AccessoryDetail.builder()
-                .id(accessoryDTO.getId())
-                .accessory(accessoryDTO.getAccessory())
                 .accessoryType(accessoryDTO.getAccessoryType())
                 .description(accessoryDTO.getDescription())
                 .build();

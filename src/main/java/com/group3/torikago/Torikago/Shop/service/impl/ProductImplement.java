@@ -35,11 +35,6 @@ public class ProductImplement implements ProductService {
 //        return birdCages.stream().map((product) -> mapToProductDTO(product)).collect(Collectors.toList());
 //    }
 
-    @Override
-    public Product saveProduct(ProductDTO productDTO) {
-        return null;
-    }
-
     private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO = ProductDTO.builder()
                 .id(product.getId())
@@ -57,6 +52,7 @@ public class ProductImplement implements ProductService {
         return productDTO;
     }
 
+
 //    @Override
 //    public Product saveProduct(ProductDTO productDTO) {
 //        Product product = mapToProduct(productDTO);
@@ -64,34 +60,37 @@ public class ProductImplement implements ProductService {
 //    }
 
 
-    @Override
-    public void updateProduct(ProductDTO productDTO) {
-//        Product product=mapToProduct(productDTO);
-//        productRepository.save(product);
-    }
+//    @Override
+//    public void updateProduct(ProductDTO productDTO) {
+////        Product product=mapToProduct(productDTO);
+////        productRepository.save(product);
+//    }
 
 
-    @Override
-    public void deleteProduct(Long productId) {
-//        productRepository.deleteById(productId);
-    }
+//    @Override
+//    public void deleteProduct(Long productId) {
+////        productRepository.deleteById(productId);
+//    }
 
-    @Override
-    public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir) {
+
+    public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        if(keyword!=null){
+            Page<Product> productsPage =  productRepository.findAll(keyword,pageable);
+            return productsPage.map(this::mapToProductDTO);
+        }
         Page<Product> productsPage = productRepository.findAll(pageable);
-
         return productsPage.map(this::mapToProductDTO);
+
     }
 
 
     @Override
     public ProductDTO findProductById(Long productId) {
-//        Product product = productRepository.findById(productId).get();
-//        return mapToProductDTO(product);
+
         return null;
     }
 

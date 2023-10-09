@@ -30,13 +30,12 @@ public class ProductDTO {
     @NotNull(message = "*Required")
     private Double unitPrice;
     @NotNull(message = "*Required")
-    @Min(value = 1, message = "*Greater or equal to 1")
+    @Min(value = 0, message = "*Greater or equal to 0")
     private int unitsInStock;
     private int unitsOnOrder;
-    @NotEmpty(message = "*Required")
-    @Length(max = 20, message = "No more than 20 characters")
-    private String status;
-
+    @NotNull(message = "Status is required")
+    private Boolean status;
+    
     @Transient
     public String getMainImagePath() {
         if (id == null || mainImage == null) {

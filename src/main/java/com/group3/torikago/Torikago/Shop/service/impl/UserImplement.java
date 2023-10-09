@@ -104,16 +104,14 @@ public class UserImplement implements UserService {
         }
     }
 
-    @Override
-    public List<User> listAllUsers() {
+
+    public List<User> listAllUsers(String keyword) {
+
+        if(keyword!=null) {return userRepository.findAll(keyword);}
         return userRepository.findAll();
     }
 
-    @Override
 
-    public List<Role> listRoles() {
-        return roleRepository.findAll();
-    }
 
     @Override
     public User get(Long id) {
@@ -138,7 +136,19 @@ public class UserImplement implements UserService {
     }
 
     @Override
-    public User saveEditAdminUser(User user) {
+    public void save(User user) {
+
+        if(!user.getPassword().isEmpty()){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+
+        }
+
+    }
+
+
+    @Override
+    public User updateAccountOfUser(User user) {
         return userRepository.save(user);
     }
 

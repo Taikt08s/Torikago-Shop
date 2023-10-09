@@ -26,40 +26,30 @@ public class BirdCageImplement implements BirdCageService {
 
 
     @Override
-    public BirdCageDetail saveBirdCage(BirdCageDTO birdCageDTO) {
-        BirdCageDetail detail = mapToBirdCage(birdCageDTO);
-        return birdCageRepository.save(detail);
+    public BirdCageDetail saveBirdCage(BirdCageDTO birdCageDTO, ProductDTO productDTO) {
+        BirdCageDetail birdCage = mapToBirdCage(birdCageDTO, productDTO);
+        return birdCageRepository.save(birdCage);
     }
 
     @Override
-    public BirdCageDetail updateBirdCage(BirdCageDetail birdCage) {
+    public BirdCageDetail updateBirdCage(BirdCageDTO birdCageDTO, ProductDTO productDTO) {
+        BirdCageDetail birdCage = mapToBirdCage(birdCageDTO, productDTO);
         return birdCageRepository.save(birdCage);
     }
 
 
-    private BirdCageDetail mapToBirdCage(BirdCageDTO birdCage) {
+    private BirdCageDetail mapToBirdCage(BirdCageDTO birdCageDTO, ProductDTO productDTO) {
         ProductImplement productImplement = new ProductImplement();
-        BirdCageDetail birdCageDTO=BirdCageDetail.builder()
-                .birdCage(productImplement.mapToProduct(birdCage.getBirdCage()))
-                .dimension(birdCage.getDimension())
-                .cageShape(birdCage.getCageShape())
-                .birdWingSpan(birdCage.getBirdWingSpan())
-                .barSpacing(birdCage.getBarSpacing())
-                .description(birdCage.getDescription())
+        BirdCageDetail birdCage=BirdCageDetail.builder()
+                .id(birdCageDTO.getId())
+                .birdCage(productImplement.mapToProduct(productDTO))
+                .dimension(birdCageDTO.getDimension())
+                .cageShape(birdCageDTO.getCageShape())
+                .birdWingSpan(birdCageDTO.getBirdWingSpan())
+                .barSpacing(birdCageDTO.getBarSpacing())
+                .description(birdCageDTO.getDescription())
                 .build();
-        return birdCageDTO;
+        return birdCage;
     }
-//    private BirdCageDetail mapToBirdCage(BirdCageDTO birdCage) {
-//
-//        BirdCageDetail birdCageDTO=BirdCageDetail.builder()
-//                .birdCage(birdCage.getBirdCage())
-//                .dimension(birdCage.getDimension())
-//                .cageShape(birdCage.getCageShape())
-//                .birdWingSpan(birdCage.getBirdWingSpan())
-//                .barSpacing(birdCage.getBarSpacing())
-//                .description(birdCage.getDescription())
-//                .build();
-//        return birdCageDTO;
-//    }
 
 }

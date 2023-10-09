@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccessoryRepository extends JpaRepository<AccessoryDetail,Long> {
 
-    public AccessoryDetail findByaccessory_Id(Long productId);
+    public AccessoryDetail findByAccessory_Id(Long productId);
 }

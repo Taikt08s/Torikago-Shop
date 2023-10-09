@@ -5,10 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 @Data
@@ -29,7 +27,6 @@ public class BirdCageDTO {
     @Digits(integer = 3, fraction = 2, message = "Invalid number format")
     private double birdWingSpan;
     @NotEmpty(message = "*Required")
-    @Length(max = 2000, message = "No more than 2000" +
-            " characters")
+    @Length(max = 2000, message = "No more than 2000 characters")
     private String description;
 }

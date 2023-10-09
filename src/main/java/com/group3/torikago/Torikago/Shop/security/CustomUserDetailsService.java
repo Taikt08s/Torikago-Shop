@@ -29,6 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user != null) {
             List<Role> roles = new ArrayList<>();
             roles.add(user.getRole());
+            new MyUserDetails(user);
             if (!user.isEnabled()) {
                 throw new UsernameNotFoundException("Please verify your account");
             }
