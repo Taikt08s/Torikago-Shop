@@ -7,6 +7,7 @@ import com.group3.torikago.Torikago.Shop.service.UserService;
 import com.group3.torikago.Torikago.Shop.util.Util;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -84,20 +86,28 @@ public class AuthController {
         model.addAttribute("listRoles", listRoles);
         return "user-profile";
     }
-@PostMapping("/profile")
-    public String saveUser( User user, RedirectAttributes redirectAttributes) {
+
+    @PostMapping("/profile")
+    public String saveUser(User user, HttpSession session) {
         userService.updateAccountOfUser(user);
-       user.setFname(user.getFname());
-       user.setLname(user.getLname());
-        redirectAttributes.addFlashAttribute("message","Updated successfully");
-        return "redirect:/profile";
-}
+        user.setFname(user.getFname());
+        user.setLname(user.getLname());
+        session.setAttribute("updateInformationTime", LocalDateTime.now());
+        session.setAttribute("updateProfileSuccess", "Profile information updated");
+        return "redirect:/profile?success";
+    }
+
     @GetMapping("/user/profile/password")
-    public String openSettings(){
+    public String openSettings() {
         return "user-profile-password";
     }
+
     @PostMapping("/user/profile/password/save")
-    public String changePassword(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,@RequestParam("oldPassword")String oldPassword, @RequestParam("newPassword")String newPassword,@RequestParam("confirmNewPassword")String confirmPassword) {
+    public String changePassword(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
+                                 @RequestParam("oldPassword") String oldPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmNewPassword") String confirmPassword,
+                                 HttpSession session) {
 
         String email = myUserDetails.getUsername();
         User user = userService.findByEmail(email);
@@ -108,20 +118,18 @@ public class AuthController {
         // Kiểm tra xem mật khẩu cũ có khớp với mật khẩu đã mã hóa hay không
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             return "redirect:/user/profile/password?fail";
-        }
-        else if(newPassword.isEmpty()){
-            return"redirect:/user/profile/password?isEmpty";
-        }
-        else if(!passwordEncoder.matches(confirmPassword, encodedNewPassword)){
-            return "redirect:/user/profile/password?notMatches";}
-        else{
+        } else if (newPassword.isEmpty()) {
+            return "redirect:/user/profile/password?isEmpty";
+        } else if (!passwordEncoder.matches(confirmPassword, encodedNewPassword)) {
+            return "redirect:/user/profile/password?notMatches";
+        } else {
             user.setPassword(encodedNewPassword);
             userService.saveUserChangePassword(user);
+            session.setAttribute("changePasswordTime", LocalDateTime.now());
+            session.setAttribute("changePasswordSuccess", "Password change successfully");
         }
         return "redirect:/user/profile/password?success";
-
         // Trả về thông báo thành công
-
     }
 
 

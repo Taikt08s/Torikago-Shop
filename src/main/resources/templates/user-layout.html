@@ -67,25 +67,37 @@
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
-                    <span class="badge badge-danger badge-counter">3+</span>
+<!--                    <span class="badge badge-danger badge-counter">3+</span>-->
+                    <span id="notificationBadge" class="badge badge-danger badge-counter">3+</span>
                 </a>
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                      aria-labelledby="alertsDropdown">
                     <h6 class="dropdown-header">
-                        Alerts Center
+                        <i class="far fa-bell"></i> Notifications
                     </h6>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <a th:if="${session.changePasswordSuccess}" class="dropdown-item d-flex align-items-center" href="#">
                         <div class="mr-3">
-                            <div class="icon-circle bg-primary">
-                                <i class="fas fa-file-alt text-white"></i>
+                            <div class="icon-circle bg-warning">
+                                <i class="fas fa-key text-white"></i>
                             </div>
                         </div>
                         <div>
-                            <div class="small text-gray-500">December 12, 2019</div>
-                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                            <div class="small text-gray-500" th:text="${#temporals.format(session.changePasswordTime, 'yyyy-MM-dd HH:mm')}"></div>
+                            <span class="font-weight-bold" th:text="${session.changePasswordSuccess}"></span>
                         </div>
                     </a>
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                    <a th:if="${session.updateProfileSuccess}" class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-success">
+                                <i class="fas fa-id-card text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500" th:text="${#temporals.format(session.updateInformationTime, 'yyyy-MM-dd HH:mm')}"></div>
+                            <span class="font-weight-bold" th:text="${session.updateProfileSuccess}"></span>
+                        </div>
+                    </a>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Clear All Notifications</a>
                 </div>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
@@ -188,4 +200,13 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
+<script th:inline="javascript">
+    var showNotification = [[${session.Attribute('notificationMessage')}]];
+
+    window.onload = function () {
+        if (showNotification && !localStorage.getItem('notificationClosed')) {
+            document.getElementById('alertsDropdown').style.display = 'block';
+        }
+    };
+</script>
 </html>
