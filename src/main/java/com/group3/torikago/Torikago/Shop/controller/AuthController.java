@@ -92,11 +92,11 @@ public class AuthController {
         redirectAttributes.addFlashAttribute("message","Updated successfully");
         return "redirect:/profile";
 }
-    @GetMapping("/open")
+    @GetMapping("/user/profile/password")
     public String openSettings(){
-        return "user-change-password";
+        return "user-profile-password";
     }
-    @PostMapping("/users/change-password")
+    @PostMapping("/user/profile/password/save")
     public String changePassword(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,@RequestParam("oldPassword")String oldPassword, @RequestParam("newPassword")String newPassword,@RequestParam("confirmNewPassword")String confirmPassword) {
 
         String email = myUserDetails.getUsername();
@@ -107,18 +107,18 @@ public class AuthController {
 
         // Kiểm tra xem mật khẩu cũ có khớp với mật khẩu đã mã hóa hay không
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            return "redirect:/open?fail";
+            return "redirect:/user/profile/password?fail";
         }
         else if(newPassword.isEmpty()){
-            return"redirect:/open?isEmpty";
+            return"redirect:/user/profile/password?isEmpty";
         }
         else if(!passwordEncoder.matches(confirmPassword, encodedNewPassword)){
-            return "redirect:/open?notMatches";}
+            return "redirect:/user/profile/password?notMatches";}
         else{
             user.setPassword(encodedNewPassword);
             userService.saveUserChangePassword(user);
         }
-        return "redirect:/open?success";
+        return "redirect:/user/profile/password?success";
 
         // Trả về thông báo thành công
 
