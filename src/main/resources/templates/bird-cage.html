@@ -129,34 +129,38 @@
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>Product Name</label>
-                                                    <label th:if="${#fields.hasErrors('birdCage.productName')}"
-                                                           class="text-danger"
-                                                           th:errors="*{birdCage.productName}"></label>
-                                                    <input type="text"
-                                                           class="form-control form-control-user"
-                                                           id="productName"
-                                                           name="birdCage.productName"
-                                                           maxlength="80"
-                                                           th:field="*{birdCage.productName}"
-                                                           placeholder="Enter a name ...">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Product Price</label>
-                                                    <label th:if="${#fields.hasErrors('birdCage.unitPrice')}"
-                                                           class="text-danger"
-                                                           th:errors="*{birdCage.unitPrice}"></label>
-                                                    <div class="input-group">
-                                                        <input type="number"
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                                        <label>Accessory Name</label>
+                                                        <label th:if="${#fields.hasErrors('birdCage.productName')}"
+                                                               class="text-danger"
+                                                               th:errors="*{birdCage.productName}"></label>
+                                                        <input type="text"
                                                                class="form-control form-control-user"
-                                                               id="unitPrice"
-                                                               name="birdCage.unitPrice"
-                                                               placeholder="Enter Price"
-                                                               maxlength="10"
-                                                               th:field="*{birdCage.unitPrice}">
-                                                        <div class="input-group-append">
-                                                            <span class="form-control form-control-user input-group-text">VND</span>
+                                                               id="product.productName"
+                                                               name="product.productName"
+                                                               maxlength="80"
+                                                               th:field="*{birdCage.productName}"
+                                                               placeholder="Enter a name ...">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Product Price</label>
+                                                        <label th:if="${#fields.hasErrors('birdCage.unitPrice')}"
+                                                               class="text-danger"
+                                                               th:errors="*{birdCage.unitPrice}"></label>
+                                                        <div class="input-group">
+                                                            <input type="text"
+                                                                   class="form-control form-control-user"
+                                                                   id="unitPrice"
+                                                                   name="unitPrice"
+                                                                   placeholder="Enter Price"
+                                                                   maxlength="11"
+                                                                   th:field="*{birdCage.unitPrice}"
+                                                                   oninput="formatCurrency(this)"
+                                                                   style="text-align: right;">
+                                                            <div class="input-group-append">
+                                                                <span class="form-control form-control-user input-group-text">VND</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -456,5 +460,26 @@
         ],
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
     });
+    function formatCurrency(input) {
+        const value = input.value.replace(/\s+/g, ''); // Remove existing spaces
+        input.value = addSpaces(value);
+    }
+
+    function addSpaces(str) {
+        let result = '';
+        let count = 0;
+
+        for (let i = str.length - 1; i >= 0; i--) {
+            result = str.charAt(i) + result;
+            count++;
+
+            if (count === 3 && i !== 0) {
+                result = ' ' + result;
+                count = 0;
+            }
+        }
+
+        return result;
+    }
 </script>
 </html>

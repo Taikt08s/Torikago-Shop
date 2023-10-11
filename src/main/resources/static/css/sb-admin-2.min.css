@@ -11488,3 +11488,24 @@ input[type="file"] {
 .product-card:hover .card-border {
     border-color: rgba(0, 123, 255, 0.8);
 }
+/* Style for the image container */
+.image-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Style for the image */
+.image-container img {
+    max-width: 200px; /* Set the desired max width for the image */
+}
+
+/* Style for the file input */
+.image-upload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}

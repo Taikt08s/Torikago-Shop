@@ -136,7 +136,7 @@ public class UserImplement implements UserService {
     }
 
     @Override
-    public void save(User user) {
+    public  void saveUserEditedByAdmin(User user) {
 
         if(!user.getPassword().isEmpty()){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -150,6 +150,11 @@ public class UserImplement implements UserService {
     @Override
     public User updateAccountOfUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public void saveUserChangePassword(User user) {
+        userRepository.save(user);
     }
 
     public User get(String resetPasswordToken) {

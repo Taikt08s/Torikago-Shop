@@ -35,7 +35,11 @@ public interface UserService {
 
     List<Role> getRoles();
 
-    void save(User user);
+    void saveUserEditedByAdmin(User user);
 
     User updateAccountOfUser(User user);
+
+    void saveUserChangePassword(User user);
+
+
 }

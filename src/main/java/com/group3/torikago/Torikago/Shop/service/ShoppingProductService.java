@@ -6,10 +6,8 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface ShoppingProductService {
-    Page<Product> findPaginatedShoppingProducts(int pageNumber, int pageSize, String sortField, String sortDir);
+    Page<Product> findPaginatedShoppingProducts(int pageNumber, int pageSize, String sortField, String sortDir, String search);
 
     Product findProductById(Long id);
-
-    List<Product> searchProducts(String query);
 
 }

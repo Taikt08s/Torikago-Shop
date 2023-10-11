@@ -299,10 +299,8 @@ public class AdminController {
         return "admin-user-edit";
     }
     @PostMapping("/users/save")
-    public String saveUser(User user) {
-
-        userService.save(user);
-
+    public String saveUserEditedByAdmin(User user ) {
+        userService.saveUserEditedByAdmin(user);
         return "redirect:/admin/users-table";
     }
 }
