@@ -25,13 +25,13 @@ public class Product {
     private String productName;
     @Column(name = "product_type", length = 15)
     private String productType;
-    @Column(name = "imageMain", length = 45)
+    @Column(name = "imageMain")
     private String mainImage;
-    @Column(name = "extra_image1", length = 45, nullable = false)
+    @Column(name = "extra_image1")
     private String extraImage1;
-    @Column(name = "extra_image2", length = 45, nullable = false)
+    @Column(name = "extra_image2")
     private String extraImage2;
-    @Column(name = "extra_image3", length = 45, nullable = false)
+    @Column(name = "extra_image3")
     private String extraImage3;
     @Column(name = "unit_price", length = 10)
     private double unitPrice;
@@ -47,6 +47,8 @@ public class Product {
     private BirdCageDetail birdCageDetail;
     @OneToOne(mappedBy = "accessory")
     private AccessoryDetail accessoryDetail;
+    @OneToMany(mappedBy = "productId")
+    private List<CartItems> cartItems;
     @Transient
     public String getMainImagePath() {
         String imagePath = "/product-images/" + id + "/" + mainImage;

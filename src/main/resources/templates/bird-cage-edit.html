@@ -87,6 +87,10 @@
                                                           th:action="@{/admin/product-table/bird-cage/{productId}/edit(productId=${birdCage.id})}"
                                                           enctype="multipart/form-data">
                                                         <div class="p-5">
+                                                            <input type="hidden" th:field="*{birdCage.id}"
+                                                                   name="birdCage.id">
+                                                        </div>
+                                                        <div class="p-5">
                                                             <label>Drag & Drop or Click to Upload Main Picture</label>
                                                             <div class="dashed-box" id="image-drop-area1">
                                                                 <div class="image-container">

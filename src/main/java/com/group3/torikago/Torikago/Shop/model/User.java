@@ -1,6 +1,7 @@
 package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import lombok.*;
 import java.util.List;
 
@@ -45,4 +46,6 @@ public class User {
     private Role role;
     @OneToMany(mappedBy = "userOrder")
     private List<BirdCageOrder> birdCageOrders;
+    @OneToMany(mappedBy = "userId")
+    private List<CartItems> cartItems;
 }
