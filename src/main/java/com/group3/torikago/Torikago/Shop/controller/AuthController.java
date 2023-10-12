@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class AuthController {
@@ -112,24 +113,31 @@ public class AuthController {
         String email = myUserDetails.getUsername();
         User user = userService.findByEmail(email);
 
-        //String encodedOldPassword = passwordEncoder.encode(oldPassword);
-        String encodedNewPassword = passwordEncoder.encode(newPassword);
 
-        // Kiểm tra xem mật khẩu cũ có khớp với mật khẩu đã mã hóa hay không
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+        boolean hasLetter = Pattern.matches(".*[a-zA-Z].*", newPassword);
+
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             return "redirect:/user/profile/password?fail";
         } else if (newPassword.isEmpty()) {
             return "redirect:/user/profile/password?isEmpty";
+        }else if (!hasLetter) {
+            return "redirect:/user/profile/password?letter";
+        } else if (newPassword.length()<8) {
+            return "redirect:/user/profile/password?length";
         } else if (!passwordEncoder.matches(confirmPassword, encodedNewPassword)) {
             return "redirect:/user/profile/password?notMatches";
+
+        } else if (!Character.isUpperCase(newPassword.charAt(0))) {
+            return "redirect:/user/profile/password?isUpperCase";
         } else {
             user.setPassword(encodedNewPassword);
             userService.saveUserChangePassword(user);
             session.setAttribute("changePasswordTime", LocalDateTime.now());
-            session.setAttribute("changePasswordSuccess", "Password change successfully");
+            session.setAttribute("changePasswordSuccess", "Password changed successfully");
         }
         return "redirect:/user/profile/password?success";
-        // Trả về thông báo thành công
+
     }
 
 

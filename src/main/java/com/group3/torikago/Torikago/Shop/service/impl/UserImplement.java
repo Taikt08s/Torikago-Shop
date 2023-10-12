@@ -149,9 +149,9 @@ public class UserImplement implements UserService {
 
     @Override
     public User updateAccountOfUser(User user) {
+
         return userRepository.save(user);
     }
-
     @Override
     public void saveUserChangePassword(User user) {
         userRepository.save(user);
