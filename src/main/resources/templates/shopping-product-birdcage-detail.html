@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title th:text="${product.productName}"></title>
+    <link rel="icon" type="image/x-icon" th:src="@{/img/Arisu_(Maid).png}"/>
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome-free/css/all.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
+    <script>
+        "use strict";
+        !function () {
+            var t = window.driftt = window.drift = window.driftt || [];
+            if (!t.init) {
+                if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+                t.invoked = !0, t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"],
+                    t.factory = function (e) {
+                        return function () {
+                            var n = Array.prototype.slice.call(arguments);
+                            return n.unshift(e), t.push(n), t;
+                        };
+                    }, t.methods.forEach(function (e) {
+                    t[e] = t.factory(e);
+                }), t.load = function (t) {
+                    var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+                    var i = document.getElementsByTagName("script")[0];
+                    i.parentNode.insertBefore(o, i);
+                };
+            }
+        }();
+        drift.SNIPPET_VERSION = '0.3.1';
+        drift.load('cd5zcgtmmek9');
+    </script>
+</head>
+<div th:insert="~{user-layout :: header}"></div>
+<body class="bg-gray-200">
+<div class="container">
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/bird-cage">Bird Cage</a></li>
+                <li class="breadcrumb-item active" aria-current="page" th:text="${product.productName}"></li>
+            </ol>
+        </nav>
+        <div class="col-md-12">
+            <div class="card shadow mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="carousel-container" style="height: 500px; overflow: hidden;">
+                                <div class="carousel slide" data-ride="carousel" id="carousel-1">
+                                    <div class="carousel-inner" role="listbox">
+                                        <div class="carousel-item active">
+                                            <img th:src="${product.getMainImagePath()}" class="card-img"
+                                                 alt="Product Image"
+                                                 style="max-width: 100%; max-height: 100%" loading="lazy">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img th:src="${product.getExtraImagePath1()}" class="card-img"
+                                                 alt="Product Image"
+                                                 style="max-width: 100%; max-height: 100%">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img th:src="${product.getExtraImagePath2()}" class="card-img"
+                                                 alt="Product Image"
+                                                 style="max-width: 100%; max-height: 100%">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img th:src="${product.getExtraImagePath3()}" class="card-img"
+                                                 alt="Product Image"
+                                                 style="max-width: 100%; max-height: 100%">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a class="carousel-control-prev" href="#carousel-1" role="button"
+                                           data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carousel-1" role="button"
+                                           data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carousel-1" data-slide-to="1"></li>
+                                        <li data-target="#carousel-1" data-slide-to="2"></li>
+                                        <li data-target="#carousel-1" data-slide-to="3"></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-5">
+                        <div class="row">
+                            <h3 th:text="${product.productName}" class=""></h3>
+                            <h5 href="" value="5" style="color: gold;">5.0★★★★★</h5>
+                        </div>
+                        <div class="bg-gray-100 col-md-10 mb-5">
+                            <h3 th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"
+                                class="text-gray-800"></h3>
+                        </div>
+                        <div class="input-group col-md-4 mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary" type="button" onclick="decrementQuantity()">
+                                    -
+                                </button>
+                            </div>
+                            <input type="text" class="form-control text-center" value="1" id="quantityInput"
+                                   readonly="readonly">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" onclick="incrementQuantity()">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-3 col-md-3">
+                            <span th:if="${product.unitsInStock > 0}" class="font-weight-bold"
+                                  th:text="${'In stock: ' + product.unitsInStock}"></span>
+                            <span th:if="${product.unitsInStock == 0}" style="color: red;">Out of Stock</span>
+                        </p>
+
+                        <th:block th:if="${product.unitsInStock > 0}">
+                            <button class="btn btn-outline-primary"><i class="fas fa-cart-plus"></i>Add to Cart</button>
+                            <button class="btn btn-primary">Buy now</button>
+                        </th:block>
+
+                        <p class="my-3 text-gray-700">Shipping cost is 40.000 across Viet Nam <i
+                                class="fas fa-truck"></i></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <hr class="bg-gray-400">
+                    <div class="bg-gray-100 col-md-12 mb-2">
+                        <h4 class="text-gray-800">Product Details</h4>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="pb-2 text-gray-600">Product Name</label>
+                            </div>
+                            <div class="col-md-10">
+                                <label th:text="${product.productName}"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="pb-2 text-gray-600">Product Categories</label>
+                            </div>
+                            <div class="col-md-10">
+                                <label th:text="${product.productType}"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="pb-2 text-gray-600">Product Shape</label>
+                            </div>
+                            <div class="col-md-10">
+                                <label th:text="${product.birdCageDetail.cageShape}"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="pb-2 text-gray-600">Bar Spacing</label>
+                            </div>
+                            <div class="col-md-10">
+                                <label th:text="${product.birdCageDetail.barSpacing}"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="pb-2 text-gray-600">Bird Wingspan</label>
+                            </div>
+                            <div class="col-md-10">
+                                <label th:text="${product.birdCageDetail.birdWingSpan}"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="pb-2 text-gray-600">Dimensions</label>
+                            </div>
+                            <div class="col-md-10">
+                                <label th:text="${product.birdCageDetail.dimension}"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <hr class="bg-gray-400">
+                    <div class="bg-gray-100 col-md-12 mb-2">
+                        <h4 class="text-gray-800">Description</h4>
+                    </div>
+                    <div class="card-body p-2">
+                        <th:block th:utext="${product.birdCageDetail.description}" class="mb-3"></th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="text-gray-800">Similar Products</h5>
+        </div>
+    </div>
+    <div class="card shadow my-4">
+        <div class="card-body">
+            <h5 class="text-gray-800">Review</h5>
+            <div class="card my-3">
+                <label>Taikt08s</label>
+                <p href="" value="5"
+                   style="color: gold; display: inline-block; margin-right: 5px; vertical-align: middle;">★★★★★</p>
+                <p>Wow amazing products.Love to buy it again!</p>
+                <div class="position-absolute top-0 end-0">
+                    <div class="dropdown">
+                        <button class="btn btn-link" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#reportModal">Report</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reportModalLabel">Report Comment</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="reportReason"
+                                               value="inappropriate" id="reportInappropriate">
+                                        <label class="form-check-label" for="reportInappropriate">Inappropriate
+                                            content</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="reportReason"
+                                               value="offensive" id="reportOffensive">
+                                        <label class="form-check-label" for="reportOffensive">Offensive language</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="reportReason" value="spam"
+                                               id="reportSpam">
+                                        <label class="form-check-label" for="reportSpam">Spam or misleading</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="reportReason" value="other"
+                                               id="reportOther">
+                                        <label class="form-check-label" for="reportOther">Other (please specify)</label>
+                                    </div>
+                                    <div class="mt-3" id="otherReasonInput" style="display: none;">
+                                        <label for="otherReason">Specify Other Reason:</label>
+                                        <input type="text" id="otherReason" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:insert="~{user-layout :: footer}"></div>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+<script>
+    var unitsInStock = [[${product.unitsInStock}]];
+
+    function incrementQuantity() {
+        var quantityInput = document.getElementById('quantityInput');
+        var currentQuantity = parseInt(quantityInput.value);
+
+        if (currentQuantity < unitsInStock) {
+            quantityInput.value = currentQuantity + 1;
+        }
+    }
+
+    function decrementQuantity() {
+        var quantityInput = document.getElementById('quantityInput');
+        var currentQuantity = parseInt(quantityInput.value);
+
+        if (currentQuantity > 1) {
+            quantityInput.value = currentQuantity - 1;
+        }
+    }
+
+    var otherReasonInput = document.getElementById('otherReasonInput');
+    var otherReasonRadio = document.getElementById('reportOther');
+
+    document.getElementsByName('reportReason').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            otherReasonInput.style.display = otherReasonRadio.checked ? 'block' : 'none';
+        });
+    });
+</script>
+</html>

@@ -25,13 +25,13 @@ public class Product {
     private String productName;
     @Column(name = "product_type", length = 15)
     private String productType;
-    @Column(name = "imageMain", length = 45)
+    @Column(name = "imageMain")
     private String mainImage;
-    @Column(name = "extra_image1", length = 45, nullable = false)
+    @Column(name = "extra_image1", nullable = false)
     private String extraImage1;
-    @Column(name = "extra_image2", length = 45, nullable = false)
+    @Column(name = "extra_image2", nullable = false)
     private String extraImage2;
-    @Column(name = "extra_image3", length = 45, nullable = false)
+    @Column(name = "extra_image3", nullable = false)
     private String extraImage3;
     @Column(name = "unit_price", length = 10)
     private double unitPrice;

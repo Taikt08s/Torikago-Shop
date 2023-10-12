@@ -1,5 +1,8 @@
 package com.group3.torikago.Torikago.Shop.security;
 
+import com.group3.torikago.Torikago.Shop.oauth.CustomOauth2User;
+import com.group3.torikago.Torikago.Shop.oauth.CustomOauth2UserService;
+import com.group3.torikago.Torikago.Shop.oauth.Oauth2LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +25,15 @@ import javax.sql.DataSource;
 public class SecurityConfig {
     private CustomUserDetailsService userDetailsService;
     private DataSource dataSource;
+    private Oauth2LoginSuccessHandler oauth2LoginSucessHandler;
+    private CustomOauth2UserService customOauth2UserService;
 
     @Autowired
-    public SecurityConfig(CustomUserDetailsService userDetailsService, DataSource dataSource) {
+    public SecurityConfig(CustomUserDetailsService userDetailsService, DataSource dataSource, Oauth2LoginSuccessHandler oauth2LoginSucessHandler, CustomOauth2UserService customOauth2UserService) {
         this.userDetailsService = userDetailsService;
         this.dataSource = dataSource;
+        this.oauth2LoginSucessHandler = oauth2LoginSucessHandler;
+        this.customOauth2UserService = customOauth2UserService;
     }
 
     @Bean
@@ -39,12 +46,12 @@ public class SecurityConfig {
         // luu y khi muon test thi disable csrf!! .csrf().disable()
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/reset_password", "/login", "/forgot_password", "/verify", "/"
-                                , "/torikago", "/register", "/register/**","/torikago/product/{id}","/torikago/search"
-                                , "/css/**", "/js/**", "/vendor/**", "/scss/**", "/403","/product-images/**").permitAll()
+                        .requestMatchers("/", "/reset_password", "/login", "/forgot_password", "/verify", "/"
+                                , "/torikago/**", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**",
+                                "/scss/**", "/403", "/product-images/**","/oauth2/**").permitAll()
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin", "/admin/product-table",
+                        .requestMatchers("/admin", "/admin/product-table","/oauth2/**",
                                 "/admin/users-table", "/admin/product-table/bird-cage/add").hasAnyAuthority("ADMIN").anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -52,7 +59,10 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
-                )
+                ).oauth2Login(oauth -> oauth
+                        .loginPage("/login")
+                        .userInfoEndpoint().userService(customOauth2UserService).and()
+                        .successHandler(oauth2LoginSucessHandler))
                 .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")))

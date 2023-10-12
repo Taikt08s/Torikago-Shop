@@ -7,6 +7,7 @@ import com.group3.torikago.Torikago.Shop.model.Role;
 import com.group3.torikago.Torikago.Shop.exception.UserNotFoundException;
 
 import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.model.AuthenticationProvider;
 import jakarta.mail.MessagingException;
 
 import java.io.UnsupportedEncodingException;
@@ -25,9 +26,7 @@ public interface UserService {
 
     boolean verify(String code);
 
-   List<User> listAllUsers(String keyword);
-
-
+    List<User> listAllUsers(String keyword);
 
     User get(Long id);
 
@@ -41,5 +40,8 @@ public interface UserService {
 
     void saveUserChangePassword(User user);
 
+    void createNewUserAfterOauthLogin(String email, String name, AuthenticationProvider provider);
+
+    void updateUserAfterOauthLogin(User user, String name, AuthenticationProvider authenticationProvider);
 
 }
