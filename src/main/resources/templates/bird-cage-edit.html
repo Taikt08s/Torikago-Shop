@@ -87,6 +87,7 @@
                                                   th:action="@{/admin/product-table/bird-cage/{productId}/edit(productId=${birdCage.id})}"
                                                   enctype="multipart/form-data">
                                                 <div class="p-5">
+<<<<<<< HEAD
                                                     <label>Drag & Drop or Click to Upload Main Picture</label>
                                                     <div class="dashed-box" id="image-drop-area1">
                                                         <div class="image-container">
@@ -100,6 +101,26 @@
                                                                    th:field="*{birdCage.mainImage}"
                                                                    name="birdCage.mainImage"
                                                                    data-field-name="extra-image">
+=======
+                                                    <form class="user" method="post"
+                                                          th:action="@{/admin/product-table/bird-cage/{productId}/edit(productId=${birdCage.id})}"
+                                                          enctype="multipart/form-data">
+                                                        <div class="p-5">
+                                                            <input type="hidden" th:field="*{birdCage.id}"
+                                                                   name="birdCage.id">
+                                                        </div>
+                                                        <div class="p-5">
+                                                            <label>Drag & Drop or Click to Upload Main Picture</label>
+                                                            <div class="dashed-box" id="image-drop-area1">
+                                                                <div class="image-container">
+                                                                    <img id="thumbnail-main" th:src="@{${birdCage.getMainImagePath()}}" alt="Main Image"
+                                                                         style="max-width: 100%; max-height: 600px;">
+                                                                    <input type="file" accept="image/png, image/gif, image/jpeg" 
+                                                                           class="image-upload" id="file-input1" th:field="*{birdCage.mainImage}"
+                                                                           name="birdCage.mainImage" data-field-name="extra-image">
+                                                                </div>
+                                                            </div>
+>>>>>>> 8647e56347611a730c537f554e6061c38b879d7b
                                                         </div>
                                                     </div>
                                                 </div>

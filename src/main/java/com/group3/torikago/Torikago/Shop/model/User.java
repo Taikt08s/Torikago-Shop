@@ -1,6 +1,7 @@
 package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import lombok.*;
 
 import java.util.List;
@@ -49,4 +50,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "oauth_provider", length = 15)
     private AuthenticationProvider authProvider;
+    @OneToMany(mappedBy = "userId")
+    private List<CartItems> cartItems;
 }
