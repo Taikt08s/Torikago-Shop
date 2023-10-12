@@ -126,12 +126,13 @@
                                 <button type="submit" class="btn btn-primary ml-3">Popular</button>
                             </div>
                             <div class="col-md-2 justify-content-lg-start">
-                                <select class="form-select" id="price">
+                                <select class="form-select" id="price" th:href="@{/torikago(pageNumber=1, sortField='price', sortDir=${sortField eq 'price' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
                                     <option value="default" selected disabled style="display:none;">Price</option>
-                                    <option value="lowPrice">Low to High</option>
-                                    <option value="highPrice">High to Low</option>
+                                    <option value="lowPrice" th:selected="${sortField eq 'price' and sortDir eq 'asc'}">Low to High</option>
+                                    <option value="highPrice" th:selected="${sortField eq 'price' and sortDir eq 'desc'}">High to Low</option>
                                 </select>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -213,7 +214,7 @@
                                     <h5 class="card-title" th:text="${product.productName}"
                                         style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
                                     <p class="card-text row"
-                                       th:text="' $'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                       th:text="' ₫'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
                                 </div>
                                 <div class="card-border"></div>
                             </a>

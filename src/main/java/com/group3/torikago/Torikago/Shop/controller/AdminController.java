@@ -102,7 +102,7 @@ public class AdminController {
             count++;
         }
         
-        productDTO.setProductType("Bird Cage");
+        productDTO.setProductType("bird-cage");
         productDTO.setUnitsOnOrder(0);
 
         BirdCageDetail savedProduct = birdCageService.saveBirdCage(birdCageDTO, productDTO);
@@ -147,7 +147,7 @@ public class AdminController {
             count++;
         }
 
-        productDTO.setProductType("Accessory");
+        productDTO.setProductType("accessory");
         productDTO.setUnitsOnOrder(0);
 
         AccessoryDetail savedProduct = accessoryService.saveAccessory(accessoryDTO, productDTO);
@@ -166,12 +166,12 @@ public class AdminController {
     @RolesAllowed({"ADMIN"})
     public String editProduct(Model model, @PathVariable("productType") String productType,
                               @PathVariable("productId") Long productId) {
-        if (productType.equalsIgnoreCase("Bird Cage")) {
+        if (productType.equalsIgnoreCase("bird-cage")) {
             BirdCageDetail birdCageDetail = birdCageService.findBirdCageByID(productId);            
             model.addAttribute("birdCageDetail", birdCageDetail);
             model.addAttribute("birdCage", birdCageDetail.getBirdCage());
             return "bird-cage-edit";
-        } else if (productType.equalsIgnoreCase("Accessory")) {
+        } else if (productType.equalsIgnoreCase("accessory")) {
             AccessoryDetail accessoryDetail = accessoryService.findAccessoryById(productId);
             model.addAttribute("accessoryDetail", accessoryDetail);
             model.addAttribute("accessory", accessoryDetail.getAccessory());
@@ -216,7 +216,7 @@ public class AdminController {
         }
         accessoryDTO.setId(accessory.getId());
         productDTO.setId(productId);
-        productDTO.setProductType("Accessory");
+        productDTO.setProductType("accessory");
         productDTO.setUnitsOnOrder(accessory.getAccessory().getUnitsOnOrder());
         accessoryService.updateAccessory(accessoryDTO, productDTO);
         
@@ -235,12 +235,13 @@ public class AdminController {
                                BindingResult birdCageBindingResult,
                                @ModelAttribute("birdCage") @Valid ProductDTO productDTO,
                                BindingResult productBindingResult, 
-                               @PathVariable("productId") Long productId) throws IOException {
+                               @PathVariable("productId") Long productId) throws IOException {       
+        BirdCageDetail birdCageDetail = birdCageService.findBirdCageByID(productId);
+        
         if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
             return "bird-cage-edit";
         }
         
-        BirdCageDetail birdCageDetail = birdCageService.findBirdCageByID(productId);
         int count = 0;
         for (MultipartFile extraMultipart : extraMultipartFiles) {
             String extraImageName = StringUtils.cleanPath(extraMultipart.getOriginalFilename());
@@ -265,7 +266,7 @@ public class AdminController {
 
         birdCageDTO.setId(birdCageDetail.getId());
         productDTO.setId(productId);
-        productDTO.setProductType("Bird Cage");
+        productDTO.setProductType("bird-cage");
         productDTO.setUnitsOnOrder(birdCageDetail.getBirdCage().getUnitsOnOrder());
         birdCageService.updateBirdCage(birdCageDTO, productDTO);
 

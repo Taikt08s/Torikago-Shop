@@ -16,8 +16,7 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
         <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-        <script src="https://cdn.tiny.cloud/1/pv6bp7c7sbs6abz8ue3xn733snrbtxp5sge9f2v9oijnxayn/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+        <script th:src="@{https://cdn.tiny.cloud/1/7178xhk8rbjjn9lxva2bm8ps3lzqnwqcra6ojmrwg91n3kwg/tinymce/6/tinymce.min.js}" referrerpolicy="origin"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -77,10 +76,14 @@
                                                           th:action="@{/admin/product-table/accessory/{productId}/edit(productId=${accessory.id})}"
                                                           enctype="multipart/form-data">
                                                         <div class="p-5">
+                                                            <input type="hidden" th:field="*{accessory.id}"
+                                                                   name="accessory.id">
+                                                        </div>
+                                                        <div class="p-5">
                                                             <div class="dashed-box" id="image-drop-area1">
                                                                 <label>Drag & Drop or Click to Upload Picture Main</label>
                                                                 <input type="file"
-                                                                       accept="image/png, image/gif, image/jpeg"
+                                                                       accept="image/*"
                                                                        id="file-input1"
                                                                        name="extra-image">
                                                                 <img alt="Image Preview" id="thumbnail-main"
@@ -91,7 +94,7 @@
                                                             <div class="dashed-box" id="image-drop-area2">
                                                                 <label>Drag & Drop or Click to Upload Picture 1</label>
                                                                 <input type="file"
-                                                                       accept="image/png, image/gif, image/jpeg"
+                                                                       accept="image/*"
                                                                        id="file-input2"
                                                                        name="extra-image">
                                                                 <img alt="Image Preview" id="thumbnail-extra1"
@@ -102,7 +105,7 @@
                                                             <div class="dashed-box" id="image-drop-area3">
                                                                 <label>Drag & Drop or Click to Upload Picture 2</label>
                                                                 <input type="file"
-                                                                       accept="image/png, image/gif, image/jpeg"
+                                                                       accept="image/*"
                                                                        id="file-input3"
                                                                        name="extra-image">
                                                                 <img alt="Image Preview" id="thumbnail-extra2"
@@ -113,7 +116,7 @@
                                                             <div class="dashed-box" id="image-drop-area4">
                                                                 <label>Drag & Drop or Click to Upload Picture 3</label>
                                                                 <input type="file"
-                                                                       accept="image/png, image/gif, image/jpeg"
+                                                                       accept="image/*"
                                                                        id="file-input4"
                                                                        name="extra-image">
                                                                 <img alt="Image Preview" id="thumbnail-extra3"
@@ -238,7 +241,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
+    <script>
         const dashedBox1 = document.getElementById("image-drop-area1");
         const dashedBox2 = document.getElementById("image-drop-area2");
         const dashedBox3 = document.getElementById("image-drop-area3");
