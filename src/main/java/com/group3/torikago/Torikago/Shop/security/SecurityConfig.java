@@ -49,10 +49,10 @@ public class SecurityConfig {
                         .requestMatchers("/", "/reset_password", "/login", "/forgot_password", "/verify", "/"
                                 , "/torikago/**", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**",
                                 "/scss/**", "/403", "/product-images/**","/oauth2/**").permitAll()
+                        .requestMatchers("/admin", "/admin/product-table",
+                                "/admin/users-table", "/admin/product-table/bird-cage/add").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/manager").hasAnyAuthority("MANAGER").anyRequest().authenticated()
                 )
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin", "/admin/product-table","/oauth2/**",
-                                "/admin/users-table", "/admin/product-table/bird-cage/add").hasAnyAuthority("ADMIN").anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/torikago")

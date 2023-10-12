@@ -124,14 +124,14 @@
                                                name="gender"
                                                id="male"
                                                value="true"
-                                               th:field="*{gender}"> Male
+                                               th:field="*{gender}"><i class="fas fa-fw fa-male"></i>Male
                                     </label>
                                     <label for="female">
                                         <input type="radio"
                                                name="gender"
                                                id="female"
                                                value="false"
-                                               th:field="*{gender}"> Female
+                                               th:field="*{gender}"><i class="fas fa-fw fa-female"></i>Female
                                     </label>
                                     <p th:if="${#fields.hasErrors('gender')}" class="text-danger"
                                        th:errors="*{gender}"></p>

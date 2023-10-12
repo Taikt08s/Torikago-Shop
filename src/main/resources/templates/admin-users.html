@@ -98,27 +98,15 @@
                                         <th>Role</th>
                                         <th>Status</th>
                                         <th>Edit</th>
-                                        <th>Remove</th>
                                     </tr>
                                     </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>User ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Image</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Edit</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                    </tfoot>
                                     <tbody>
                                     <tr th:each="user : ${users}">
                                         <td th:text="${user.id}"></td>
                                         <td th:text="${user.userName}"></td>
                                         <td th:text="${user.email}"></td>
-                                        <td> <img th:src="@{${user}}" alt="User Image" width="100"/></td>
+                                        <td> <img class="img-profile rounded-circle"
+                                                  th:src="@{/img/undraw_profile.svg}" width="30"/></td>
                                         <td th:text="${user.role}"></td>
                                         <td th:text="${user.isEnabled()}"></td>
                                         <th><a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-info btn-icon-split">
@@ -126,13 +114,6 @@
                                             <i class="fas fa-pen-square"></i>
                                         </span>
                                             <span class="text">Edit</span>
-                                        </a>
-                                        </th>
-                                        <th><a href="#" class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                            <span class="text">Remove</span>
                                         </a>
                                         </th>
                                     </tr>

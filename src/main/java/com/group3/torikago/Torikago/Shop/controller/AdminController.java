@@ -8,7 +8,6 @@ import com.group3.torikago.Torikago.Shop.service.AccessoryService;
 import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
-import com.group3.torikago.Torikago.Shop.service.impl.ProductImplement;
 import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
@@ -20,17 +19,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.regex.Pattern;
-
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class AdminController {
