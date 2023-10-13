@@ -2,9 +2,9 @@ package com.group3.torikago.Torikago.Shop.service.impl;
 
 import com.group3.torikago.Torikago.Shop.dto.RegisterDTO;
 import com.group3.torikago.Torikago.Shop.exception.UserNotFoundException;
-import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.Role;
 import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.model.AuthenticationProvider;
 import com.group3.torikago.Torikago.Shop.repository.RoleRepository;
 import com.group3.torikago.Torikago.Shop.repository.UserRepository;
 import com.group3.torikago.Torikago.Shop.service.UserService;
@@ -19,9 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserImplement implements UserService {
@@ -107,10 +105,11 @@ public class UserImplement implements UserService {
 
     public List<User> listAllUsers(String keyword) {
 
-        if(keyword!=null) {return userRepository.findAll(keyword);}
+        if (keyword != null) {
+            return userRepository.findAll(keyword);
+        }
         return userRepository.findAll();
     }
-
 
 
     @Override
@@ -136,9 +135,9 @@ public class UserImplement implements UserService {
     }
 
     @Override
-    public  void saveUserEditedByAdmin(User user) {
+    public void saveUserEditedByAdmin(User user) {
 
-        if(!user.getPassword().isEmpty()){
+        if (!user.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
 
@@ -146,14 +145,31 @@ public class UserImplement implements UserService {
 
     }
 
-
     @Override
     public User updateAccountOfUser(User user) {
+
         return userRepository.save(user);
+    }
+    @Override
+    public void saveUserChangePassword(User user) {
+        userRepository.save(user);
     }
 
     @Override
-    public void saveUserChangePassword(User user) {
+    public void createNewUserAfterOauthLogin(String email, String name, AuthenticationProvider provider) {
+        User user = new User();
+        user.setEmail(email);
+        user.setUserName(name);
+        user.setAuthProvider(provider);
+//        user.setRole();
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateUserAfterOauthLogin(User user, String name, AuthenticationProvider authenticationProvider) {
+        user.setUserName(name);
+        user.setAuthProvider(authenticationProvider);
         userRepository.save(user);
     }
 

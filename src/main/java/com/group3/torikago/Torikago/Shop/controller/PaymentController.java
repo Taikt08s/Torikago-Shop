@@ -1,6 +1,7 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
-import com.group3.torikago.Torikago.Shop.config.Config;
+import com.group3.torikago.Torikago.Shop.config.PaymentConfig;
+import com.group3.torikago.Torikago.Shop.model.OrderDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,16 +15,18 @@ import java.util.*;
 public class PaymentController {
     @GetMapping("/payment")
     public String getPayment() throws UnsupportedEncodingException {
+        OrderDetails orderDetails=new OrderDetails();
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-        long amount = 100000*100;
+//        long amount = (long) (orderDetails.getUnitPrice() * 100);
+        long amount = 1000000 * 100;
         String bankCode = "NCB";
 
-        String vnp_TxnRef = Config.getRandomNumber(8);
+        String vnp_TxnRef = PaymentConfig.getRandomNumber(8);
         String vnp_IpAddr = "118.69.182.144";
 
-        String vnp_TmnCode = Config.vnp_TmnCode;
+        String vnp_TmnCode = PaymentConfig.vnp_TmnCode;
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
@@ -38,7 +41,7 @@ public class PaymentController {
         vnp_Params.put("vnp_OrderType", orderType);
 
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl);
+        vnp_Params.put("vnp_ReturnUrl", PaymentConfig.vnp_ReturnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -74,9 +77,9 @@ public class PaymentController {
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
+        String vnp_SecureHash = PaymentConfig.hmacSHA512(PaymentConfig.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
+        String paymentUrl = PaymentConfig.vnp_PayUrl + "?" + queryUrl;
         return paymentUrl;
     }
 

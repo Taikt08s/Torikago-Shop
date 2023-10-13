@@ -4,15 +4,12 @@ import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.service.ShoppingProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 public class ShopController {
@@ -47,8 +44,12 @@ public class ShopController {
     @GetMapping("/torikago/product/{id}")
     public String productDetails(@PathVariable("id") Long id, Model model) {
         Product product = shoppingProductService.findProductById(id);
+        if(product.getProductType().equals("Bird Cage")){
         model.addAttribute("product", product);
-        return "shopping-product-detail";
+        return "shopping-product-birdcage-detail";
+    } else if (product.getProductType().equals("Accessory"))
+            model.addAttribute("product", product);
+        return "shopping-product-accessory-detail";
     }
 //    @GetMapping("/torikago/search")
 //    public String searchShoppingProducts(@RequestParam(value = "query") String query, Model model) {
