@@ -122,7 +122,7 @@
                         <i class="fas fa-solid fa-user-tie fa-sm fa-fw mr-2 text-gray-400"></i>
                         Admin Dashboard
                     </a>
-                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''MANAGER'')')}" href="#">
+                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''MANAGER'')')}" th:href="@{/manager}">
                         <i class="fas fa-solid fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
                         Manager Dashboard
                     </a>
