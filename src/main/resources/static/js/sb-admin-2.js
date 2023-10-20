@@ -121,3 +121,24 @@ function addSpaces(str) {
 
     return result;
 }
+
+$(document).ready(function () {
+    // Disable the default option when the dropdown is opened
+    $('#shipping').on('click', function () {
+        $(this).find('option[value="default"]').prop('disabled', true);
+    });
+
+    // Enable the default option when an option is selected
+    $('#shipping').on('change', function () {
+        if ($(this).val() !== "default") {
+            $(this).find('option[value="default"]').prop('disabled', false);
+        }
+    });
+
+    // Enable the default option when clicking outside the dropdown
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('#shipping').length) {
+            $('#shipping').find('option[value="default"]').prop('disabled', false);
+        }
+    });
+});

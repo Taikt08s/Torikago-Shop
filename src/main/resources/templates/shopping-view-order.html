@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Torikago Shop</title>
+    <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    <script>
+        "use strict";
+        !function () {
+            var t = window.driftt = window.drift = window.driftt || [];
+            if (!t.init) {
+                if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+                t.invoked = !0, t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"],
+                    t.factory = function (e) {
+                        return function () {
+                            var n = Array.prototype.slice.call(arguments);
+                            return n.unshift(e), t.push(n), t;
+                        };
+                    }, t.methods.forEach(function (e) {
+                    t[e] = t.factory(e);
+                }), t.load = function (t) {
+                    var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+                    var i = document.getElementsByTagName("script")[0];
+                    i.parentNode.insertBefore(o, i);
+                };
+            }
+        }();
+        drift.SNIPPET_VERSION = '0.3.1';
+        drift.load('cd5zcgtmmek9');
+    </script>
+</head>
+<div th:insert="~{user-layout :: header}"></div>
+<body class="bg-gray-200">
+<section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2">
+                    <div class="vtrWey"></div>
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="p-3">
+                                    <span class="text-primary py-3 ml-4"><i
+                                            class="fas fa-map-marker-alt"></i> Delivery location</span>
+                                    <div class="mt-2 ml-5">
+                                        <p class="font-weight-bold"
+                                           th:text="${user.getFname()+' '+user.getLname()}"></p>
+                                        <p class="font-weight-bold" th:text="${user.phoneNumber}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="p-3">
+                                    <h3 class="font-weight-normal text-center"
+                                        th:text="${user.address}"></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="h-100 h-custom mb-5">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="p-4 col-md-8">
+                                <table class="table table-borderless table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <a th:href="@{/}" class="text-decoration-none">
+                                                    <h4 class="fw-bold mb-0 text-black">Product</h4>
+                                                </a>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <a class="text-decoration-none">
+                                                    <h6 class="fw-none mb-0 text-black">Unit price</h6>
+                                                </a>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <a class="text-decoration-none">
+                                                    <h6 class="fw-none mb-0 text-black">Amount</h6>
+                                                </a>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <a class="text-decoration-none">
+                                                    <h6 class="fw-none mb-0 text-black">Into money</h6>
+                                                </a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>John Doe</td>
+                                        <td>john@example.com</td>
+                                        <td>john@example.com</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-4 bg-grey">
+                                <div class="p-4">
+                                    <h4 class="fw-bold mb-5 mt-2 pt-1">Summary</h4>
+                                    <hr class="my-4">
+                                    <h6 class="text-uppercase mb-3">Shipping</h6>
+                                    <div class="mb-4 pb-2">
+                                            <form method="get">
+                                                <select class="form-select" id="shipping" name="shipping" onchange="submitForm()">
+                                                    <option selected disabled style="display:none;">Choose</option>
+                                                    <option value="cod">Cash on delivery (recommend)</option>
+                                                    <option value="advancePayment">Advance Payment</option>
+                                                </select>
+                                            </form>
+                                    </div>
+                                    <h6 class="text-uppercase mb-3">Coupon</h6>
+                                    <div class="mb-5">
+                                        <div class="form-outline">
+                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">Total price</h5>
+                                        <h5>€ 137.00</h5>
+                                    </div>
+
+                                    <button type="button" class="btn btn-dark btn-block btn-lg"
+                                            data-mdb-ripple-color="dark">Place order</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<div th:insert="~{user-layout :: footer}"></div>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/https://code.jquery.com/jquery-3.6.4.min.js}"></script>
+<script>
+    function submitForm() {
+        document.getElementById("sortForm").submit();
+    }
+</script>
+
+</html>

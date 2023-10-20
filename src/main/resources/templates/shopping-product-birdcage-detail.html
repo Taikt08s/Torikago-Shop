@@ -51,8 +51,41 @@
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item"><a th:href="@{/torikago/category/birdcage}">Bird Cage</a></li>
                 <li class="breadcrumb-item active" aria-current="page" th:text="${product.productName}"></li>
+                <li class="breadcrumb-item active text-primary" aria-current="page"><a href="/" data-bs-toggle="modal" data-bs-target="#compareModal">
+                    <i class="fas fa-plus-circle"></i>
+                    Compare</a>
+                </li>
             </ol>
         </nav>
+        <div class="modal fade" id="compareModal" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn btn-info" data-bs-dismiss="modal" href="">Compare here</button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-4">
+                            <div class="comparison-box text-center">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="comparison-box text-center">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="comparison-box text-center">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="card shadow mb-4">
                 <div class="row">
