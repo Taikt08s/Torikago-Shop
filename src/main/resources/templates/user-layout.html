@@ -59,13 +59,6 @@
             <li class="nav-item dropdown no-arrow mx-1" th:if="${#authorization.expression('isAuthenticated()')}">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-shopping-bag fa-fw"></i>
-                    <span class="badge badge-danger badge-counter">3+</span>
-                </a>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1" th:if="${#authorization.expression('isAuthenticated()')}">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
 <!--                    <span class="badge badge-danger badge-counter">3+</span>-->
                     <span id="notificationBadge" class="badge badge-danger badge-counter">3+</span>
@@ -122,7 +115,8 @@
                         <i class="fas fa-solid fa-user-tie fa-sm fa-fw mr-2 text-gray-400"></i>
                         Admin Dashboard
                     </a>
-                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''MANAGER'')')}" href="/manager">
+                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''MANAGER'')')}" th:href="@{/manager}">
+
                         <i class="fas fa-solid fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
                         Manager Dashboard
                     </a>

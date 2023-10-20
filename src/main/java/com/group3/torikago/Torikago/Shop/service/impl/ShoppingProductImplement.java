@@ -40,5 +40,18 @@ public class ShoppingProductImplement implements ShoppingProductService {
         return shoppingProductsRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public Page<Product> findPaginatedBirdCageProducts(int pageNumber, int pageSize, String sortField, String sortDir, String search) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+
+        if (search != null && !search.isEmpty()) {
+            return shoppingProductsRepository.findAll("%" + search + "%", pageable);
+        }
+
+        return shoppingProductsRepository.findAll(pageable);
+    }
+
 
 }
