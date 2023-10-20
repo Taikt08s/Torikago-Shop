@@ -87,6 +87,19 @@ public class ProductImplement implements ProductService {
 
     }
 
+    public Page<Product> findCustomizedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        if(keyword!=null){
+            Page<Product> productsPage =  productRepository.findAllCustomizedProduct(pageable);
+            return productsPage;
+        }
+        Page<Product> productsPage = productRepository.findAllCustomizedProduct(pageable);
+        return productsPage;
+
+    }
 
     @Override
     public ProductDTO findProductById(Long productId) {
@@ -96,7 +109,6 @@ public class ProductImplement implements ProductService {
 
     public Product mapToProduct(ProductDTO productDTO) {
         Product product = Product.builder()
-                .id(productDTO.getId())
                 .productName(productDTO.getProductName())
                 .productType(productDTO.getProductType())
                 .mainImage(productDTO.getMainImage())

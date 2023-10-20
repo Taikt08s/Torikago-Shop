@@ -11,7 +11,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ShoppingProductsRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:search%")
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:search% AND (p.productType LIKE '%Accessory%' OR p.productType LIKE '%Bird%')")
     Page<Product> findAll(@Param("search") String search, Pageable pageable);
 
+    @Query("SELECT p FROM Product p WHERE p.productType LIKE '%Accessory%' OR p.productType LIKE '%Bird%' ")
+    Page<Product> findAll(Integer dummy, Pageable pageable);
 }

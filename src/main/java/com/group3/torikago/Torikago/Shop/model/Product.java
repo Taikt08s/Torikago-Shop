@@ -45,6 +45,8 @@ public class Product {
     private List<OrderDetails> orderDetails;
     @OneToOne(mappedBy = "birdCage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private BirdCageDetail birdCageDetail;
+    @OneToOne(mappedBy = "customizedBirdCage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private CustomizedBirdCage customizedBirdCage;
     @OneToOne(mappedBy = "accessory")
     private AccessoryDetail accessoryDetail;
     @OneToMany(mappedBy = "productId")

@@ -1,6 +1,7 @@
 package com.group3.torikago.Torikago.Shop.service.impl;
 
 import com.group3.torikago.Torikago.Shop.dto.CustomizedBirdCageDTO;
+import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
 import com.group3.torikago.Torikago.Shop.repository.CustomizedBirdCageRepository;
 import com.group3.torikago.Torikago.Shop.service.CustomizedBirdCageService;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomizedBirdCageImplement implements CustomizedBirdCageService {
+public class    CustomizedBirdCageImplement implements CustomizedBirdCageService {
     private CustomizedBirdCageRepository customizedBirdCageRepository;
 
     @Autowired
@@ -17,8 +18,8 @@ public class CustomizedBirdCageImplement implements CustomizedBirdCageService {
     }
 
     @Override
-    public CustomizedBirdCage saveCustomizedBirdCage(CustomizedBirdCageDTO customizedBirdCageDTO) {
-        CustomizedBirdCage detail = mapToCustomizedBirdCage(customizedBirdCageDTO);
+    public CustomizedBirdCage saveCustomizedBirdCage(CustomizedBirdCageDTO customizedBirdCageDTO, ProductDTO productDTO) {
+        CustomizedBirdCage detail = mapToCustomizedBirdCage(customizedBirdCageDTO, productDTO);
         return customizedBirdCageRepository.save(detail);
     }
 
@@ -34,15 +35,16 @@ public class CustomizedBirdCageImplement implements CustomizedBirdCageService {
     }
 
 
-    private CustomizedBirdCage mapToCustomizedBirdCage(CustomizedBirdCageDTO customizedBirdCageDTO) {
+    private CustomizedBirdCage mapToCustomizedBirdCage(CustomizedBirdCageDTO customizedBirdCageDTO, ProductDTO productDTO) {
         ProductImplement productImplement = new ProductImplement();
         CustomizedBirdCage customizedBirdCage = CustomizedBirdCage.builder()
-                .customizedBirdCage(productImplement.mapToProduct(customizedBirdCageDTO.getCustomizedBirdCage()))
+                .customizedBirdCage(productImplement.mapToProduct(productDTO))
                 .dimension(customizedBirdCageDTO.getDimension())
                 .cageShape(customizedBirdCageDTO.getCageShape())
                 .birdWingSpan(customizedBirdCageDTO.getBirdWingSpan())
                 .barSpacing(customizedBirdCageDTO.getBarSpacing())
                 .description(customizedBirdCageDTO.getDescription())
+                .status(customizedBirdCageDTO.getStatus())
                 .build();
         return customizedBirdCage;
     }

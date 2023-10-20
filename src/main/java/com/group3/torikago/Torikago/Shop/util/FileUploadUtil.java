@@ -38,4 +38,25 @@ public class FileUploadUtil {
             Files.delete(uploadPath);
         }
     }
+
+    public static void copyFile(String src, String dest, String fileName) {
+        Path srcPath = Paths.get(src);
+        Path desPath = Paths.get(dest);
+        if (!Files.exists(desPath)) {
+            try {
+                Files.createDirectories(desPath);
+            }
+            catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        srcPath = srcPath.resolve(fileName);
+        desPath = desPath.resolve(fileName);
+        try {
+            Files.copy(srcPath, desPath, StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 }

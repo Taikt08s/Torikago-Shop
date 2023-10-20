@@ -49,7 +49,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="/bird-cage">Accessory</a></li>
+                <li class="breadcrumb-item"><a href="/accessory">Accessory</a></li>
                 <li class="breadcrumb-item active" aria-current="page" th:text="${product.productName}"></li>
             </ol>
         </nav>
@@ -110,7 +110,7 @@
                             <h5 href="" value="5" style="color: gold;">5.0★★★★★</h5>
                         </div>
                         <div class="bg-gray-100 col-md-10 mb-5">
-                            <h3 th:text="'₫'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"
+                            <h3 th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"
                                 class="text-gray-800"></h3>
                         </div>
                         <div class="input-group col-md-4 mb-3">
@@ -145,7 +145,7 @@
                 <div class="col-md-12">
                     <hr class="bg-gray-400">
                     <div class="bg-gray-100 col-md-12 mb-2">
-                        <h4 class="text-gray-800">Product Details</h4>
+                        <h4 class="text-gray-800">Accessory Details</h4>
                     </div>
                     <div class="card-body p-2">
                         <div class="row">
@@ -158,21 +158,15 @@
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label class="pb-2 text-gray-600">Product Categories</label>
+                                <label class="pb-2 text-gray-600">Product Type</label>
                             </div>
                             <div class="col-md-10">
                                 <label th:text="${product.productType}"></label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="pb-2 text-gray-600">Product Type</label>
-                            </div>
-                            <div class="col-md-10">
-                                <label th:text="${product.accessoryDetail.accessoryType}"></label>
-                            </div>
-                        </div>
+
                     </div>
+
                 </div>
                 <div class="col-md-12">
                     <hr class="bg-gray-400">
