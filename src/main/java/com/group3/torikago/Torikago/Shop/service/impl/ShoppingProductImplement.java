@@ -32,7 +32,7 @@ public class ShoppingProductImplement implements ShoppingProductService {
             return shoppingProductsRepository.findAll("%" + search + "%", pageable);
         }
 
-        return shoppingProductsRepository.findAll(pageable);
+        return shoppingProductsRepository.findAll(0, pageable);
     }
 
     @Override
