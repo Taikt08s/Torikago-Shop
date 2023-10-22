@@ -11540,3 +11540,16 @@ footer.bg-white.py-4.mt-auto {
 .comparison-box:hover {
     background-color: #f0f0f0; /* Change background color on hover if needed */
 }
+@media (max-width: 767px) {
+    .breadcrumb {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Optional: Enable momentum scrolling in webkit */
+        scrollbar-width: thin; /* Optional: Customize scrollbar width */
+    }
+
+    .breadcrumb-item {
+        flex: 0 0 auto;
+    }
+}

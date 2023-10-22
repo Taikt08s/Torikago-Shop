@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card-body">
-                            <div class="carousel-container" style="height: 500px; overflow: hidden;">
+                            <div class="carousel-container" style="height: auto; overflow: hidden;">
                                 <div class="carousel slide" data-ride="carousel" id="carousel-1">
                                     <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item active">
@@ -106,8 +106,8 @@
                     </div>
                     <div class="col-md-6 mt-5">
                         <div class="row">
-                            <h3 th:text="${product.productName}" class=""></h3>
-                            <h5 href="" value="5" style="color: gold;">5.0★★★★★</h5>
+                            <h3 th:text="${product.productName}" class="p-3"></h3>
+                            <h5 class="ml-2" href="" value="5" style="color: gold;">5.0★★★★★</h5>
                         </div>
                         <div class="bg-gray-100 col-md-10 mb-5">
                             <h3 th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"
@@ -132,13 +132,16 @@
                                   th:text="${'In stock: ' + product.unitsInStock}"></span>
                             <span th:if="${product.unitsInStock == 0}" style="color: red;">Out of Stock</span>
                         </p>
-
-                        <th:block th:if="${product.unitsInStock > 0}">
-                            <button class="btn btn-outline-primary"><i class="fas fa-cart-plus"></i>Add to Cart</button>
-                            <button class="btn btn-primary">Buy now</button>
-                        </th:block>
-
-                        <p class="my-3 text-gray-700">Shipping cost is 40.000 across Viet Nam <i
+                        <div class="row">
+                            <div class="px-4 col-md-12">
+                                <th:block th:if="${product.unitsInStock > 0}">
+                                    <button class="btn btn-outline-primary"><i class="fas fa-cart-plus"></i>Add to Cart
+                                    </button>
+                                    <button class="btn btn-primary">Buy now</button>
+                                </th:block>
+                            </div>
+                        </div>
+                        <p class="p-3 text-gray-700">Shipping cost is 40.000 across Viet Nam <i
                                 class="fas fa-truck"></i></p>
                     </div>
                 </div>
@@ -190,8 +193,7 @@
             <h5 class="text-gray-800">Review</h5>
             <div class="card my-3">
                 <label>Taikt08s</label>
-                <p href="" value="5"
-                   style="color: gold; display: inline-block; margin-right: 5px; vertical-align: middle;">★★★★★</p>
+                <p class="ml-2" href="" value="5" style="color: gold; display: inline-block; margin-right: 5px; vertical-align: middle;">★★★★★</p>
                 <p>Wow amazing products.Love to buy it again!</p>
                 <div class="position-absolute top-0 end-0">
                     <div class="dropdown">
