@@ -11509,3 +11509,34 @@ input[type="file"] {
     height: 100%;
     opacity: 0;
 }
+
+.vtrWey {
+    height: 3px;
+    width: 100%;
+    background-position-x: -30px;
+    background-size: 116px 3px;
+    background-image: repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);
+}
+
+
+.d-flex.flex-column.min-vh-90 {
+    position: relative;
+}
+
+section.py-5.bg-dark {
+    flex-grow: 1;
+}
+
+footer.bg-white.py-4.mt-auto {
+    flex-shrink: 0;
+}
+.comparison-box {
+    border: 2px dashed #cbd5e0;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.comparison-box:hover {
+    background-color: #f0f0f0; /* Change background color on hover if needed */
+}

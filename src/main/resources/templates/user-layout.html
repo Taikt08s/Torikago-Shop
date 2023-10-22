@@ -57,6 +57,12 @@
                 </div>
             </li>
             <li class="nav-item dropdown no-arrow mx-1" th:if="${#authorization.expression('isAuthenticated()')}">
+                <a class="nav-link dropdown-toggle" th:href="@{/torikago/cart}"  role="button">
+                    <i class="fas fa-shopping-bag fa-fw"></i>
+                    <span class="badge badge-danger badge-counter">3+</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown no-arrow mx-1" th:if="${#authorization.expression('isAuthenticated()')}">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
@@ -168,7 +174,7 @@
 </a>
 
 </body>
-<div class="d-flex flex-column min-vh-100" th:fragment="footer">
+<div class="d-flex flex-column min-vh-90" th:fragment="footer">
     <section class="py-5 bg-dark" style="margin-top: auto;">
         <div class="container px-5 my-5">
             <h2 class="display-4 fw-bolder mb-4 text-white">Let's shop!</h2>
@@ -181,6 +187,7 @@
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                     <div class="col-auto">
                         <div class="small m-0 text-dark">Copyright &copy; Torikago 2023</div>
+
                     </div>
                     <div class="col-auto">
                         <a class="link-dark small" href="#!">Privacy</a>
