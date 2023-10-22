@@ -157,7 +157,14 @@
                                                                th:field="*{birdCage.unitsInStock}">
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <label>Status: Available</label></br>
+                                                        <label>Status</label></br>
+                                                        <label for="available">
+                                                            <input checked type="radio"
+                                                                   name="status"
+                                                                   id="available"
+                                                                   value="true"
+                                                                   th:field="*{birdCage.status}"> Available
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">

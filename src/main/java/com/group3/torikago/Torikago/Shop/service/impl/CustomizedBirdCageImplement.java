@@ -5,6 +5,7 @@ import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
 import com.group3.torikago.Torikago.Shop.repository.CustomizedBirdCageRepository;
 import com.group3.torikago.Torikago.Shop.service.CustomizedBirdCageService;
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,7 @@ public class    CustomizedBirdCageImplement implements CustomizedBirdCageService
                 .description(customizedBirdCageDTO.getDescription())
                 .status(customizedBirdCageDTO.getStatus())
                 .build();
+        customizedBirdCage.getCustomizedBirdCage().setId(null);
         return customizedBirdCage;
     }
 }

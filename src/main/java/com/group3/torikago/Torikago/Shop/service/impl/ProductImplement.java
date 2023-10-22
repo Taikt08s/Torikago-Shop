@@ -109,6 +109,7 @@ public class ProductImplement implements ProductService {
 
     public Product mapToProduct(ProductDTO productDTO) {
         Product product = Product.builder()
+                .id(productDTO.getId())
                 .productName(productDTO.getProductName())
                 .productType(productDTO.getProductType())
                 .mainImage(productDTO.getMainImage())

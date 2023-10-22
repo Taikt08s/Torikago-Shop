@@ -67,7 +67,7 @@ public class ManagerController {
     }
 
     @PostMapping("/manager/custom-orders/{productId}/edit")
-    public String updateAccessory(@ModelAttribute("birdCageDetail") @Valid CustomizedBirdCageDTO customizedBirdCageDTO,
+    public String updateCustomizedProduct(@ModelAttribute("birdCageDetail") @Valid CustomizedBirdCageDTO customizedBirdCageDTO,
                                   BindingResult customizedProductBindingResult,
                                   @ModelAttribute("birdCage") @Valid ProductDTO productDTO,
                                   BindingResult productBindingResult,
