@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Compare</title>
+</head>
+<body>
+<h1>Product Compare</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Product Name</th>
+        <th>Product Type</th>
+        <th>Product Shape</th>
+        <th>Bar Spacing</th>
+        <th>Bird Wingspan</th>
+        <th>Dimensions</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${comparisonList}">
+        <td th:text="${product.productName}"></td>
+        <td th:text="${product.productType}"> </td>
+        <td th:text="${product.birdCageDetail.cageShape}"></td>
+        <td th:text="${product.birdCageDetail.barSpacing}"></td>
+        <td th:text="${product.birdCageDetail.birdWingSpan}"></td>
+        <td th:text="${product.birdCageDetail.dimension}"></td>
+        <td>
+            <a th:href="@{/compare/product/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
