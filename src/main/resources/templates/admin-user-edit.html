@@ -63,18 +63,13 @@
                     <div class="card shadow mb-5">
                         <div class="card-body p-5">
                             <div class="text-left">
-                                <h1 class="h4 text-gray-900 mb-4">Users profile</h1>
+                                <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-user-edit"></i> Users profile</h1>
                             </div>
                             <hr>
                             <form th:action="@{/users/save}" th:object="${user}"
                                   method="post" style="max-width: 600px; margin: 0 auto;">
                                 <input type="hidden" th:field="*{id}"/>
                                 <input type="hidden" th:field="*{role.id}"/>
-                                <div class="form-group row">
-                                    <label class="text-gray-600">Address</label>
-                                        <input type="text" th:field="*{address}" class="form-control form-control-user text-gray-900"
-                                               required minlength="6" maxlength="10"/>
-                                </div>
                                 <div class="m-3">
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">E-mail</label>
@@ -87,7 +82,15 @@
                                         <label class="col-4 col-form-label">Password</label>
                                         <div class="col-8">
                                             <input type="password" th:field="*{password}" class="form-control"
-                                                    minlength="6" maxlength="10"/>
+                                                   minlength="6" maxlength="10"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Address</label>
+                                        <div class="col-8">
+                                            <input type="text" th:field="*{address}"
+                                                   class="form-control"
+                                                   required minlength="6" maxlength="10"/>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -121,21 +124,26 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-4 col-form-label">Enabled </label>
+                                        <label class="col-4 col-form-label">Enabled</label>
                                         <div class="col-8">
-                                            <input type="checkbox" th:field="*{enabled}" class="form-control"/>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" th:field="*{enabled}"
+                                                       class="custom-control-input" id="customCheck1"/>
+                                                <label class="custom-control-label" for="customCheck1"></label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="gender-options col-sm-6" style="margin-top: 12px">
-                                        <label class="mb-2">Gender </label>
-                                        <label for="male">
+
+                                    <div class="gender-options row col-sm-6" style="margin-top: 12px">
+                                        <label class="mb-2">Gender: </label>
+                                        <label for="male" class="ml-1">
                                             <input type="radio"
                                                    name="gender"
                                                    id="male"
                                                    value="true"
                                                    th:field="*{gender}"> Male
                                         </label>
-                                        <label for="female">
+                                        <label for="female" class="ml-1">
                                             <input type="radio"
                                                    name="gender"
                                                    id="female"
@@ -145,27 +153,25 @@
                                         <p th:if="${#fields.hasErrors('gender')}" class="text-danger"
                                            th:errors="*{gender}"></p>
                                     </div>
-                                    <div class="gender-options col-sm-6" style="margin-top: 12px"
-                                         th:each="role: ${listRoles}">
-                                        <label th:if="${role.name == 'ADMIN'}">
-                                            <input type="radio"
-                                                   id="admin"
-                                                   value="ADMIN"
-                                                   th:field="*{role.name}"> Admin
-                                        </label>
-                                        <label th:if="${role.name == 'USER'}">
-                                            <input type="radio"
-                                                   id="user"
-                                                   value="USER"
-                                                   th:field="*{role.name}"> User
-                                        </label>
-                                        <label th:if="${role.name == 'MANAGER'}">
-                                            <input type="radio"
-                                                   id="manager"
-                                                   value="MANAGER"
-                                                   th:field="*{role.name}"> Manager
-                                        </label>
+                                    <div class="gender-options row col-sm-6" style="margin-top: 12px">
+                                        <label>Role: </label>
+                                        <div class="form-check ml-1">
+                                            <label class="form-check-label" for="admin">Admin</label>
+                                            <input type="radio" id="admin" value="ADMIN" th:field="*{role.name}"
+                                                   class="ml-1 form-check-input"/>
+                                        </div>
+                                        <div class="form-check ml-1">
+                                            <label class="form-check-label" for="user">User</label>
+                                            <input type="radio" id="user" value="USER" th:field="*{role.name}"
+                                                   class="ml-1 form-check-input"/>
+                                        </div>
+                                        <div class="form-check ml-1">
+                                            <label class="form-check-label" for="manager">Manager</label>
+                                            <input type="radio" id="manager" value="MANAGER" th:field="*{role.name}"
+                                                   class="ml-1 form-check-input"/>
+                                        </div>
                                     </div>
+
                                     <div>
                                         <button type="submit" class="btn btn-primary">Update</button>
                                         <button type="reset" class="btn btn-primary">Cancel</button>

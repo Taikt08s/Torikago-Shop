@@ -211,7 +211,7 @@
                              th:attr="data-id=${product.id}">
                             <a th:href="@{'/torikago/product/' + ${product.id}}" class="text-decoration-none">
                                 <div style="height: 250px; overflow: hidden;">
-                                    <img th:src="@{${product.getMainImagePath()}}" class="card-img-top"
+                                    <img th:src="@{${product.getMainImage()}}" class="card-img-top"
                                          alt="Product Image"
                                          style="width: 100%; height: auto;">
                                 </div>

@@ -148,7 +148,7 @@
                                         <td th:text="${product.id}"></td>
                                         <td th:text="${product.productType}"></td>
                                         <td th:text="${product.productName}"></td>
-                                        <td><img th:src="@{${product.getMainImagePath()}}" alt="Product Image"
+                                        <td><img th:src="@{${product.getMainImage()}}" alt="Product Image"
                                                  width="100"/></td>
                                         <td th:text="${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 1, 'POINT')}"></td>
                                         <td th:text="${product.unitsInStock}"></td>
