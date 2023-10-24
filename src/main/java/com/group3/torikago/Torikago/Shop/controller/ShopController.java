@@ -26,7 +26,7 @@ public class ShopController {
     @GetMapping(value = {"/torikago", "/"})
     public String shoppingPageListProducts(Model model,
                                            @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
-                                           @RequestParam(name = "pageSize", defaultValue = "18") int pageSize,
+                                           @RequestParam(name = "pageSize", defaultValue = "16") int pageSize,
                                            @RequestParam(name = "sortField", defaultValue = "id") String sortField,
                                            @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
                                            @RequestParam(name = "search", required = false) String search) {
