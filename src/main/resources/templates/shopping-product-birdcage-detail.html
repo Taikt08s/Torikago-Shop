@@ -53,9 +53,10 @@
                 <li class="breadcrumb-item active" aria-current="page">
                     <span th:text="${#strings.length(product.productName) > 40 ? #strings.substring(product.productName, 0, 40) + '...' : product.productName}"></span>
                 </li>
-                <li class="breadcrumb-item active text-primary" aria-current="page" >
-                    <a th:href="@{'/torikago/product/compare/' +${product.id}}" >
-                    <i class="fas fa-plus-circle" ></i>
+                <li class="breadcrumb-item active text-primary" aria-current="page">
+                    <a th:href="@{'/torikago/product/compare/' +${product.id}}">
+
+                    <i class="fas fa-plus-circle"></i>
                     Compare</a>
                 </li>
             </ol>
@@ -64,33 +65,27 @@
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-<!--                        <button type="button" class="btn btn-info" data-bs-dismiss="modal" th:attr="data-href='/torikago/product/compare'">Compare here</button>-->
+<!--                        <button type="button" class="btn btn-info" data-bs-dismiss="modal" href="">Compare here</button>-->
                         <a href="/torikago/product/compare">Compare here</a>
-
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body row">
 
-                            <div class="col-4" th:if="${session.comparisonList} != null" th:each="product : ${session.comparisonList} ">
-                                <div class="comparison-box text-center">
-                                    <i class="fas fa-plus"></i>
-
-                                    <img th:src="${product.getExtraImagePath1()}" class="card-img"
-                                         alt="Product Image">
-                                    <h3 th:text="${product.productName}"></h3>
-                                </div>
-                            </div>
-
-
-
-                        <div class="col-4" th:if="${session.comparisonList.size} != 3" th:each="i : ${#numbers.sequence(0, (3 - session.comparisonList.size()-1))}">
+                        <div class="col-4" th:if="${session.comparisonList} != null" th:each="product : ${session.comparisonList} ">
                             <div class="comparison-box text-center">
                                 <i class="fas fa-plus"></i>
 
+                                <img th:src="${product.getMainImage()}" class="card-img"
+                                     alt="Product Image">
+                                <h3 th:text="${product.productName}"></h3>
+                            </div>
+                        </div>
+                        <div class="col-4" th:if="${session.comparisonList.size} != 3" th:each="i : ${#numbers.sequence(0, (3 - session.comparisonList.size()-1))}">
+                            <div class="comparison-box text-center">
+                                <i class="fas fa-plus"></i>
                                 <h3>Empty</h3>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -370,15 +365,15 @@
             otherReasonInput.style.display = otherReasonRadio.checked ? 'block' : 'none';
         });
     });
-  window.addEventListener("load", ()=>{
-      let queryParams = new URLSearchParams(window.location.search);
+    window.addEventListener("load", ()=>{
+        let queryParams = new URLSearchParams(window.location.search);
 
-      let openCompareModal = queryParams.get("openCompareModal");
-      console.log("show modal",openCompareModal)
-      if(openCompareModal == 'true'){
-          console.log("show modal")
-          $('#compareModal').modal("show")
-      }
-  })
+        let openCompareModal = queryParams.get("openCompareModal");
+        console.log("show modal",openCompareModal)
+        if(openCompareModal == 'true'){
+            console.log("show modal")
+            $('#compareModal').modal("show")
+        }
+    })
 </script>
 </html>
