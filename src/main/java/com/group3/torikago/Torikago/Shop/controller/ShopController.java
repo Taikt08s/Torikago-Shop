@@ -54,38 +54,37 @@ public class ShopController {
             request.getSession().setAttribute("comparisonList", comparisonList);
         }
         if(product.getProductType().equals("Bird Cage")){
-        model.addAttribute("product", product);
-        return "shopping-product-birdcage-detail";
-    } else if (product.getProductType().equals("Accessory"))
+            model.addAttribute("product", product);
+            return "shopping-product-birdcage-detail";
+        } else if (product.getProductType().equals("Accessory"))
             model.addAttribute("product", product);
         return "shopping-product-accessory-detail";
     }
     @GetMapping("/torikago/product/compare/{id}")
     public String addToCompare(@PathVariable("id") Long id, HttpServletRequest request) {
-
         Product product = shoppingProductService.findProductById(id);
         ArrayList<Product> comparisonList = (ArrayList<Product>) request.getSession().getAttribute("comparisonList");
-            boolean check=false;
-            for (Product p : comparisonList) {
-                if (p.getId() == product.getId()) {
-                    check = true;
-                    break;
-                }
+        boolean check=false;
+        for (Product p : comparisonList) {
+            if (p.getId() == product.getId()) {
+                check = true;
+                break;
             }
-            if(!check) {
-                int maxProducts = 3;
+        }
+        if(!check) {
+            int maxProducts = 3;
 
-                if (comparisonList.size() < maxProducts) {
-                    if (!comparisonList.contains(product)) {
-                        comparisonList.add(product);
-                    }
-                } else {
-                    comparisonList.remove(comparisonList.size() - 1);
+            if (comparisonList.size() < maxProducts) {
+                if (!comparisonList.contains(product)) {
                     comparisonList.add(product);
                 }
+            } else {
+                comparisonList.remove(comparisonList.size() - 1);
+                comparisonList.add(product);
             }
+        }
         request.getSession().setAttribute("comparisonList", comparisonList);
-       return "redirect:/torikago/product/{id}?openCompareModal=true";
+        return "redirect:/torikago/product/{id}?openCompareModal=true";
     }
     @GetMapping("/torikago/product/compare")
     public String showCompareList(Model model, HttpServletRequest request) {
@@ -97,8 +96,8 @@ public class ShopController {
     public String deleteCompareProduct(@PathVariable("id")Long id, HttpServletRequest request){
         Product product = shoppingProductService.findProductById(id);
         ArrayList<Product> comparisonList = (ArrayList<Product>) request.getSession().getAttribute("comparisonList");
-        comparisonList.removeIf(p -> p.getId() == product.getId());
+     comparisonList.removeIf(p -> p.getId() == product.getId());
         request.getSession().setAttribute("comparisonList", comparisonList);
-        return "shopping-product-compare";
+        return "redirect:/torikago/product/compare";
     }
 }

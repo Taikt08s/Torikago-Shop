@@ -50,11 +50,12 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item"><a th:href="@{/torikago/category/birdcage}">Bird Cage</a></li>
-                <li class="breadcrumb-item active" aria-current="page" th:text="${product.productName}"></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span th:text="${#strings.length(product.productName) > 40 ? #strings.substring(product.productName, 0, 40) + '...' : product.productName}"></span>
+                </li>
                 <li class="breadcrumb-item active text-primary" aria-current="page" >
                     <a th:href="@{'/torikago/product/compare/' +${product.id}}" >
                     <i class="fas fa-plus-circle" ></i>
-
                     Compare</a>
                 </li>
             </ol>
@@ -68,16 +69,12 @@
 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
-<!--                    for i  0 > 2-->
-
-<!--                    if(comparisonList[i]!=null) else{-->
-<!--                    }-->
                     <div class="modal-body row">
 
                             <div class="col-4" th:if="${session.comparisonList} != null" th:each="product : ${session.comparisonList} ">
                                 <div class="comparison-box text-center">
                                     <i class="fas fa-plus"></i>
+
                                     <img th:src="${product.getExtraImagePath1()}" class="card-img"
                                          alt="Product Image">
                                     <h3 th:text="${product.productName}"></h3>
@@ -103,7 +100,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card-body">
-                            <div class="carousel-container" style="height: 500px; overflow: hidden;">
+                            <div class="carousel-container" style="height: auto; overflow: hidden;">
                                 <div class="carousel slide" data-ride="carousel" id="carousel-1">
                                     <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item active">
@@ -151,8 +148,8 @@
                     </div>
                     <div class="col-md-6 mt-5">
                         <div class="row">
-                            <h3 th:text="${product.productName}" class=""></h3>
-                            <h5 href="" value="5" style="color: gold;">5.0★★★★★</h5>
+                            <h3 th:text="${product.productName}" class="p-3"></h3>
+                            <h5 class="ml-2" href="" value="5" style="color: gold;">5.0★★★★★</h5>
                         </div>
                         <div class="bg-gray-100 col-md-10 mb-5">
                             <h3 th:text="'₫'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"
@@ -177,17 +174,21 @@
                                   th:text="${'In stock: ' + product.unitsInStock}"></span>
                             <span th:if="${product.unitsInStock == 0}" style="color: red;">Out of Stock</span>
                         </p>
-
-                        <th:block th:if="${product.unitsInStock > 0}">
-                            <button class="btn btn-outline-primary"><i class="fas fa-cart-plus"></i>Add to Cart</button>
-                            <button class="btn btn-primary">Buy now</button>
-                        </th:block>
-                        <a th:href="@{/customized-bird-cage/{productId}/edit(productId=${product.id})}"
-                           class="btn btn-warning col-md-4">
-                            <i class="fas fa-pen-square"></i>
-                            <span class="text">Start customize</span>
-                        </a>
-                        <p class="my-3 text-gray-700">Shipping cost is 40.000 across Viet Nam <i
+                        <div class="row">
+                            <div class="px-4 col-md-12">
+                                <th:block th:if="${product.unitsInStock > 0}">
+                                    <button class="btn btn-outline-primary"><i class="fas fa-cart-plus"></i>Add to Cart
+                                    </button>
+                                    <button class="btn btn-primary">Buy now</button>
+                                </th:block>
+                                <div class="p-2">
+                                    <a th:href="@{/customized-bird-cage/{productId}/edit(productId=${product.id})}">
+                                        <span class="text"><i class="fas fa-pen-square"></i> Start customize</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="p-3 text-gray-700">Shipping cost is 40.000 across Viet Nam <i
                                 class="fas fa-truck"></i></p>
                     </div>
                 </div>
@@ -270,8 +271,7 @@
             <h5 class="text-gray-800">Review</h5>
             <div class="card my-3">
                 <label>Taikt08s</label>
-                <p href="" value="5"
-                   style="color: gold; display: inline-block; margin-right: 5px; vertical-align: middle;">★★★★★</p>
+                <p class="ml-2" href="" value="5" style="color: gold; display: inline-block; margin-right: 5px; vertical-align: middle;">★★★★★</p>
                 <p>Wow amazing products.Love to buy it again!</p>
                 <div class="position-absolute top-0 end-0">
                     <div class="dropdown">
@@ -373,7 +373,7 @@
   window.addEventListener("load", ()=>{
       let queryParams = new URLSearchParams(window.location.search);
 
-      let openCompareModal = queryParams.get("openCompareModal"); // return john
+      let openCompareModal = queryParams.get("openCompareModal");
       console.log("show modal",openCompareModal)
       if(openCompareModal == 'true'){
           console.log("show modal")
@@ -381,4 +381,7 @@
       }
   })
 </script>
+<style>
+
+</style>
 </html>

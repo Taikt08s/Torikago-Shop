@@ -58,6 +58,9 @@ public class CustomizedProductController {
             thisProduct.getCageShape().equals(customizedBirdCageDTO.getCageShape()) &&
                 thisProduct.getBarSpacing() == customizedBirdCageDTO.getBarSpacing() &&
                 thisProduct.getBirdWingSpan() == customizedBirdCageDTO.getBirdWingSpan()){
+            BirdCageDetail birdCageDetail = birdCageService.findBirdCageByID(productId);
+            model.addAttribute("birdCageDetail", birdCageDetail);
+            model.addAttribute("birdCage", birdCageDetail.getBirdCage());
                 model.addAttribute("ERROR", "Nothing changed");
             return "customized-bird-cage-edit";
         }

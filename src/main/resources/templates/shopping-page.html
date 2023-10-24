@@ -102,15 +102,15 @@
             <div class="row justify-content-center">
                 <div class="col-md-4 text-center border-end">
                     <i class="far fa-check-circle"></i>
-                    <label>100% Genuine Products</label>
+                    <label class="card-label">100% Genuine Products</label>
                 </div>
                 <div class="col-md-4 text-center border-end">
                     <i class="fas fa-headset"></i>
-                    <label>Personal assistant</label>
+                    <label class="card-label">Personal assistant</label>
                 </div>
                 <div class="col-md-4 text-center">
                     <i class="fas fa-truck-loading"></i>
-                    <label>Fast and on-time delivery</label>
+                    <label class="card-label">Fast and on-time delivery</label>
                 </div>
             </div>
         </div>
@@ -119,15 +119,17 @@
         <div class="col-xl-12">
             <div class="row justify-content-end">
                 <div class="col-xl-10">
-                    <div class="card mb-3 py-3">
+                    <div class="card mb-3">
                         <div class="row">
-                            <div class="col-md-3 ml-3 ">
-                                <label>Arrange by</label>
+                            <label class="col-md-2 text-center mt-4">Arrange by</label>
+                            <div class="ml-1 mt-3 col-md-3">
                                 <button type="submit" class="btn btn-primary ml-3">Latest</button>
                                 <button type="submit" class="btn btn-primary ml-3">Popular</button>
-                                <a href="/torikago/product/compare">Compare here</a>
                             </div>
-                            <div class="col-md-2 justify-content-lg-start">
+                            <div class="ml-3 mt-3 col-md-2">
+                                <button type="submit" class="btn btn-primary">Best Selling</button>
+                            </div>
+                            <div class="col-md-2 justify-content-lg-start p-3">
                                 <form th:action="@{/torikago}" method="get" id="sortForm">
                                     <select class="form-select" id="price" name="priceSort" onchange="submitForm()">
                                         <option selected disabled style="display:none;">Price</option>
@@ -142,7 +144,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 d-none d-md-block">
                 <div class="card">
                     <div class="card-header">
                         <i class="fas fa-filter"></i> Search Filter
@@ -175,7 +177,7 @@
                             <button type="submit" class="btn btn-primary btn-block">Apply</button>
                             <hr class="text-gray-800">
                             <label>Review</label>
-                            <div class="mb-3 text-end">
+                            <div class="mb-3">
                                 <div class="row" style="font-size: 16px;">
                                     <p href="" value="5"
                                        style="color: gold; display: inline-block; margin-right: 5px; vertical-align: middle;">
@@ -199,9 +201,9 @@
                 </div>
             </div>
 
-            <div class="col-md-10">
-                <div class="row">
-                    <div th:each="product, iterStat : ${products.content}" class="col-md-2 mb-3"
+            <div class="col-md-10 mt-2">
+                <div class="row row-cols-xl-4 row-cols-md-3 row-cols-2">
+                    <div th:each="product, iterStat : ${products.content}" class="col-md-3 mb-3 gx-2"
                          th:if="${product.status}">
                         <div th:classappend="${iterStat.index > 0 and iterStat.index % 5 == 0}? 'first-in-row' : ''"
                              class="card product-card clickable-card d-flex flex-column"
@@ -209,14 +211,15 @@
                              onmouseout="unhoverCard(this)"
                              th:attr="data-id=${product.id}">
                             <a th:href="@{'/torikago/product/' + ${product.id}}" class="text-decoration-none">
-                                <div style="height: 280px; overflow: hidden;">
-                                    <img th:src="@{${product.getMainImagePath()}}" class="card-img-top" alt="Product Image"
+                                <div style="height: 250px; overflow: hidden;">
+                                    <img th:src="@{${product.getMainImagePath()}}" class="card-img-top"
+                                         alt="Product Image"
                                          style="width: 100%; height: auto;">
                                 </div>
-                                <div class="card-body d-flex flex-column flex-grow-1">
+                                <div class="card-body flex-column flex-grow-1">
                                     <h5 class="card-title" th:text="${product.productName}"
                                         style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
-                                    <p class="card-text row"
+                                    <p class="card-text pl-2 row"
                                        th:text="' ₫'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
                                 </div>
                                 <div class="card-border"></div>
@@ -268,5 +271,17 @@
         document.getElementById("sortForm").submit();
     }
 </script>
+<style>
+    .card-label {
+        font-size: 18px; /* Set the initial font size */
+    }
+
+    @media (max-width: 767px) {
+        /* Styles for screens smaller than 768px (smartphone view) */
+        .card-label {
+            font-size: 14px; /* Reduce font size for smaller screens */
+        }
+    }
+</style>
 
 </html>
