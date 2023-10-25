@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.OneToOne;
 
 import java.util.List;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
