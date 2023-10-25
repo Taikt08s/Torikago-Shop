@@ -8,6 +8,7 @@ import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
 import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.CustomizedBirdCageService;
 import com.group3.torikago.Torikago.Shop.service.impl.ProductImplement;
+import com.group3.torikago.Torikago.Shop.util.CloudinaryUpload;
 import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -24,9 +25,12 @@ public class CustomizedProductController {
     private CustomizedBirdCageService customizedBirdCageService;
 
     private BirdCageService birdCageService;
-    public CustomizedProductController (CustomizedBirdCageService customizedBirdCageService, BirdCageService birdCageService){
+
+    private CloudinaryUpload cloudinaryUpload;
+    public CustomizedProductController (CustomizedBirdCageService customizedBirdCageService, BirdCageService birdCageService, CloudinaryUpload cloudinaryUpload){
         this.customizedBirdCageService = customizedBirdCageService;
         this.birdCageService = birdCageService;
+        this.cloudinaryUpload = cloudinaryUpload;
     }
 
     @GetMapping("/customized-bird-cage/{productId}/edit")
@@ -69,13 +73,22 @@ public class CustomizedProductController {
         productDTO.setExtraImage1(thisProduct.getBirdCage().getExtraImage1());
         productDTO.setExtraImage2(thisProduct.getBirdCage().getExtraImage2());
         productDTO.setExtraImage3(thisProduct.getBirdCage().getExtraImage3());
+//        String imageURLMain = cloudinaryUpload.uploadFile(fileUploadMain);
+//        productDTO.setMainImage(imageURLMain);
+//        String imageURLExtra1 = cloudinaryUpload.uploadFile(fileUploadExtra1);
+//        productDTO.setExtraImage1(imageURLExtra1);
+//        String imageURLExtra2 = cloudinaryUpload.uploadFile(fileUploadExtra2);
+//        productDTO.setExtraImage2(imageURLExtra2);
+//        String imageURLExtra3 = cloudinaryUpload.uploadFile(fileUploadExtra3);
+//        productDTO.setExtraImage3(imageURLExtra3);
+
         customizedBirdCageDTO.setStatus("Pending");
         CustomizedBirdCage savedProduct = customizedBirdCageService.saveCustomizedBirdCage(customizedBirdCageDTO, productDTO);
 
-        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getMainImage());
-        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getExtraImage1());
-        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getExtraImage2());
-        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getExtraImage3());
+//        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getMainImage());
+//        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getExtraImage1());
+//        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getExtraImage2());
+//        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getExtraImage3());
 //        String uploadDir = "./product-images/" + savedProduct.getCustomizedBirdCage().getId();
 
         return "redirect:/";

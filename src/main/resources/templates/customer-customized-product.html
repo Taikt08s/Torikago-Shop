@@ -57,7 +57,7 @@
                             </div>
                         </form>
                     </div>
-                    <form method="post" th:action="@{/manager/custom-orders}" th:object="${products}">
+                    <form method="post" th:action="@{/customer}" th:object="${products}">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped" id="dataTable">
@@ -109,7 +109,7 @@
                                         <td th:text="${product.id}"></td>
                                         <td th:text="${product.productType}"></td>
                                         <td th:text="${product.productName}"></td>
-                                        <td><img th:src="@{${product.getMainImagePath()}}" alt="Product Image"
+                                        <td><img th:src="@{${product.getMainImage()}}" alt="Product Image"
                                                  width="100"/></td>
                                         <td th:text="${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 1, 'POINT')}"></td>
                                         <td th:text="${product.unitsInStock}"></td>

@@ -27,6 +27,13 @@ public class CartItems {
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product productId;
+    @Column(name = "product_type", length = 15)
+    private String productType;
     @Column(name = "quantity", length = 10)
     private int quantity;
+    
+    @Transient
+    public double getSubtotal(){
+        return quantity*productId.getUnitPrice();
+    }
 }
