@@ -52,6 +52,4 @@ public class ShoppingProductImplement implements ShoppingProductService {
 
         return shoppingProductsRepository.findAll(pageable);
     }
-
-
 }

@@ -42,7 +42,7 @@ public class ShopController {
         }
 
         // Use these parameters to fetch a paginated and sorted list of products
-        Page<Product> shoppingPage = shoppingProductService.findPaginatedBirdCageProducts(pageNumber, pageSize, sortField, sortDir, search);
+        Page<Product> shoppingPage = shoppingProductService.findPaginatedShoppingProducts(pageNumber, pageSize, sortField, sortDir, search);
         model.addAttribute("products", shoppingPage);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
@@ -65,32 +65,4 @@ public class ShopController {
             model.addAttribute("product", product);
         return "shopping-product-accessory-detail";
     }
-
-    @GetMapping("/torikago/category/birdcage")
-    public String birdcageCategory(Model model,
-                                   @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
-                                   @RequestParam(name = "pageSize", defaultValue = "18") int pageSize,
-                                   @RequestParam(name = "sortField", defaultValue = "id") String sortField,
-                                   @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
-                                   @RequestParam(name = "search", required = false) String search,
-                                   @RequestParam(name = "birdcagePriceSort", defaultValue = "default") String priceSort) {
-
-        // Check if sorting by price is requested
-        if ("lowPrice".equals(priceSort)) {
-            sortField = "unitPrice";
-            sortDir = "asc";
-        } else if ("highPrice".equals(priceSort)) {
-            sortField = "unitPrice";
-            sortDir = "desc";
-        }
-
-        // Use these parameters to fetch a paginated and sorted list of bird cage products
-        Page<Product> shoppingPage = shoppingProductService.findPaginatedShoppingProducts(pageNumber, pageSize, sortField, sortDir, search);
-        model.addAttribute("products", shoppingPage);
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("search", search);
-        return "shopping-page-birdcage-category";
-    }
-
 }
