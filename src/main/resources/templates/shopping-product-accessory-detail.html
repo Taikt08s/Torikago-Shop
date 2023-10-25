@@ -113,6 +113,8 @@
                             <h3 th:text="'$'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"
                                 class="text-gray-800"></h3>
                         </div>
+                        
+                        <form class="user" th:action="@{/cart/add}" method="post">
                         <div class="input-group col-md-4 mb-3">
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-secondary" type="button" onclick="decrementQuantity()">
@@ -120,7 +122,7 @@
                                 </button>
                             </div>
                             <input type="text" class="form-control text-center" value="1" id="quantityInput"
-                                   readonly="readonly">
+                                   readonly="readonly" name="quantity">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" onclick="incrementQuantity()">
                                     +
@@ -132,15 +134,14 @@
                                   th:text="${'In stock: ' + product.unitsInStock}"></span>
                             <span th:if="${product.unitsInStock == 0}" style="color: red;">Out of Stock</span>
                         </p>
-                        <div class="row">
-                            <div class="px-4 col-md-12">
-                                <th:block th:if="${product.unitsInStock > 0}">
-                                    <button class="btn btn-outline-primary"><i class="fas fa-cart-plus"></i>Add to Cart
-                                    </button>
-                                    <button class="btn btn-primary">Buy now</button>
-                                </th:block>
-                            </div>
-                        </div>
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <th:block th:if="${product.unitsInStock > 0}">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fas fa-cart-plus"></i>Add to Cart</button>
+                            <button class="btn btn-primary">Buy now</button>
+                        </th:block>
+                        </form> 
+                        
                         <p class="p-3 text-gray-700">Shipping cost is 40.000 across Viet Nam <i
                                 class="fas fa-truck"></i></p>
                     </div>

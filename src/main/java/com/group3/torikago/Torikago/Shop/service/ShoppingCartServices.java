@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface ShoppingCartServices {
     List<CartItems> listCartItems(User user);
+    int addProduct(Long productId, int quantity, User user);
+    void updateQuantity(Long productId, int quantity, User user);
+    void removeProduct(Long productId, User user);
 }
