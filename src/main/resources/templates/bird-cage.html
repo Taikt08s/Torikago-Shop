@@ -16,7 +16,8 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
     <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-    <script th:src="@{https://cdn.tiny.cloud/1/7178xhk8rbjjn9lxva2bm8ps3lzqnwqcra6ojmrwg91n3kwg/tinymce/6/tinymce.min.js}" referrerpolicy="origin"></script>
+    <script th:src="@{https://cdn.tiny.cloud/1/7178xhk8rbjjn9lxva2bm8ps3lzqnwqcra6ojmrwg91n3kwg/tinymce/6/tinymce.min.js}"
+            referrerpolicy="origin"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -88,9 +89,10 @@
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area1">
                                                         <label>Drag & Drop or Click to Upload Main Picture</label>
-                                                        <input  type="file"
-                                                                accept="image/png, image/gif, image/jpeg" id="file-input1"
-                                                                name="main-image">
+                                                        <input type="file"
+                                                               accept="image/png, image/gif, image/jpeg"
+                                                               id="file-input1"
+                                                               name="main-image">
                                                         <img alt="Image Preview" id="thumbnail-main"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
                                                     </div>
@@ -98,9 +100,10 @@
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area2">
                                                         <label>Drag & Drop or Click to Upload Extra Picture 1</label>
-                                                        <input  type="file"
-                                                                accept="image/png, image/gif, image/jpeg" id="file-input2"
-                                                                name="extra-image1"
+                                                        <input type="file"
+                                                               accept="image/png, image/gif, image/jpeg"
+                                                               id="file-input2"
+                                                               name="extra-image1"
                                                         >
                                                         <img alt="Image Preview" id="thumbnail-extra1"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
@@ -109,9 +112,10 @@
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area3">
                                                         <label>Drag & Drop or Click to Upload Extra Picture 2</label>
-                                                        <input  type="file"
-                                                                accept="image/png, image/gif, image/jpeg" id="file-input3"
-                                                                name="extra-image2"
+                                                        <input type="file"
+                                                               accept="image/png, image/gif, image/jpeg"
+                                                               id="file-input3"
+                                                               name="extra-image2"
                                                         >
                                                         <img alt="Image Preview" id="thumbnail-extra2"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
@@ -120,9 +124,10 @@
                                                 <div class="p-5">
                                                     <div class="dashed-box" id="image-drop-area4">
                                                         <label>Drag & Drop or Click to Upload Extra Picture 3</label>
-                                                        <input  type="file"
-                                                                accept="image/png, image/gif, image/jpeg" id="file-input4"
-                                                                name="extra-image3"
+                                                        <input type="file"
+                                                               accept="image/png, image/gif, image/jpeg"
+                                                               id="file-input4"
+                                                               name="extra-image3"
                                                         >
                                                         <img alt="Image Preview" id="thumbnail-extra3"
                                                              style="max-width: 100%; max-height: 600px; display: none;">
@@ -177,8 +182,12 @@
                                                                placeholder="Units In Stock..."
                                                                th:field="*{birdCage.unitsInStock}">
                                                     </div>
-                                                    <div class="col-sm-6" >
-                                                        <label>Status</label></br>
+                                                    <div class="col-sm-6">
+                                                        <label>Status</label>
+                                                        <label th:if="${#fields.hasErrors('birdCage.status')}"
+                                                               class="text-danger"
+                                                               th:errors="*{birdCage.status}"></label>
+                                                        </br>
                                                         <label for="available">
                                                             <input type="radio"
                                                                    name="status"
@@ -193,8 +202,6 @@
                                                                    value="false"
                                                                    th:field="*{birdCage.status}"> Unavailable
                                                         </label>
-                                                        <p th:if="${#fields.hasErrors('birdCage.status')}"
-                                                           class="text-danger" th:errors="*{birdCage.status}"></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -306,6 +313,7 @@
     const thumbnailExtra2 = document.getElementById("thumbnail-extra1");
     const thumbnailExtra3 = document.getElementById("thumbnail-extra2");
     const thumbnailExtra4 = document.getElementById("thumbnail-extra3");
+
     function handleFiles(files, thumbnail) {
         for (const file of files) {
             if (file.type.startsWith("image/")) {
@@ -459,6 +467,7 @@
         ],
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
     });
+
     function formatCurrency(input) {
         const value = input.value.replace(/\s+/g, ''); // Remove existing spaces
         input.value = addSpaces(value);

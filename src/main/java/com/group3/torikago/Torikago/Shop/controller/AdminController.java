@@ -114,11 +114,40 @@ public class AdminController {
 //        return "redirect:/admin/product-table";
 //    }
 
+//    @PostMapping("/admin/product-table/bird-cage/add")
+//    public String saveBirdCage(@RequestParam("main-image") MultipartFile fileUploadMain,
+//                               @RequestParam("extra-image1") MultipartFile fileUploadExtra1,
+//                               @RequestParam("extra-image2") MultipartFile fileUploadExtra2,
+//                               @RequestParam("extra-image3") MultipartFile fileUploadExtra3,
+//                               @ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO,
+//                               BindingResult birdCageBindingResult,
+//                               @ModelAttribute("birdCage") @Valid ProductDTO productDTO,
+//                               BindingResult productBindingResult) throws IOException {
+//
+//        if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
+//            return "bird-cage";
+//        }
+//        String imageURLMain = cloudinaryUpload.uploadFile(fileUploadMain);
+//        productDTO.setMainImage(imageURLMain);
+//        String imageURLExtra1 = cloudinaryUpload.uploadFile(fileUploadExtra1);
+//        productDTO.setExtraImage1(imageURLExtra1);
+//        String imageURLExtra2 = cloudinaryUpload.uploadFile(fileUploadExtra2);
+//        productDTO.setExtraImage2(imageURLExtra2);
+//        String imageURLExtra3 = cloudinaryUpload.uploadFile(fileUploadExtra3);
+//        productDTO.setExtraImage3(imageURLExtra3);
+//
+//        productDTO.setProductType("Bird Cage");
+//        productDTO.setUnitsOnOrder(0);
+//
+//        birdCageService.saveBirdCage(birdCageDTO, productDTO);
+//        return "redirect:/admin/product-table";
+//    }
+
     @PostMapping("/admin/product-table/bird-cage/add")
     public String saveBirdCage(@RequestParam("main-image") MultipartFile fileUploadMain,
-                               @RequestParam("extra-image1") MultipartFile fileUploadExtra1,
-                               @RequestParam("extra-image2") MultipartFile fileUploadExtra2,
-                               @RequestParam("extra-image3") MultipartFile fileUploadExtra3,
+                               @RequestParam(value = "extra-image1", required = false) MultipartFile fileUploadExtra1,
+                               @RequestParam(value = "extra-image2", required = false) MultipartFile fileUploadExtra2,
+                               @RequestParam(value = "extra-image3", required = false) MultipartFile fileUploadExtra3,
                                @ModelAttribute("birdCageDetail") @Valid BirdCageDTO birdCageDTO,
                                BindingResult birdCageBindingResult,
                                @ModelAttribute("birdCage") @Valid ProductDTO productDTO,
@@ -127,14 +156,24 @@ public class AdminController {
         if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
             return "bird-cage";
         }
+
         String imageURLMain = cloudinaryUpload.uploadFile(fileUploadMain);
         productDTO.setMainImage(imageURLMain);
-        String imageURLExtra1 = cloudinaryUpload.uploadFile(fileUploadExtra1);
-        productDTO.setExtraImage1(imageURLExtra1);
-        String imageURLExtra2 = cloudinaryUpload.uploadFile(fileUploadExtra2);
-        productDTO.setExtraImage2(imageURLExtra2);
-        String imageURLExtra3 = cloudinaryUpload.uploadFile(fileUploadExtra3);
-        productDTO.setExtraImage3(imageURLExtra3);
+
+        if (fileUploadExtra1 != null && !fileUploadExtra1.isEmpty()) {
+            String imageURLExtra1 = cloudinaryUpload.uploadFile(fileUploadExtra1);
+            productDTO.setExtraImage1(imageURLExtra1);
+        }
+
+        if (fileUploadExtra2 != null && !fileUploadExtra2.isEmpty()) {
+            String imageURLExtra2 = cloudinaryUpload.uploadFile(fileUploadExtra2);
+            productDTO.setExtraImage2(imageURLExtra2);
+        }
+
+        if (fileUploadExtra3 != null && !fileUploadExtra3.isEmpty()) {
+            String imageURLExtra3 = cloudinaryUpload.uploadFile(fileUploadExtra3);
+            productDTO.setExtraImage3(imageURLExtra3);
+        }
 
         productDTO.setProductType("Bird Cage");
         productDTO.setUnitsOnOrder(0);
@@ -142,6 +181,7 @@ public class AdminController {
         birdCageService.saveBirdCage(birdCageDTO, productDTO);
         return "redirect:/admin/product-table";
     }
+
 
     @GetMapping("/admin/product-table/accessory/add")
     @RolesAllowed({"ADMIN"})
@@ -189,9 +229,9 @@ public class AdminController {
 //    }
     @PostMapping("/admin/product-table/accessory/add")
     public String saveAccessory(@RequestParam("main-image") MultipartFile fileUploadMain,
-                                @RequestParam("extra-image1") MultipartFile fileUploadExtra1,
-                                @RequestParam("extra-image2") MultipartFile fileUploadExtra2,
-                                @RequestParam("extra-image3") MultipartFile fileUploadExtra3,
+                                @RequestParam(value = "extra-image1", required = false) MultipartFile fileUploadExtra1,
+                                @RequestParam(value = "extra-image2", required = false) MultipartFile fileUploadExtra2,
+                                @RequestParam(value = "extra-image3", required = false) MultipartFile fileUploadExtra3,
                                 @ModelAttribute("accessoryDetail") @Valid AccessoryDTO accessoryDTO,
                                 BindingResult accessoryBindingResult,
                                 @ModelAttribute("product") @Valid ProductDTO productDTO,
@@ -201,12 +241,21 @@ public class AdminController {
         }
         String imageURLMain = cloudinaryUpload.uploadFile(fileUploadMain);
         productDTO.setMainImage(imageURLMain);
-        String imageURLExtra1 = cloudinaryUpload.uploadFile(fileUploadExtra1);
-        productDTO.setExtraImage1(imageURLExtra1);
-        String imageURLExtra2 = cloudinaryUpload.uploadFile(fileUploadExtra2);
-        productDTO.setExtraImage2(imageURLExtra2);
-        String imageURLExtra3 = cloudinaryUpload.uploadFile(fileUploadExtra3);
-        productDTO.setExtraImage3(imageURLExtra3);
+
+        if (fileUploadExtra1 != null && !fileUploadExtra1.isEmpty()) {
+            String imageURLExtra1 = cloudinaryUpload.uploadFile(fileUploadExtra1);
+            productDTO.setExtraImage1(imageURLExtra1);
+        }
+
+        if (fileUploadExtra2 != null && !fileUploadExtra2.isEmpty()) {
+            String imageURLExtra2 = cloudinaryUpload.uploadFile(fileUploadExtra2);
+            productDTO.setExtraImage2(imageURLExtra2);
+        }
+
+        if (fileUploadExtra3 != null && !fileUploadExtra3.isEmpty()) {
+            String imageURLExtra3 = cloudinaryUpload.uploadFile(fileUploadExtra3);
+            productDTO.setExtraImage3(imageURLExtra3);
+        }
 
 
         productDTO.setProductType("Accessory");

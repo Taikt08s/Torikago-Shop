@@ -178,7 +178,9 @@
                                                                        th:field="*{product.unitsInStock}">
                                                             </div>
                                                             <div class="col-sm-6" >
-                                                                <label>Status</label></br>
+                                                                <label>Status</label>
+                                                                <label th:if="${#fields.hasErrors('product.status')}"
+                                                                       class="text-danger" th:errors="*{product.status}"></label></br>
                                                                 <label for="available">
                                                                     <input type="radio"
                                                                            name="status"
@@ -193,8 +195,6 @@
                                                                            value="false"
                                                                            th:field="*{product.status}"> Unavailable
                                                                 </label>
-                                                                <p th:if="${#fields.hasErrors('product.status')}" 
-                                                                   class="text-danger" th:errors="*{product.status}"></p>
                                                             </div>
                                                         </div>
                                                         <div class="form-group" style="margin-bottom: 20px;">
