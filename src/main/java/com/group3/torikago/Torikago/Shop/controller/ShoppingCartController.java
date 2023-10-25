@@ -66,7 +66,7 @@ public class ShoppingCartController {
     }
     
     @PostMapping("/cart/delete")
-    public String RemoveProduct(@RequestParam("productId") Long productId,
+    public String removeProduct(@RequestParam("productId") Long productId,
             @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);

@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-<<<<<<< HEAD
-    <data-source source="LOCAL" name="@torikago.c1wgliud9yls.ap-southeast-2.rds.amazonaws.com" uuid="9b212afe-5e98-421d-841d-fbfab406da0b">
+    <data-source source="LOCAL" name="torikago@localhost" uuid="9d2fec6c-091a-4bb1-ad45-4fcbdc0ed0d5">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://torikago.c1wgliud9yls.ap-southeast-2.rds.amazonaws.com:1433</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="Torikago@localhost [2]" uuid="cab516d3-9528-480f-acd0-ab51a00e8803">
-=======
-    <data-source source="LOCAL" name="Torikago@localhost" uuid="7e7df3b1-67ab-4c11-ae3c-a2ee4ca6f1e5">
->>>>>>> 9563d96b9dadbc6937689acacc3d06b35657a730
-      <driver-ref>sqlserver.ms</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://localhost:1433;database=Torikago</jdbc-url>
+      <jdbc-url>jdbc:sqlserver://localhost:1433;database=torikago</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

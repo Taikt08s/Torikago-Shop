@@ -32,28 +32,4 @@ public class ProductDTO {
     @NotNull(message = "*Required")
     private Boolean status;
 
-//
-//    @Transient
-//    public String getExtraImagePath1() {
-//        if (id == null || extraImage1 == null) {
-//            return null;
-//        }
-//        return "/product-images/" + id + "/" + extraImage1;
-//    }
-//
-//    @Transient
-//    public String getExtraImagePath2() {
-//        if (id == null || extraImage2 == null) {
-//            return null;
-//        }
-//        return "/product-images/" + id + "/" + extraImage2;
-//    }
-//
-//    @Transient
-//    public String getExtraImagePath3() {
-//        if (id == null || extraImage3 == null) {
-//            return null;
-//        }
-//        return "/product-images/" + id + "/" + extraImage3;
-//    }
 }
