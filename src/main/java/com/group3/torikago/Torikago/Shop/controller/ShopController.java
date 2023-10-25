@@ -47,12 +47,24 @@ public class ShopController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("search", search);
-        String userName = myUserDetails.getUsername();
-        User user = userService.findByEmail(userName);
-        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
-        model.addAttribute("cartItems", cartItems);
+
+        // Check if the user is logged in
+        String userName = (myUserDetails != null) ? myUserDetails.getUsername() : null;
+
+        if (userName != null) {
+            // If logged in, fetch user information and cart items
+            User user = userService.findByEmail(userName);
+            List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+            model.addAttribute("cartItems", cartItems);
+        } else {
+            // If not logged in, you can handle this case accordingly
+            // For now, let's set an empty cartItems list
+            model.addAttribute("cartItems", new ArrayList<CartItems>());
+        }
+
         return "shopping-page";
     }
+
 
     @RequestMapping("/403")
     public String accessDenied() {
@@ -60,26 +72,41 @@ public class ShopController {
     }
 
     @GetMapping("/torikago/product/{id}")
-    public String productDetails(@PathVariable("id") Long id, Model model, HttpServletRequest request
-            , @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
+    public String productDetails(@PathVariable("id") Long id, Model model, HttpServletRequest request,
+                                 @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         Product product = shoppingProductService.findProductById(id);
+
         ArrayList<Product> comparisonList = (ArrayList<Product>) request.getSession().getAttribute("comparisonList");
         if (comparisonList == null) {
             comparisonList = new ArrayList<>();
-
             request.getSession().setAttribute("comparisonList", comparisonList);
         }
-        String userName = myUserDetails.getUsername();
-        User user = userService.findByEmail(userName);
-        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
-        model.addAttribute("cartItems", cartItems);
+
+        // Check if the user is logged in
+        String userName = (myUserDetails != null) ? myUserDetails.getUsername() : null;
+
+        if (userName != null) {
+            // If logged in, fetch user information and cart items
+            User user = userService.findByEmail(userName);
+            List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+            model.addAttribute("cartItems", cartItems);
+        } else {
+            // If not logged in, set an empty cartItems list
+            model.addAttribute("cartItems", new ArrayList<CartItems>());
+        }
+
         if (product.getProductType().equals("Bird Cage")) {
             model.addAttribute("product", product);
             return "shopping-product-birdcage-detail";
-        } else if (product.getProductType().equals("Accessory"))
+        } else if (product.getProductType().equals("Accessory")) {
             model.addAttribute("product", product);
-        return "shopping-product-accessory-detail";
+            return "shopping-product-accessory-detail";
+        }
+
+        // Add a default return statement or handle other cases as needed
+        return "error-page";
     }
+
 
     @GetMapping("/torikago/product/compare/{id}")
     public String addToCompare(@PathVariable("id") Long id, HttpServletRequest request) {
