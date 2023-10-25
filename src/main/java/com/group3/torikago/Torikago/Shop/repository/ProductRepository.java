@@ -14,4 +14,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
     @Query("SELECT p FROM Product p WHERE p.productType like '%Customized%'")
     Page<Product> findAllCustomizedProduct(Pageable pageable);
+    
+    Product findById(Long productId);
 }
