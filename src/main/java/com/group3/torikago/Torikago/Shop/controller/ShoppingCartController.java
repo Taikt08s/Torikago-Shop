@@ -73,4 +73,12 @@ public class ShoppingCartController {
         shoppingCartServices.removeProduct(productId, user);
         return "redirect:/torikago/cart";
     }
+    
+    @GetMapping("/torikago/checkout")
+    public String checkOut(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails, Model model) {
+        String email = myUserDetails.getUsername();
+        User user = userService.findByEmail(email);
+        model.addAttribute("user", user);
+        return "shopping-view-order";
+    }
 }

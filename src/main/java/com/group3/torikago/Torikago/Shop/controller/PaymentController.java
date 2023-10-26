@@ -10,17 +10,18 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.springframework.stereotype.Controller;
 
-@RestController
+@Controller
 public class PaymentController {
-    @GetMapping("/payment")
+    @GetMapping("/torikago/payment")
     public String getPayment() throws UnsupportedEncodingException {
         OrderDetails orderDetails=new OrderDetails();
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
 //        long amount = (long) (orderDetails.getUnitPrice() * 100);
-        long amount = 1000000 * 100;
+        long amount = 1340000 * 100;
         String bankCode = "NCB";
 
         String vnp_TxnRef = PaymentConfig.getRandomNumber(8);
@@ -80,7 +81,7 @@ public class PaymentController {
         String vnp_SecureHash = PaymentConfig.hmacSHA512(PaymentConfig.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = PaymentConfig.vnp_PayUrl + "?" + queryUrl;
-        return paymentUrl;
+        return "redirect:"+paymentUrl;
     }
 
 }
