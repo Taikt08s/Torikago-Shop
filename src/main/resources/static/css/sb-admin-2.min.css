@@ -11466,8 +11466,8 @@ input[type="file"] {
 }
 .card-img-top {
     max-width: 100%;
-    height: 200px; /* Set a fixed height for the images */
-    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    height: 200px;
+    object-fit: cover;
 }
 
 .product-card {
@@ -11488,7 +11488,7 @@ input[type="file"] {
 .product-card:hover .card-border {
     border-color: rgba(0, 123, 255, 0.8);
 }
-/* Style for the image container */
+
 .image-container {
     position: relative;
     display: inline-block;
@@ -11497,10 +11497,9 @@ input[type="file"] {
 
 /* Style for the image */
 .image-container img {
-    max-width: 200px; /* Set the desired max width for the image */
+    max-width: 200px;
 }
 
-/* Style for the file input */
 .image-upload {
     position: absolute;
     top: 0;
@@ -11538,18 +11537,42 @@ footer.bg-white.py-4.mt-auto {
 }
 
 .comparison-box:hover {
-    background-color: #f0f0f0; /* Change background color on hover if needed */
+    background-color: #f0f0f0;
 }
 @media (max-width: 767px) {
     .breadcrumb {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch; /* Optional: Enable momentum scrolling in webkit */
-        scrollbar-width: thin; /* Optional: Customize scrollbar width */
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
     }
 
     .breadcrumb-item {
         flex: 0 0 auto;
     }
+}
+@media (max-width: 767px) {
+    .product-name {
+        font-size: 1.3rem;
+    }
+    .product-price{
+        font-size: 1.3rem;
+    }
+}
+
+.custom-comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.custom-comparison-table th, .custom-comparison-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.custom-comparison-table th {
+    background-color: #f2f2f2;
 }

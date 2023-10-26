@@ -10,7 +10,4 @@ public interface ShoppingProductService {
 
     Product findProductById(Long id);
 
-    Page<Product> findPaginatedBirdCageProducts(int pageNumber, int pageSize, String sortField, String sortDir, String search);
-
-
 }
