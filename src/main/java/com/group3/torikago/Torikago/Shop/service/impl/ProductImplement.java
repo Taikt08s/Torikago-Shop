@@ -29,12 +29,6 @@ public class ProductImplement implements ProductService {
     }
 
 
-//    @Override
-//    public List<ProductDTO> findAllProducts() {
-//        List<Product> birdCages = productRepository.findAll();
-//        return birdCages.stream().map((product) -> mapToProductDTO(product)).collect(Collectors.toList());
-//    }
-
     private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO = ProductDTO.builder()
                 .id(product.getId())
@@ -48,30 +42,10 @@ public class ProductImplement implements ProductService {
                 .unitPrice(product.getUnitPrice())
                 .unitsOnOrder(product.getUnitsOnOrder())
                 .unitsInStock(product.getUnitsInStock())
+                .featureProduct(product.getFeatureProduct())
                 .build();
         return productDTO;
     }
-
-
-//    @Override
-//    public Product saveProduct(ProductDTO productDTO) {
-//        Product product = mapToProduct(productDTO);
-//        return productRepository.save(product);
-//    }
-
-
-//    @Override
-//    public void updateProduct(ProductDTO productDTO) {
-////        Product product=mapToProduct(productDTO);
-////        productRepository.save(product);
-//    }
-
-
-//    @Override
-//    public void deleteProduct(Long productId) {
-////        productRepository.deleteById(productId);
-//    }
-
 
     public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
         Sort sort = Sort.by(sortField);
@@ -120,6 +94,7 @@ public class ProductImplement implements ProductService {
                 .unitPrice(productDTO.getUnitPrice())
                 .unitsOnOrder(productDTO.getUnitsOnOrder())
                 .unitsInStock(productDTO.getUnitsInStock())
+                .featureProduct(productDTO.getFeatureProduct())
                 .build();
         return product;
     }
