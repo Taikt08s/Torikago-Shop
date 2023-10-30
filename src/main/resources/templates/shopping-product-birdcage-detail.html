@@ -44,6 +44,18 @@
 </head>
 <div th:insert="~{user-layout :: header}"></div>
 <body class="bg-gray-200">
+    <div id="wrapper">
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="d-flex align-items-center">
+                <div th:if="${param.success}" class="alert alert-success">
+                    Successfully added this product to your cart!
+                </div>
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Failed to add this product to your cart. Try again!
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="container">
     <div class="row">
         <nav aria-label="breadcrumb">

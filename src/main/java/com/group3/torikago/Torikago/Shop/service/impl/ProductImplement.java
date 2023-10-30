@@ -73,6 +73,7 @@ public class ProductImplement implements ProductService {
 //    }
 
 
+    @Override
     public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
@@ -87,6 +88,7 @@ public class ProductImplement implements ProductService {
 
     }
 
+    @Override
     public Page<Product> findCustomizedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
@@ -102,9 +104,8 @@ public class ProductImplement implements ProductService {
     }
 
     @Override
-    public ProductDTO findProductById(Long productId) {
-
-        return null;
+    public Product findProductById(Long productId) {
+        return productRepository.findById(productId);
     }
 
     public Product mapToProduct(ProductDTO productDTO) {
@@ -123,4 +124,5 @@ public class ProductImplement implements ProductService {
                 .build();
         return product;
     }
+
 }
