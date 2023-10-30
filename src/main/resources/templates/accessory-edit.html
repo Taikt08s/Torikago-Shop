@@ -71,11 +71,11 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="p-5">
+                                                <div class="p-4">
                                                     <form class="user" method="post"
                                                           th:action="@{/admin/product-table/accessory/{productId}/edit(productId=${accessory.id})}"
                                                           enctype="multipart/form-data">
-                                                        <div class="p-5">
+                                                        <div>
                                                             <input type="hidden" th:field="*{accessory.id}"
                                                                    name="accessory.id">
                                                         </div>

@@ -191,12 +191,41 @@
     <div class="card shadow">
         <div class="card-body">
             <h5 class="text-gray-800">Similar Products</h5>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-12">
+                    <div class="d-flex flex-nowrap overflow-hidden" id="featureProductScroll">
+                        <button class="btn btn-secondary btn-circle btn-sm carousel-control-prev"
+                                onclick="scrollProducts('left')" style="margin-top: 180px">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div th:each="similarProduct : ${randomSimilarAccessoriesProducts}" class="mb-2">
+                            <div class="card mx-2" style="width: 18rem;">
+                                <div class="card-body">
+                                    <a class="text-decoration-none"
+                                       th:href="@{/torikago/product/{productId}(productId=${similarProduct.id})}">
+                                        <img th:src="@{${similarProduct.getMainImage()}}" class="card-img-top"
+                                             alt="Product Image" style="width: 100%; height: auto;">
+                                        <h5 class="card-title text-gray-800" th:text="${similarProduct.productName}"
+                                            style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
+                                        <span class="text-primary"
+                                              th:text="' ₫'+ ${#numbers.formatDecimal(similarProduct.unitPrice, 0, 'POINT', 0, 'POINT')}"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-circle btn-sm carousel-control-next"
+                                onclick="scrollProducts('right')" style="margin-top: 180px">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card shadow my-4">
         <div class="card-body">
             <h5 class="text-gray-800">Review</h5>
-            <div class="card my-3">
+            <div class="card my-3 p-3">
                 <label>Taikt08s</label>
                 <p class="ml-2" href="" value="5" style="color: gold; display: inline-block; margin-right: 5px; vertical-align: middle;">★★★★★</p>
                 <p>Wow amazing products.Love to buy it again!</p>
@@ -297,5 +326,14 @@
             otherReasonInput.style.display = otherReasonRadio.checked ? 'block' : 'none';
         });
     });
+    function scrollProducts(direction) {
+        const container = document.getElementById('featureProductScroll');
+        const scrollAmount = 300; // Adjust the scroll amount as needed
+        if (direction === 'left') {
+            container.scrollLeft -= scrollAmount;
+        } else {
+            container.scrollLeft += scrollAmount;
+        }
+    }
 </script>
 </html>

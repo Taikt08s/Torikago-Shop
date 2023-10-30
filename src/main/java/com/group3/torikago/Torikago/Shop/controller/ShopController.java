@@ -92,6 +92,8 @@ public class ShopController {
             , @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         Product product = shoppingProductService.findProductById(id);
         ArrayList<Product> comparisonList = (ArrayList<Product>) request.getSession().getAttribute("comparisonList");
+
+
         if (comparisonList == null) {
             comparisonList = new ArrayList<>();
 
@@ -108,11 +110,18 @@ public class ShopController {
         }
 
         if (product.getProductType().equals("Bird Cage")) {
+            List<Product> randomSimilarBirdCagesProducts = shoppingProductService.getRandomSimilarBirdCagesProducts(id);
+            model.addAttribute("randomSimilarBirdCagesProducts", randomSimilarBirdCagesProducts);
+
             model.addAttribute("product", product);
             return "shopping-product-birdcage-detail";
         } else if (product.getProductType().equals("Accessory"))
             model.addAttribute("product", product);
+        List<Product> randomSimilarAccessoriesProducts = shoppingProductService.getRandomSimilarAccessoriesProducts(id);
+        model.addAttribute("randomSimilarAccessoriesProducts", randomSimilarAccessoriesProducts);
+
         return "shopping-product-accessory-detail";
+
     }
 
     @GetMapping("/torikago/product/compare/{id}")

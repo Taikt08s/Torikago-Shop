@@ -10,7 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,6 +57,64 @@ public class ShoppingProductImplement implements ShoppingProductService {
         }
 
         return shoppingProductsRepository.findAll(0, pageable);
+    }
+
+    @Override
+    public List<Product> getRandomSimilarBirdCagesProducts(Long id) {
+        Product baseProduct = shoppingProductsRepository.findById(id).orElse(null);
+
+        if (baseProduct != null) {
+            List<Product> allProductsExceptBase = shoppingProductsRepository.findAllBirdCagesByIdNot(id);
+
+            // Shuffle the list randomly
+            List<Product> randomProducts = shuffleList(allProductsExceptBase);
+
+            int numberOfSimilarProducts = 10;
+            List<Product> similarProducts = randomProducts.stream()
+                    .limit(numberOfSimilarProducts)
+                    .collect(Collectors.toList());
+
+            return similarProducts;
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<Product> getRandomSimilarAccessoriesProducts(Long id) {
+        Product baseProduct = shoppingProductsRepository.findById(id).orElse(null);
+
+        if (baseProduct != null) {
+            List<Product> allProductsExceptBase = shoppingProductsRepository.findAllAccessoriesByIdNot(id);
+
+            // Shuffle the list randomly
+            List<Product> randomProducts = shuffleList(allProductsExceptBase);
+
+            int numberOfSimilarProducts = 10;
+            List<Product> similarProducts = randomProducts.stream()
+                    .limit(numberOfSimilarProducts)
+                    .collect(Collectors.toList());
+
+            return similarProducts;
+        }
+
+        return null;
+    }
+
+    //fisher-yates algorithm
+    private <T> List<T> shuffleList(List<T> list) {
+        List<T> shuffledList = new ArrayList<>(list);
+        Random rand = new Random();
+
+        for (int i = shuffledList.size() - 1; i > 0; i--) {
+            int index = rand.nextInt(i + 1);
+
+            T temp = shuffledList.get(index);
+            shuffledList.set(index, shuffledList.get(i));
+            shuffledList.set(i, temp);
+        }
+
+        return shuffledList;
     }
 
 }

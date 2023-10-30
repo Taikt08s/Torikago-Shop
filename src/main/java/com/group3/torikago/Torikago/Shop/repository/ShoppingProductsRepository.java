@@ -26,4 +26,13 @@ public interface ShoppingProductsRepository extends JpaRepository<Product, Long>
                                       @Param("priceFrom") Double priceFrom,
                                       @Param("priceTo") Double priceTo,
                                       Pageable pageable);
+
+    @Query("SELECT p FROM Product p " +
+            "WHERE p.id != :productId AND p.productType = 'Bird Cage'")
+    List<Product> findAllBirdCagesByIdNot(@Param("productId") Long productId);
+
+    @Query("SELECT p FROM Product p " +
+            "WHERE p.id != :productId AND p.productType = 'Accessory'")
+    List<Product> findAllAccessoriesByIdNot(@Param("productId") Long productId);
+
 }
