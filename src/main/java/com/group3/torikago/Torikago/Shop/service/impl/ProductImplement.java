@@ -29,12 +29,6 @@ public class ProductImplement implements ProductService {
     }
 
 
-//    @Override
-//    public List<ProductDTO> findAllProducts() {
-//        List<Product> birdCages = productRepository.findAll();
-//        return birdCages.stream().map((product) -> mapToProductDTO(product)).collect(Collectors.toList());
-//    }
-
     private ProductDTO mapToProductDTO(Product product) {
         ProductDTO productDTO = ProductDTO.builder()
                 .id(product.getId())
@@ -48,6 +42,7 @@ public class ProductImplement implements ProductService {
                 .unitPrice(product.getUnitPrice())
                 .unitsOnOrder(product.getUnitsOnOrder())
                 .unitsInStock(product.getUnitsInStock())
+                .featureProduct(product.getFeatureProduct())
                 .build();
         return productDTO;
     }
@@ -121,6 +116,7 @@ public class ProductImplement implements ProductService {
                 .unitPrice(productDTO.getUnitPrice())
                 .unitsOnOrder(productDTO.getUnitsOnOrder())
                 .unitsInStock(productDTO.getUnitsInStock())
+                .featureProduct(productDTO.getFeatureProduct())
                 .build();
         return product;
     }

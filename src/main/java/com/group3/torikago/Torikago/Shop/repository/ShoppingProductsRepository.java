@@ -16,4 +16,23 @@ public interface ShoppingProductsRepository extends JpaRepository<Product, Long>
 
     @Query("SELECT p FROM Product p WHERE p.productType LIKE '%Accessory%' OR p.productType LIKE '%Bird%' ")
     Page<Product> findAll(Integer dummy, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE " +
+            "(p.unitPrice >= :priceFrom OR :priceFrom IS NULL) AND " +
+            "(p.unitPrice <= :priceTo OR :priceTo IS NULL) AND " +
+            "p.productName LIKE %:search% AND " +
+            "(p.productType LIKE '%Accessory%' OR p.productType LIKE '%Bird%')")
+    Page<Product> findAllByPriceRange(@Param("search") String search,
+                                      @Param("priceFrom") Double priceFrom,
+                                      @Param("priceTo") Double priceTo,
+                                      Pageable pageable);
+
+    @Query("SELECT p FROM Product p " +
+            "WHERE p.id != :productId AND p.productType = 'Bird Cage'")
+    List<Product> findAllBirdCagesByIdNot(@Param("productId") Long productId);
+
+    @Query("SELECT p FROM Product p " +
+            "WHERE p.id != :productId AND p.productType = 'Accessory'")
+    List<Product> findAllAccessoriesByIdNot(@Param("productId") Long productId);
+
 }

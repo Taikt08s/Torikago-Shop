@@ -42,6 +42,8 @@ public class Product {
     private int unitsOnOrder;
     @Column(name = "status")
     private Boolean status;
+    @Column(name = "feature_product")
+    private Boolean featureProduct;
     @OneToMany(mappedBy = "product")
     private List<OrderDetails> orderDetails;
     @OneToOne(mappedBy = "birdCage", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -52,33 +54,6 @@ public class Product {
     private AccessoryDetail accessoryDetail;
     @OneToMany(mappedBy = "productId")
     private List<CartItems> cartItems;
-//    @Transient
-//    public String getMainImagePath() {
-//        String imagePath = "/product-images/" + id + "/" + mainImage;
-//        System.out.println("Image Path: " + imagePath);
-//        return imagePath;
-//    }
-//    @Transient
-//    public String getExtraImagePath1() {
-//        if (id == null || extraImage1 == null) {
-//            return null;
-//        }
-//        return "/product-images/" + id + "/" + extraImage1;
-//    }
-//    @Transient
-//    public String getExtraImagePath2() {
-//        if (id == null || extraImage2 == null) {
-//            return null;
-//        }
-//        return "/product-images/" + id + "/" + extraImage2;
-//    }
-//    @Transient
-//    public String getExtraImagePath3() {
-//        if (id == null || extraImage3 == null) {
-//            return null;
-//        }
-//        return "/product-images/" + id + "/" + extraImage3;
-//    }
 }
 
 

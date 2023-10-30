@@ -177,7 +177,7 @@
                                                                        placeholder="Units In Stock..."
                                                                        th:field="*{product.unitsInStock}">
                                                             </div>
-                                                            <div class="col-sm-6" >
+                                                            <div class="col-sm-3 mt-2" >
                                                                 <label>Status</label>
                                                                 <label th:if="${#fields.hasErrors('product.status')}"
                                                                        class="text-danger" th:errors="*{product.status}"></label></br>
@@ -194,6 +194,16 @@
                                                                            id="unavailable"
                                                                            value="false"
                                                                            th:field="*{product.status}"> Unavailable
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-sm-3 mt-3">
+                                                                <label>Add to Feature Product
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input"
+                                                                               id="customCheck1" value="true" th:field="*{product.featureProduct}"/>
+                                                                        <label class="custom-control-label" for="customCheck1">
+                                                                        </label>
+                                                                    </div>
                                                                 </label>
                                                             </div>
                                                         </div>

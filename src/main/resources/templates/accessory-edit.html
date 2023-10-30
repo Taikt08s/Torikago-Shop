@@ -71,11 +71,11 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="p-5">
+                                                <div class="p-4">
                                                     <form class="user" method="post"
                                                           th:action="@{/admin/product-table/accessory/{productId}/edit(productId=${accessory.id})}"
                                                           enctype="multipart/form-data">
-                                                        <div class="p-5">
+                                                        <div>
                                                             <input type="hidden" th:field="*{accessory.id}"
                                                                    name="accessory.id">
                                                         </div>
@@ -172,7 +172,7 @@
                                                                        placeholder="Units In Stock..."
                                                                        th:field="*{accessory.unitsInStock}">
                                                             </div>
-                                                            <div class="col-sm-6" >
+                                                            <div class="col-sm-3 mt-2" >
                                                                 <label>Status</label></br>
                                                                 <label for="available">
                                                                     <input type="radio"
@@ -190,6 +190,16 @@
                                                                 </label>
                                                                 <p th:if="${#fields.hasErrors('accessory.status')}" 
                                                                    class="text-danger" th:errors="*{accessory.status}"></p>
+                                                            </div>
+                                                            <div class="col-sm-3 mt-3">
+                                                                <label>Add to Feature Product
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input"
+                                                                               id="customCheck1" value="true" th:field="*{accessory.featureProduct}"/>
+                                                                        <label class="custom-control-label" for="customCheck1">
+                                                                        </label>
+                                                                    </div>
+                                                                </label>
                                                             </div>
                                                         </div>
                                                         <div class="form-group" style="margin-bottom: 20px;">

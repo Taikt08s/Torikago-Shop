@@ -11576,3 +11576,13 @@ footer.bg-white.py-4.mt-auto {
 .custom-comparison-table th {
     background-color: #f2f2f2;
 }
+
+.card-label {
+    font-size: 18px;
+}
+
+@media (max-width: 767px) {
+    .card-label {
+        font-size: 14px;
+    }
+}
