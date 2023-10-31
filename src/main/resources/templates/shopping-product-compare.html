@@ -1,36 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Product Compare</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Torikago Shop</title>
+    <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    <script>
+        "use strict";
+        !function () {
+            var t = window.driftt = window.drift = window.driftt || [];
+            if (!t.init) {
+                if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+                t.invoked = !0, t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"],
+                    t.factory = function (e) {
+                        return function () {
+                            var n = Array.prototype.slice.call(arguments);
+                            return n.unshift(e), t.push(n), t;
+                        };
+                    }, t.methods.forEach(function (e) {
+                    t[e] = t.factory(e);
+                }), t.load = function (t) {
+                    var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+                    var i = document.getElementsByTagName("script")[0];
+                    i.parentNode.insertBefore(o, i);
+                };
+            }
+        }();
+        drift.SNIPPET_VERSION = '0.3.1';
+        drift.load('cd5zcgtmmek9');
+    </script>
 </head>
-<body>
-<h1>Product Compare</h1>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Product Name</th>
-        <th>Product Type</th>
-        <th>Product Shape</th>
-        <th>Bar Spacing</th>
-        <th>Bird Wingspan</th>
-        <th>Dimensions</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="product : ${comparisonList}">
-        <td th:text="${product.productName}"></td>
-        <td th:text="${product.productType}"> </td>
-        <td th:text="${product.birdCageDetail.cageShape}"></td>
-        <td th:text="${product.birdCageDetail.barSpacing}"></td>
-        <td th:text="${product.birdCageDetail.birdWingSpan}"></td>
-        <td th:text="${product.birdCageDetail.dimension}"></td>
-        <td>
-            <a th:href="@{/compare/product/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div th:insert="~{user-layout :: header}"></div>
+<body class="bg-gray-200">
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a>Comparison</a></li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-12 p-2">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <th:block th:if="${#lists.isEmpty(comparisonList)}">
+                        <h4 class="mt-3 mb-2 text-center">Your bird cage comparison is currently empty.</h4>
+                        <p class="text-muted text-center">Explore our amazing bird cages and add some companionship for your feathered friends!</p>
+                        <img th:src="@{/img/comparison.jpg}" alt="Comparison" class="img-fluid justify-content-center" height="200" width="auto">
+                    </th:block>
+                    <div class="d-flex flex-nowrap overflow-auto">
+                        <div th:each="product : ${comparisonList}" class="card m-2" style="min-width: 280px;">
+                            <a th:href="@{/compare/product/delete/{id}(id=${product.id})}" class="text-danger">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                            <div class="card-body">
+                                <img th:src="${product.getMainImage()}" class="img-fluid" alt="Product Image">
+                                <h5 th:text="${product.productName}"></h5>
+                                <h5 th:text="${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')+'₫'}"
+                                      class="text-danger product-price"></h5><br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="pb-2 text-gray-600">Product Categories</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label th:text="${product.productType}"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="pb-2 text-gray-600">Product Shape</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label th:text="${product.birdCageDetail.cageShape}"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="pb-2 text-gray-600">Bar Spacing</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label th:text="${product.birdCageDetail.barSpacing}"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="pb-2 text-gray-600">Bird Wingspan</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label th:text="${product.birdCageDetail.birdWingSpan}"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="pb-2 text-gray-600">Dimensions</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label th:text="${product.birdCageDetail.dimension}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<div th:insert="~{user-layout :: footer}"></div>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
 </html>

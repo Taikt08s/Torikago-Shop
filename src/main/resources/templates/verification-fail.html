@@ -20,8 +20,9 @@
             <div class="container-fluid">
                 <div class="text-center">
                     <div class="error mx-auto" data-text="Failed">Failed</div>
-                    <p class="lead text-gray-800 mb-5">  Verification Failed</p>
-                    <p class="text-gray-800 mb-0">Your account was already verified, or the verified is incorrect.</p>
+                    <p class="lead text-gray-800">Verification Failed</p>
+                    <img th:src="@{/img/failed.jpg}" alt="" class="img-fluid" width="600"/>
+                    <p class="text-gray-800 mb-0">Your account was already verified, or the verification is incorrect.</p>
                     <a th:href="@{/login}">&larr; Login Now</a>
                 </div>
             </div>

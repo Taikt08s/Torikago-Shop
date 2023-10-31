@@ -37,22 +37,50 @@ public class ShopController {
     public String shoppingPageListProducts(Model model,
                                            @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
                                            @RequestParam(name = "pageSize", defaultValue = "16") int pageSize,
-                                           @RequestParam(name = "sortField", defaultValue = "id") String sortField,
+                                           @RequestParam(name = "priceSort", defaultValue = "id") String sortField,
                                            @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
                                            @RequestParam(name = "search", required = false) String search,
+                                           @RequestParam(name = "priceFrom", required = false) Double priceFrom,
+                                           @RequestParam(name = "priceTo", required = false) Double priceTo,
                                            @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
-        // Use these parameters to fetch a paginated and sorted list of products
-        Page<Product> shoppingPage = shoppingProductService.findPaginatedShoppingProducts(pageNumber, pageSize, sortField, sortDir, search);
+
+        if ("lowPrice".equals(sortField)) {
+            sortField = "unitPrice";
+            sortDir = "asc";
+        } else if ("highPrice".equals(sortField)) {
+            sortField = "unitPrice";
+            sortDir = "desc";
+        }
+
+        String userName = (myUserDetails != null) ? myUserDetails.getUsername() : null;
+        List<CartItems> cartItems = new ArrayList<>();
+
+        if (userName != null) {
+            User user = userService.findByEmail(userName);
+            cartItems = shoppingCartServices.listCartItems(user);
+            model.addAttribute("cartItems", cartItems);
+        } else {
+            model.addAttribute("cartItems", new ArrayList<CartItems>());
+        }
+
+        Page<Product> shoppingPage;
+
+        if (priceFrom != null || priceTo != null) {
+            shoppingPage = shoppingProductService.findPaginatedShoppingProductsByPriceRange(
+                    pageNumber, pageSize, sortField, sortDir, search, priceFrom, priceTo);
+        } else {
+            shoppingPage = shoppingProductService.findPaginatedShoppingProducts(
+                    pageNumber, pageSize, sortField, sortDir, search);
+        }
+
         model.addAttribute("products", shoppingPage);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("search", search);
-        String userName = myUserDetails.getUsername();
-        User user = userService.findByEmail(userName);
-        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
-        model.addAttribute("cartItems", cartItems);
+
         return "shopping-page";
     }
+
 
     @RequestMapping("/403")
     public String accessDenied() {
@@ -64,21 +92,36 @@ public class ShopController {
             , @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         Product product = shoppingProductService.findProductById(id);
         ArrayList<Product> comparisonList = (ArrayList<Product>) request.getSession().getAttribute("comparisonList");
+
+
         if (comparisonList == null) {
             comparisonList = new ArrayList<>();
 
             request.getSession().setAttribute("comparisonList", comparisonList);
         }
-        String userName = myUserDetails.getUsername();
-        User user = userService.findByEmail(userName);
-        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
-        model.addAttribute("cartItems", cartItems);
+        String userName = (myUserDetails != null) ? myUserDetails.getUsername() : null;
+
+        if (userName != null) {
+            User user = userService.findByEmail(userName);
+            List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+            model.addAttribute("cartItems", cartItems);
+        } else {
+            model.addAttribute("cartItems", new ArrayList<CartItems>());
+        }
+
         if (product.getProductType().equals("Bird Cage")) {
+            List<Product> randomSimilarBirdCagesProducts = shoppingProductService.getRandomSimilarBirdCagesProducts(id);
+            model.addAttribute("randomSimilarBirdCagesProducts", randomSimilarBirdCagesProducts);
+
             model.addAttribute("product", product);
             return "shopping-product-birdcage-detail";
         } else if (product.getProductType().equals("Accessory"))
             model.addAttribute("product", product);
+        List<Product> randomSimilarAccessoriesProducts = shoppingProductService.getRandomSimilarAccessoriesProducts(id);
+        model.addAttribute("randomSimilarAccessoriesProducts", randomSimilarAccessoriesProducts);
+
         return "shopping-product-accessory-detail";
+
     }
 
     @GetMapping("/torikago/product/compare/{id}")

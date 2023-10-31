@@ -43,7 +43,11 @@ public class ShoppingCartImplement implements ShoppingCartServices{
         CartItems cartItem = cartItemRepository.findByUserIdAndProductId(user, product);
         if (cartItem != null) {
             addedQuantity = cartItem.getQuantity() + quantity;
-            cartItem.setQuantity(addedQuantity);
+            if (product.getUnitsInStock()< addedQuantity) {
+                return 0;
+            } else {
+                cartItem.setQuantity(addedQuantity);
+            }
         } else {
             cartItem = new CartItems();
             cartItem.setUserId(user);
