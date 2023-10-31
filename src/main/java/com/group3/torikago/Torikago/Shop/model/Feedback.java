@@ -15,7 +15,7 @@ import org.hibernate.annotations.Check;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name ="Feedback")
+@Table(name ="feedback")
 @Check(constraints = "rating >= 1 and rating <= 5")
 public class Feedback {
     @Id

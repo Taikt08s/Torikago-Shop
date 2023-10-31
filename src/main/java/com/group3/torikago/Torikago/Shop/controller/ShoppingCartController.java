@@ -97,6 +97,7 @@ public class ShoppingCartController {
             }
         }
         if (errorUrl.isEmpty()) {
+            model.addAttribute("cartItems", cartItems);
             model.addAttribute("user", user);
             return "shopping-view-order";
         } else {

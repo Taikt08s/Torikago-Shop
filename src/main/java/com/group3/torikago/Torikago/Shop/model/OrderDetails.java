@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "OrderDetails")
+@Table(name = "order_details")
 public class OrderDetails {
     @Column(name = "quantity", length = 10)
     private int quantity;
