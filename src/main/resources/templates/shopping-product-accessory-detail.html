@@ -45,6 +45,12 @@
 <div th:insert="~{user-layout :: header}"></div>
 <body class="bg-gray-200">
 <div class="container">
+    <div th:if="${param.success}" class="overlay-cart" id="overlay">
+        <div class="text-white" id="addToCartMessage">
+            <i class="fas fa-check-circle text-success" style="font-size: 50px;"></i>
+            <h5 class="mt-2">Successfully added to cart!</h5>
+        </div>
+    </div>
     <div class="row">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -195,7 +201,7 @@
                 <div class="col-md-12">
                     <div class="d-flex flex-nowrap overflow-hidden" id="featureProductScroll">
                         <button class="btn btn-secondary btn-circle btn-sm carousel-control-prev"
-                                onclick="scrollProducts('left')" style="margin-top: 180px">
+                                onclick="scrollProducts('left')" style="margin-top: 160px">
                             <i class="fas fa-chevron-left"></i>
                         </button>
                         <div th:each="similarProduct : ${randomSimilarAccessoriesProducts}" class="mb-2">
@@ -209,12 +215,13 @@
                                             style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
                                         <span class="text-primary"
                                               th:text="' ₫'+ ${#numbers.formatDecimal(similarProduct.unitPrice, 0, 'POINT', 0, 'POINT')}"></span>
+                                        <span href="" value="5" style="color: gold;">5.0★★★★★</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <button class="btn btn-secondary btn-circle btn-sm carousel-control-next"
-                                onclick="scrollProducts('right')" style="margin-top: 180px">
+                                onclick="scrollProducts('right')" style="margin-top: 160px">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
@@ -298,6 +305,23 @@
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
 <script>
+    function hideSuccessMessage() {
+        var addToCartMessage = document.getElementById('addToCartMessage');
+        var overlay = document.getElementById('overlay');
+
+        if (addToCartMessage && overlay) {
+            setTimeout(function () {
+                addToCartMessage.style.display = 'none';
+                overlay.style.display = 'none';
+            }, 5000);
+        }
+    }
+
+
+    window.addEventListener("load", function () {
+        hideSuccessMessage();
+    });
+
     var unitsInStock = [[${product.unitsInStock}]];
 
     function incrementQuantity() {

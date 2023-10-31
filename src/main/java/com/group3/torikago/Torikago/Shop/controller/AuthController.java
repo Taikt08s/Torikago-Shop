@@ -1,8 +1,10 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
 import com.group3.torikago.Torikago.Shop.dto.RegisterDTO;
+import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.Role;
 import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import com.group3.torikago.Torikago.Shop.util.Util;
 import jakarta.mail.MessagingException;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -27,11 +30,13 @@ import java.util.regex.Pattern;
 public class AuthController {
     private UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private ShoppingCartServices shoppingCartServices;
 
     @Autowired
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService, PasswordEncoder passwordEncoder, ShoppingCartServices shoppingCartServices) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.shoppingCartServices = shoppingCartServices;
     }
 
     @GetMapping("/login")
@@ -82,6 +87,10 @@ public class AuthController {
     public String editUser(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails, Model model) {
         String email = myUserDetails.getUsername();
         User user = userService.findByEmail(email);
+
+        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+        model.addAttribute("cartItems", cartItems);
+
         List<Role> listRoles = userService.getRoles();
         model.addAttribute("user", user);
         model.addAttribute("listRoles", listRoles);
@@ -99,7 +108,11 @@ public class AuthController {
     }
 
     @GetMapping("/user/profile/password")
-    public String openSettings() {
+    public String openSettings(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails, Model model) {
+        String email = myUserDetails.getUsername();
+        User user = userService.findByEmail(email);
+        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+        model.addAttribute("cartItems", cartItems);
         return "user-profile-password";
     }
 
@@ -113,7 +126,6 @@ public class AuthController {
         String email = myUserDetails.getUsername();
         User user = userService.findByEmail(email);
 
-
         String encodedNewPassword = passwordEncoder.encode(newPassword);
         boolean hasLetter = Pattern.matches(".*[a-zA-Z].*", newPassword);
 
@@ -121,9 +133,9 @@ public class AuthController {
             return "redirect:/user/profile/password?fail";
         } else if (newPassword.isEmpty()) {
             return "redirect:/user/profile/password?isEmpty";
-        }else if (!hasLetter) {
+        } else if (!hasLetter) {
             return "redirect:/user/profile/password?letter";
-        } else if (newPassword.length()<8) {
+        } else if (newPassword.length() < 8) {
             return "redirect:/user/profile/password?length";
         } else if (!passwordEncoder.matches(confirmPassword, encodedNewPassword)) {
             return "redirect:/user/profile/password?notMatches";
@@ -139,6 +151,5 @@ public class AuthController {
         return "redirect:/user/profile/password?success";
 
     }
-
 
 }
