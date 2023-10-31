@@ -1,10 +1,12 @@
 package com.group3.torikago.Torikago.Shop.dto;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 import org.hibernate.validator.constraints.Length;
 
 @Data
@@ -31,4 +33,6 @@ public class CustomizedBirdCageDTO {
     @Length(max = 2000, message = "No more than 2000" +
             " characters")
     private String description;
+    @Nullable
+    private Boolean cartStatus;
 }

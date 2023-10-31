@@ -126,7 +126,7 @@
                         <i class="fas fa-solid fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
                         Manager Dashboard
                     </a>
-                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''CUSTOMER'')')}" href="/customer">
+                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''CUSTOMER'')')}" href="/customer/customized-product">
                         <i class="fas fa-solid fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
                         Customized Product
                     </a>

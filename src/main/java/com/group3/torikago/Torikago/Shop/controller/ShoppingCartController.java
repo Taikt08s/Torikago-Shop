@@ -1,9 +1,12 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
+import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
+import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.CartItems;
+import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
 import com.group3.torikago.Torikago.Shop.model.User;
-import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
-import com.group3.torikago.Torikago.Shop.service.UserService;
+import com.group3.torikago.Torikago.Shop.service.*;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,10 +24,12 @@ public class ShoppingCartController {
     private ShoppingCartServices shoppingCartServices;
     private UserService userService;
 
+    private CustomizedBirdCageService customizedBirdCageService;
     @Autowired
-    public ShoppingCartController(ShoppingCartServices shoppingCartServices, UserService userService) {
+    public ShoppingCartController(ShoppingCartServices shoppingCartServices, UserService userService, CustomizedBirdCageService customizedBirdCageService) {
         this.shoppingCartServices = shoppingCartServices;
         this.userService = userService;
+        this.customizedBirdCageService = customizedBirdCageService;
     }
     
     @GetMapping("/torikago/cart")
@@ -32,7 +37,7 @@ public class ShoppingCartController {
             @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails){
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
-        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+        List<CartItems> cartItems = shoppingCartServices.listCart(user);
         model.addAttribute("cartItems", cartItems);
         return "shopping-cart";
     }

@@ -5,12 +5,16 @@ import com.group3.torikago.Torikago.Shop.dto.CustomizedBirdCageDTO;
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
+import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.CustomizedBirdCageService;
+import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
+import com.group3.torikago.Torikago.Shop.service.UserService;
 import com.group3.torikago.Torikago.Shop.service.impl.ProductImplement;
 import com.group3.torikago.Torikago.Shop.util.CloudinaryUpload;
 import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -26,11 +30,15 @@ public class CustomizedProductController {
 
     private BirdCageService birdCageService;
 
-    private CloudinaryUpload cloudinaryUpload;
-    public CustomizedProductController (CustomizedBirdCageService customizedBirdCageService, BirdCageService birdCageService, CloudinaryUpload cloudinaryUpload){
+    private UserService userService;
+
+    private ShoppingCartServices shoppingCartServices;
+
+    public CustomizedProductController (CustomizedBirdCageService customizedBirdCageService, BirdCageService birdCageService, CloudinaryUpload cloudinaryUpload, UserService userService,ShoppingCartServices shoppingCartServices ){
         this.customizedBirdCageService = customizedBirdCageService;
         this.birdCageService = birdCageService;
-        this.cloudinaryUpload = cloudinaryUpload;
+        this.userService = userService;
+        this.shoppingCartServices = shoppingCartServices;
     }
 
     @GetMapping("/customized-bird-cage/{productId}/edit")
@@ -46,7 +54,11 @@ public class CustomizedProductController {
                                @ModelAttribute("birdCageDetail") @Valid CustomizedBirdCageDTO customizedBirdCageDTO,
                                BindingResult birdCageBindingResult,
                                @ModelAttribute("birdCage") @Valid ProductDTO productDTO,
-                               BindingResult productBindingResult, Model model) throws IOException {
+                               BindingResult productBindingResult, Model model,
+                               @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) throws IOException {
+
+        String userName = myUserDetails.getUsername();
+        User user = userService.findByEmail(userName);
         if (birdCageBindingResult.hasErrors() || productBindingResult.hasErrors()) {
             return "customized-bird-cage-edit";
         }
@@ -55,7 +67,7 @@ public class CustomizedProductController {
         productDTO.setProductType("Customized");
         productDTO.setUnitsOnOrder(0);
         productDTO.setStatus(true);
-
+        customizedBirdCageDTO.setCartStatus(false);
         BirdCageDetail thisProduct = birdCageService.findBirdCageByID(productId);
 
         if(thisProduct.getDimension().equals(customizedBirdCageDTO.getDimension()) &&
@@ -84,6 +96,8 @@ public class CustomizedProductController {
 
         customizedBirdCageDTO.setStatus("Pending");
         CustomizedBirdCage savedProduct = customizedBirdCageService.saveCustomizedBirdCage(customizedBirdCageDTO, productDTO);
+
+        shoppingCartServices.addProduct(savedProduct.getCustomizedBirdCage().getId(), 1, user);
 
 //        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getMainImage());
 //        FileUploadUtil.copyFile("./product-images/" + productId, "./product-images/" + savedProduct.getCustomizedBirdCage().getId(), productDTO.getExtraImage1());

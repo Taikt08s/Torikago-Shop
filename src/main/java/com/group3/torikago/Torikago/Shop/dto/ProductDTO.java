@@ -31,5 +31,4 @@ public class ProductDTO {
     private int unitsOnOrder;
     @NotNull(message = "*Required")
     private Boolean status;
-
 }
