@@ -4,7 +4,7 @@ import com.group3.torikago.Torikago.Shop.dto.RegisterDTO;
 import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.Role;
 import com.group3.torikago.Torikago.Shop.model.User;
-import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
+import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import com.group3.torikago.Torikago.Shop.util.Util;
 import jakarta.mail.MessagingException;
@@ -30,10 +30,10 @@ import java.util.regex.Pattern;
 public class AuthController {
     private UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private ShoppingCartServices shoppingCartServices;
+    private ShoppingCartService shoppingCartServices;
 
     @Autowired
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder, ShoppingCartServices shoppingCartServices) {
+    public AuthController(UserService userService, PasswordEncoder passwordEncoder, ShoppingCartService shoppingCartServices) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.shoppingCartServices = shoppingCartServices;

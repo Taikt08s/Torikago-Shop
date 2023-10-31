@@ -8,7 +8,7 @@ import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.BirdCageService;
 import com.group3.torikago.Torikago.Shop.service.CustomizedBirdCageService;
-import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
+import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import com.group3.torikago.Torikago.Shop.service.impl.ProductImplement;
 import com.group3.torikago.Torikago.Shop.util.CloudinaryUpload;
@@ -32,9 +32,11 @@ public class CustomizedProductController {
 
     private UserService userService;
 
-    private ShoppingCartServices shoppingCartServices;
+    private ShoppingCartService shoppingCartServices;
 
-    public CustomizedProductController (CustomizedBirdCageService customizedBirdCageService, BirdCageService birdCageService, CloudinaryUpload cloudinaryUpload, UserService userService,ShoppingCartServices shoppingCartServices ){
+    public CustomizedProductController (CustomizedBirdCageService customizedBirdCageService,
+            BirdCageService birdCageService, CloudinaryUpload cloudinaryUpload, UserService userService,
+            ShoppingCartService shoppingCartServices ){
         this.customizedBirdCageService = customizedBirdCageService;
         this.birdCageService = birdCageService;
         this.userService = userService;

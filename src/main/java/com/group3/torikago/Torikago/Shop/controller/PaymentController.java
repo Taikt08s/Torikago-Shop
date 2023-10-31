@@ -1,7 +1,12 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
 import com.group3.torikago.Torikago.Shop.config.PaymentConfig;
+import com.group3.torikago.Torikago.Shop.model.CartItems;
+import com.group3.torikago.Torikago.Shop.model.Order;
 import com.group3.torikago.Torikago.Shop.model.OrderDetails;
+import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.service.OrderService;
+import com.group3.torikago.Torikago.Shop.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,18 +15,40 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 
 @Controller
 public class PaymentController {
+    
+    private UserService userService;
+    private OrderService orderService;
+    private ShoppingCartService shoppingCartService;
+
+    @Autowired
+    public PaymentController(UserService userService, OrderService orderService, ShoppingCartService shoppingCartService) {
+        this.userService = userService;
+        this.orderService = orderService;
+        this.shoppingCartService = shoppingCartService;
+    }
+    
     @GetMapping("/torikago/payment")
-    public String getPayment() throws UnsupportedEncodingException {
-        OrderDetails orderDetails=new OrderDetails();
+    public String getPayment(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) 
+            throws UnsupportedEncodingException {
+        String userName = myUserDetails.getUsername();
+        User user = userService.findByEmail(userName);
+        double totalPrice = 0;
+        List<CartItems> cart = shoppingCartService.listCartItems(user);
+        for (CartItems cartItems : cart) {
+            totalPrice += cartItems.getSubtotal();
+        }
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-//        long amount = (long) (orderDetails.getUnitPrice() * 100);
-        long amount = 1340000 * 100;
+        long amount = (long) (totalPrice * 100);
         String bankCode = "NCB";
 
         String vnp_TxnRef = PaymentConfig.getRandomNumber(8);
@@ -82,6 +109,30 @@ public class PaymentController {
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = PaymentConfig.vnp_PayUrl + "?" + queryUrl;
         return "redirect:"+paymentUrl;
+    }
+    
+    @GetMapping("/torikago/payment/info")
+    public String saveOrderInfo(@RequestParam("vnp_Amount") String orderValue,
+                                  @RequestParam("vnp_BankCode") String bankCode,
+                                  @RequestParam("vnp_ResponseCode") String rspCode,
+                                  @RequestParam("vnp_OrderInfo") String orderInfo,
+                                  @RequestParam("vnp_TransactionStatus") String tranStatus,
+                                  @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails){
+        Order newOrder = new Order();
+        String userName = myUserDetails.getUsername();
+        User user = userService.findByEmail(userName);
+        newOrder.setOrderValue(Double.parseDouble(orderValue)/100);
+        newOrder.setUserOrder(user);
+        newOrder.setShippedAddress(user.getAddress());
+        newOrder.setStatus("pending");
+        newOrder.setPaymentMethod("VNPay");
+        orderService.saveOrder(newOrder);
+        return "redirect:/torikago/payment/success";
+    }
+    
+    @GetMapping("/torikago/payment/success")
+    public String showPaymentSuccess(){
+        return "order-bill";
     }
 
 }
