@@ -166,4 +166,12 @@ public class ShopController {
         request.getSession().setAttribute("comparisonList", comparisonList);
         return "redirect:/torikago/product/compare";
     }
+    @GetMapping("/compare/product/delete/modal/{id}")
+    public String removeProductFromComparisonList(@PathVariable("id") Long id, HttpServletRequest request) {
+        Product product = shoppingProductService.findProductById(id);
+        ArrayList<Product> comparisonList = (ArrayList<Product>) request.getSession().getAttribute("comparisonList");
+        comparisonList.removeIf(p -> p.getId() == product.getId());
+        request.getSession().setAttribute("comparisonList", comparisonList);
+        return "redirect:/torikago/product/{id}?openCompareModal=true";
+    }
 }

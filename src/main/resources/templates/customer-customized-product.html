@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Manager</title>
+    <title>Customer</title>
     <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
     <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
     <link
@@ -57,7 +57,7 @@
                             </div>
                         </form>
                     </div>
-                    <form method="post" th:action="@{/manager/custom-orders}" th:object="${products}">
+                    <form method="post" th:action="@{/customer}" th:object="${products}">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped" id="dataTable">
@@ -101,7 +101,6 @@
                                             </a>
                                         </th>
                                         <th>Status</th>
-                                        <th>Edit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -115,12 +114,12 @@
                                         <td th:text="${product.unitsInStock}"></td>
                                         <td th:text="${product.unitsOnOrder}"></td>
                                         <td th:text="${product.customizedBirdCage.status}"></td>
-                                        <th><a th:href="@{/manager/custom-orders/{productId}/edit(productId=${product.id})}"
+                                        <th><a th:href="@{/customer/customized-product/{productId}/add(productId=${product.id})}"
                                                class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-pen-square"></i>
                                         </span>
-                                            <span class="text">Edit</span>
+                                            <span class="text">Add to cart</span>
                                         </a>
                                         </th>
                                     </tr>

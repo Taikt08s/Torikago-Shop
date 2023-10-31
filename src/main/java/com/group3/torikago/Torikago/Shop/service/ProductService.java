@@ -15,4 +15,6 @@ public interface ProductService {
     
     Product findProductById(Long productId);
 
+    Page<Product> findCustomizedProductsByUser(int pageNumber, int pageSize, String sortField, String sortDir, String keyword, Long id);
+
 }

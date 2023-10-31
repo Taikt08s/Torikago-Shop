@@ -1,6 +1,11 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
+import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
+import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.CartItems;
+import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
+import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.service.*;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
@@ -23,11 +28,14 @@ public class ShoppingCartController {
     private ShoppingCartService shoppingCartServices;
     private UserService userService;
     private ProductService productService;
-
+    private CustomizedBirdCageService customizedBirdCageService;
+    
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartServices, UserService userService, ProductService productService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartService, UserService userService, 
+            CustomizedBirdCageService customizedBirdCageService, ProductService productService) {
         this.shoppingCartServices = shoppingCartServices;
         this.userService = userService;
+        this.customizedBirdCageService = customizedBirdCageService;
         this.productService = productService;
     }
     
@@ -36,7 +44,7 @@ public class ShoppingCartController {
             @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails){
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
-        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+        List<CartItems> cartItems = shoppingCartServices.listCart(user);
         model.addAttribute("cartItems", cartItems);
         return "shopping-cart";
     }

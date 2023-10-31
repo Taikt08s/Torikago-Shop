@@ -9,12 +9,13 @@ import com.group3.torikago.Torikago.Shop.exception.UserNotFoundException;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.model.AuthenticationProvider;
 import jakarta.mail.MessagingException;
+import org.springframework.data.domain.Page;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface UserService {
-
+    Page<User> findPaginatedUsers(int pageNumber, int pageSize, String sortField, String sortDir, String keyword);
 
     void saveUser(RegisterDTO registerDTO);
 
@@ -26,7 +27,7 @@ public interface UserService {
 
     boolean verify(String code);
 
-    List<User> listAllUsers(String keyword);
+//    List<User> listAllUsers(String keyword);
 
     User get(Long id);
 

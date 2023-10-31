@@ -99,6 +99,20 @@ public class ProductImplement implements ProductService {
     }
 
     @Override
+    public Page<Product> findCustomizedProductsByUser(int pageNumber, int pageSize, String sortField, String sortDir, String keyword, Long id) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        if(keyword!=null){
+            Page<Product> productsPage =  productRepository.findAllCustomizedProductByUser(pageable, id);
+            return productsPage;
+        }
+        Page<Product> productsPage = productRepository.findAllCustomizedProductByUser(pageable, id);
+        return productsPage;
+    }
+
+    @Override
     public Product findProductById(Long productId) {
         return productRepository.findById(productId);
     }
