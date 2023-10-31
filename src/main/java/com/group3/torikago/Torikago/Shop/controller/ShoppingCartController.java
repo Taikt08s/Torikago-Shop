@@ -33,7 +33,7 @@ public class ShoppingCartController {
     @Autowired
     public ShoppingCartController(ShoppingCartService shoppingCartService, UserService userService, 
             CustomizedBirdCageService customizedBirdCageService, ProductService productService) {
-        this.shoppingCartServices = shoppingCartServices;
+        this.shoppingCartServices = shoppingCartService;
         this.userService = userService;
         this.customizedBirdCageService = customizedBirdCageService;
         this.productService = productService;

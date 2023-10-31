@@ -112,7 +112,7 @@ public class PaymentController {
     }
     
     @GetMapping("/torikago/payment/info")
-    public String showPaymentInfo(@RequestParam("vnp_Amount") String orderValue,
+    public String saveOrderInfo(@RequestParam("vnp_Amount") String orderValue,
                                   @RequestParam("vnp_BankCode") String bankCode,
                                   @RequestParam("vnp_ResponseCode") String rspCode,
                                   @RequestParam("vnp_OrderInfo") String orderInfo,
@@ -127,6 +127,11 @@ public class PaymentController {
         newOrder.setStatus("pending");
         newOrder.setPaymentMethod("VNPay");
         orderService.saveOrder(newOrder);
+        return "redirect:/torikago/payment/success";
+    }
+    
+    @GetMapping("/torikago/payment/success")
+    public String showPaymentSuccess(){
         return "order-bill";
     }
 
