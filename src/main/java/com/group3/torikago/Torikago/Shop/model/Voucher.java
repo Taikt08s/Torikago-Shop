@@ -20,6 +20,6 @@ public class Voucher {
     private String voucherName;
     @Column(name = "voucher_value",length = 5)  
     private float voucherValue;
-    @OneToOne(mappedBy = "voucher")
-    private BirdCageOrder birdCageOrder;
+//    @OneToOne(mappedBy = "voucher")
+//    private Order birdCageOrder;
 }

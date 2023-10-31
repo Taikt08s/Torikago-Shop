@@ -22,7 +22,7 @@ public class OrderDetails {
     @Id
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private BirdCageOrder order;
+    private Order order;
     @Id
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")

@@ -4,7 +4,7 @@ import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.User;
 import java.util.List;
 
-public interface ShoppingCartServices {
+public interface ShoppingCartService {
     List<CartItems> listCartItems(User user);
     int addProduct(Long productId, int quantity, User user);
     void updateQuantity(Long productId, int quantity, User user);

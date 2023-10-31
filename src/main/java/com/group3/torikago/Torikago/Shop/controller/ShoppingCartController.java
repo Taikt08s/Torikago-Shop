@@ -4,7 +4,6 @@ import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
-import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 
 @Controller
 public class ShoppingCartController {
     
-    private ShoppingCartServices shoppingCartServices;
+    private ShoppingCartService shoppingCartServices;
     private UserService userService;
     private ProductService productService;
 
     @Autowired
-    public ShoppingCartController(ShoppingCartServices shoppingCartServices, UserService userService, ProductService productService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartServices, UserService userService, ProductService productService) {
         this.shoppingCartServices = shoppingCartServices;
         this.userService = userService;
         this.productService = productService;
