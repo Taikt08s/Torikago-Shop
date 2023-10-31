@@ -91,25 +91,52 @@
                                 <table class="table table-striped" id="dataTable">
                                     <thead>
                                     <tr>
-                                        <th>User ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
+                                        <th><a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                            User ID
+                                            <span th:if="${sortField eq 'id'}"
+                                                  th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                        </a></th>
+                                        <th><a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                            Name
+                                            <span th:if="${sortField eq 'id'}"
+                                                  th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                        </a></th>
+                                        <th>
+                                            <a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Email
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a></th>
                                         <th>Image</th>
-                                        <th>Role</th>
+                                        <th>
+                                            Role
+                                        </th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="user : ${users}">
-                                        <td th:text="${user.id}"></td>
-                                        <td th:text="${user.userName}"></td>
-                                        <td th:text="${user.email}"></td>
-                                        <td> <img class="img-profile rounded-circle"
-                                                  th:src="@{/img/undraw_profile.svg}" width="30"/></td>
-                                        <td th:text="${user.role}"></td>
-                                        <td th:text="${user.isEnabled()}"></td>
-                                        <th><a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-info btn-icon-split">
+<!--                                    <tr th:each="user : ${users}">-->
+<!--                                        <td th:text="${user.id}"></td>-->
+<!--                                        <td th:text="${user.userName}"></td>-->
+<!--                                        <td th:text="${user.email}"></td>-->
+<!--                                        <td> <img class="img-profile rounded-circle"-->
+<!--                                                  th:src="@{/img/undraw_profile.svg}" width="30"/></td>-->
+<!--                                        <td th:text="${user.role}"></td>-->
+<!--                                        <td th:text="${user.isEnabled()}"></td>-->
+<!--                                        <th><a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-info btn-icon-split">-->
+<!--                                        <span class="icon text-white-50">-->
+<!--                                            <i class="fas fa-pen-square"></i>-->
+<!--                                        </span>-->
+<tr th:each="user : ${usersPage}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.userName}"></td>
+    <td th:text="${user.email}"></td>
+    <td> <img class="img-profile rounded-circle"
+              th:src="@{/img/undraw_profile.svg}" width="30"/></td>
+    <td th:text="${user.role}"></td>
+    <td th:text="${user.isEnabled()}"></td>
+    <th><a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-pen-square"></i>
                                         </span>
@@ -122,6 +149,29 @@
                             </div>
                         </div>
                     </form>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li th:class="${usersPage.first} ? 'page-item disabled' : 'page-item'">
+                                <a th:if="${not usersPage.first}"
+                                   th:href="@{/admin/users-table(pageNumber=1, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" aria-label="First">
+                                    <span aria-hidden="true">First</span>
+                                </a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(1, usersPage.totalPages)}"
+                                th:class="${i == usersPage.number + 1} ? 'page-item active' : 'page-item'">
+                                <a th:href="@{/admin/users-table(pageNumber=${i}, sortField=${sortField}, sortDir=${sortDir}, keyword=${keyword!=null ? keyword : ''})}"
+                                   class="page-link" th:text="${i}"></a>
+                            </li>
+                            <li th:class="${usersPage.last} ? 'page-item disabled' : 'page-item'">
+                                <a th:if="${not usersPage.last}"
+                                   th:href="@{/admin/users-table(pageNumber=${usersPage.totalPages}, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" aria-label="Last">
+                                    <span aria-hidden="true">Last</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

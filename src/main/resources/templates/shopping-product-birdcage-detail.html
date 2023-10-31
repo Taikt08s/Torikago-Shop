@@ -85,7 +85,7 @@
                     <div class="modal-body row d-flex flex-nowrap overflow-auto">
                         <div class="col-4" th:if="${session.comparisonList} != null"
                              th:each="product : ${session.comparisonList}">
-                            <a class="text-danger">
+                            <a th:href="@{/compare/product/delete/modal/{id}(id=${product.id})}" class="text-danger">
                                 <i class="far fa-trash-alt"></i>
                             </a>
                             <div class="comparison-box text-center">
