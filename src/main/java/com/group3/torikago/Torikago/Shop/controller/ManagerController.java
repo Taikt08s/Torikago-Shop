@@ -79,10 +79,11 @@ public class ManagerController {
         CustomizedBirdCage customizedBirdCage = customizedBirdCageService.findByCustomizedBirdCage_Id(productId);
         customizedBirdCage.setStatus(customizedBirdCageDTO.getStatus());
         if (customizedBirdCageDTO.getStatus().equals("Accepted")){
-            // send notice
+            // send email
+
         }
         else{
-            //send notice
+
         }
 //        customizedBirdCageDTO.setId(customizedBirdCage.getId());
 //        productDTO.setId(productId);

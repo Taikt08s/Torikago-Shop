@@ -3,205 +3,205 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Torikago Shop</title>
-    <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
-    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-    <link
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Torikago Shop</title>
+        <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
+        <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+        <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
-    <script>
-        "use strict";
-        !function () {
-            var t = window.driftt = window.drift = window.driftt || [];
-            if (!t.init) {
-                if (t.invoked)
-                    return void (window.console && console.error && console.error("Drift snippet included twice."));
-                t.invoked = !0, t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"],
-                    t.factory = function (e) {
-                        return function () {
-                            var n = Array.prototype.slice.call(arguments);
-                            return n.unshift(e), t.push(n), t;
-                        };
-                    }, t.methods.forEach(function (e) {
-                    t[e] = t.factory(e);
-                }), t.load = function (t) {
-                    var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
-                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
-                    var i = document.getElementsByTagName("script")[0];
-                    i.parentNode.insertBefore(o, i);
-                };
-            }
-        }();
-        drift.SNIPPET_VERSION = '0.3.1';
-        drift.load('cd5zcgtmmek9');
-    </script>
-</head>
-<div th:insert="~{user-layout :: header}"></div>
-<body class="bg-gray-200">
-<div id="wrapper">
-    <section class="h-100 h-custom col-xl-12">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12">
-                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-                        <div class="card-body p-0">
-                            <div class="row g-0">
-                                <div class="col-md-9">
-                                    <div class="p-3">
-                                        <div class="d-flex justify-content-between align-items-center mb-5">
-                                            <a th:href="@{/}" class="text-decoration-none">
-                                                <h2 class="fw-none mb-0 text-black">
+        <script>
+            "use strict";
+            !function () {
+                var t = window.driftt = window.drift = window.driftt || [];
+                if (!t.init) {
+                    if (t.invoked)
+                        return void (window.console && console.error && console.error("Drift snippet included twice."));
+                    t.invoked = !0, t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"],
+                            t.factory = function (e) {
+                                return function () {
+                                    var n = Array.prototype.slice.call(arguments);
+                                    return n.unshift(e), t.push(n), t;
+                                };
+                            }, t.methods.forEach(function (e) {
+                        t[e] = t.factory(e);
+                    }), t.load = function (t) {
+                        var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+                        o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+                        var i = document.getElementsByTagName("script")[0];
+                        i.parentNode.insertBefore(o, i);
+                    };
+                }
+            }();
+            drift.SNIPPET_VERSION = '0.3.1';
+            drift.load('cd5zcgtmmek9');
+        </script>
+    </head>
+    <div th:insert="~{user-layout :: header}"></div>
+    <body class="bg-gray-200">
+        <div id="wrapper">
+            <section class="h-100 h-custom col-xl-12">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12">
+                            <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                                <div class="card-body p-0">
+                                    <div class="row g-0">
+                                        <div class="col-md-9">
+                                            <div class="p-3">
+                                                <div class="d-flex justify-content-between align-items-center mb-5">
+                                                    <a th:href="@{/}" class="text-decoration-none">
+                                                        <h2 class="fw-none mb-0 text-black">
                                                             <span class="text-primary mx-3">
                                                                 Torikago Shop</span>
-                                                    <div class="vr">
-                                                    </div>
-                                                    Shopping Cart
-                                                </h2>
-                                            </a>
-                                        </div>
-                                        <hr class="text-gray-600">
-                                        <th:block th:each="item, status : ${cartItems}">
-                                            <div class="row mb-4 d-flex justify-content-between align-items-center"
-                                                 th:with="product = ${item.productId}">
-                                                <div class="col-md-2 position-relative">
-                                                    <form class="user" th:action="@{/cart/delete}" method="post">
-                                                        <input type="hidden" name="productId" th:value="${product.id}">
-                                                        <button type="submit" style="margin: 0; background-color: transparent;
-                                                                        border: none;"><i class="far fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-                                                    <img th:src="@{${product.getMainImage()}}"
-                                                         class="img-fluid rounded-3" alt="Product Image"
-                                                         style="width: 100%; height: auto;">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a class="text-decoration-none" th:href="@{/torikago/product/{productId}(productId=${product.id})}"
-                                                       th:title="${product.productName}" target="_blank">
-                                                        <h6 class="text-black mb-0">[[${product.productName}]]</h6>
+                                                            <div class="vr">
+                                                            </div>
+                                                            Shopping Cart
+                                                        </h2>
                                                     </a>
                                                 </div>
-                                                <div class="input-group col-md-3">
-                                                    <form class="user" th:action="@{/cart/update}" method="post">
-                                                        <div style="display: flex;">
-                                                            <div class="input-group-prepend">
-                                                                <button class="btn btn-outline-secondary" type="submit"
-                                                                        th:onclick="'decrementQuantity(\'' + ${product.id} + '\')'">
-                                                                    -
+                                                <hr class="text-gray-600">
+                                                <th:block th:each="item, status : ${cartItems}">
+                                                    <div class="row mb-4 d-flex justify-content-between align-items-center"
+                                                         th:with="product = ${item.productId}">
+                                                        <div class="col-md-2 position-relative">
+                                                            <form class="user" th:action="@{/cart/delete}" method="post">
+                                                                <input type="hidden" name="productId" th:value="${product.id}">
+                                                                <button type="submit" style="margin: 0; background-color: transparent;
+                                                                        border: none;"><i class="far fa-trash-alt"></i>
                                                                 </button>
-                                                            </div>
-                                                            <input type="text" class="form-control text-center"
-                                                                   th:value="${item.quantity}" name="quantity"
-                                                                   th:id="'quantityInput_'+${product.id}"
-                                                                   readonly="readonly" style="max-width: 55px">
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-outline-secondary" type="submit"
-                                                                        th:onclick="'incrementQuantity(\'' + ${product.id} + '\')'">
-                                                                    +
-                                                                </button>
+                                                            </form>
+                                                            <img th:src="@{${product.getMainImage()}}"
+                                                                 class="img-fluid rounded-3" alt="Product Image"
+                                                                 style="width: 100%; height: auto;">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <a class="text-decoration-none" th:href="@{/torikago/product/{productId}(productId=${product.id})}"
+                                                               th:title="${product.productName}" target="_blank">
+                                                                <h6 class="text-black mb-0">[[${product.productName}]]</h6>
+                                                            </a>
+                                                        </div>
+                                                        <div class="input-group col-md-3">
+                                                            <form class="user" th:action="@{/cart/update}" method="post">
+                                                                <div style="display: flex;">
+                                                                    <div class="input-group-prepend">
+                                                                        <button class="btn btn-outline-secondary" type="submit"
+                                                                                th:onclick="'decrementQuantity(\'' + ${product.id} + '\')'">
+                                                                            -
+                                                                        </button>
+                                                                    </div>
+                                                                    <input type="text" class="form-control text-center"
+                                                                           th:value="${item.quantity}" name="quantity"
+                                                                           th:id="'quantityInput_'+${product.id}"
+                                                                           readonly="readonly" style="max-width: 55px">
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-outline-secondary" type="submit"
+                                                                                th:onclick="'incrementQuantity(\'' + ${product.id} + ',' + ${product.unitsInStock} + '\')'">
+                                                                            +
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="productId" th:value="${product.id}">
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-md-2 row">
+                                                            <div class="mb-3">
+                                                                <span>Unit Price:</span>
+                                                                <p class="mb-0 price">
+                                                                    [[${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0,
+                                                                    'POINT')}]] ₫</p>
                                                             </div>
                                                         </div>
-                                                        <input type="hidden" name="productId" th:value="${product.id}">
-                                                    </form>
-                                                </div>
-                                                <div class="col-md-2 row">
-                                                    <div class="mb-3">
-                                                        <span>Unit Price:</span>
-                                                        <p class="mb-0 price">
-                                                            [[${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0,
-                                                            'POINT')}]] ₫</p>
+                                                        <div class="col-md-2 row">
+                                                            <div  class="mb-3">
+                                                                <span>Into Money:</span>
+                                                                <p class="mb-0 price text-danger">
+                                                                    [[${#numbers.formatDecimal(item.getSubtotal, 0, 'POINT', 0,
+                                                                    'POINT')}]] ₫</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 bg-grey" th:unless="${#lists.isEmpty(cartItems)}">
+                                            <div class="p-3 mt-5">
+                                                <div>
+                                                    <h5 class="text-uppercase">Total price:</h5>
+                                                    <h3 class="text-danger">
+                                                        <span>₫ </span>
+                                                        <span th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]), 0, 'POINT', 0, 'POINT')}"></span>
+                                                    </h3>
                                                 </div>
-                                                <div class="col-md-2 row">
-                                                    <div  class="mb-3">
-                                                        <span>Into Money:</span>
-                                                        <p class="mb-0 price text-danger">
-                                                            [[${#numbers.formatDecimal(item.getSubtotal, 0, 'POINT', 0,
-                                                            'POINT')}]] ₫</p>
-                                                    </div>
+
+                                                <div class="mt-2">
+                                                    <a type="button" th:href="@{/torikago/checkout}"
+                                                       class="btn btn-danger btn-block btn-lg"
+                                                       data-mdb-ripple-color="dark">Check out
+                                                    </a>
                                                 </div>
                                             </div>
-                                        </th:block>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 bg-grey" th:unless="${#lists.isEmpty(cartItems)}">
-                                    <div class="p-3 mt-5">
-                                        <div>
-                                            <h5 class="text-uppercase">Total price:</h5>
-                                            <h3 class="text-danger">
-                                                <span>₫ </span>
-                                                <span th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]), 0, 'POINT', 0, 'POINT')}"></span>
-                                            </h3>
                                         </div>
-
-                                        <div class="mt-2">
-                                            <a type="button" th:href="@{/torikago/checkout}"
-                                               class="btn btn-danger btn-block btn-lg"
-                                               data-mdb-ripple-color="dark">Check out
-                                            </a>
+                                        <div th:if="${#lists.isEmpty(cartItems)}" class="col-md-12 col-sm-12 text-center">
+                                            <img th:src="@{/img/7612-removebg.png}" alt="Empty Cart Illustration" class="img-fluid" width="400"/>
+                                            <h4 class="mt-3 mb-2">Uh-oh! Your cart is feeling a bit lonely.</h4>
+                                            <p class="text-muted">Why not explore our amazing products and add something
+                                                special?</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div th:if="${#lists.isEmpty(cartItems)}" class="col-md-12 col-sm-12 text-center">
-                                    <img th:src="@{/img/7612-removebg.png}" alt="Empty Cart Illustration" class="img-fluid" width="400"/>
-                                    <h4 class="mt-3 mb-2">Uh-oh! Your cart is feeling a bit lonely.</h4>
-                                    <p class="text-muted">Why not explore our amazing products and add something
-                                        special?</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
-</div>
-</body>
-<div th:insert="~{user-layout :: footer}"></div>
-<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-<script th:src="@{/js/sb-admin-2.min.js}"></script>
-<script th:src="@{/js/quantity-control.js}"></script>
-<script th:src="@{/https://code.jquery.com/jquery-3.6.0.min.js}"></script>
-<script th:src="@{/https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/https://code.jquery.com/jquery-3.6.4.min.js}"></script>
-<script>
-    function submitForm() {
-        document.getElementById("").submit();
-    }
+    </body>
+    <div th:insert="~{user-layout :: footer}"></div>
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <script th:src="@{/js/quantity-control.js}"></script>
+    <script th:src="@{/https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/https://code.jquery.com/jquery-3.6.4.min.js}"></script>
+    <script>
 
-    function incrementQuantity(productId) {
-        var quantityInput = document.getElementById('quantityInput_' + productId);
-        var currentQuantity = parseInt(quantityInput.value);
-        if (currentQuantity < 10) {
-            quantityInput.value = currentQuantity + 1;
+        function incrementQuantity(param) {
+            var values = param.split(',');
+            var productId = values[0];
+            var unitsInStock = values[1];
+            var quantityInput = document.getElementById('quantityInput_' + productId);
+            var currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity < unitsInStock) {
+                quantityInput.value = currentQuantity + 1;
+            }
         }
-    }
 
-    function decrementQuantity(productId) {
-        var quantityInput = document.getElementById('quantityInput_' + productId);
-        var currentQuantity = parseInt(quantityInput.value);
-        if (currentQuantity > 1) {
-            quantityInput.value = currentQuantity - 1;
+        function decrementQuantity(productId) {
+            var quantityInput = document.getElementById('quantityInput_' + productId);
+            var currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+                quantityInput.value = currentQuantity - 1;
+            }
         }
-    }
 
-    var otherReasonInput = document.getElementById('otherReasonInput');
-    var otherReasonRadio = document.getElementById('reportOther');
+        var otherReasonInput = document.getElementById('otherReasonInput');
+        var otherReasonRadio = document.getElementById('reportOther');
 
-    document.getElementsByName('reportReason').forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            otherReasonInput.style.display = otherReasonRadio.checked ? 'block' : 'none';
+        document.getElementsByName('reportReason').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                otherReasonInput.style.display = otherReasonRadio.checked ? 'block' : 'none';
+            });
         });
-    });
-</script>
+    </script>
 
 </html>

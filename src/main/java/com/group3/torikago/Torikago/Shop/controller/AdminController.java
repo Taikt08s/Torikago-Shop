@@ -477,9 +477,16 @@ public class AdminController {
 
     @GetMapping("/admin/users-table")
     @RolesAllowed({"ADMIN"})
-    public String getListUsers(Model model, @Param("keyword") String keyword) {
-        List<User> users = userService.listAllUsers(keyword);
-        model.addAttribute("users", users);
+    public String getListUsers(Model model,
+                               @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+                               @RequestParam(name = "pageSize", defaultValue = "8") int pageSize,
+                               @RequestParam(name = "sortField", defaultValue = "id") String sortField,
+                               @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
+                               @Param("keyword") String keyword) {
+        Page<User> usersPage = userService.findPaginatedUsers(pageNumber, pageSize, sortField, sortDir, keyword);
+        model.addAttribute("usersPage", usersPage);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
         model.addAttribute("keyword", keyword);
         return "admin-users";
     }

@@ -12,6 +12,10 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,6 +38,21 @@ public class UserImplement implements UserService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSender = mailSender;
+    }
+
+    @Override
+    public Page<User> findPaginatedUsers(int pageNumber, int pageSize, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        if(keyword!=null){
+            Page<User> usersPage =  userRepository.findAll(pageable,keyword);
+            return usersPage;
+        }
+        Page<User> usersPage = userRepository.findAll(pageable);
+        return usersPage;
+
     }
 
     //fill the user object what ever come from the web to save
@@ -101,16 +120,6 @@ public class UserImplement implements UserService {
             return true;
         }
     }
-
-
-    public List<User> listAllUsers(String keyword) {
-
-        if (keyword != null) {
-            return userRepository.findAll(keyword);
-        }
-        return userRepository.findAll();
-    }
-
 
     @Override
     public User get(Long id) {

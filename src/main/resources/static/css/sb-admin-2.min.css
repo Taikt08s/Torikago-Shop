@@ -11600,7 +11600,14 @@ footer.bg-white.py-4.mt-auto {
     cursor: pointer;
 }
 
-#addToCartMessage {
+#addToCartMessageSuccess {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+    z-index: 10000;
+}
+
+#addToCartMessageFailed {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 20px;
     text-align: center;

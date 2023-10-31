@@ -4,6 +4,7 @@ import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.repository.CartItemRepository;
+import com.group3.torikago.Torikago.Shop.repository.CustomizedBirdCageRepository;
 import com.group3.torikago.Torikago.Shop.repository.ProductRepository;
 import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
 import java.util.List;
@@ -15,16 +16,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class ShoppingCartImplement implements ShoppingCartServices{
     private CartItemRepository cartItemRepository;
     private ProductRepository productRepository;
+
+    private CustomizedBirdCageRepository customizedBirdCageRepository;
     
     @Autowired
-    public ShoppingCartImplement(CartItemRepository cartItemRepository, ProductRepository productRepository) {
+    public ShoppingCartImplement(CartItemRepository cartItemRepository, ProductRepository productRepository, CustomizedBirdCageRepository customizedBirdCageRepository) {
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
+         this.customizedBirdCageRepository = customizedBirdCageRepository;
     }
 
     @Override
     public List<CartItems> listCartItems(User user) {
          return cartItemRepository.findByUserId(user);
+    }
+
+    @Override
+    public List<CartItems> listCart(User user) {
+        return cartItemRepository.findByUserIdAndCustomizedProductId(user.getId());
     }
 
     @Override
@@ -34,13 +43,18 @@ public class ShoppingCartImplement implements ShoppingCartServices{
         CartItems cartItem = cartItemRepository.findByUserIdAndProductId(user, product);
         if (cartItem != null) {
             addedQuantity = cartItem.getQuantity() + quantity;
-            cartItem.setQuantity(addedQuantity);
+            if (product.getUnitsInStock()< addedQuantity) {
+                return 0;
+            } else {
+                cartItem.setQuantity(addedQuantity);
+            }
         } else {
             cartItem = new CartItems();
             cartItem.setUserId(user);
             cartItem.setQuantity(quantity);
             cartItem.setProductId(product);
         }
+
         cartItemRepository.save(cartItem);
         return addedQuantity;
     }
@@ -52,6 +66,12 @@ public class ShoppingCartImplement implements ShoppingCartServices{
 
     @Override
     public void removeProduct(Long productId, User user) {
+        Product product = productRepository.findById(productId);
+        if(product.getCustomizedBirdCage() != null ){
+            product.getCustomizedBirdCage().setCartStatus(false);
+            customizedBirdCageRepository.save(product.getCustomizedBirdCage());
+            return;
+        }
         cartItemRepository.deleteByUserIdAndProductId(user.getId(), productId);
     }
     

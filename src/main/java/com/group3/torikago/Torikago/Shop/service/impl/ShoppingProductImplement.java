@@ -58,7 +58,6 @@ public class ShoppingProductImplement implements ShoppingProductService {
 
         return shoppingProductsRepository.findAll(0, pageable);
     }
-
     @Override
     public List<Product> getRandomSimilarBirdCagesProducts(Long id) {
         Product baseProduct = shoppingProductsRepository.findById(id).orElse(null);
@@ -116,5 +115,4 @@ public class ShoppingProductImplement implements ShoppingProductService {
 
         return shuffledList;
     }
-
 }
