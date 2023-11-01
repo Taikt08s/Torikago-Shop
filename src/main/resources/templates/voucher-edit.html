@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Voucher</title>
+</head>
+<body>
+<h1>Edit Voucher</h1>
+<form th:action="@{/vouchers/edit/{id}(id=${voucher.id})}" th:object="${voucher}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <label for="voucherName">Voucher Name:</label>
+    <input type="text" th:field="*{voucherName}" id="voucherName"/>
+    <br/>
+    <label for="createdTime">Created Time:</label>
+    <input type="text" th:field="*{createdTime}" id="createdTime"/>
+    <br/>
+    <label for="expiredTime">Expired Time:</label>
+    <input type="text" th:field="*{expiredTime}" id="expiredTime"/>
+    <br/>
+    <label for="voucherValue">Voucher Value:</label>
+    <input type="text" th:field="*{voucherValue}" id="voucherValue"/>
+    <br/>
+    <label for="voucherStatus">Voucher Status:</label>
+    <input type="checkbox" th:field="*{status}" id="voucherStatus"/>
+    <br/>
+    <button type="submit">Update Voucher</button>
+</form>
+</body>
+</html>
