@@ -15,16 +15,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "order_details")
 public class OrderDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product ;
     @Column(name = "quantity", length = 10)
     private int quantity;
     @Column(name = "unit_price", length = 10)
     private double unitPrice; 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Order order;
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product ;
+    
 }

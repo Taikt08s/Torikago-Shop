@@ -117,16 +117,14 @@ public class PaymentController {
                                   @RequestParam("vnp_OrderInfo") String orderInfo,
                                   @RequestParam("vnp_TransactionStatus") String tranStatus,
                                   @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails){
-        Order newOrder = new Order();
+        if (rspCode.equals("00")) {
         String userName = myUserDetails.getUsername();
-        User user = userService.findByEmail(userName);
-        newOrder.setOrderValue(Double.parseDouble(orderValue)/100);
-        newOrder.setUserOrder(user);
-        newOrder.setShippedAddress(user.getAddress());
-        newOrder.setStatus("pending");
-        newOrder.setPaymentMethod("VNPay");
-        orderService.saveOrder(newOrder);
+        User user = userService.findByEmail(userName);       
+        orderService.saveOrder(user, orderValue);
         return "redirect:/torikago/payment/success";
+        } else {
+            return "redirect:/torikago/payment/fail";
+        }        
     }
     
     @GetMapping("/torikago/payment/success")
@@ -139,6 +137,11 @@ public class PaymentController {
         model.addAttribute("order", order);
         model.addAttribute("user", user);
         return "shopping-order-bill";
+    }
+    
+    @GetMapping("/torikago/payment/fail")
+    public String showPaymentFail(){
+        return "payment-failed";
     }
 
 }
