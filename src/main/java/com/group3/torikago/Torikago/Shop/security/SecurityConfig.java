@@ -48,8 +48,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/reset_password/**", "/login", "/forgot_password", "/verify",
                                 "/torikago/**", "/register/**", "/css/**", "/js/**", "/vendor/**",
-                                "/scss/**", "/403", "/product-images/**", "/oauth2/**", "/torikago/product/{id}"
-                                , "/torikago/product/compare/{id}/**", "/compare/product/delete/**").permitAll()
+                                "/scss/**", "/403", "/product-images/**", "/oauth2/**", "/torikago/product/{id}/**"
+                                , "/torikago/product/compare/{id}/**", "/compare/product/delete/**","/cart/add").permitAll()
                         .requestMatchers("/admin", "/admin/product-table",
                                 "/admin/users-table", "/admin/product-table/bird-cage/add").hasAuthority("ADMIN")
                         .requestMatchers("/manager").hasAuthority("MANAGER").anyRequest().authenticated()
