@@ -83,7 +83,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/user/profile")
     public String editUser(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails, Model model) {
         String email = myUserDetails.getUsername();
         User user = userService.findByEmail(email);

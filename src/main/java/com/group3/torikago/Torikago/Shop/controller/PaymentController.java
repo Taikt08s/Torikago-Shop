@@ -136,7 +136,7 @@ public class PaymentController {
 
         model.addAttribute("order", order);
         model.addAttribute("user", user);
-        return "shopping-order-bill";
+        return "shopping-order-success";
     }
     
     @GetMapping("/torikago/payment/fail")
