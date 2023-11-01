@@ -47,27 +47,6 @@ public class ProductImplement implements ProductService {
         return productDTO;
     }
 
-
-//    @Override
-//    public Product saveProduct(ProductDTO productDTO) {
-//        Product product = mapToProduct(productDTO);
-//        return productRepository.save(product);
-//    }
-
-
-//    @Override
-//    public void updateProduct(ProductDTO productDTO) {
-////        Product product=mapToProduct(productDTO);
-////        productRepository.save(product);
-//    }
-
-
-//    @Override
-//    public void deleteProduct(Long productId) {
-////        productRepository.deleteById(productId);
-//    }
-
-
     @Override
     public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
         Sort sort = Sort.by(sortField);

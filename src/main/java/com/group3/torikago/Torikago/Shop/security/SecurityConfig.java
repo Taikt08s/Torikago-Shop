@@ -46,10 +46,10 @@ public class SecurityConfig {
         // luu y khi muon test thi disable csrf!! .csrf().disable()
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/reset_password/**", "/login", "/forgot_password", "/verify", "/"
-                                , "/torikago", "/torikago/product/**", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**",
-                                "/scss/**", "/403", "/product-images/**", "/oauth2/**", "/torikago/product/{id}"
-                                , "/torikago/product/compare/{id}/**","/compare/product/delete/**").permitAll()
+                        .requestMatchers("/", "/reset_password/**", "/login", "/forgot_password", "/verify",
+                                "/torikago", "/torikago/product/**", "/register/**", "/css/**", "/js/**", "/vendor/**",
+                                "/scss/**", "/403", "/product-images/**", "/oauth2/**", "/torikago/product/{id}/**"
+                                , "/torikago/product/compare/{id}/**", "/compare/product/delete/**","/cart/add").permitAll()
                         .requestMatchers("/admin", "/admin/product-table",
                                 "/admin/users-table", "/admin/product-table/bird-cage/add").hasAuthority("ADMIN")
                         .requestMatchers("/manager").hasAuthority("MANAGER").anyRequest().authenticated()

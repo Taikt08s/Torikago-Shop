@@ -18,7 +18,7 @@
     <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
     <link rel="stylesheet" href="path/to/lightbox2/css/lightbox.min.css">
     <script src="path/to/lightbox2/js/lightbox.min.js"></script>
-    <script>
+    <script type="text/javascript">
         "use strict";
         !function () {
             var t = window.driftt = window.drift = window.driftt || [];
@@ -46,19 +46,19 @@
 </head>
 <div th:insert="~{user-layout :: header}"></div>
 <body class="bg-gray-200">
-    <div id="wrapper">
-        <div class="container d-flex justify-content-center align-items-center">
-            <div class="d-flex align-items-center">
-                <div th:if="${param.success}" class="alert alert-success">
-                    Successfully added this product to your cart!
-                </div>
-                <div th:if="${param.error}" class="alert alert-danger">
-                    Failed to add this product to your cart. Try again!
-                </div>
-            </div>
+<div class="container">
+    <div th:if="${param.success}" class="overlay-cart" id="overlay-success">
+        <div class="text-white" id="addToCartMessageSuccess">
+            <i class="fas fa-check-circle text-success" style="font-size: 50px;"></i>
+            <h5 class="mt-2">Successfully added to cart!</h5>
         </div>
     </div>
-<div class="container">
+    <div th:if="${param.error}" class="overlay-cart" id="overlay-failed">
+        <div class="text-white" id="addToCartMessageFailed">
+            <i class="fas fa-times-circle text-danger" style="font-size: 50px;"></i>
+            <h5 class="mt-2">Add to cart failed!</h5>
+        </div>
+    </div>
     <div class="row">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -290,7 +290,7 @@
                 <div class="col-md-12">
                     <div class="d-flex flex-nowrap overflow-hidden" id="featureProductScroll">
                         <button class="btn btn-secondary btn-circle btn-sm carousel-control-prev"
-                                onclick="scrollProducts('left')" style="margin-top: 180px">
+                                onclick="scrollProducts('left')" style="margin-top: 160px">
                             <i class="fas fa-chevron-left"></i>
                         </button>
                         <div th:each="similarProduct : ${randomSimilarBirdCagesProducts}" class="mb-2">
@@ -304,12 +304,13 @@
                                             style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
                                         <span class="text-primary"
                                               th:text="' ₫'+ ${#numbers.formatDecimal(similarProduct.unitPrice, 0, 'POINT', 0, 'POINT')}"></span>
+                                        <span href="" value="5" style="color: gold;">5.0★★★★★</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <button class="btn btn-secondary btn-circle btn-sm carousel-control-next"
-                                onclick="scrollProducts('right')" style="margin-top: 180px">
+                                onclick="scrollProducts('right')" style="margin-top: 160px">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
@@ -393,7 +394,56 @@
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
-<script>
+<script type="text/javascript">
+    document.body.addEventListener("click", function (event) {
+        var addToCartMessageSuccess = document.getElementById('addToCartMessageSuccess');
+        var overlaySuccess = document.getElementById('overlay-success');
+        var addToCartMessageFailed = document.getElementById('addToCartMessageFailed');
+        var overlayFailed = document.getElementById('overlay-failed');
+
+        if (addToCartMessageSuccess && overlaySuccess) {
+            addToCartMessageSuccess.style.display = 'none';
+            overlaySuccess.style.display = 'none';
+        }
+
+        if (addToCartMessageFailed && overlayFailed) {
+            addToCartMessageFailed.style.display = 'none';
+            overlayFailed.style.display = 'none';
+        }
+    });
+
+    function hideSuccessMessage() {
+        var addToCartMessage = document.getElementById('addToCartMessageSuccess');
+        var overlay = document.getElementById('overlay-success');
+
+        if (addToCartMessage && overlay) {
+            setTimeout(function () {
+                addToCartMessage.style.display = 'none';
+                overlay.style.display = 'none';
+            }, 5000);
+        }
+    }
+
+    window.addEventListener("load", function () {
+        hideSuccessMessage();
+    });
+
+    function hideFailedMessage() {
+        var addToCartMessage = document.getElementById('addToCartMessageFailed');
+        var overlay = document.getElementById('overlay-failed');
+
+        if (addToCartMessage && overlay) {
+            setTimeout(function () {
+                addToCartMessage.style.display = 'none';
+                overlay.style.display = 'none';
+            }, 5000);
+        }
+    }
+
+    window.addEventListener("load", function () {
+        hideFailedMessage();
+    });
+
     var unitsInStock = [[${product.unitsInStock}]];
 
     function incrementQuantity() {

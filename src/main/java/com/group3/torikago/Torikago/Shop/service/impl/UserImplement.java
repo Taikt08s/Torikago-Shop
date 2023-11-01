@@ -121,16 +121,6 @@ public class UserImplement implements UserService {
         }
     }
 
-
-//    public List<User> listAllUsers(String keyword) {
-//
-//        if (keyword != null) {
-//            return userRepository.findAll(keyword);
-//        }
-//        return userRepository.findAll();
-//    }
-
-
     @Override
     public User get(Long id) {
         return userRepository.findById(id).get();

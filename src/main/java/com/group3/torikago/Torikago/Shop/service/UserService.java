@@ -27,8 +27,6 @@ public interface UserService {
 
     boolean verify(String code);
 
-//    List<User> listAllUsers(String keyword);
-
     User get(Long id);
 
     void updateResetPasswordToken(String token, String email) throws UserNotFoundException;

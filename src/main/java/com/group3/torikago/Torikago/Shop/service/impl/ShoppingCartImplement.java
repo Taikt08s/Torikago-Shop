@@ -23,7 +23,7 @@ public class ShoppingCartImplement implements ShoppingCartService{
     public ShoppingCartImplement(CartItemRepository cartItemRepository, ProductRepository productRepository, CustomizedBirdCageRepository customizedBirdCageRepository) {
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
-        this.customizedBirdCageRepository = customizedBirdCageRepository;
+         this.customizedBirdCageRepository = customizedBirdCageRepository;
     }
 
     @Override
@@ -54,6 +54,7 @@ public class ShoppingCartImplement implements ShoppingCartService{
             cartItem.setQuantity(quantity);
             cartItem.setProductId(product);
         }
+
         cartItemRepository.save(cartItem);
         return addedQuantity;
     }
