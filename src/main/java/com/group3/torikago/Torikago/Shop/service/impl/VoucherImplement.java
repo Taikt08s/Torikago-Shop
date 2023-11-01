@@ -54,7 +54,7 @@ public class VoucherImplement implements VoucherService {
                 .createdTime(voucherDTO.getCreatedTime())
                 .expiredTime(voucherDTO.getExpiredTime())
                 .status(voucherDTO.getStatus())
-                .birdCageOrder(voucherDTO.getBirdCageOrder())
+
                 .build();
         return voucher;
     }
@@ -67,7 +67,7 @@ public class VoucherImplement implements VoucherService {
                 .createdTime(voucher.getCreatedTime())
                 .expiredTime(voucher.getExpiredTime())
                 .status(voucher.getStatus())
-                .birdCageOrder(voucher.getBirdCageOrder())
+
                 .build();
         return voucherDTO;
     }

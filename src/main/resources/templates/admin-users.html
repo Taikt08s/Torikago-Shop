@@ -68,11 +68,11 @@
                                 <input type="text" class="form-control bg-light border-0 small"
                                        name="keyword"
                                        th:value="${keyword}"
-                                        placeholder="Search for..."
+                                       placeholder="Search for..."
                                        aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
-                                <div class="input-group-append" >
+                                <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit">
-                                        <i class="fas fa-search fa-sm" ></i>
+                                        <i class="fas fa-search fa-sm"></i>
                                     </button>
                                 </div>
                             </div>
@@ -91,16 +91,18 @@
                                 <table class="table table-striped" id="dataTable">
                                     <thead>
                                     <tr>
-                                        <th><a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                            User ID
-                                            <span th:if="${sortField eq 'id'}"
-                                                  th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
-                                        </a></th>
-                                        <th><a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                            Name
-                                            <span th:if="${sortField eq 'id'}"
-                                                  th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
-                                        </a></th>
+                                        <th>
+                                            <a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                User ID
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a></th>
+                                        <th>
+                                            <a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Name
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a></th>
                                         <th>
                                             <a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
                                                 Email
@@ -116,27 +118,28 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-<!--                                    <tr th:each="user : ${users}">-->
-<!--                                        <td th:text="${user.id}"></td>-->
-<!--                                        <td th:text="${user.userName}"></td>-->
-<!--                                        <td th:text="${user.email}"></td>-->
-<!--                                        <td> <img class="img-profile rounded-circle"-->
-<!--                                                  th:src="@{/img/undraw_profile.svg}" width="30"/></td>-->
-<!--                                        <td th:text="${user.role}"></td>-->
-<!--                                        <td th:text="${user.isEnabled()}"></td>-->
-<!--                                        <th><a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-info btn-icon-split">-->
-<!--                                        <span class="icon text-white-50">-->
-<!--                                            <i class="fas fa-pen-square"></i>-->
-<!--                                        </span>-->
-<tr th:each="user : ${usersPage}">
-    <td th:text="${user.id}"></td>
-    <td th:text="${user.userName}"></td>
-    <td th:text="${user.email}"></td>
-    <td> <img class="img-profile rounded-circle"
-              th:src="@{/img/undraw_profile.svg}" width="30"/></td>
-    <td th:text="${user.role}"></td>
-    <td th:text="${user.isEnabled()}"></td>
-    <th><a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-info btn-icon-split">
+                                    <!--                                    <tr th:each="user : ${users}">-->
+                                    <!--                                        <td th:text="${user.id}"></td>-->
+                                    <!--                                        <td th:text="${user.userName}"></td>-->
+                                    <!--                                        <td th:text="${user.email}"></td>-->
+                                    <!--                                        <td> <img class="img-profile rounded-circle"-->
+                                    <!--                                                  th:src="@{/img/undraw_profile.svg}" width="30"/></td>-->
+                                    <!--                                        <td th:text="${user.role}"></td>-->
+                                    <!--                                        <td th:text="${user.isEnabled()}"></td>-->
+                                    <!--                                        <th><a th:href="@{'/users/edit/' + ${user.id}}" class="btn btn-info btn-icon-split">-->
+                                    <!--                                        <span class="icon text-white-50">-->
+                                    <!--                                            <i class="fas fa-pen-square"></i>-->
+                                    <!--                                        </span>-->
+                                    <tr th:each="user : ${usersPage}">
+                                        <td th:text="${user.id}"></td>
+                                        <td th:text="${user.userName}"></td>
+                                        <td th:text="${user.email}"></td>
+                                        <td><img class="img-profile rounded-circle"
+                                                 th:src="@{/img/undraw_profile.svg}" width="30"/></td>
+                                        <td th:text="${user.role}"></td>
+                                        <td th:text="${user.isEnabled()}"></td>
+                                        <th><a th:href="@{'/users/edit/' + ${user.id}}"
+                                               class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-pen-square"></i>
                                         </span>

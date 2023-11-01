@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "OrderDetails")
+@Table(name = "order_details")
 public class OrderDetails {
     @Column(name = "quantity", length = 10)
     private int quantity;
@@ -22,7 +22,7 @@ public class OrderDetails {
     @Id
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private BirdCageOrder order;
+    private Order order;
     @Id
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")

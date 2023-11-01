@@ -10,10 +10,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title layout:title-pattern="${CONTENT_TITLE + ' - ' + LAYOUT_TITLE}">Torikago Shop</title>
-    <link rel="icon" type="image/x-icon" href="static/img/icon.png"/>
+    <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
 </head>
 <div th:fragment="header">
@@ -23,7 +24,7 @@
             <div class="sidebar-brand-text mx-3">Torikago Shop</div>
         </a>
         <form th:action="@{/torikago}"
-                class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+              class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
                 <input type="search" class="form-control bg-light border-0 small" placeholder="Search for..."
                        aria-label="Search" aria-describedby="basic-addon2" name="search" th:value="${search}">
@@ -58,15 +59,16 @@
             </li>
             <li class="nav-item dropdown no-arrow mx-1" th:if="${#authorization.expression('isAuthenticated()')}">
                 <a class="nav-link dropdown-toggle" th:href="@{/torikago/cart}" role="button">
-                    <i class="fas fa-shopping-bag fa-fw"></i>
-                    <span th:if="${cartItems}" class="badge badge-danger badge-counter" th:text="${#lists.size(cartItems)}"></span>
+                    <i class="fab fa-opencart"></i>
+                    <span th:if="${cartItems}" class="badge badge-danger badge-counter"
+                          th:text="${#lists.size(cartItems)}"></span>
                 </a>
             </li>
             <li class="nav-item dropdown no-arrow mx-1" th:if="${#authorization.expression('isAuthenticated()')}">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="far fa-bell"></i>
-<!--                    <span class="badge badge-danger badge-counter">3+</span>-->
+                    <!--                    <span class="badge badge-danger badge-counter">3+</span>-->
                     <span id="notificationBadge" class="badge badge-danger badge-counter">3+</span>
                 </a>
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -74,14 +76,16 @@
                     <h6 class="dropdown-header">
                         <i class="far fa-bell"></i> Notifications
                     </h6>
-                    <a th:if="${session.changePasswordSuccess}" class="dropdown-item d-flex align-items-center" href="#">
+                    <a th:if="${session.changePasswordSuccess}" class="dropdown-item d-flex align-items-center"
+                       href="#">
                         <div class="mr-3">
                             <div class="icon-circle bg-warning">
                                 <i class="fas fa-key text-white"></i>
                             </div>
                         </div>
                         <div>
-                            <div class="small text-gray-500" th:text="${#temporals.format(session.changePasswordTime, 'yyyy-MM-dd HH:mm')}"></div>
+                            <div class="small text-gray-500"
+                                 th:text="${#temporals.format(session.changePasswordTime, 'yyyy-MM-dd HH:mm')}"></div>
                             <span class="font-weight-bold" th:text="${session.changePasswordSuccess}"></span>
                         </div>
                     </a>
@@ -92,7 +96,8 @@
                             </div>
                         </div>
                         <div>
-                            <div class="small text-gray-500" th:text="${#temporals.format(session.updateInformationTime, 'yyyy-MM-dd HH:mm')}"></div>
+                            <div class="small text-gray-500"
+                                 th:text="${#temporals.format(session.updateInformationTime, 'yyyy-MM-dd HH:mm')}"></div>
                             <span class="font-weight-bold" th:text="${session.updateProfileSuccess}"></span>
                         </div>
                     </a>
@@ -117,16 +122,19 @@
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </a>
-                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" th:href="@{/admin}">
+                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"
+                       th:href="@{/admin}">
                         <i class="fas fa-solid fa-user-tie fa-sm fa-fw mr-2 text-gray-400"></i>
                         Admin Dashboard
                     </a>
-                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''MANAGER'')')}" th:href="@{/manager}">
+                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''MANAGER'')')}"
+                       th:href="@{/manager}">
 
                         <i class="fas fa-solid fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
                         Manager Dashboard
                     </a>
-                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''CUSTOMER'')')}" href="/customer/customized-product">
+                    <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''USER'')')}"
+                       href="/customer">
                         <i class="fas fa-solid fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
                         Customized Product
                     </a>

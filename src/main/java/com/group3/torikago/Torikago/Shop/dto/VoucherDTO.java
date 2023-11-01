@@ -1,6 +1,6 @@
 package com.group3.torikago.Torikago.Shop.dto;
 
-import com.group3.torikago.Torikago.Shop.model.BirdCageOrder;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +27,7 @@ public class VoucherDTO {
 
     private Boolean status;
 
-    private BirdCageOrder birdCageOrder;
+
 
 
 }

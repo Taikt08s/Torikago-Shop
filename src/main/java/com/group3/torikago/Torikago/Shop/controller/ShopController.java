@@ -3,7 +3,6 @@ package com.group3.torikago.Torikago.Shop.controller;
 import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.User;
-import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
 import com.group3.torikago.Torikago.Shop.service.ShoppingProductService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,15 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 
 @Controller
 public class ShopController {
     private ShoppingProductService shoppingProductService;
-    private ShoppingCartServices shoppingCartServices;
+    private ShoppingCartService shoppingCartServices;
     private UserService userService;
 
     @Autowired
-    public ShopController(ShoppingProductService shoppingProductService, ShoppingCartServices shoppingCartServices, UserService userService) {
+    public ShopController(ShoppingProductService shoppingProductService, ShoppingCartService shoppingCartServices, UserService userService) {
         this.shoppingProductService = shoppingProductService;
         this.shoppingCartServices = shoppingCartServices;
         this.userService = userService;

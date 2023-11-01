@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "CartItems")
+@Table(name = "cart_items")
 public class CartItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

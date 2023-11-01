@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "AccessoryDetails")
+@Table(name = "accessory_details")
 public class AccessoryDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

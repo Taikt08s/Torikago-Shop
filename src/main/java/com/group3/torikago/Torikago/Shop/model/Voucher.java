@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "Voucher")
+
+@Entity 
+@Table(name = "voucher")
+
 public class Voucher {
 
     @Id
@@ -25,6 +27,7 @@ public class Voucher {
     private String voucherName;
     @Column(name = "voucher_value",length = 5)
     private float voucherValue;
+
     @Column(name = "voucher_cTime")
 
     private LocalDateTime createdTime;
@@ -33,6 +36,10 @@ public class Voucher {
     @Column(name = "voucher_status")
     private Boolean status;
 
-    @OneToOne(mappedBy = "voucher")
-    private BirdCageOrder birdCageOrder;
+//    @OneToOne(mappedBy = "voucher")
+//    private BirdCageOrder birdCageOrder;
+
+//    @OneToOne(mappedBy = "voucher")
+//    private Order birdCageOrder;
+
 }

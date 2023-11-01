@@ -15,13 +15,13 @@ import org.hibernate.annotations.Check;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name ="Feedback")
+@Table(name ="feedback")
 @Check(constraints = "rating >= 1 and rating <= 5")
 public class Feedback {
     @Id
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private BirdCageOrder orderFeedback;
+    private Order orderFeedback;
     @Column(name = "feedback_content", length = 255)
     private String feedbackContent;
     @Column(name = "feedback_date", columnDefinition = "TIMESTAMP")  // add feedbackDate to ERD
