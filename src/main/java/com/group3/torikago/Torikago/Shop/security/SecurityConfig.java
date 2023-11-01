@@ -47,7 +47,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/reset_password/**", "/login", "/forgot_password", "/verify", "/"
-                                , "/torikago/**", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**",
+                                , "/torikago", "/torikago/product/**", "/register", "/register/**", "/css/**", "/js/**", "/vendor/**",
                                 "/scss/**", "/403", "/product-images/**", "/oauth2/**", "/torikago/product/{id}"
                                 , "/torikago/product/compare/{id}/**","/compare/product/delete/**").permitAll()
                         .requestMatchers("/admin", "/admin/product-table",

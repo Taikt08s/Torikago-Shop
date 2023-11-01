@@ -19,6 +19,9 @@ import org.hibernate.annotations.Check;
 @Check(constraints = "rating >= 1 and rating <= 5")
 public class Feedback {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order orderFeedback;
