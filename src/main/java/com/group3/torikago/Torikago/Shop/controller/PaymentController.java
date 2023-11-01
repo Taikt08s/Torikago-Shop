@@ -3,12 +3,11 @@ package com.group3.torikago.Torikago.Shop.controller;
 import com.group3.torikago.Torikago.Shop.config.PaymentConfig;
 import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.Order;
-import com.group3.torikago.Torikago.Shop.model.OrderDetails;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.OrderService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -131,8 +130,15 @@ public class PaymentController {
     }
     
     @GetMapping("/torikago/payment/success")
-    public String showPaymentSuccess(){
-        return "order-bill";
+    public String showPaymentSuccess(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
+                                     Model model){
+        String userName = myUserDetails.getUsername();
+        User user = userService.findByEmail(userName);
+        Order order=new Order();
+
+        model.addAttribute("order", order);
+        model.addAttribute("user", user);
+        return "shopping-order-bill";
     }
 
 }
