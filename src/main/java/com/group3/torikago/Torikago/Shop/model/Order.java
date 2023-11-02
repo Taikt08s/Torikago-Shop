@@ -31,7 +31,6 @@ public class Order {
     private String status;
     @Column(name = "shipped_address",length = 150)   
     private String shippedAddress;
-    @CreationTimestamp
     @Column(name = "shipped_date",length = 10)  
     private LocalDateTime shippedDate = orderDate.plusDays(7) ;
     @OneToMany(mappedBy = "order")
