@@ -17,6 +17,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
     Product findById(Long productId);
 
-    @Query("SELECT p from Product p WHERE p.productType like '%Customized%' AND p.id IN" + "(SELECT c.productId FROM CartItems c WHERE c.userId.Id = ?1 )")
+    @Query("SELECT p from Product p WHERE p.productType like '%Customized%' AND p.id IN" + "(SELECT c.productId FROM CartItems c WHERE c.userId.id= ?1 )")
     Page<Product> findAllCustomizedProductByUser(Pageable pageable, Long id);
 }

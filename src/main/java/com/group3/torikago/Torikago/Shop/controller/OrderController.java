@@ -30,9 +30,9 @@ public class OrderController {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         List<Order> orders = orderService.listOrders(user);
-        model.addAttribute("Orders", orders);
+        model.addAttribute("orders", orders);
         model.addAttribute("user", user);
-        return "user-order-history";
+        return "shopping-order-history";
     }
 
 }
