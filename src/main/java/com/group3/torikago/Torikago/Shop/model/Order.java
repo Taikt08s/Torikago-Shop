@@ -5,39 +5,37 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
-//import javax.persistence.*;
 import java.time.LocalDateTime;
-import org.hibernate.annotations.CreationTimestamp;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name ="order")
+@Table(name ="orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long orderId;
     @Column(name = "order_value",length = 10)
-    private double orderValue;  
-    @Column(name = "payment_method",length = 50) 
+    private double orderValue;
+    @Column(name = "payment_method",length = 50)
     private String paymentMethod;
-    @Column(name = "order_date",length = 10)    
+    @Column(name = "order_date",length = 10)
     private LocalDateTime orderDate = LocalDateTime.now();
-    @Column(name = "status",length = 50)  
+    @Column(name = "status",length = 50)
     private String status;
-    @Column(name = "shipped_address",length = 150)   
+    @Column(name = "shipped_address",length = 150)
     private String shippedAddress;
-    @Column(name = "shipped_date",length = 10)  
+    @Column(name = "shipped_date",length = 10)
     private LocalDateTime shippedDate = orderDate.plusDays(7) ;
     @OneToMany(mappedBy = "order")
     private List<OrderDetails> orderdetails;
     @OneToOne(mappedBy = "orderFeedback")
     private Feedback feedback;
-//    @OneToOne
+    //    @OneToOne
 //    @JoinColumn(name = "voucher_id", referencedColumnName = "id")
 //    private Voucher voucher;
     @ManyToOne
