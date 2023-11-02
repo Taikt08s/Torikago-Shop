@@ -110,23 +110,6 @@
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
 <script>
-    // function selectButton(button, index) {
-    //     document.querySelectorAll('.button-with-line').forEach(function (btn) {
-    //         btn.classList.remove('selected');
-    //     });
-    //     button.classList.add('selected');
-    //
-    //     const selectedLine = document.querySelector('.selected-line');
-    //     const buttonRect = button.getBoundingClientRect();
-    //     const containerRect = document.querySelector('.button-line-container').getBoundingClientRect();
-    //
-    //     const translateX = buttonRect.left - containerRect.left;
-    //
-    //     selectedLine.style.width = buttonRect.width + 'px';
-    //     selectedLine.style.transform = `translateX(${translateX}px)`;
-    // }
-    //
-    // document.querySelector('.button-with-line.selected').click();
     function selectButton(button, index) {
         document.querySelectorAll('.button-with-line').forEach(function (btn) {
             btn.classList.remove('selected');
@@ -142,7 +125,6 @@
         selectedLine.style.width = buttonRect.width + 'px';
         selectedLine.style.transform = `translateX(${translateX}px)`;
 
-        // Show/hide the relevant card based on the button index
         document.querySelectorAll('.card-content').forEach(function (card, i) {
             card.style.display = i + 1 === index ? 'block' : 'none';
         });
