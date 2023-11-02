@@ -1,8 +1,8 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
-import com.group3.torikago.Torikago.Shop.model.CartItems;
+import com.group3.torikago.Torikago.Shop.model.Order;
 import com.group3.torikago.Torikago.Shop.model.User;
-import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
+import com.group3.torikago.Torikago.Shop.service.OrderService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,12 +16,12 @@ import java.util.List;
 public class OrderController {
     private UserService userService;
 
-    private ShoppingCartService shoppingCartServices;
+    private OrderService orderService;
 
     @Autowired
-    public OrderController(UserService userService, ShoppingCartService shoppingCartServices) {
+    public OrderController(UserService userService, OrderService orderService) {
         this.userService = userService;
-        this.shoppingCartServices = shoppingCartServices;
+        this.orderService = orderService;
     }
 
     @GetMapping("/user/purchase")
@@ -29,10 +29,10 @@ public class OrderController {
                                 @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
-        List<CartItems> cartItems = shoppingCartServices.listCart(user);
-        model.addAttribute("cartItems", cartItems);
+        List<Order> orders = orderService.listOrders(user);
+        model.addAttribute("Orders", orders);
         model.addAttribute("user", user);
-        return "shopping-user-order";
+        return "user-order-history";
     }
 
 }
