@@ -11613,3 +11613,27 @@ footer.bg-white.py-4.mt-auto {
     text-align: center;
     z-index: 10000;
 }
+.button-line-container {
+    position: relative;
+    display: flex;
+}
+
+.button-with-line {
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.selected-line {
+    height: 2px;
+    background-color: #4e73df;
+    position: absolute;
+    bottom: 0;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+
+.button-with-line.selected {
+    color: #4e73df;
+}

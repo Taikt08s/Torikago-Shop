@@ -46,7 +46,59 @@
 <body class="bg-gray-200">
 <div class="container mt-3 mb-5">
     <div class="row">
-
+        <!-- Sidebar -->
+        <div class="col-xl-3">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="card">
+                        <a class="nav-link " th:href="@{/user/profile}" id="userDropdown">
+                            <img class="img-profile rounded-circle w-25"
+                                 th:src="@{/img/undraw_profile.svg}">
+                            <span class=" d-none d-lg-inline text-gray-600 small"
+                                  th:text="${#authentication.name}"></span>
+                        </a>
+                    </div>
+                    <h5 class="font-weight-bold text-primary mt-4">
+                        <i class="far fa-user-circle"></i>
+                        Account
+                    </h5>
+                    <ul class="list-group">
+                        <li class="list-group-item text-gray-700" href="">
+                            <i class="fas fa-key"></i>
+                            <a class="text-decoration-none" th:href="@{/user/profile/password}">Change Password</a>
+                        </li>
+                        <li class="list-group-item text-gray-700">
+                            <i class="fas fa-receipt"></i>
+                            <a class="text-decoration-none" th:href="@{/user/purchase}">Order Management</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 mb-4">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <div class="text-left">
+                        <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-clipboard-list"></i> My Order</h1>
+                    </div>
+                    <div class="button-line-container">
+                        <div class="button-with-line selected" onclick="selectButton(this, 1)">All Orders</div>
+                        <div class="button-with-line" onclick="selectButton(this, 2)">Pending</div>
+                        <div class="button-with-line" onclick="selectButton(this, 3)">Processing</div>
+                        <div class="button-with-line" onclick="selectButton(this, 4)">Shipping</div>
+                        <div class="button-with-line" onclick="selectButton(this, 5)">Delivered</div>
+                        <div class="button-with-line" onclick="selectButton(this, 6)">Cancelled</div>
+                        <div class="selected-line"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body card-content mt-2 p-4" id="card-1">Content for Button 1</div>
+            <div class="card card-body card-content mt-2 p-4" id="card-2">Content for Button 2</div>
+            <div class="card card-body card-content mt-2 p-4" id="card-3">Content for Button 3</div>
+            <div class="card card-body card-content mt-2 p-4" id="card-4">Content for Button 4</div>
+            <div class="card card-body card-content mt-2 p-4" id="card-5">Content for Button 5</div>
+            <div class="card card-body card-content mt-2 p-4" id="card-6">Content for Button 6</div>
+        </div>
     </div>
 </div>
 </body>
@@ -57,4 +109,45 @@
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+<script>
+    // function selectButton(button, index) {
+    //     document.querySelectorAll('.button-with-line').forEach(function (btn) {
+    //         btn.classList.remove('selected');
+    //     });
+    //     button.classList.add('selected');
+    //
+    //     const selectedLine = document.querySelector('.selected-line');
+    //     const buttonRect = button.getBoundingClientRect();
+    //     const containerRect = document.querySelector('.button-line-container').getBoundingClientRect();
+    //
+    //     const translateX = buttonRect.left - containerRect.left;
+    //
+    //     selectedLine.style.width = buttonRect.width + 'px';
+    //     selectedLine.style.transform = `translateX(${translateX}px)`;
+    // }
+    //
+    // document.querySelector('.button-with-line.selected').click();
+    function selectButton(button, index) {
+        document.querySelectorAll('.button-with-line').forEach(function (btn) {
+            btn.classList.remove('selected');
+        });
+        button.classList.add('selected');
+
+        const selectedLine = document.querySelector('.selected-line');
+        const buttonRect = button.getBoundingClientRect();
+        const containerRect = document.querySelector('.button-line-container').getBoundingClientRect();
+
+        const translateX = buttonRect.left - containerRect.left;
+
+        selectedLine.style.width = buttonRect.width + 'px';
+        selectedLine.style.transform = `translateX(${translateX}px)`;
+
+        // Show/hide the relevant card based on the button index
+        document.querySelectorAll('.card-content').forEach(function (card, i) {
+            card.style.display = i + 1 === index ? 'block' : 'none';
+        });
+    }
+
+    document.querySelector('.button-with-line.selected').click();
+</script>
 </html>

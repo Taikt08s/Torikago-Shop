@@ -15,7 +15,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name ="bird_cage_order")
+@Table(name ="order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
