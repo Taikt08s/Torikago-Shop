@@ -47,6 +47,7 @@ public class OrderImplement implements OrderService{
             orderDetails.setQuantity(listItem.getQuantity());
             orderDetails.setUnitPrice(listItem.getProductId().getUnitPrice());
             orderDetailsRepository.save(orderDetails);
+            cartItemRepository.delete(listItem);
         }
     }  
 

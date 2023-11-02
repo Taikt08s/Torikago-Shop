@@ -27,9 +27,9 @@ public class Voucher {
     private String voucherName;
     @Column(name = "voucher_value",length = 5)
     private float voucherValue;
-    @Column(name = "voucher_created_time")
+    @Column(name = "voucher_created_date")
     private LocalDateTime createdTime;
-    @Column(name = "voucher_expried_time")
+    @Column(name = "voucher_expried_date")
     private LocalDateTime expiredTime;
     @Column(name = "voucher_status")
     private Boolean status;
