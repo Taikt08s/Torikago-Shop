@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 mb-4">
+        <div class="col-md-9 mb-4 min-vh-90">
             <div class="card shadow">
                 <div class="card-body p-4">
                     <div class="text-left">
@@ -92,12 +92,220 @@
                     </div>
                 </div>
             </div>
-            <div class="card card-body card-content mt-2 p-4" id="card-1">Content for Button 1</div>
-            <div class="card card-body card-content mt-2 p-4" id="card-2">Content for Button 2</div>
-            <div class="card card-body card-content mt-2 p-4" id="card-3">Content for Button 3</div>
-            <div class="card card-body card-content mt-2 p-4" id="card-4">Content for Button 4</div>
-            <div class="card card-body card-content mt-2 p-4" id="card-5">Content for Button 5</div>
-            <div class="card card-body card-content mt-2 p-4" id="card-6">Content for Button 6</div>
+            <div class="card-content mt-2 " id="card-1">
+                <th:block th:each="order : ${orders}">
+                    <div class="card card-body mt-2">
+                        <span th:text="'#'+ ${order.getOrderId()}"></span>
+                        <th:block th:each="order_details : ${order.orderdetails}">
+                            <div class="d-flex align-items-center">
+                                <img th:src="@{${order_details.product.getMainImage()}}"
+                                     class="img-fluid rounded-2" alt="Product Image"
+                                     style="width: 100px; height: auto;">
+                                <div class="ml-2">
+                                    <h5 class="text-gray-900"
+                                        th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
+                                    <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
+                                </div>
+                                <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                            </div>
+                        </th:block>
+                        <hr>
+                        <div class="d-flex">
+                            <div class=" mt-4">
+                                <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                            </div>
+                            <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
+                                <a class="btn btn-outline-primary">Review</a>
+                            </div>
+                            <div class="ml-auto">
+                                <h6>Total:</h6>
+                                <h5 class="text-danger"
+                                    th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+            <div class="card-content mt-2 " id="card-2">
+                <th:block th:each="order : ${orders}">
+                    <th:block th:if="${order.status == 'Pending'}">
+                        <div class="card card-body mt-2">
+                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <th:block th:each="order_details : ${order.orderdetails}">
+                                <div class="d-flex align-items-center">
+                                    <img th:src="@{${order_details.product.getMainImage()}}"
+                                         class="img-fluid rounded-2" alt="Product Image"
+                                         style="width: 100px; height: auto;">
+                                    <div class="ml-2">
+                                        <h5 class="text-gray-900"
+                                            th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
+                                        <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
+                                    </div>
+                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                </div>
+                            </th:block>
+                            <hr>
+                            <div class="d-flex">
+                                <div class=" mt-4">
+                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
+                                    <a class="btn btn-outline-primary">Review</a>
+                                </div>
+                                <div class="ml-auto">
+                                    <h6>Total:</h6>
+                                    <h5 class="text-danger"
+                                        th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </div>
+            <div class="card-content mt-2 " id="card-3">
+                <th:block th:each="order : ${orders}">
+                    <th:block th:if="${order.status == 'Processing'}">
+                        <div class="card card-body mt-2">
+                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <th:block th:each="order_details : ${order.orderdetails}">
+                                <div class="d-flex align-items-center">
+                                    <img th:src="@{${order_details.product.getMainImage()}}"
+                                         class="img-fluid rounded-2" alt="Product Image"
+                                         style="width: 100px; height: auto;">
+                                    <div class="ml-2">
+                                        <h5 class="text-gray-900"
+                                            th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
+                                        <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
+                                    </div>
+                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                </div>
+                            </th:block>
+                            <hr>
+                            <div class="d-flex">
+                                <div class=" mt-4">
+                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
+                                    <a class="btn btn-outline-primary">Review</a>
+                                </div>
+                                <div class="ml-auto">
+                                    <h6>Total:</h6>
+                                    <h5 class="text-danger"
+                                        th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </div>
+            <div class="card-content mt-2 " id="card-4">
+                <th:block th:each="order : ${orders}">
+                    <th:block th:if="${order.status == 'Shipping'}">
+                        <div class="card card-body mt-2">
+                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <th:block th:each="order_details : ${order.orderdetails}">
+                                <div class="d-flex align-items-center">
+                                    <img th:src="@{${order_details.product.getMainImage()}}"
+                                         class="img-fluid rounded-2" alt="Product Image"
+                                         style="width: 100px; height: auto;">
+                                    <div class="ml-2">
+                                        <h5 class="text-gray-900"
+                                            th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
+                                        <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
+                                    </div>
+                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                </div>
+                            </th:block>
+                            <hr>
+                            <div class="d-flex">
+                                <div class=" mt-4">
+                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
+                                    <a class="btn btn-outline-primary">Review</a>
+                                </div>
+                                <div class="ml-auto">
+                                    <h6>Total:</h6>
+                                    <h5 class="text-danger"
+                                        th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </div>
+            <div class="card-content mt-2 " id="card-5">
+                <th:block th:each="order : ${orders}">
+                    <th:block th:if="${order.status == 'Delivered'}">
+                        <div class="card card-body mt-2">
+                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <th:block th:each="order_details : ${order.orderdetails}">
+                                <div class="d-flex align-items-center">
+                                    <img th:src="@{${order_details.product.getMainImage()}}"
+                                         class="img-fluid rounded-2" alt="Product Image"
+                                         style="width: 100px; height: auto;">
+                                    <div class="ml-2">
+                                        <h5 class="text-gray-900"
+                                            th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
+                                        <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
+                                    </div>
+                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                </div>
+                            </th:block>
+                            <hr>
+                            <div class="d-flex">
+                                <div class=" mt-4">
+                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
+                                    <a class="btn btn-outline-primary">Review</a>
+                                </div>
+                                <div class="ml-auto">
+                                    <h6>Total:</h6>
+                                    <h5 class="text-danger"
+                                        th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </div>
+            <div class="card-content mt-2 " id="card-6">
+                <th:block th:each="order : ${orders}">
+                    <th:block th:if="${order.status == 'Cancelled'}">
+                        <div class="card card-body mt-2">
+                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <th:block th:each="order_details : ${order.orderdetails}">
+                                <div class="d-flex align-items-center">
+                                    <img th:src="@{${order_details.product.getMainImage()}}"
+                                         class="img-fluid rounded-2" alt="Product Image"
+                                         style="width: 100px; height: auto;">
+                                    <div class="ml-2">
+                                        <h5 class="text-gray-900"
+                                            th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
+                                        <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
+                                    </div>
+                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                </div>
+                            </th:block>
+                            <hr>
+                            <div class="d-flex">
+                                <div class=" mt-4">
+                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
+                                    <a class="btn btn-outline-primary">Review</a>
+                                </div>
+                                <div class="ml-auto">
+                                    <h6>Total:</h6>
+                                    <h5 class="text-danger"
+                                        th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </div>
         </div>
     </div>
 </div>

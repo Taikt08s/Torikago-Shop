@@ -52,13 +52,11 @@
                 <div class="card card-registration card-registration-2 shadow">
                     <div class="card-body p-3">
                         <div class="row">
-                            <img th:src="@{/img/order-success.jpg}" alt="" class="img-fluid" width="100"/>
-                            <h4 class="text-center font-weight-bold mt-1">Thank you for ordering!</h4>
-                            <span class="text-center">Dear, <span th:text="${user.getFname()+' '+user.getLname()}"></span></span>
-                            <span class="text-center">Your have purchased successfully.</span>
+                            <img th:src="@{/img/order-failed.jpg}" alt="" class="img-fluid" width="100"/>
+                            <h4 class="text-center font-weight-bold mt-1">Order failed!</h4>
+                            <span class="text-center">Hey! Sometimes we need to rethink twice.</span>
                             <div class="text-center mt-4">
-                                <a class="btn btn-outline-primary" th:href="@{/user/purchase}">VIEW ORDER</a>
-                                <a class="btn btn-primary" th:href="@{/}">CONTINUE SHOPPING</a>
+                                <a class="btn btn-primary" th:href="@{/}">BACK TO TORIKAGO</a>
                             </div>
                         </div>
                     </div>

@@ -133,15 +133,23 @@ public class PaymentController {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         Order order=new Order();
+        List<CartItems> cartItems = shoppingCartService.listCartItems(user);
 
+        model.addAttribute("cartItems", cartItems);
         model.addAttribute("order", order);
         model.addAttribute("user", user);
         return "shopping-order-success";
     }
     
     @GetMapping("/torikago/payment/fail")
-    public String showPaymentFail(){
-        return "payment-failed";
+    public String showPaymentFail(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
+                                  Model model){
+        String userName = myUserDetails.getUsername();
+        User user = userService.findByEmail(userName);
+        List<CartItems> cartItems = shoppingCartService.listCartItems(user);
+
+        model.addAttribute("cartItems", cartItems);
+        return "shopping-order-failed";
     }
 
 }

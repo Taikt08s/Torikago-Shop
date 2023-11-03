@@ -37,7 +37,7 @@ public class OrderImplement implements OrderService{
         newOrder.setOrderValue(Double.parseDouble(orderValue)/100);
         newOrder.setUserOrder(user);
         newOrder.setShippedAddress(user.getAddress());
-        newOrder.setStatus("pending");
+        newOrder.setStatus("Pending");
         newOrder.setPaymentMethod("VNPay");
         orderRepository.save(newOrder);
         for (CartItems listItem : listItems) {
