@@ -28,7 +28,7 @@ public class ShoppingCartImplement implements ShoppingCartService{
 
     @Override
     public List<CartItems> listCartItems(User user) {
-         return cartItemRepository.findByUserId(user);
+        return cartItemRepository.findByUserId(user);
     }
 
     @Override

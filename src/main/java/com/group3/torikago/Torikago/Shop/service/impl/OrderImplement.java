@@ -31,14 +31,19 @@ public class OrderImplement implements OrderService{
     }
 
     @Override
-    public void saveOrder(User user, String orderValue) {
+    public void saveOrderVNPay(User user, String orderValue) {
         Order newOrder = new Order();
         List<CartItems> listItems = cartItemRepository.findByUserId(user);
         newOrder.setOrderValue(Double.parseDouble(orderValue)/100);
         newOrder.setUserOrder(user);
         newOrder.setShippedAddress(user.getAddress());
-        newOrder.setStatus("pending");
+        newOrder.setStatus("Pending");
         newOrder.setPaymentMethod("VNPay");
+        double productPrice = 0;
+        for (CartItems listItem : listItems) {
+            productPrice += listItem.getSubtotal();
+        }
+        newOrder.setShippingFee(Double.parseDouble(orderValue)/100 - productPrice);
         orderRepository.save(newOrder);
         for (CartItems listItem : listItems) {
             OrderDetails orderDetails = new OrderDetails();
@@ -51,6 +56,28 @@ public class OrderImplement implements OrderService{
         }
     }  
 
+    @Override
+    public void saveOrderCod(User user, String orderValue, String shippingFee) {
+        Order newOrder = new Order();
+        List<CartItems> listItems = cartItemRepository.findByUserId(user);
+        newOrder.setOrderValue(Double.parseDouble(orderValue) + Double.parseDouble(shippingFee));
+        newOrder.setUserOrder(user);
+        newOrder.setShippedAddress(user.getAddress());
+        newOrder.setStatus("Pending");
+        newOrder.setPaymentMethod("Cash on delivery");
+        newOrder.setShippingFee(Double.parseDouble(shippingFee));
+        orderRepository.save(newOrder);
+        for (CartItems listItem : listItems) {
+            OrderDetails orderDetails = new OrderDetails();
+            orderDetails.setOrder(newOrder);
+            orderDetails.setProduct(listItem.getProductId());
+            orderDetails.setQuantity(listItem.getQuantity());
+            orderDetails.setUnitPrice(listItem.getProductId().getUnitPrice());
+            orderDetailsRepository.save(orderDetails);
+            cartItemRepository.delete(listItem);
+        }
+    }
+    
     @Override
     public List<Order> listOrders(User user) {
         return orderRepository.findByUserOrder(user);

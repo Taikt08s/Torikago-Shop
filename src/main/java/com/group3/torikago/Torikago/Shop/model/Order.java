@@ -29,7 +29,10 @@ public class Order {
     private String status;
     @Column(name = "shipped_address", length = 150)
     private String shippedAddress;
+    @Column(name = "shipping_fee", length = 10)
+    private double shippingFee;
     @Column(name = "shipped_date", length = 10, nullable = true)
+//    private LocalDateTime shippedDate;
     private LocalDateTime shippedDate = orderDate.plusDays(7) ;
     @OneToMany(mappedBy = "order")
     private List<OrderDetails> orderdetails;

@@ -135,14 +135,14 @@
                                             </td>
                                             <td>
                                                 <p class="mt-2">
-                                                    ₫[[${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0,
-                                                    'POINT')}]]</p>
+                                                    [[${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0,
+                                                    'POINT')}]]₫</p>
                                             </td>
                                             <td><p class="mt-2" th:text="${item.quantity}"></p></td>
                                             <td>
                                                 <p class="mt-2">
-                                                    ₫[[${#numbers.formatDecimal(item.getSubtotal, 0, 'POINT', 0,
-                                                    'POINT')}]]</p>
+                                                    [[${#numbers.formatDecimal(item.getSubtotal, 0, 'POINT', 0,
+                                                    'POINT')}]]₫</p>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -151,9 +151,9 @@
                             </div>
                             <div class="col-lg-4 bg-grey">
                                 <div class="p-4">
-                                    <h4 class="fw-bold mb-3 mt-2 pt-1">Summary</h4>
+                                    <h4 class="fw-bold mb-2 mt-2 pt-1">Summary</h4>
                                     <hr class="my-4">
-                                    <h6 class="text-uppercase mb-3">Coupon</h6>
+                                    <h6 class="text mb-2">Coupon</h6>
                                     <div class="mb-2">
                                         <form method="get">
                                             <select class="form-select" id="shipping" name="shipping"
@@ -166,17 +166,27 @@
                                     </div>
                                     <hr class="my-4">
                                     <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="text">Product price</h6>
+                                        <h6 class="text-danger" th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]), 0, 'POINT', 0, 'POINT')} + '₫'">
+                                            ₫</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="text">Shipping fee</h6>
+                                        <h6 class="text-danger" th:text="${#numbers.formatDecimal(shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
+                                            ₫</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
                                         <h5 class="text-uppercase">Total price</h5>
-                                        <h5 class="text-danger" th:text="'₫' + ${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]), 0, 'POINT', 0, 'POINT')}">
+                                        <h5 class="text-danger" th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]) + shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
                                             ₫</h5>
                                     </div>
                                     <a type="submit" class="btn btn-danger btn-block btn-md"
-                                       data-mdb-ripple-color="dark">
+                                       data-mdb-ripple-color="dark" th:href="@{/torikago/payment/cod?amount={value}&shipping_Fee={shipFee}(value = ${#aggregates.sum(cartItems.![getSubtotal()])}, shipFee = ${shippingFee})}">
                                         <i class="fas fa-shipping-fast"></i> Cash on delivery
                                     </a>
                                     <h5 class="text-center">or</h5>
                                     <a type="submit" class="btn btn-outline-primary btn-block btn-md"
-                                       data-mdb-ripple-color="dark" th:href="@{/torikago/payment}">
+                                       data-mdb-ripple-color="dark" th:href="@{/torikago/payment/vnpay}">
                                         <img th:src="@{/img/VNPAY-QR.webp}" class="img-fluid rounded-2"
                                              alt="VNPAY Image" style="width: 30px; height: auto;"/>
                                         Advance Payment

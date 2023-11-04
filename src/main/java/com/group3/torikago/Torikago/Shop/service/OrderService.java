@@ -5,6 +5,7 @@ import com.group3.torikago.Torikago.Shop.model.User;
 import java.util.List;
 
 public interface OrderService {
-    void saveOrder(User user, String orderValue);
+    void saveOrderVNPay(User user, String orderValue);
+    void saveOrderCod(User user, String orderValue, String shippingFee);
     List<Order> listOrders(User user);
 }

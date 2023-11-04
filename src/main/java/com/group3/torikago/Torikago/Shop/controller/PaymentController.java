@@ -3,8 +3,10 @@ package com.group3.torikago.Torikago.Shop.controller;
 import com.group3.torikago.Torikago.Shop.config.PaymentConfig;
 import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.Order;
+import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.OrderService;
+import com.group3.torikago.Torikago.Shop.service.ProductService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,24 +28,39 @@ public class PaymentController {
     private UserService userService;
     private OrderService orderService;
     private ShoppingCartService shoppingCartService;
+    private ProductService productService;
 
     @Autowired
-    public PaymentController(UserService userService, OrderService orderService, ShoppingCartService shoppingCartService) {
+    public PaymentController(UserService userService, OrderService orderService,
+            ShoppingCartService shoppingCartService, ProductService productService) {
         this.userService = userService;
         this.orderService = orderService;
         this.shoppingCartService = shoppingCartService;
+        this.productService = productService;
     }
     
-    @GetMapping("/torikago/payment")
-    public String getPayment(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) 
+    @GetMapping("/torikago/payment/vnpay")
+    public String getPaymentVNPay(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) 
             throws UnsupportedEncodingException {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         double totalPrice = 0;
+        double orderWeight = 0;
         List<CartItems> cart = shoppingCartService.listCartItems(user);
-        for (CartItems cartItems : cart) {
-            totalPrice += cartItems.getSubtotal();
+        for (CartItems cartItem : cart) {
+            Product product = productService.findProductById(cartItem.getProductId().getId());
+            totalPrice += cartItem.getSubtotal();
+            orderWeight += product.getUnitWeight() * cartItem.getQuantity();
         }
+        double shippingFee = 32000;
+            if (orderWeight > 0.5){
+                if (orderWeight * 2 - (int)orderWeight * 2 != 0) {
+                    shippingFee += 5000 * (int)orderWeight * 2;
+                } else {
+                    shippingFee += 5000 * (int)orderWeight * 2 - 5000;
+                }
+            }
+        totalPrice += shippingFee;  
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
@@ -73,6 +90,7 @@ public class PaymentController {
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+7"));
         String vnp_CreateDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
 
@@ -107,12 +125,11 @@ public class PaymentController {
         String vnp_SecureHash = PaymentConfig.hmacSHA512(PaymentConfig.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = PaymentConfig.vnp_PayUrl + "?" + queryUrl;
-        return "redirect:"+paymentUrl;
+        return "redirect:" + paymentUrl;
     }
     
-    @GetMapping("/torikago/payment/info")
-    public String saveOrderInfo(@RequestParam("vnp_Amount") String orderValue,
-                                  @RequestParam("vnp_BankCode") String bankCode,
+    @GetMapping("/torikago/payment/vnpay/info")
+    public String saveOrderInfoVNPay(@RequestParam("vnp_Amount") String orderValue,
                                   @RequestParam("vnp_ResponseCode") String rspCode,
                                   @RequestParam("vnp_OrderInfo") String orderInfo,
                                   @RequestParam("vnp_TransactionStatus") String tranStatus,
@@ -120,11 +137,21 @@ public class PaymentController {
         if (rspCode.equals("00")) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);       
-        orderService.saveOrder(user, orderValue);
+        orderService.saveOrderVNPay(user, orderValue);
         return "redirect:/torikago/payment/success";
         } else {
             return "redirect:/torikago/payment/fail";
         }        
+    }
+    
+    @GetMapping("/torikago/payment/cod")
+    public String saveOrderInfoCod(@RequestParam("amount") String orderValue,
+                                  @RequestParam("shipping_Fee") String shippingFee,
+                                  @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails){
+        String userName = myUserDetails.getUsername();
+        User user = userService.findByEmail(userName);       
+        orderService.saveOrderCod(user, orderValue, shippingFee);
+        return "redirect:/torikago/payment/success";   
     }
     
     @GetMapping("/torikago/payment/success")
@@ -132,9 +159,6 @@ public class PaymentController {
                                      Model model){
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
-        Order order=new Order();
-
-        model.addAttribute("order", order);
         model.addAttribute("user", user);
         return "shopping-order-success";
     }
