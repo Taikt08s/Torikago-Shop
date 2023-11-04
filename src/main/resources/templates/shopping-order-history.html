@@ -106,15 +106,30 @@
                                         th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
                                     <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
                                 </div>
-                                <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                <p class="text-gray-800 ml-auto"
+                                   th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
                             </div>
                         </th:block>
                         <hr>
                         <div class="d-flex">
                             <div class=" mt-4">
-                                <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                <div th:if="${order.status == 'Pending'}" class="ml-auto mt-3">
+                                    <p>Status: <span class="btn btn-warning btn-sm" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Processing'}" class="ml-auto mt-3">
+                                    <p>Status: <span class="btn btn-info btn-sm" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Shipping'}" class="ml-auto mt-3">
+                                    <p>Status: <span class="btn btn-primary btn-sm" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
+                                    <p>Status: <span class="btn btn-success btn-sm" th:text="${order.status}"></span></p>
+                                </div>
+                                <div th:if="${order.status == 'Cancelled'}" class="ml-auto mt-3">
+                                    <p>Status: <span class="btn btn-danger btn-sm" th:text="${order.status}"></span></p>
+                                </div>
                             </div>
-                            <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
+                            <div th:if="${order.status == 'Delivered'}">
                                 <a class="btn btn-outline-primary">Review</a>
                             </div>
                             <div class="ml-auto">
@@ -141,13 +156,14 @@
                                             th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
                                         <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
                                     </div>
-                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                    <p class="text-gray-800 ml-auto"
+                                       th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
                                 </div>
                             </th:block>
                             <hr>
                             <div class="d-flex">
                                 <div class=" mt-4">
-                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-warning btn-sm" th:text="${order.status}"></span></p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
                                     <a class="btn btn-outline-primary">Review</a>
@@ -177,13 +193,14 @@
                                             th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
                                         <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
                                     </div>
-                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                    <p class="text-gray-800 ml-auto"
+                                       th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
                                 </div>
                             </th:block>
                             <hr>
                             <div class="d-flex">
                                 <div class=" mt-4">
-                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-info btn-sm" th:text="${order.status}"></span></p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
                                     <a class="btn btn-outline-primary">Review</a>
@@ -213,13 +230,14 @@
                                             th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
                                         <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
                                     </div>
-                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                    <p class="text-gray-800 ml-auto"
+                                       th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
                                 </div>
                             </th:block>
                             <hr>
                             <div class="d-flex">
                                 <div class=" mt-4">
-                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-primary btn-sm" th:text="${order.status}"></span></p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
                                     <a class="btn btn-outline-primary">Review</a>
@@ -249,13 +267,14 @@
                                             th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
                                         <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
                                     </div>
-                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                    <p class="text-gray-800 ml-auto"
+                                       th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
                                 </div>
                             </th:block>
                             <hr>
                             <div class="d-flex">
                                 <div class=" mt-4">
-                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-success btn-sm" th:text="${order.status}"></span></p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
                                     <a class="btn btn-outline-primary">Review</a>
@@ -285,13 +304,14 @@
                                             th:text="${#strings.length(order_details.product.productName) > 40 ? #strings.substring(order_details.product.productName, 0, 40) + '...' : order_details.product.productName}"></h5>
                                         <p class="text-gray-800" th:text="'x'+${order_details.quantity}"></p>
                                     </div>
-                                    <p class="text-gray-800 ml-auto" th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                    <p class="text-gray-800 ml-auto"
+                                       th:text="'₫'+ ${#numbers.formatDecimal(order_details.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
                                 </div>
                             </th:block>
                             <hr>
                             <div class="d-flex">
                                 <div class=" mt-4">
-                                    <p>Status: <span class="text-danger" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-danger btn-sm" th:text="${order.status}"></span></p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
                                     <a class="btn btn-outline-primary">Review</a>

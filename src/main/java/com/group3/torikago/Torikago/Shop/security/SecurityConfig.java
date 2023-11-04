@@ -52,7 +52,7 @@ public class SecurityConfig {
                                 , "/torikago/product/compare/{id}/**", "/compare/product/delete/**","/cart/add").permitAll()
                         .requestMatchers("/admin", "/admin/product-table",
                                 "/admin/users-table", "/admin/product-table/bird-cage/add").hasAuthority("ADMIN")
-                        .requestMatchers("/manager").hasAuthority("MANAGER").anyRequest().authenticated()
+                        .requestMatchers("/manager","/manager/orders").hasAuthority("MANAGER").anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
