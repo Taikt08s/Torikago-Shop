@@ -46,13 +46,13 @@ public class SecurityConfig {
         // luu y khi muon test thi disable csrf!! .csrf().disable()
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/reset_password/**", "/login", "/forgot_password", "/verify",
+                        .requestMatchers("/", "/reset_password/**", "/login", "/forgot_password", "/verify","/img/**",
                                 "/torikago", "/torikago/product/**", "/register/**", "/css/**", "/js/**", "/vendor/**",
                                 "/scss/**", "/403", "/product-images/**", "/oauth2/**", "/torikago/product/{id}/**"
                                 , "/torikago/product/compare/{id}/**", "/compare/product/delete/**","/cart/add").permitAll()
                         .requestMatchers("/admin", "/admin/product-table",
                                 "/admin/users-table", "/admin/product-table/bird-cage/add").hasAuthority("ADMIN")
-                        .requestMatchers("/manager").hasAuthority("MANAGER").anyRequest().authenticated()
+                        .requestMatchers("/manager","/manager/orders").hasAuthority("MANAGER").anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

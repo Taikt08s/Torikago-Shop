@@ -88,6 +88,11 @@ public class PaymentController {
         vnp_Params.put("vnp_ReturnUrl", PaymentConfig.vnp_ReturnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
+//        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+//        String vnp_CreateDate = formatter.format(cld.getTime());
+//        vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
+
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         formatter.setTimeZone(TimeZone.getTimeZone("GMT+7"));
@@ -159,13 +164,24 @@ public class PaymentController {
                                      Model model){
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
+        Order order=new Order();
+        List<CartItems> cartItems = shoppingCartService.listCartItems(user);
+
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("order", order);
         model.addAttribute("user", user);
         return "shopping-order-success";
     }
     
     @GetMapping("/torikago/payment/fail")
-    public String showPaymentFail(){
-        return "payment-failed";
+    public String showPaymentFail(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
+                                  Model model){
+        String userName = myUserDetails.getUsername();
+        User user = userService.findByEmail(userName);
+        List<CartItems> cartItems = shoppingCartService.listCartItems(user);
+
+        model.addAttribute("cartItems", cartItems);
+        return "shopping-order-failed";
     }
 
 }
