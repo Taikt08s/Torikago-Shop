@@ -30,7 +30,7 @@ public class Order {
     @Column(name = "shipped_address", length = 150)
     private String shippedAddress;
     @Column(name = "shipping_fee", length = 10)
-    private double shippingFee;
+    private Double shippingFee;
     @Column(name = "shipped_date", length = 10, nullable = true)
 //    private LocalDateTime shippedDate;
     private LocalDateTime shippedDate = orderDate.plusDays(7) ;

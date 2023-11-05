@@ -167,22 +167,34 @@
                                     <hr class="my-4">
                                     <div class="d-flex justify-content-between mb-2">
                                         <h6 class="text">Product price</h6>
-                                        <h6 class="text-danger" th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]), 0, 'POINT', 0, 'POINT')} + '₫'">
+                                        <h6 class="text-danger"
+                                            th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]), 0, 'POINT', 0, 'POINT')} + '₫'">
                                             ₫</h6>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
-                                        <h6 class="text">Shipping fee</h6>
+                                        <div class="d-flex align-items-center">
+                                            <h6 class="text">Shipping fee</h6>
+                                            <!-- Information icon with tooltip -->
+                                            <div class="position-sticky ms-2 mb-2">
+                                                <i class="fas fa-info-circle text-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="Shipping fee will based on GHTK tariff."></i>
+                                            </div>
+                                        </div>
                                         <h6 class="text-danger" th:text="${#numbers.formatDecimal(shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
-                                            ₫</h6>
+                                            ₫
+                                        </h6>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <h5 class="text-uppercase">Total price</h5>
-                                        <h5 class="text-danger" th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]) + shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
+                                        <h5 class="text-danger"
+                                            th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]) + shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
                                             ₫</h5>
                                     </div>
                                     <a type="submit" class="btn btn-danger btn-block btn-md"
-                                       data-mdb-ripple-color="dark" th:href="@{/torikago/payment/cod?amount={value}&shipping_Fee={shipFee}(value = ${#aggregates.sum(cartItems.![getSubtotal()])}, shipFee = ${shippingFee})}">
-                                        <i class="fas fa-shipping-fast"></i> Cash on delivery
+                                       data-mdb-ripple-color="dark"
+                                       th:href="@{/torikago/payment/cod?amount={value}&shipping_Fee={shipFee}(value = ${#aggregates.sum(cartItems.![getSubtotal()])}, shipFee = ${shippingFee})}">
+                                        <img th:src="@{/img/ghtk.png}" class="img-fluid rounded-2"
+                                             alt="GHTK Image" style="width: 60px; height: auto;"/> Cash on delivery
                                     </a>
                                     <h5 class="text-center">or</h5>
                                     <a type="submit" class="btn btn-outline-primary btn-block btn-md"
@@ -191,6 +203,7 @@
                                              alt="VNPAY Image" style="width: 30px; height: auto;"/>
                                         Advance Payment
                                     </a>
+                                    <p class="font-weight-lighter text-gray-700 mt-2"><em>*By placing an order, you have agreed to our terms and conditions.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -213,5 +226,9 @@
     function submitForm() {
         document.getElementById("sortForm").submit();
     }
+
+    $(document).ready(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
 </script>
 </html>

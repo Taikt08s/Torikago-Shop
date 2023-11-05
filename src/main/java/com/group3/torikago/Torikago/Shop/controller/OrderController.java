@@ -9,10 +9,12 @@ import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class OrderController {
                                 @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
-        List<Order> orders = orderService.listOrders(user);
+        List<Order> orders = orderService.listOrdersByUser(user);
         List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
 
         model.addAttribute("cartItems", cartItems);
@@ -47,7 +49,15 @@ public class OrderController {
 
     @GetMapping("/manager/orders")
     @RolesAllowed({"MANAGER"})
-    public String showOrderList(Model model) {
+    public String showOrderList(Model model,
+                                @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+                                @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                @RequestParam(name = "sortField", defaultValue = "orderId") String sortField,
+                                @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
+        Page<Order> orders = orderService.findPaginatedOrders(pageNumber, pageSize, sortField, sortDir);
+        model.addAttribute("orders", orders);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
         return "manager-order";
     }
 }
