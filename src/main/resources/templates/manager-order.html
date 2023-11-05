@@ -57,123 +57,126 @@
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                             aria-labelledby="searchDropdown">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                           placeholder="Search for..." aria-label="Search"
-                                           aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small"
+                               placeholder="Search for..."
+                               aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" >
+                                <i class="fas fa-search fa-sm" ></i>
+                            </button>
                         </div>
-                    </li>
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <span class="badge badge-danger badge-counter">3+</span>
-                        </a>
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="alertsDropdown">
-                            <h6 class="dropdown-header">
-                                Alerts Center
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-primary">
-                                        <i class="fas fa-file-alt text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 12, 2019</div>
-                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-success">
-                                        <i class="fas fa-donate text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 7, 2019</div>
-                                    $290.29 has been deposited into your account!
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-warning">
-                                        <i class="fas fa-exclamation-triangle text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                        </div>
-                    </li>
-                    <div class="topbar-divider d-none d-sm-block"></div>
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                                  th:text="${#authentication.name}"></span>
-                            <img class="img-profile rounded-circle"
-                                 th:src="@{/img/undraw_profile.svg}">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" th:href="@{/profile}">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+                    </div>
+                </form>
             </nav>
         </div>
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
+        <div class="container-fluid">
+            <div class="table-container" style="padding-bottom: 500px;">
+                <h1 class="h3 mb-2 text-gray-800">Torikago Orders</h1>
+                <div class="card shadow mb-4">
+                    <div class="d-flex justify-content-between card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary mt-2">All orders</h6>
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small"
+                                       name="keyword"
+                                       th:value="${keyword}"
+                                       placeholder="Search for..."
+                                       aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
-                    </div>
+                    <form method="post" th:action="@{/manager/orders}">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <a th:href="@{/manager/orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Order ID
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a th:href="@{/manager/orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Order Value(VND)
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a th:href="@{/manager/orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Payment Method
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
+                                        <th>Ordered Date</th>
+                                        <th>
+                                            <a th:href="@{/manager/orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Status
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
+                                        <th>Edit</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="order : ${ordersPage.content}">
+                                        <td th:text="${order.id}"></td>
+                                        <td th:text="${#numbers.formatDecimal(order.orderValue, 0, 'WHITESPACE', 1, 'POINT')}"></td>
+                                        <td th:text="${order.paymentMethod}"></td>
+                                        <td th:text="${#temporals.format(order.orderDate, 'dd-MM-yyyy')}"></td>
+                                        <th th:text="${order.status}"></th>
+                                        <th><a th:href="@{/manager/orders/{orderId}/edit(orderId=${order.id})}"
+                                               class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-pen-square"></i>
+                                        </span>
+                                            <span class="text">Edit</span>
+                                        </a>
+                                        </th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li th:class="${ordersPage.first} ? 'page-item disabled' : 'page-item'">
+                                <a th:if="${not ordersPage.first}"
+                                   th:href="@{/manager/orders(pageNumber=1, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" aria-label="First">
+                                    <span aria-hidden="true">First</span>
+                                </a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(1, ordersPage.totalPages)}"
+                                th:class="${i == ordersPage.number + 1} ? 'page-item active' : 'page-item'">
+                                <a th:href="@{/manager/orders(pageNumber=${i}, sortField=${sortField}, sortDir=${sortDir}, keyword=${keyword!=null ? keyword : ''})}"
+                                   class="page-link" th:text="${i}"></a>
+                            </li>
+                            <li th:class="${ordersPage.last} ? 'page-item disabled' : 'page-item'">
+                                <a th:if="${not ordersPage.last}"
+                                   th:href="@{/manager/orders(pageNumber=${ordersPage.totalPages}, sortField=${sortField}, sortDir=${sortDir})}"
+                                   class="page-link" aria-label="Last">
+                                    <span aria-hidden="true">Last</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 <a class="scroll-to-top rounded" href="#page-top">

@@ -45,9 +45,4 @@ public class OrderController {
         return "shopping-order-history";
     }
 
-    @GetMapping("/manager/orders")
-    @RolesAllowed({"MANAGER"})
-    public String showOrderList(Model model) {
-        return "manager-order";
-    }
 }
