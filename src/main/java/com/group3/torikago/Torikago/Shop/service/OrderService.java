@@ -5,13 +5,16 @@ import com.group3.torikago.Torikago.Shop.model.User;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface OrderService {
+    
     void saveOrderVNPay(User user, String orderValue);
 
     void saveOrderCod(User user, String orderValue, String shippingFee);
 
-    List<Order> listOrdersByUser(User user);
+    List<Order> listOrders(User user);
 
-    Page<Order> findPaginatedOrders(int pageNumber, int pageSize, String sortField, String sortDir);
+    Page<Order> findPaginatedOrders(int pageNumber, int pageSize, String sortField, String sortDir, String keyword);
+
 }

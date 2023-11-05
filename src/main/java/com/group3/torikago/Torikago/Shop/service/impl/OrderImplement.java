@@ -79,18 +79,28 @@ public class OrderImplement implements OrderService{
             cartItemRepository.delete(listItem);
         }
     }
-    
+
     @Override
-    public List<Order> listOrdersByUser(User user) {
+    public List<Order> listOrders(User user) {
         return orderRepository.findByUserOrder(user);
     }
 
     @Override
-    public Page<Order> findPaginatedOrders(int pageNumber, int pageSize, String sortField, String sortDir) {
+    public Page<Order> findPaginatedOrders(int pageNumber, int pageSize, String sortField, String sortDir, String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        return orderRepository.findAll(pageable);
+        if (keyword != null) {
+            if (keyword.isEmpty()) {
+                Page<Order> OrdersPage = orderRepository.findAll(pageable);
+                return OrdersPage;
+            } else {
+                Page<Order> OrdersPage = orderRepository.findAll(keyword, pageable);
+                return OrdersPage;
+            }
+        }
+        Page<Order> OrdersPage = orderRepository.findAll(pageable);
+        return OrdersPage;
     }
 }

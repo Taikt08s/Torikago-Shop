@@ -179,7 +179,7 @@
         </div>
         <div>
             <div class="row p-3">
-                <h3 class="font-weight-bold">Orders</h3>
+                <h3 class="font-weight-bolder">Orders</h3>
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small"
@@ -199,14 +199,15 @@
                     <thead>
                     <tr>
                         <th scope="col">
-                            <a th:href="@{/manager/orders(pageNumber=1, sortField='orderId', sortDir=${sortField eq 'orderId' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                #Order Id
-                                <span th:if="${sortField eq 'orderId'}"
+                            <a th:href="@{/manager/orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                Order Id
+                                <span th:if="${sortField eq 'id'}"
                                       th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
                         <th scope="col">Created</th>
                         <th scope="col">Customer</th>
+                        <th scope="col">Payment Method</th>
                         <th scope="col">Total</th>
                         <th scope="col">Status</th>
                         <th scope="col"></th>
@@ -214,7 +215,7 @@
                     </thead>
                     <tbody th:each="order : ${orders}">
                     <tr class="expandable-row">
-                        <th scope="row"><p class="text-gray-900" th:text="${order.getOrderId()}"></p></th>
+                        <th scope="row"><p class="text-gray-900" th:text="${order.getId()}"></p></th>
                         <td>
                             <p class="text-gray-900"
                                th:text="${T(com.group3.torikago.Torikago.Shop.util.TimeAgoUtil).calculateTimeAgo(order.orderDate)}"></p>
@@ -223,28 +224,45 @@
                             <p class="text-gray-900"
                                th:text="${order.userOrder.getUserName()}"></p>
                         </td>
-                        <td><p class="text-gray-900"
-                               th:text="' ₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></p>
+                        <th scope="col">
+                            <p class="text-gray-900"
+                               th:text="${order.paymentMethod}"></p>
+                        </th>
+                        <td class="position-relative">
+                            <div class="d-flex align-items-center">
+                                <p class="text-gray-900"
+                                   th:text="' ₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"
+                                   th:classappend="${order.paymentMethod == 'VNPay'} ? 'strike-through' : ''">
+                                </p>
+
+                                <div class="position-absolute translate-middle mb-3 ms-2"
+                                     th:if="${order.paymentMethod == 'VNPay'}" style="margin-left: 90px">
+                                    <i class="fas fa-info-circle text-primary" data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="Customer has paid for shipping and product (VNPay)."></i>
+                                </div>
+                            </div>
                         </td>
                         <td>
                             <div class="dropdown mb-4">
-                                <button class="btn btn-sm dropdown-toggle rounded-pill" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                    <span id="selectedOption">Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#"
-                                       onclick="updateDropdown('Pending')">Pending</a>
-                                    <a class="dropdown-item" href="#"
-                                       onclick="updateDropdown('Processing')">Processing</a>
-                                    <a class="dropdown-item" href="#"
-                                       onclick="updateDropdown('Shipping')">Shipping</a>
-                                    <a class="dropdown-item" href="#"
-                                       onclick="updateDropdown('Delivered')">Delivered</a>
-                                    <a class="dropdown-item" href="#"
-                                       onclick="updateDropdown('Cancelled')">Cancelled</a>
-                                </div>
+                                <form>
+                                    <button class="btn btn-sm dropdown-toggle rounded-pill" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <span id="selectedOption">Default Status</span>
+                                    </button>
+                                    <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Default Status')">Default
+                                            Status</a>
+                                        <a class="dropdown-item" href="#"
+                                           onclick="updateDropdown('Pending')">Pending</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Processing')">Processing</a>
+                                        <a class="dropdown-item" href="#"
+                                           onclick="updateDropdown('Shipping')">Shipping</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Delivered')">Delivered</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Cancelled')">Cancelled</a>
+                                    </div>
+                                </form>
                             </div>
                         </td>
                         <td>
@@ -265,6 +283,7 @@
                                         <th scope="col">Qty</th>
                                         <th scope="col">Disc.</th>
                                         <th scope="col">Total</th>
+                                        <th scope="col"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -290,7 +309,6 @@
                                             </p>
                                         </td>
                                         <td>
-
                                         </td>
                                         <td>
                                             <p class="text-gray-800 mt-4"
@@ -305,7 +323,6 @@
                                                th:text="${order.userOrder.fname + ' ' + order.userOrder.lname}"></p>
                                         </td>
                                         <td>Subtotal:</td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -338,12 +355,17 @@
                                     </tr>
                                     <tr>
                                         <th scope="row"></th>
-                                        <td></td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm">
+                                                Edit Information
+                                            </a>
+                                        </td>
                                         <td><p class="font-weight-bold text-gray-900">Total:</p></td>
                                         <td></td>
                                         <td></td>
                                         <td><p class="font-weight-bold text-gray-900"
-                                               th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}">
+                                               th:text="' ₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"
+                                               th:classappend="${order.paymentMethod == 'VNPay'} ? 'strike-through' : ''">
                                         </p></td>
                                     </tr>
                                     </tbody>
@@ -405,6 +427,13 @@
         button.querySelector('i').style.transform = expandedRow.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
     }
 
+    $(document).ready(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+
+    function updateDropdown(status) {
+        document.getElementById('selectedOption').innerText = status;
+    }
 </script>
 <style>
     .table > thead > tr > th,
@@ -414,6 +443,10 @@
     .table > tbody > tr > td,
     .table > tfoot > tr > td {
         border-top: none;
+    }
+
+    .strike-through {
+        text-decoration: line-through;
     }
 </style>
 </html>

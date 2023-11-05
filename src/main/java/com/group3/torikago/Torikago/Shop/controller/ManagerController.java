@@ -1,13 +1,13 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
-import com.group3.torikago.Torikago.Shop.dto.AccessoryDTO;
 import com.group3.torikago.Torikago.Shop.dto.CustomizedBirdCageDTO;
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
-import com.group3.torikago.Torikago.Shop.model.AccessoryDetail;
 import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
+import com.group3.torikago.Torikago.Shop.model.Order;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.service.CustomizedBirdCageService;
+import com.group3.torikago.Torikago.Shop.service.OrderService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.annotation.security.RolesAllowed;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class ManagerController {
@@ -29,10 +30,16 @@ public class ManagerController {
     private ProductService productService;
 
     private CustomizedBirdCageService customizedBirdCageService;
-    public ManagerController(ProductService productService, CustomizedBirdCageService customizedBirdCageService){
+    
+    private OrderService orderService;
+    
+    @Autowired
+    public ManagerController(ProductService productService, CustomizedBirdCageService customizedBirdCageService, OrderService orderService){
         this.customizedBirdCageService = customizedBirdCageService;
         this.productService = productService;
+        this.orderService = orderService;
     }
+    
     @GetMapping("/manager")
     @RolesAllowed({"MANAGER"})
     public String managerPage() {
@@ -98,5 +105,27 @@ public class ManagerController {
 //        }
         customizedBirdCageService.updateCustomizedBirdCage(customizedBirdCage);
         return "redirect:/manager/custom-orders";
+    }
+    
+    @GetMapping("/manager/orders")
+    @RolesAllowed({"MANAGER"})
+    public String getListOrder(Model model,
+                        @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+                        @RequestParam(name = "pageSize", defaultValue = "8") int pageSize,
+                        @RequestParam(name = "sortField", defaultValue = "id") String sortField,
+                        @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
+                        @Param("keyword") String keyword) {
+        Page<Order> orders = orderService.findPaginatedOrders(pageNumber, pageSize, sortField, sortDir, keyword);
+        model.addAttribute("orders", orders);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword", keyword);
+        return "manager-order";
+    }
+    
+    @GetMapping("/manager/orders/{orderId}/edit")
+    @RolesAllowed({"MANAGER"})
+    public String editOrder(Model model, @PathVariable("orderId") Long orderId) {
+        return "";
     }
 }

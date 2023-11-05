@@ -38,7 +38,7 @@ public class OrderController {
                                 @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
-        List<Order> orders = orderService.listOrdersByUser(user);
+        List<Order> orders = orderService.listOrders(user);
         List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
 
         model.addAttribute("cartItems", cartItems);
@@ -47,17 +47,4 @@ public class OrderController {
         return "shopping-order-history";
     }
 
-    @GetMapping("/manager/orders")
-    @RolesAllowed({"MANAGER"})
-    public String showOrderList(Model model,
-                                @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
-                                @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-                                @RequestParam(name = "sortField", defaultValue = "orderId") String sortField,
-                                @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir) {
-        Page<Order> orders = orderService.findPaginatedOrders(pageNumber, pageSize, sortField, sortDir);
-        model.addAttribute("orders", orders);
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        return "manager-order";
-    }
 }
