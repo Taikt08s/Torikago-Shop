@@ -43,17 +43,17 @@ public class ShoppingProductImplement implements ShoppingProductService {
     }
 
     @Override
-    public Page<Product> findPaginatedShoppingProductsByPriceRange(int pageNumber, int pageSize, String sortField, String sortDir, String search, Double priceFrom, Double priceTo) {
+    public Page<Product> findPaginatedShoppingProductsByPriceRange(int pageNumber, int pageSize, String sortField, String sortDir, Double priceFrom, Double priceTo) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
 
-        if ((priceFrom != null && priceTo != null) && (priceFrom <= priceTo)) {
-            return shoppingProductsRepository.findAllByPriceRange(search, priceFrom, priceTo, pageable);
-        }
-
-        if (search != null && !search.isEmpty()) {
-            return shoppingProductsRepository.findAll("%" + search + "%", pageable);
+        if (priceFrom != null || priceTo != null) {
+            if (priceFrom != null && priceTo != null && (priceFrom <= priceTo)) {
+                return shoppingProductsRepository.findAllByPriceRange(priceFrom, priceTo, pageable);
+            } else{
+                return shoppingProductsRepository.findAllByPriceRange(priceFrom, priceTo, pageable);
+            }     
         }
 
         return shoppingProductsRepository.findAll(0, pageable);

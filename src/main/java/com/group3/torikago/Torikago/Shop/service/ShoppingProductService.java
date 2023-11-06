@@ -11,7 +11,7 @@ public interface ShoppingProductService {
     Product findProductById(Long id);
 
     Page<Product> findPaginatedShoppingProductsByPriceRange(int pageNumber, int pageSize, String sortField, String sortDir,
-                                                            String search, Double priceFrom, Double priceTo);
+                                                            Double priceFrom, Double priceTo);
 
     List<Product> getRandomSimilarBirdCagesProducts(Long id);
 

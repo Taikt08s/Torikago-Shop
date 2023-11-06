@@ -67,7 +67,7 @@ public class ShopController {
 
         if (priceFrom != null || priceTo != null) {
             shoppingPage = shoppingProductService.findPaginatedShoppingProductsByPriceRange(
-                    pageNumber, pageSize, sortField, sortDir, search, priceFrom, priceTo);
+                    pageNumber, pageSize, sortField, sortDir, priceFrom, priceTo);
         } else {
             shoppingPage = shoppingProductService.findPaginatedShoppingProducts(
                     pageNumber, pageSize, sortField, sortDir, search);
