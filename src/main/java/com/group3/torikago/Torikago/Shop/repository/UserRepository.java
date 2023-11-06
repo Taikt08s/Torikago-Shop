@@ -24,8 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM users u WHERE u.verificationCode = :code")
     User findByVerificationCode(@Param("code") String code);
 
-    @Query("SELECT u FROM users u WHERE u.userName LIKE %?1% OR " +
-            "u.email LIKE %?1%")
+    @Query("SELECT u FROM users u WHERE u.userName LIKE %?1% OR " + "u.email LIKE %?1% OR "+"u.role.name LIKE %?1%")
     Page<User> findAll(Pageable pageable, String keyword);
 
     User findByResetPasswordToken(String token);
