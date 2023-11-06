@@ -214,11 +214,11 @@
                                 <label for="priceFrom">Price Range</label>
                                     <div class="col-md-12">
                                         <input type="number" class="form-control" id="priceFrom" name="priceFrom"
-                                               placeholder="From" min="0" th:value="${#numbers.formatDecimal(priceFrom, 0, 'POINT', 0, 'POINT')}">
+                                               placeholder="From" min="0" th:value="${#numbers.formatDecimal(priceFrom, 0, 'NONE', 0, 'NONE')}">
                                     </div>
                                     <div class="col-md-12 mt-4">
                                         <input type="number" class="form-control" id="priceTo" name="priceTo"
-                                               placeholder="To" min="0" th:value="${#numbers.formatDecimal(priceTo, 0, 'POINT', 0, 'POINT')}">
+                                               placeholder="To" min="0" th:value="${#numbers.formatDecimal(priceTo, 0, 'NONE', 0, 'NONE')}">
                                     </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Apply</button>
