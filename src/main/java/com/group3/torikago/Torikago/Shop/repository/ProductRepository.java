@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.UUID;
 
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
-    @Query("SELECT p FROM Product p WHERE p.productName LIKE %?1%")
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %?1% OR "+ "p.productType LIKE %?1%")
     Page<Product> findAll(String keyword, Pageable pageable);
 
     @Query("SELECT p FROM Product p WHERE p.productType like '%Customized%'")

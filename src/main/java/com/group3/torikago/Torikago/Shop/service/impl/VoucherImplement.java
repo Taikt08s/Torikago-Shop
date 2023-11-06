@@ -1,10 +1,16 @@
 package com.group3.torikago.Torikago.Shop.service.impl;
 
 import com.group3.torikago.Torikago.Shop.dto.VoucherDTO;
+import com.group3.torikago.Torikago.Shop.model.Product;
+import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.model.Voucher;
 import com.group3.torikago.Torikago.Shop.repository.VoucherRepository;
 import com.group3.torikago.Torikago.Shop.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +23,11 @@ public class VoucherImplement implements VoucherService {
         this.voucherRepository = voucherRepository;
     }
 
-    @Override
-    public List<VoucherDTO> findAllVouchers() {
-        List<Voucher> vouchers = voucherRepository.findAll();
-        return vouchers.stream().map((voucher) -> mapToVoucherDTO(voucher)).collect(Collectors.toList());
-    }
+//    @Override
+//    public List<VoucherDTO> findAllVouchers() {
+//        List<Voucher> vouchers = voucherRepository.findAll();
+//        return vouchers.stream().map((voucher) -> mapToVoucherDTO(voucher)).collect(Collectors.toList());
+//    }
 
     @Override
     public Voucher saveVoucher(VoucherDTO voucherDTO) {
@@ -44,6 +50,20 @@ public class VoucherImplement implements VoucherService {
     @Override
     public void deleteVoucher(Long id) {
         voucherRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<VoucherDTO> findPaginatedVouchers(int pageNumber, int pageSize, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        if(keyword!=null){
+            Page<Voucher> productsPage =  voucherRepository.findAll(pageable,keyword);
+            return productsPage.map(this::mapToVoucherDTO);
+        }
+        Page<Voucher> productsPage = voucherRepository.findAll(pageable);
+        return productsPage.map(this::mapToVoucherDTO);
     }
 
     private Voucher mapToVoucher(VoucherDTO voucherDTO) {
