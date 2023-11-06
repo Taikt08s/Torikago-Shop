@@ -26,7 +26,7 @@ public class VoucherController {
     public String listVoucher(Model model){
         List<VoucherDTO> vouchers= voucherService.findAllVouchers();
         model.addAttribute("vouchers",vouchers);
-        return "voucher-list";
+        return "manager-voucher";
     }
     @GetMapping("/vouchers/new")
     public String createVoucher(Model model){
