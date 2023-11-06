@@ -93,13 +93,12 @@ public class OrderImplement implements OrderService{
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        if (keyword != null) {
+        if(keyword!=null){
             if (keyword.isEmpty()) {
                 Page<Order> OrdersPage = orderRepository.findAll(pageable);
-                return OrdersPage;
-            } else {
-                Page<Order> OrdersPage = orderRepository.findAll(keyword, pageable);
-                return OrdersPage;
+        return OrdersPage;
+            } else {Page<Order> OrdersPage =  orderRepository.findAll(keyword,pageable);
+            return OrdersPage;
             }
         }
         Page<Order> OrdersPage = orderRepository.findAll(pageable);

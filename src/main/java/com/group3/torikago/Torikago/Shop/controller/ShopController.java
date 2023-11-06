@@ -73,6 +73,8 @@ public class ShopController {
                     pageNumber, pageSize, sortField, sortDir, search);
         }
 
+        model.addAttribute("priceFrom", priceFrom);
+        model.addAttribute("priceTo", priceTo);
         model.addAttribute("products", shoppingPage);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);

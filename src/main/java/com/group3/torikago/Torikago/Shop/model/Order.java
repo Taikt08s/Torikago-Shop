@@ -18,7 +18,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long orderId;
     @Column(name = "order_value", length = 10)
     private double orderValue;
     @Column(name = "payment_method", length = 50)
