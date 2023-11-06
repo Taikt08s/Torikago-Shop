@@ -11637,3 +11637,25 @@ footer.bg-white.py-4.mt-auto {
 .button-with-line.selected {
     color: #4e73df;
 }
+.expanded-row {
+    display: none;
+}
+
+.expanded-row.show {
+    display: table-row;
+}
+
+.toggle-button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 20px;
+}
+
+.toggle-button i {
+    transition: transform 0.3s;
+}
+
+.expanded-row.show + .expandable-row .toggle-button i {
+    transform: rotate(180deg);
+}

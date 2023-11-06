@@ -46,6 +46,11 @@
         </li>
         <li class="nav-item">
             <a class="nav-link">
+                <i class="fas fa-tag"></i>
+                <span>Voucher</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link">
                 <i class="fas fa-fw fa-envelope"></i>
                 <span>Send Mail</span></a>
         </li>
@@ -140,7 +145,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" th:href="@{/profile}">
+                            <a class="dropdown-item" th:href="@{/user/profile}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -172,8 +177,229 @@
                 </div>
             </div>
         </div>
+        <div>
+            <div class="row p-3">
+                <h3 class="font-weight-bolder">Orders</h3>
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small"
+                               name="keyword"
+                               placeholder="Search for..."
+                               aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div style="padding-bottom: 500px;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <a th:href="@{/manager/orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                Order Id
+                                <span th:if="${sortField eq 'id'}"
+                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                            </a>
+                        </th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Payment Method</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="order : ${orders}">
+                    <tr class="expandable-row">
+                        <th scope="row"><p class="text-gray-900" th:text="${order.getId()}"></p></th>
+                        <td>
+                            <p class="text-gray-900"
+                               th:text="${T(com.group3.torikago.Torikago.Shop.util.TimeAgoUtil).calculateTimeAgo(order.orderDate)}"></p>
+                        </td>
+                        <td>
+                            <p class="text-gray-900"
+                               th:text="${order.userOrder.getUserName()}"></p>
+                        </td>
+                        <th scope="col">
+                            <p class="text-gray-900"
+                               th:text="${order.paymentMethod}"></p>
+                        </th>
+                        <td class="position-relative">
+                            <div class="d-flex align-items-center">
+                                <p class="text-gray-900"
+                                   th:text="' ₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"
+                                   th:classappend="${order.paymentMethod == 'VNPay'} ? 'strike-through' : ''">
+                                </p>
 
-
+                                <div class="position-absolute translate-middle mb-3 ms-2"
+                                     th:if="${order.paymentMethod == 'VNPay'}" style="margin-left: 90px">
+                                    <i class="fas fa-info-circle text-primary" data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="Customer has paid for shipping and product (VNPay)."></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown mb-4">
+                                <form>
+                                    <button class="btn btn-sm dropdown-toggle rounded-pill" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <span id="selectedOption">Default Status</span>
+                                    </button>
+                                    <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Default Status')">Default
+                                            Status</a>
+                                        <a class="dropdown-item" href="#"
+                                           onclick="updateDropdown('Pending')">Pending</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Processing')">Processing</a>
+                                        <a class="dropdown-item" href="#"
+                                           onclick="updateDropdown('Shipping')">Shipping</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Delivered')">Delivered</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Cancelled')">Cancelled</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="toggle-button" onclick="toggleExpansion(this)">
+                                <i class="fas fa-caret-down"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="expanded-row">
+                        <td colspan="6">
+                            <div class="card card-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Qty</th>
+                                        <th scope="col">Disc.</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="expandable-row" th:each="order_detail : ${order.orderdetails}">
+                                        <th scope="row">
+                                            <img th:src="@{${order_detail.product.getMainImage()}}"
+                                                 class="img-fluid rounded-2" alt="Product Image"
+                                                 style="width: 60px; height: auto;">
+                                        </th>
+                                        <td>
+                                            <p class="text-gray-800 mt-4"
+                                               th:text="${#strings.length(order_detail.product.productName) > 40 ? #strings.substring(order_detail.product.productName, 0, 40) + '...' : order_detail.product.productName}">
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-gray-800 mt-4"
+                                               th:text="'₫'+ ${#numbers.formatDecimal(order_detail.unitPrice, 0, 'POINT', 0, 'POINT')}">
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-gray-800 mt-4"
+                                               th:text="${'x '+order_detail.quantity}">
+                                            </p>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <p class="text-gray-800 mt-4"
+                                               th:text="'₫'+ ${#numbers.formatDecimal(order_detail.unitPrice, 0, 'POINT', 0, 'POINT')}">
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr th:object="${order}">
+                                        <th scope="row">Full name</th>
+                                        <td>
+                                            <p class="text-gray-900 font-weight-bold"
+                                               th:text="${order.userOrder.fname + ' ' + order.userOrder.lname}"></p>
+                                        </td>
+                                        <td>Subtotal:</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Address</th>
+                                        <td>
+                                            <p class="text-gray-900 font-weight-bold"
+                                               th:text="${order.shippedAddress}">
+                                            </p>
+                                        </td>
+                                        <td>Shipping:</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <p class="font-weight-bold text-gray-900"
+                                               th:text="'₫'+ ${#numbers.formatDecimal(order.shippingFee, 0, 'POINT', 0, 'POINT')}">
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Phone</th>
+                                        <td>
+                                            <p class="text-gray-900 font-weight-bold"
+                                               th:text="${order.userOrder.phoneNumber}"></p>
+                                        </td>
+                                        <td>Discount:</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm">
+                                                Edit Information
+                                            </a>
+                                        </td>
+                                        <td><p class="font-weight-bold text-gray-900">Total:</p></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><p class="font-weight-bold text-gray-900"
+                                               th:text="' ₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"
+                                               th:classappend="${order.paymentMethod == 'VNPay'} ? 'strike-through' : ''">
+                                        </p></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li th:class="${orders.first} ? 'page-item disabled' : 'page-item'">
+                            <a th:if="${not orders.first}"
+                               th:href="@{/manager/orders(pageNumber=1, sortField=${sortField}, sortDir=${sortDir})}"
+                               class="page-link" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(1, orders.totalPages)}"
+                            th:class="${i == orders.number + 1} ? 'page-item active' : 'page-item'">
+                            <a th:href="@{/manager/orders(pageNumber=${i}, sortField=${sortField}, sortDir=${sortDir})}"
+                               class="page-link" th:text="${i}"></a>
+                        </li>
+                        <li th:class="${orders.last} ? 'page-item disabled' : 'page-item'">
+                            <a th:if="${not orders.last}"
+                               th:href="@{/manager/orders(pageNumber=${orders.totalPages}, sortField=${sortField}, sortDir=${sortDir})}"
+                               class="page-link" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
 </div>
 <a class="scroll-to-top rounded" href="#page-top">
@@ -181,11 +407,46 @@
 </a>
 </body>
 <div th:insert="~{admin-layout :: footer}"></div>
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="js/sb-admin-2.min.js"></script>
-<script src="vendor/chart.js/Chart.min.js"></script>
-<script src="js/demo/chart-area-demo.js"></script>
-<script src="js/demo/chart-pie-demo.js"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
+<script>
+    function toggleExpansion(button) {
+        var row = button.closest('.expandable-row');
+        var expandedRow = row.nextElementSibling;
+
+        console.log("Row:", row);
+        console.log("Expanded Row:", expandedRow);
+
+        expandedRow.classList.toggle("show");
+
+        button.querySelector('i').style.transform = expandedRow.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    $(document).ready(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+
+    function updateDropdown(status) {
+        document.getElementById('selectedOption').innerText = status;
+    }
+</script>
+<style>
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td {
+        border-top: none;
+    }
+
+    .strike-through {
+        text-decoration: line-through;
+    }
+</style>
 </html>

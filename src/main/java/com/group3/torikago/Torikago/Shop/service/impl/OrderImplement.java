@@ -14,6 +14,10 @@ import com.group3.torikago.Torikago.Shop.repository.OrderRepository;
 import com.group3.torikago.Torikago.Shop.service.OrderService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -77,9 +81,28 @@ public class OrderImplement implements OrderService{
             cartItemRepository.delete(listItem);
         }
     }
-    
+
     @Override
     public List<Order> listOrders(User user) {
         return orderRepository.findByUserOrder(user);
+    }
+
+    @Override
+    public Page<Order> findPaginatedOrders(int pageNumber, int pageSize, String sortField, String sortDir, String keyword) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        if (keyword != null) {
+            if (keyword.isEmpty()) {
+                Page<Order> OrdersPage = orderRepository.findAll(pageable);
+                return OrdersPage;
+            } else {
+                Page<Order> OrdersPage = orderRepository.findAll(keyword, pageable);
+                return OrdersPage;
+            }
+        }
+        Page<Order> OrdersPage = orderRepository.findAll(pageable);
+        return OrdersPage;
     }
 }

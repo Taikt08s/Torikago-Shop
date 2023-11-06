@@ -95,7 +95,7 @@
             <div class="card-content mt-2 " id="card-1">
                 <th:block th:each="order : ${orders}">
                     <div class="card card-body mt-2">
-                        <span th:text="'#'+ ${order.getOrderId()}"></span>
+                        <span th:text="'#'+ ${order.getId()}"></span>
                         <th:block th:each="order_details : ${order.orderdetails}">
                             <div class="d-flex align-items-center">
                                 <img th:src="@{${order_details.product.getMainImage()}}"
@@ -145,7 +145,7 @@
                 <th:block th:each="order : ${orders}">
                     <th:block th:if="${order.status == 'Pending'}">
                         <div class="card card-body mt-2">
-                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <span th:text="'#'+ ${order.getId()}"></span>
                             <th:block th:each="order_details : ${order.orderdetails}">
                                 <div class="d-flex align-items-center">
                                     <img th:src="@{${order_details.product.getMainImage()}}"
@@ -162,7 +162,7 @@
                             </th:block>
                             <hr>
                             <div class="d-flex">
-                                <div class=" mt-4">
+                                <div class="mt-4">
                                     <p>Status: <span class="btn btn-warning btn-sm" th:text="${order.status}"></span></p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
@@ -182,7 +182,7 @@
                 <th:block th:each="order : ${orders}">
                     <th:block th:if="${order.status == 'Processing'}">
                         <div class="card card-body mt-2">
-                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <span th:text="'#'+ ${order.getId()}"></span>
                             <th:block th:each="order_details : ${order.orderdetails}">
                                 <div class="d-flex align-items-center">
                                     <img th:src="@{${order_details.product.getMainImage()}}"
@@ -219,7 +219,7 @@
                 <th:block th:each="order : ${orders}">
                     <th:block th:if="${order.status == 'Shipping'}">
                         <div class="card card-body mt-2">
-                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <span th:text="'#'+ ${order.getId()}"></span>
                             <th:block th:each="order_details : ${order.orderdetails}">
                                 <div class="d-flex align-items-center">
                                     <img th:src="@{${order_details.product.getMainImage()}}"
@@ -256,7 +256,7 @@
                 <th:block th:each="order : ${orders}">
                     <th:block th:if="${order.status == 'Delivered'}">
                         <div class="card card-body mt-2">
-                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <span th:text="'#'+ ${order.getId()}"></span>
                             <th:block th:each="order_details : ${order.orderdetails}">
                                 <div class="d-flex align-items-center">
                                     <img th:src="@{${order_details.product.getMainImage()}}"
@@ -293,7 +293,7 @@
                 <th:block th:each="order : ${orders}">
                     <th:block th:if="${order.status == 'Cancelled'}">
                         <div class="card card-body mt-2">
-                            <span th:text="'#'+ ${order.getOrderId()}"></span>
+                            <span th:text="'#'+ ${order.getId()}"></span>
                             <th:block th:each="order_details : ${order.orderdetails}">
                                 <div class="d-flex align-items-center">
                                     <img th:src="@{${order_details.product.getMainImage()}}"

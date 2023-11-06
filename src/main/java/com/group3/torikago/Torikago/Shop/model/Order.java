@@ -18,7 +18,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long orderId;
+    private Long id;
     @Column(name = "order_value", length = 10)
     private double orderValue;
     @Column(name = "payment_method", length = 50)
@@ -30,7 +30,7 @@ public class Order {
     @Column(name = "shipped_address", length = 150)
     private String shippedAddress;
     @Column(name = "shipping_fee", length = 10)
-    private double shippingFee;
+    private Double shippingFee;
     @Column(name = "shipped_date", length = 10, nullable = true)
 //    private LocalDateTime shippedDate;
     private LocalDateTime shippedDate = orderDate.plusDays(7) ;

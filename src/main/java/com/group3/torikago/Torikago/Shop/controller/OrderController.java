@@ -9,10 +9,12 @@ import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -45,9 +47,4 @@ public class OrderController {
         return "shopping-order-history";
     }
 
-    @GetMapping("/manager/orders")
-    @RolesAllowed({"MANAGER"})
-    public String showOrderList(Model model) {
-        return "manager-order";
-    }
 }
