@@ -46,6 +46,11 @@
         </li>
         <li class="nav-item">
             <a class="nav-link">
+                <i class="fas fa-tag"></i>
+                <span>Voucher</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link">
                 <i class="fas fa-fw fa-envelope"></i>
                 <span>Send Mail</span></a>
         </li>
@@ -140,7 +145,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" th:href="@{/profile}">
+                            <a class="dropdown-item" th:href="@{/user/profile}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -181,17 +186,35 @@
             <div class="row">
                 <!-- Earnings (Monthly) Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Pending Orders
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-spinner fa-2x text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Revenue
+                                        Shipping orders
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    <i class="fas fa-shipping-fast fa-2x text-gray-400"></i>
                                 </div>
                             </div>
                         </div>
@@ -203,30 +226,12 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Profits
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Success Order
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-info shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">New Users
-                                    </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">400</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                                    <i class="fas fa-check-square fa-2x text-gray-400"></i>
                                 </div>
                             </div>
                         </div>
@@ -234,17 +239,17 @@
                 </div>
                 <!-- Pending Requests Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card border-left-danger shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Total Orders (Monthly)
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                        Cancelled
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-truck-loading fa-2x text-gray-300"></i>
+                                    <i class="fas fa-times fa-2x text-gray-400"></i>
                                 </div>
                             </div>
                         </div>

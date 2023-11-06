@@ -115,8 +115,8 @@ public class ManagerController {
                         @RequestParam(name = "sortField", defaultValue = "id") String sortField,
                         @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
                         @Param("keyword") String keyword) {
-        Page<Order> ordersPage = orderService.findPaginatedOrders(pageNumber, pageSize, sortField, sortDir, keyword);
-        model.addAttribute("ordersPage", ordersPage);
+        Page<Order> orders = orderService.findPaginatedOrders(pageNumber, pageSize, sortField, sortDir, keyword);
+        model.addAttribute("orders", orders);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("keyword", keyword);

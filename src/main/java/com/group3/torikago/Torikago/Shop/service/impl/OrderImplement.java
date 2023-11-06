@@ -48,7 +48,6 @@ public class OrderImplement implements OrderService{
             productPrice += listItem.getSubtotal();
         }
         newOrder.setShippingFee(Double.parseDouble(orderValue)/100 - productPrice);
-        orderRepository.save(newOrder);
         for (CartItems listItem : listItems) {
             OrderDetails orderDetails = new OrderDetails();
             orderDetails.setOrder(newOrder);
@@ -70,7 +69,6 @@ public class OrderImplement implements OrderService{
         newOrder.setStatus("Pending");
         newOrder.setPaymentMethod("Cash on delivery");
         newOrder.setShippingFee(Double.parseDouble(shippingFee));
-        orderRepository.save(newOrder);
         for (CartItems listItem : listItems) {
             OrderDetails orderDetails = new OrderDetails();
             orderDetails.setOrder(newOrder);
@@ -81,7 +79,7 @@ public class OrderImplement implements OrderService{
             cartItemRepository.delete(listItem);
         }
     }
-    
+
     @Override
     public List<Order> listOrders(User user) {
         return orderRepository.findByUserOrder(user);
