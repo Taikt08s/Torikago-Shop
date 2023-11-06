@@ -10,8 +10,8 @@ public interface ShoppingProductService {
 
     Product findProductById(Long id);
 
-    Page<Product> findPaginatedShoppingProductsByPriceRange(int pageNumber, int pageSize, String sortField, String sortDir,
-                                                            Double priceFrom, Double priceTo);
+    Page<Product> findPaginatedShoppingProductsByPriceRangeAndType(int pageNumber, int pageSize, String sortField, String sortDir,
+                                                            String type, Double priceFrom, Double priceTo);
 
     List<Product> getRandomSimilarBirdCagesProducts(Long id);
 

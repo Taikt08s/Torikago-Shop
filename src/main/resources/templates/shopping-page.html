@@ -201,10 +201,13 @@
                     <form>
                         <div class="mb-3">
                             <label for="category"><i class="fas fa-layer-group"></i> By Category</label>
-                            <select class="form-select" id="category">
-                                <option value="all">All</option>
-                                <option value="electronics">Bird Cage</option>
-                                <option value="clothing">Accessory</option>
+                            <select class="form-select" id="category" name="productType">
+                                <option value="all"
+                                        th:selected="${type == 'all'}">All</option>
+                                <option value="Bird Cage"
+                                        th:selected="${type == 'Bird Cage'}">Bird Cage</option>
+                                <option value="Accessory"
+                                        th:selected="${type == 'Accessory'}">Accessory</option>
                                 <!-- Add more options as needed -->
                             </select>
                         </div>
