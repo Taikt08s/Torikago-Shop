@@ -16,7 +16,7 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
     <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-    <script th:src="@{https://cdn.tiny.cloud/1/7178xhk8rbjjn9lxva2bm8ps3lzqnwqcra6ojmrwg91n3kwg/tinymce/6/tinymce.min.js}"
+    <script src="https://cdn.tiny.cloud/1/7178xhk8rbjjn9lxva2bm8ps3lzqnwqcra6ojmrwg91n3kwg/tinymce/6/tinymce.min.js"
             referrerpolicy="origin"></script>
 </head>
 <body>
@@ -62,7 +62,8 @@
                                                     <label>Image 1</label>
                                                     <div class="dashed-box" id="image-drop-area1">
                                                         <div class="image-container">
-                                                            <img id="thumbnail-main" th:src="@{${birdCage.getMainImage()}}" alt="Main Image"
+                                                            <img id="thumbnail-main"
+                                                                 th:src="@{${birdCage.getMainImage()}}" alt="Main Image"
                                                                  style="max-width: 100%; max-height: 600px;">
 
                                                         </div>
@@ -233,7 +234,7 @@
                                                             style="height: 500px;"
                                                             id="description"
                                                             name="description"
-                                                            maxlength="200"
+                                                            maxlength="2000"
                                                             placeholder="Description..."
                                                             th:field="*{birdCageDetail.description}">
                                                 </textarea>
@@ -267,6 +268,18 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+            {value: 'First.Name', title: 'First Name'},
+            {value: 'Email', title: 'Email'},
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
+    });
     const dashedBox1 = document.getElementById("image-drop-area1");
     const dashedBox2 = document.getElementById("image-drop-area2");
     const dashedBox3 = document.getElementById("image-drop-area3");
@@ -382,18 +395,6 @@
             var fieldName = $(this).attr('data-field-name');
             $(this).attr('name', fieldName);
         });
-    });
-    tinymce.init({
-        selector: 'textarea',
-        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
-        mergetags_list: [
-            {value: 'First.Name', title: 'First Name'},
-            {value: 'Email', title: 'Email'},
-        ],
-        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
     });
 </script>
 </html>
