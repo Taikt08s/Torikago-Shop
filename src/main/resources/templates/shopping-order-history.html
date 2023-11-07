@@ -114,16 +114,19 @@
                         <div class="d-flex">
                             <div class=" mt-4">
                                 <div th:if="${order.status == 'Pending'}" class="ml-auto mt-3">
-                                    <p>Status: <span class="btn btn-warning btn-sm" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-warning btn-sm" th:text="${order.status}"></span>
+                                    </p>
                                 </div>
                                 <div th:if="${order.status == 'Processing'}" class="ml-auto mt-3">
                                     <p>Status: <span class="btn btn-info btn-sm" th:text="${order.status}"></span></p>
                                 </div>
                                 <div th:if="${order.status == 'Shipping'}" class="ml-auto mt-3">
-                                    <p>Status: <span class="btn btn-primary btn-sm" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-primary btn-sm" th:text="${order.status}"></span>
+                                    </p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
-                                    <p>Status: <span class="btn btn-success btn-sm" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-success btn-sm" th:text="${order.status}"></span>
+                                    </p>
                                 </div>
                                 <div th:if="${order.status == 'Cancelled'}" class="ml-auto mt-3">
                                     <p>Status: <span class="btn btn-danger btn-sm" th:text="${order.status}"></span></p>
@@ -132,12 +135,43 @@
                             <div th:if="${order.status == 'Delivered'}">
                                 <a class="btn btn-outline-primary">Review</a>
                             </div>
+                            <button class="ml-auto toggle-button" onclick="toggleExpansion(this)"
+                                    th:if="${order.status == 'Pending'}">
+                                <div style="display: flex; align-items: center;">
+                                    <p class="font-weight-light mt-5" style="font-size: 16px; margin-right: 5px;">Change
+                                        Address?</p>
+                                </div>
+                                <i class="fas fa-angle-down"></i>
+                            </button>
                             <div class="ml-auto">
                                 <h6>Total:</h6>
                                 <h5 class="text-danger"
                                     th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>
                             </div>
                         </div>
+                    </div>
+                    <div class="card card-body expandable-content mt-2">
+                        <form>
+                            <div class="form-group">
+                                <input type="text"
+                                       class="form-control form-control-user"
+                                       id="address"
+                                       name="address"
+                                       maxlength="250"
+                                       placeholder="Address...">
+                            </div>
+                            <div class="form-group">
+                                <input type="text"
+                                       class="form-control form-control-user"
+                                       id="phone"
+                                       name="phone"
+                                       maxlength="11"
+                                       placeholder="Phone...">
+                            </div>
+                            <a class="btn btn-outline-primary btn-user btn-block">
+                                <i class="far fa-check-circle"></i> Complete
+                            </a>
+                        </form>
                     </div>
                 </th:block>
             </div>
@@ -163,17 +197,49 @@
                             <hr>
                             <div class="d-flex">
                                 <div class="mt-4">
-                                    <p>Status: <span class="btn btn-warning btn-sm" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-warning btn-sm" th:text="${order.status}"></span>
+                                    </p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
                                     <a class="btn btn-outline-primary">Review</a>
                                 </div>
+                                <button class="ml-auto toggle-button" onclick="toggleExpansion(this)"
+                                        th:if="${order.status == 'Pending'}">
+                                    <div style="display: flex; align-items: center;">
+                                        <p class="font-weight-light mt-5" style="font-size: 16px; margin-right: 5px;">
+                                            Change Address?</p>
+                                    </div>
+                                    <i class="fas fa-angle-down"></i>
+                                </button>
                                 <div class="ml-auto">
                                     <h6>Total:</h6>
                                     <h5 class="text-danger"
                                         th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card card-body expandable-content mt-2">
+                            <form>
+                                <div class="form-group">
+                                    <input type="text"
+                                           class="form-control form-control-user"
+                                           id="addressPending"
+                                           name="addressPending"
+                                           maxlength="250"
+                                           placeholder="Address...">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text"
+                                           class="form-control form-control-user"
+                                           id="phonePending"
+                                           name="phonePending"
+                                           maxlength="11"
+                                           placeholder="Phone...">
+                                </div>
+                                <a class="btn btn-outline-primary btn-user btn-block">
+                                    <i class="far fa-check-circle"></i> Complete
+                                </a>
+                            </form>
                         </div>
                     </th:block>
                 </th:block>
@@ -237,7 +303,8 @@
                             <hr>
                             <div class="d-flex">
                                 <div class=" mt-4">
-                                    <p>Status: <span class="btn btn-primary btn-sm" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-primary btn-sm" th:text="${order.status}"></span>
+                                    </p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
                                     <a class="btn btn-outline-primary">Review</a>
@@ -274,7 +341,8 @@
                             <hr>
                             <div class="d-flex">
                                 <div class=" mt-4">
-                                    <p>Status: <span class="btn btn-success btn-sm" th:text="${order.status}"></span></p>
+                                    <p>Status: <span class="btn btn-success btn-sm" th:text="${order.status}"></span>
+                                    </p>
                                 </div>
                                 <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
                                     <a class="btn btn-outline-primary">Review</a>
@@ -359,5 +427,30 @@
     }
 
     document.querySelector('.button-with-line.selected').click();
+
+    function toggleExpansion(button) {
+        var row = button.closest('.card');
+        var expandedContent = row.nextElementSibling;
+
+        expandedContent.classList.toggle("show");
+
+        button.querySelector('i').style.transform = expandedContent.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
 </script>
+<style>
+    .expandable-content {
+        display: none;
+    }
+
+    .expandable-content.show {
+        display: block;
+    }
+
+    .toggle-button:hover p {
+        font-size: 16px; /* Adjust the size to make it a bit bigger */
+        color: #007bff; /* Use your primary color or replace with 'text-primary' class */
+        transition: all 0.3s ease-in-out;
+    }
+</style>
 </html>
