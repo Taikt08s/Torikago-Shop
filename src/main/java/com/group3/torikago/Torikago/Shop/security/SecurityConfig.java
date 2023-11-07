@@ -44,7 +44,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // luu y khi muon test thi disable csrf!! .csrf().disable()
-        http
+        http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/reset_password/**", "/login", "/forgot_password", "/verify","/img/**",
                                 "/torikago", "/torikago/product/**", "/register/**", "/css/**", "/js/**", "/vendor/**",

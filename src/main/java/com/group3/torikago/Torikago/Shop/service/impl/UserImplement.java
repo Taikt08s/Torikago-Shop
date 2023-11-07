@@ -47,11 +47,11 @@ public class UserImplement implements UserService {
 
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
         if(keyword!=null){
-            Page<User> usersPage =  userRepository.findAll(pageable,keyword);
-            return usersPage;
+            Page<User> vouchersPage =  userRepository.findAll(pageable,keyword);
+            return vouchersPage;
         }
-        Page<User> usersPage = userRepository.findAll(pageable);
-        return usersPage;
+        Page<User> vouchersPage  = userRepository.findAll(pageable);
+        return vouchersPage;
 
     }
 

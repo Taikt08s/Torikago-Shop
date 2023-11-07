@@ -111,7 +111,11 @@
                                             </a></th>
                                         <th>Image</th>
                                         <th>
-                                            Role
+                                            <a th:href="@{/admin/users-table(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                 Role
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
                                         </th>
                                         <th>Status</th>
                                         <th>Edit</th>

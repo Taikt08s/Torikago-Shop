@@ -2,13 +2,19 @@ package com.group3.torikago.Torikago.Shop.controller;
 
 import com.group3.torikago.Torikago.Shop.dto.CustomizedBirdCageDTO;
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
+
+import com.group3.torikago.Torikago.Shop.dto.VoucherDTO;
+import com.group3.torikago.Torikago.Shop.model.*;
+
 import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
 import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
 import com.group3.torikago.Torikago.Shop.model.Order;
 import com.group3.torikago.Torikago.Shop.model.Product;
+
 import com.group3.torikago.Torikago.Shop.service.CustomizedBirdCageService;
 import com.group3.torikago.Torikago.Shop.service.OrderService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
+import com.group3.torikago.Torikago.Shop.service.VoucherService;
 import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
@@ -22,21 +28,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Controller
 public class ManagerController {
 
     private ProductService productService;
-
+    private VoucherService voucherService;
     private CustomizedBirdCageService customizedBirdCageService;
-    
     private OrderService orderService;
-    
     @Autowired
-    public ManagerController(ProductService productService, CustomizedBirdCageService customizedBirdCageService, OrderService orderService){
+    public ManagerController(ProductService productService, CustomizedBirdCageService customizedBirdCageService,VoucherService voucherService, OrderService orderService)
+    {
         this.customizedBirdCageService = customizedBirdCageService;
         this.productService = productService;
+        this.voucherService = voucherService;
         this.orderService = orderService;
     }
     
@@ -106,6 +114,83 @@ public class ManagerController {
         customizedBirdCageService.updateCustomizedBirdCage(customizedBirdCage);
         return "redirect:/manager/custom-orders";
     }
+
+    @RolesAllowed({"MANAGER"})
+    @GetMapping("/manager/vouchers")
+    public String listVoucher(Model model,
+                              @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+                              @RequestParam(name = "pageSize", defaultValue = "8") int pageSize,
+                              @RequestParam(name = "sortField", defaultValue = "id") String sortField,
+                              @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
+                              @Param("keyword") String keyword){
+        Page<VoucherDTO> vouchers= voucherService.findPaginatedVouchers(pageNumber, pageSize, sortField, sortDir, keyword);
+        model.addAttribute("vouchers",vouchers);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword", keyword);
+        return "manager-voucher";
+    }
+    @RolesAllowed({"MANAGER"})
+    @GetMapping("/manager/vouchers/new")
+    public String createVoucher(Model model){
+        Voucher voucher=new Voucher();
+        model.addAttribute("voucher",voucher);
+        return "create-voucher";
+    }
+    @PostMapping("/manager/vouchers/new")
+    public String saveVoucher(@Valid @ModelAttribute("voucher") VoucherDTO voucherDTO, BindingResult voucherResult, Model model){
+        if(voucherResult.hasErrors()){
+            model.addAttribute("voucher",voucherDTO);
+            return "create-voucher";
+        }
+        voucherService.saveVoucher(voucherDTO);
+        return "redirect:/vouchers";
+    }
+    @RolesAllowed({"MANAGER"})
+    @GetMapping("/manager/vouchers/{id}")
+    public String voucherDetail(@PathVariable("id") Long id, Model model){
+        VoucherDTO voucherDTO = voucherService.findById(id);
+        model.addAttribute("voucher",voucherDTO);
+        return "voucher-detail";
+    }
+    @RolesAllowed({"MANAGER"})
+    @GetMapping("/manager/vouchers/edit/{id}")
+    public String editVoucher(@PathVariable("id") Long id, Model model){
+        VoucherDTO voucher = voucherService.findById(id);
+        model.addAttribute("voucher", voucher);
+        return "voucher-edit";
+    }
+    @PostMapping("/manager/vouchers/edit/{id}")
+    public String updateVoucher(@PathVariable("id") Long id,
+                                @Valid @ModelAttribute("voucher") VoucherDTO voucher,
+                                BindingResult voucherResult){
+        if(voucherResult.hasErrors()){
+            return "voucher-edit";
+        }
+
+        voucher.setId(id);
+        if(voucher.getVoucherName() == null || voucher.getVoucherName().isEmpty()){
+            voucher.setVoucherName(voucherService.findById(id).getVoucherName());
+        }
+        if(voucher.getCreatedTime() == null){
+            voucher.setCreatedTime(voucherService.findById(id).getCreatedTime());
+        }
+        if(voucher.getExpiredTime() == null){
+            voucher.setExpiredTime(voucherService.findById(id).getExpiredTime());
+        }
+//        if(voucher.getVoucherValue() == 0.0){
+//            voucher.setVoucherValue(voucherService.findById(id).getVoucherValue());
+//        }
+
+        voucherService.updateVoucher(voucher);
+        return "redirect:/vouchers";
+    }
+    @RolesAllowed({"MANAGER"})
+    @GetMapping("/manager/vouchers/delete/{id}")
+    public String deleteVoucher(@PathVariable("id") Long id,Model model) {
+        voucherService.deleteVoucher(id);
+        return "redirect:/vouchers";
+    }
     
     @GetMapping("/manager/orders")
     @RolesAllowed({"MANAGER"})
@@ -127,5 +212,6 @@ public class ManagerController {
     @RolesAllowed({"MANAGER"})
     public String editOrder(Model model, @PathVariable("orderId") Long orderId) {
         return "";
+
     }
 }

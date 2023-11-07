@@ -26,7 +26,7 @@
         </a>
         <hr class="sidebar-divider my-0">
         <li class="nav-item active">
-            <a class="nav-link" th:href="@{/admin}">
+            <a class="nav-link" th:href="@{/manager}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -35,19 +35,24 @@
             CRUD
         </div>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/product-table}">
+            <a class="nav-link" th:href="@{/manager/orders}">
+                <i class="fas fa-fw fa-boxes"></i>
+                <span>Orders</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/manager/custom-orders}">
                 <i class="fas fa-fw fa-box-open"></i>
-                <span>Products</span></a>
+                <span>Custom Orders</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-user-tie"></i>
-                <span>Managers</span></a>
+            <a class="nav-link" th:href="@{/manager/vouchers}">
+                <i class="fas fa-tag"></i>
+                <span>Voucher</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/users-table}">
-                <i class="fas fa-fw fa-user-shield"></i>
-                <span>Users</span></a>
+            <a class="nav-link">
+                <i class="fas fa-fw fa-envelope"></i>
+                <span>Send Mail</span></a>
         </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
@@ -136,7 +141,7 @@
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small"
                                   th:text="${#authentication.name}"></span>
                             <img class="img-profile rounded-circle"
-                                 src="img/undraw_profile.svg">
+                                 th:src="@{/img/undraw_profile.svg}">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
