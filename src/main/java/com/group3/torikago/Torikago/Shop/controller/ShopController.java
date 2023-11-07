@@ -42,6 +42,7 @@ public class ShopController {
                                            @RequestParam(name = "search", required = false) String search,
                                            @RequestParam(name = "priceFrom", required = false) Double priceFrom,
                                            @RequestParam(name = "priceTo", required = false) Double priceTo,
+                                           @RequestParam(name = "productType", required = false) String productType,
                                            @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
 
         if ("lowPrice".equals(sortField)) {
@@ -64,15 +65,23 @@ public class ShopController {
         }
 
         Page<Product> shoppingPage;
-
-        if (priceFrom != null || priceTo != null) {
-            shoppingPage = shoppingProductService.findPaginatedShoppingProductsByPriceRange(
-                    pageNumber, pageSize, sortField, sortDir, search, priceFrom, priceTo);
+        
+        if (priceFrom != null || priceTo != null || productType != null) {
+            if (productType.equalsIgnoreCase("all")) {
+                shoppingPage = shoppingProductService.findPaginatedShoppingProductsByPriceRangeAndType
+                    (pageNumber, pageSize, sortField, sortDir, null, priceFrom, priceTo);
+            } else {
+                shoppingPage = shoppingProductService.findPaginatedShoppingProductsByPriceRangeAndType
+                    (pageNumber, pageSize, sortField, sortDir, productType, priceFrom, priceTo);
+            }
         } else {
             shoppingPage = shoppingProductService.findPaginatedShoppingProducts(
                     pageNumber, pageSize, sortField, sortDir, search);
         }
 
+        model.addAttribute("type", productType);
+        model.addAttribute("priceFrom", priceFrom);
+        model.addAttribute("priceTo", priceTo);
         model.addAttribute("products", shoppingPage);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
