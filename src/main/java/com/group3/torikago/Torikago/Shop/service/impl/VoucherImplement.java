@@ -30,6 +30,11 @@ public class VoucherImplement implements VoucherService {
 //    }
 
     @Override
+    public List<Voucher> findAllVouchers() {
+        return voucherRepository.findAll();
+    }
+
+    @Override
     public Voucher saveVoucher(VoucherDTO voucherDTO) {
         Voucher voucher=mapToVoucher(voucherDTO);
         return voucherRepository.save(voucher);
@@ -74,7 +79,7 @@ public class VoucherImplement implements VoucherService {
                 .createdTime(voucherDTO.getCreatedTime())
                 .expiredTime(voucherDTO.getExpiredTime())
                 .status(voucherDTO.getStatus())
-
+                .maxValue((voucherDTO.getMaxValue()))
                 .build();
         return voucher;
     }
@@ -87,7 +92,7 @@ public class VoucherImplement implements VoucherService {
                 .createdTime(voucher.getCreatedTime())
                 .expiredTime(voucher.getExpiredTime())
                 .status(voucher.getStatus())
-
+                .maxValue((voucher.getMaxValue()))
                 .build();
         return voucherDTO;
     }

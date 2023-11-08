@@ -7,13 +7,11 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface VoucherService {
-//    List<VoucherDTO> findAllVouchers();
+    List<Voucher> findAllVouchers();
 
     Voucher saveVoucher(VoucherDTO voucherDTO);
 
     VoucherDTO findById(Long id);
-
-
 
     void updateVoucher(VoucherDTO voucher);
 

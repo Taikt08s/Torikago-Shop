@@ -37,6 +37,10 @@
                 <option th:value="false">Inactive</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="maxValue">Max Value:</label>
+            <input type="text" class="form-control" id="maxValue" th:field="*{maxValue}">
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

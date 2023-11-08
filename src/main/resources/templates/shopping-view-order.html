@@ -163,14 +163,20 @@
                                             </button>
                                             <div class="dropdown-menu animated--fade-in"
                                                  aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#" onclick="updateDropdown('Pending')" style="width: 300px">
-                                                    <a href="#" class="btn btn-light btn-icon-split p-1">
-                                                        <img th:src="@{/img/voucher.png}" class="img-fluid"
-                                                             alt="VNPAY Image" style="height: 50px; width: auto;"/>
-                                                        <h4 class="text text-danger font-weight-bolder mt-2">10%</h4>
-                                                        <span class="text mt-2">Welcome voucher</span>
+                                                <th:block th:each="voucher : ${vouchers}">
+                                                    <a class="dropdown-item" href="#"
+                                                       onclick="updateDropdown('${voucher.voucherName}')"
+                                                       style="width: 300px">
+                                                        <div>
+                                                            <a href="#" class="btn btn-light btn-icon-split p-1">
+                                                                <img th:src="@{/img/voucher.png}" class="img-fluid"
+                                                                     alt="Voucher Image" style="height: 50px; width: auto;"/>
+                                                                <h4 class="text text-danger font-weight-bolder mt-2" th:text="${voucher.voucherValue}%">10%</h4>
+                                                                <span class="text mt-2" th:text="${voucher.voucherName}">Welcome voucher</span>
+                                                            </a>
+                                                        </div>
                                                     </a>
-                                                </a>
+                                                </th:block>
                                             </div>
                                         </form>
                                     </div>
@@ -214,7 +220,8 @@
                                              alt="VNPAY Image" style="width: 30px; height: auto;"/>
                                         Advance Payment
                                     </a>
-                                    <p class="font-weight-lighter text-gray-700 mt-2" style="font-size: 14px"><em>*By placing an order, you have
+                                    <p class="font-weight-lighter text-gray-700 mt-2" style="font-size: 14px"><em>*By
+                                        placing an order, you have
                                         agreed to our terms and conditions.</em></p>
                                 </div>
                             </div>

@@ -3,8 +3,10 @@ package com.group3.torikago.Torikago.Shop.controller;
 import com.group3.torikago.Torikago.Shop.model.CartItems;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.model.Voucher;
 import com.group3.torikago.Torikago.Shop.service.ShoppingProductService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
+import com.group3.torikago.Torikago.Shop.service.VoucherService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 
 @Controller
@@ -26,11 +29,14 @@ public class ShopController {
     private ShoppingCartService shoppingCartServices;
     private UserService userService;
 
+    private VoucherService voucherService;
+
     @Autowired
-    public ShopController(ShoppingProductService shoppingProductService, ShoppingCartService shoppingCartServices, UserService userService) {
+    public ShopController(ShoppingProductService shoppingProductService, ShoppingCartService shoppingCartServices, UserService userService, VoucherService voucherService) {
         this.shoppingProductService = shoppingProductService;
         this.shoppingCartServices = shoppingCartServices;
         this.userService = userService;
+        this.voucherService = voucherService;
     }
 
     @GetMapping(value = {"/torikago", "/"})
@@ -65,14 +71,14 @@ public class ShopController {
         }
 
         Page<Product> shoppingPage;
-        
+
         if (priceFrom != null || priceTo != null || productType != null) {
             if (productType.equalsIgnoreCase("all")) {
                 shoppingPage = shoppingProductService.findPaginatedShoppingProductsByPriceRangeAndType
-                    (pageNumber, pageSize, sortField, sortDir, null, priceFrom, priceTo);
+                        (pageNumber, pageSize, sortField, sortDir, null, priceFrom, priceTo);
             } else {
                 shoppingPage = shoppingProductService.findPaginatedShoppingProductsByPriceRangeAndType
-                    (pageNumber, pageSize, sortField, sortDir, productType, priceFrom, priceTo);
+                        (pageNumber, pageSize, sortField, sortDir, productType, priceFrom, priceTo);
             }
         } else {
             shoppingPage = shoppingProductService.findPaginatedShoppingProducts(
@@ -175,6 +181,7 @@ public class ShopController {
         request.getSession().setAttribute("comparisonList", comparisonList);
         return "redirect:/torikago/product/compare";
     }
+
     @GetMapping("/compare/product/delete/modal/{id}")
     public String removeProductFromComparisonList(@PathVariable("id") Long id, HttpServletRequest request) {
         Product product = shoppingProductService.findProductById(id);
@@ -182,5 +189,12 @@ public class ShopController {
         comparisonList.removeIf(p -> p.getId() == product.getId());
         request.getSession().setAttribute("comparisonList", comparisonList);
         return "redirect:/torikago/product/{id}?openCompareModal=true";
+    }
+
+    @GetMapping("/vouchers")
+    public String shoppingOrderVoucher(Model model) {
+        List<Voucher> voucher = voucherService.findAllVouchers();
+        model.addAttribute("vouchers", voucher);
+        return "shopping-view-order";
     }
 }
