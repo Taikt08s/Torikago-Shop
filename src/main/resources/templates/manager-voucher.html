@@ -178,8 +178,9 @@
             </div>
         </div>
         <div class="p-2">
-            <div class="row p-3">
-                <h3 class="font-weight-bolder">Vouchers</h3>
+            <div class="card card-body">
+                <div class="row">
+                <h3 class="font-weight-bolder"><i class="far fa-edit"></i> Vouchers</h3>
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small"
@@ -193,13 +194,15 @@
                         </div>
                     </div>
                 </form>
+                    <a class="btn btn-primary ml-auto" th:href="@{/manager/vouchers/new}"><i class="far fa-edit"></i> Create voucher</a>
+                </div>
             </div>
-            <div style="padding-bottom: 500px;">
+            <div class="card card-body mt-3" style="padding-bottom: 800px;">
                 <table>
                     <tr>
-                        <th>ID</th>
-                        <th>Voucher Name</th>
-                        <th>Voucher Value</th>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Value (%)</th>
                         <th>Created Time</th>
                         <th>Expired Time</th>
                         <th>Status</th>
