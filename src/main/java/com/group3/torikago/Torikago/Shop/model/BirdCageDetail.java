@@ -32,6 +32,10 @@ public class BirdCageDetail {
     private double barSpacing;
     @Column(name = "bird_wingspan", length = 10)
     private double birdWingSpan;
+    @Column(name = "material", length = 50)
+    private String material;
+    @Column(name = "color", length = 50)
+    private String color;
     @Column(name = "description", length = 2000)
     private String description;
 }

@@ -30,6 +30,11 @@ public class CustomizedBirdCageDTO {
     @Length(max = 20, message = "No more than 20 characters")
     private String status;
     @NotEmpty(message = "*Required")
+    @Length(max = 50, message = "No more than 50 characters")
+    private String material;
+    @Length(max = 50, message = "No more than 50 characters")
+    private String color;
+    @NotEmpty(message = "*Required")
     @Length(max = 2000, message = "No more than 2000" +
             " characters")
     private String description;

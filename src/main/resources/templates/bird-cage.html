@@ -220,13 +220,19 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.dimension')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.dimension}"></label>
-                                                        <input type="text"
-                                                               class="form-control form-control-user"
-                                                               id="dimension"
-                                                               name="dimension"
-                                                               maxlength="50"
-                                                               placeholder="Dimension (e.g. 61cm x 91.5cm x 122cm)"
-                                                               th:field="*{birdCageDetail.dimension}">
+                                                        <select class="form-select" th:field="*{birdCageDetail.dimension}" id="dimension">
+                                                            <option value="51x61x61">51x61x61</option>
+                                                            <option value="64x81x89">64x81x89</option>
+                                                            <option value="89x100x130">89x100x130</option>
+                                                        </select>
+<!--                                                        <input type="text"-->
+<!--                                                               class="form-control form-control-user"-->
+<!--                                                               id="dimension"-->
+<!--                                                               name="dimension"-->
+<!--                                                               maxlength="50"-->
+<!--                                                               placeholder="Dimension (e.g. 61cm x 91.5cm x 122cm)"-->
+<!--                                                               th:field="*{birdCageDetail.dimension}">-->
+
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label>Cage Shape</label>
@@ -268,6 +274,34 @@
                                                                maxlength="50"
                                                                placeholder="Minimum Bird Wing Span"
                                                                th:field="*{birdCageDetail.birdWingSpan}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                                        <label>Material</label>
+                                                        <label th:if="${#fields.hasErrors('birdCageDetail.material')}"
+                                                               class="text-danger"
+                                                               th:errors="*{birdCageDetail.material}"></label>
+                                                        <select class="form-select" th:field="*{birdCageDetail.material}" id="material">
+                                                            <option value="wood" selected>Wood</option>
+                                                            <option value="aluminum">Aluminum</option>
+                                                            <option value="steel">Steel</option>
+                                                            <option value="plastic">Plastic</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Color</label>
+                                                        <label th:if="${#fields.hasErrors('birdCageDetail.color')}"
+                                                               class="text-danger"
+                                                               th:errors="*{birdCageDetail.color}"></label>
+                                                        <select class="form-select" th:field="*{birdCageDetail.color}" id="color">
+                                                            <option value="black" selected>Black</option>
+                                                            <option value="white" selected>White</option>
+                                                            <option value="red" selected>Red</option>
+                                                            <option value="blue" selected>Blue</option>
+                                                            <option value="purple" selected>Purple</option>
+                                                            <option value="yellow" selected>Yellow</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group" style="margin-bottom: 20px;">

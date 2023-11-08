@@ -71,9 +71,8 @@ public class CustomizedProductController {
         BirdCageDetail thisProduct = birdCageService.findBirdCageByID(productId);
 
         if(thisProduct.getDimension().equals(customizedBirdCageDTO.getDimension()) &&
-            thisProduct.getCageShape().equals(customizedBirdCageDTO.getCageShape()) &&
-                thisProduct.getBarSpacing() == customizedBirdCageDTO.getBarSpacing() &&
-                thisProduct.getBirdWingSpan() == customizedBirdCageDTO.getBirdWingSpan()){
+            thisProduct.getMaterial().equals(customizedBirdCageDTO.getMaterial()) &&
+            thisProduct.getColor().equals(customizedBirdCageDTO.getColor()) ){
             BirdCageDetail birdCageDetail = birdCageService.findBirdCageByID(productId);
             model.addAttribute("birdCageDetail", birdCageDetail);
             model.addAttribute("birdCage", birdCageDetail.getBirdCage());

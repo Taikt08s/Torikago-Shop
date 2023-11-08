@@ -30,8 +30,8 @@ public class BirdCageOrder {
     private String status;
     @Column(name = "shipped_address",length = 50)   
     private String shippedAddress;
-    @Column(name = "shipped_date", columnDefinition = "TIMESTAMP")  
-    private LocalDateTime shippedDate;
+//    @Column(name = "shipped_date", columnDefinition = "TIMESTAMP")
+//    private LocalDateTime shippedDate;
     @OneToMany(mappedBy = "order")
     private List<OrderDetails> orderdetails;
     @OneToOne(mappedBy = "orderFeedback")

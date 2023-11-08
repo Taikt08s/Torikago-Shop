@@ -32,6 +32,10 @@ public class CustomizedBirdCage {
     private String status;
     @Column(name = "description", length = 2000)
     private String description;
+    @Column(name = "material", length = 50)
+    private String material;
+    @Column(name = "color", length = 50)
+    private String color;
     @Column(name = "cart_status")
     private Boolean cartStatus;
 }

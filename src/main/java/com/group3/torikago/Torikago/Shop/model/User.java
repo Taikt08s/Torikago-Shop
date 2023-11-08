@@ -1,6 +1,8 @@
 package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import lombok.*;
 
@@ -52,4 +54,6 @@ public class User {
     private AuthenticationProvider authProvider;
     @OneToMany(mappedBy = "userId")
     private List<CartItems> cartItems;
+    @Column(name = "create_date",length = 10)
+    private LocalDateTime createDate;
 }
