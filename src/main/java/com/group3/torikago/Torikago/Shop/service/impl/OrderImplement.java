@@ -96,12 +96,32 @@ public class OrderImplement implements OrderService{
         if(keyword!=null){
             if (keyword.isEmpty()) {
                 Page<Order> OrdersPage = orderRepository.findAll(pageable);
-        return OrdersPage;
+                return OrdersPage;
             } else {Page<Order> OrdersPage =  orderRepository.findAll(keyword,pageable);
             return OrdersPage;
             }
         }
         Page<Order> OrdersPage = orderRepository.findAll(pageable);
         return OrdersPage;
+    }
+
+    @Override
+    public int totalPendingOrders() {
+        return orderRepository.findAllPendingOrders().size();
+    }
+
+    @Override
+    public int totalShippingOrders() {
+        return orderRepository.findAllShippingOrders().size();
+    }
+
+    @Override
+    public int totalDeliveredOrders() {
+        return orderRepository.findAllDeliveredOrders().size();
+    }
+
+    @Override
+    public int totalCancelledOrders() {
+        return orderRepository.findAllCancelledOrders().size();
     }
 }

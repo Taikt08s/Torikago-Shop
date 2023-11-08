@@ -316,7 +316,7 @@
                                             </p>
                                         </td>
                                     </tr>
-                                    <tr th:object="${order}">
+<!--                                    <tr th:object="${order}">
                                         <th scope="row">Full name</th>
                                         <td>
                                             <p class="text-gray-900 font-weight-bold"
@@ -367,9 +367,30 @@
                                                th:text="' ₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"
                                                th:classappend="${order.paymentMethod == 'VNPay'} ? 'strike-through' : ''">
                                         </p></td>
-                                    </tr>
+                                    </tr>-->
                                     </tbody>
                                 </table>
+                                <form>
+                                    <div class="row">
+                                        <div style="display: inline-block;">Full name:</div>
+                                        <div style="display: inline-block; margin-left: 20px;">[[${order.userOrder.fname + '  ' + order.userOrder.lname}]]</div>
+                                        <div style="display: inline-block; margin-left: 20px;">Subtotal:[[${#numbers.formatDecimal(order.orderValue - order.shippingFee, 0, 'POINT', 0, 'POINT')}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div style="display: inline-block; margin-right: 20px;">Address:</div>
+                                        <input th:value="${order.shippedAddress}"/>
+                                        <div style="display: inline-block; margin-right: 20px;">Shipping Fee:[[${#numbers.formatDecimal(order.shippingFee, 0, 'POINT', 0, 'POINT')}]]</div>
+                                    </div>
+                                    <div class="row">
+                                        <div style="display: inline-block; margin-right: 20px;">Phone:</div>
+                                        <input th:value="${order.userOrder.phoneNumber}"/>
+                                        <div style="display: inline-block; margin-right: 20px;">Discount:</div>
+                                    </div>
+                                    <div class="row">
+                                        <button type="submit">Save</button>
+                                        <div style="display: inline-block; margin-right: 20px;">Total:[[${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}]]</div>
+                                    </div>
+                                </form>
                             </div>
                         </td>
                     </tr>

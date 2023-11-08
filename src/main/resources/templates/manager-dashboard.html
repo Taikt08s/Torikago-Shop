@@ -45,7 +45,7 @@
                 <span>Custom Orders</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" th:href="@{/manager/vouchers}">
                 <i class="fas fa-tag"></i>
                 <span>Voucher</span></a>
         </li>
@@ -193,7 +193,7 @@
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         Pending Orders
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${Pending}"></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-spinner fa-2x text-gray-400"></i>
@@ -211,7 +211,7 @@
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         Shipping orders
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${Shipping}"></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-shipping-fast fa-2x text-gray-400"></i>
@@ -228,7 +228,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Success Order
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${Delivered}"></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-check-square fa-2x text-gray-400"></i>
@@ -246,7 +246,7 @@
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                         Cancelled
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${Cancelled}"></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-times fa-2x text-gray-400"></i>

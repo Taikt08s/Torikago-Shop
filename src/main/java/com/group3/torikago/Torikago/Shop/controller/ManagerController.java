@@ -50,7 +50,11 @@ public class ManagerController {
     
     @GetMapping("/manager")
     @RolesAllowed({"MANAGER"})
-    public String managerPage() {
+    public String managerPage(Model model) {
+        model.addAttribute("Pending", orderService.totalPendingOrders());
+        model.addAttribute("Shipping", orderService.totalShippingOrders());
+        model.addAttribute("Delivered", orderService.totalDeliveredOrders());
+        model.addAttribute("Cancelled", orderService.totalCancelledOrders());
         return "manager-dashboard";
     }
 

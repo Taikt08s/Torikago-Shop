@@ -17,4 +17,11 @@ public interface OrderService {
 
     Page<Order> findPaginatedOrders(int pageNumber, int pageSize, String sortField, String sortDir, String keyword);
 
+    int totalPendingOrders();
+    
+    int totalShippingOrders();
+    
+    int totalDeliveredOrders();
+    
+    int totalCancelledOrders();
 }
