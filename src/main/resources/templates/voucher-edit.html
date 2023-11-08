@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Edit Voucher</h1>
-<form th:action="@{/vouchers/edit/{id}(id=${voucher.id})}" th:object="${voucher}" method="post">
+<form th:action="@{/manager/vouchers/edit/{id}(id=${voucher.id})}" th:object="${voucher}" method="post">
     <input type="hidden" th:field="*{id}"/>
     <label for="voucherName">Voucher Name:</label>
     <input type="text" th:field="*{voucherName}" id="voucherName"/>
@@ -21,6 +21,9 @@
     <br/>
     <label for="voucherStatus">Voucher Status:</label>
     <input type="checkbox" th:field="*{status}" id="voucherStatus"/>
+    <br/>
+    <label for="maxValue">Voucher Max Value:</label>
+    <input type="text" th:field="*{maxValue}" id="maxValue"/>
     <br/>
     <button type="submit">Update Voucher</button>
 </form>

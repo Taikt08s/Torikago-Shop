@@ -33,6 +33,8 @@ public class Voucher {
     private LocalDateTime expiredTime;
     @Column(name = "voucher_status")
     private Boolean status;
+    @Column(name = "voucher_maxValue",length=5)
+    private double maxValue;
 //    @OneToOne(mappedBy = "voucher")
 //    private Order birdCageOrder;
 

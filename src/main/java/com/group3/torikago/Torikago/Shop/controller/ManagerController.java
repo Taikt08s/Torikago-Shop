@@ -183,13 +183,13 @@ public class ManagerController {
 //        }
 
         voucherService.updateVoucher(voucher);
-        return "redirect:/vouchers";
+        return "redirect:/manager/vouchers";
     }
     @RolesAllowed({"MANAGER"})
     @GetMapping("/manager/vouchers/delete/{id}")
     public String deleteVoucher(@PathVariable("id") Long id,Model model) {
         voucherService.deleteVoucher(id);
-        return "redirect:/vouchers";
+        return "redirect:/manager/vouchers";
     }
     
     @GetMapping("/manager/orders")

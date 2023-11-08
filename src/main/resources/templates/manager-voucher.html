@@ -203,6 +203,7 @@
                         <th>Created Time</th>
                         <th>Expired Time</th>
                         <th>Status</th>
+                        <th>Max Value</th>
                     </tr>
                     <tr th:each="voucher : ${vouchers}">
                         <td th:text="${voucher.id}">ID</td>
@@ -211,9 +212,10 @@
                         <td th:text="${voucher.createdTime}">Created Time</td>
                         <td th:text="${voucher.expiredTime}">Expired Time</td>
                         <td th:text="${voucher.status} ">Status</td>
+                        <td th:text="${voucher.maxValue} ">MaxValue</td>
                         <td>
-                            <a th:href="@{/vouchers/edit/{id}(id=${voucher.id})}">Update</a>
-                            <a th:href="@{/vouchers/delete/{id}(id=${voucher.id})}">Delete</a>
+                            <a th:href="@{/manager/vouchers/edit/{id}(id=${voucher.id})}">Update</a>
+                            <a th:href="@{/manager/vouchers/delete/{id}(id=${voucher.id})}">Delete</a>
                         </td>
                     </tr>
                 </table>

@@ -176,7 +176,18 @@ public class PaymentController {
         model.addAttribute("order", order);
         model.addAttribute("user", user);
 
+        String mailSubject = " has ordered " + "2 cai gi do";
+        String mailContent = "vui long order";
 
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setFrom("styematic@gmail.com");
+        helper.setTo("nar9591@gmail.com");
+        helper.setSubject(mailSubject);
+        helper.setText(mailContent, true);
+
+        mailSender.send(message);
 
         return "shopping-order-success";
     }
