@@ -24,7 +24,8 @@ public class VoucherDTO {
     private LocalDateTime createdTime;
     @NotNull
     private LocalDateTime expiredTime;
-
+    @NotNull
+    private double maxValue;
     private Boolean status;
 
 

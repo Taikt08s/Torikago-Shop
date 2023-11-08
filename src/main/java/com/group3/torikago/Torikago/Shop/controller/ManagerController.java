@@ -132,7 +132,7 @@ public class ManagerController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("keyword", keyword);
-        return "voucher-list";
+        return "manager-voucher";
     }
     @RolesAllowed({"MANAGER"})
     @GetMapping("/manager/vouchers/new")
@@ -148,7 +148,7 @@ public class ManagerController {
             return "create-voucher";
         }
         voucherService.saveVoucher(voucherDTO);
-        return "redirect:/vouchers";
+        return "redirect:/manager/vouchers";
     }
     @RolesAllowed({"MANAGER"})
     @GetMapping("/manager/vouchers/{id}")
@@ -187,13 +187,13 @@ public class ManagerController {
 //        }
 
         voucherService.updateVoucher(voucher);
-        return "redirect:/vouchers";
+        return "redirect:/manager/vouchers";
     }
     @RolesAllowed({"MANAGER"})
     @GetMapping("/manager/vouchers/delete/{id}")
     public String deleteVoucher(@PathVariable("id") Long id,Model model) {
         voucherService.deleteVoucher(id);
-        return "redirect:/vouchers";
+        return "redirect:/manager/vouchers";
     }
     
     @GetMapping("/manager/orders")

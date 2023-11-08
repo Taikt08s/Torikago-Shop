@@ -35,7 +35,7 @@
             CRUD
         </div>
         <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" th:href="@{/manager/orders}">
                 <i class="fas fa-fw fa-boxes"></i>
                 <span>Orders</span></a>
         </li>
@@ -45,7 +45,7 @@
                 <span>Custom Orders</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" th:href="@{/manager/vouchers}">
                 <i class="fas fa-tag"></i>
                 <span>Voucher</span></a>
         </li>
@@ -267,7 +267,7 @@
                         </td>
                         <td>
                             <button class="toggle-button" onclick="toggleExpansion(this)">
-                                <i class="fas fa-caret-down"></i>
+                                <i class="fas fa-angle-down"></i>
                             </button>
                         </td>
                     </tr>

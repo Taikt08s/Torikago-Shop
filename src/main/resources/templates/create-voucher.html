@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     <h2>Create Voucher</h2>
-    <form action="#" th:action="@{/vouchers/new}" th:object="${voucher}" method="post">
+    <form  th:action="@{/manager/vouchers/new}" th:object="${voucher}" method="post">
         <div class="form-group">
             <label for="voucherName">Voucher Name:</label>
             <input type="text" class="form-control" id="voucherName" th:field="*{voucherName}" placeholder="Enter Voucher Name">
@@ -36,6 +36,10 @@
                 <option th:value="true">Active</option>
                 <option th:value="false">Inactive</option>
             </select>
+        </div>
+        <div class="form-group">
+            <label for="maxValue">Max Value:</label>
+            <input type="text" class="form-control" id="maxValue" th:field="*{maxValue}">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

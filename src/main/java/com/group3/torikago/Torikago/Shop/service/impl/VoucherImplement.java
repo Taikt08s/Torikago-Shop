@@ -74,7 +74,7 @@ public class VoucherImplement implements VoucherService {
                 .createdTime(voucherDTO.getCreatedTime())
                 .expiredTime(voucherDTO.getExpiredTime())
                 .status(voucherDTO.getStatus())
-
+                .maxValue((voucherDTO.getMaxValue()))
                 .build();
         return voucher;
     }
@@ -87,7 +87,7 @@ public class VoucherImplement implements VoucherService {
                 .createdTime(voucher.getCreatedTime())
                 .expiredTime(voucher.getExpiredTime())
                 .status(voucher.getStatus())
-
+                .maxValue((voucher.getMaxValue()))
                 .build();
         return voucherDTO;
     }
