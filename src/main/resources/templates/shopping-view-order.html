@@ -156,12 +156,22 @@
                                     <h6 class="text mb-2">Coupon</h6>
                                     <div class="mb-2">
                                         <form method="get">
-                                            <select class="form-select" id="shipping" name="shipping"
-                                                    onchange="submitForm()">
-                                                <option selected disabled style="display:none;">Choose</option>
-                                                <option>Coupon 1</option>
-                                                <option>Coupon 2</option>
-                                            </select>
+                                            <button class="btn btn-block  dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <span id="selectedOption">Torikgo Voucher</span>
+                                            </button>
+                                            <div class="dropdown-menu animated--fade-in"
+                                                 aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#" onclick="updateDropdown('Pending')" style="width: 300px">
+                                                    <a href="#" class="btn btn-light btn-icon-split p-1">
+                                                        <img th:src="@{/img/voucher.png}" class="img-fluid"
+                                                             alt="VNPAY Image" style="height: 50px; width: auto;"/>
+                                                        <h4 class="text text-danger font-weight-bolder mt-2">10%</h4>
+                                                        <span class="text mt-2">Welcome voucher</span>
+                                                    </a>
+                                                </a>
+                                            </div>
                                         </form>
                                     </div>
                                     <hr class="my-4">
@@ -175,11 +185,13 @@
                                         <div class="d-flex align-items-center">
                                             <h6 class="text">Shipping fee</h6>
                                             <div class="position-sticky ms-2 mb-2">
-                                                <i class="fas fa-info-circle text-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                <i class="fas fa-info-circle text-primary" data-bs-toggle="tooltip"
+                                                   data-bs-placement="top"
                                                    title="Shipping fee will based on GHTK tariff."></i>
                                             </div>
                                         </div>
-                                        <h6 class="text-danger" th:text="${#numbers.formatDecimal(shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
+                                        <h6 class="text-danger"
+                                            th:text="${#numbers.formatDecimal(shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
                                             ₫
                                         </h6>
                                     </div>
@@ -202,7 +214,8 @@
                                              alt="VNPAY Image" style="width: 30px; height: auto;"/>
                                         Advance Payment
                                     </a>
-                                    <p class="font-weight-lighter text-gray-700 mt-2"><em>*By placing an order, you have agreed to our terms and conditions.</em></p>
+                                    <p class="font-weight-lighter text-gray-700 mt-2" style="font-size: 14px"><em>*By placing an order, you have
+                                        agreed to our terms and conditions.</em></p>
                                 </div>
                             </div>
                         </div>

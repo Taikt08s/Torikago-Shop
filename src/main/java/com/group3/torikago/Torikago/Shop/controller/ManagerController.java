@@ -128,7 +128,7 @@ public class ManagerController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("keyword", keyword);
-        return "voucher-list";
+        return "manager-voucher";
     }
     @RolesAllowed({"MANAGER"})
     @GetMapping("/manager/vouchers/new")
