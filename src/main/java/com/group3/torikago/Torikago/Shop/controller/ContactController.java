@@ -13,46 +13,44 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ContactController {
-    @Autowired
-    private JavaMailSender mailSender;
+//    @Autowired
+//    private JavaMailSender mailSender;
+//
+//    public ContactController(JavaMailSender mailSender) {
+//        this.mailSender = mailSender;
+//    }
 
-    public ContactController(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
-
-    @GetMapping("/contact")
-    public String showContact(){
-        return "contact-form";
-    }
-    @PostMapping("/contact")
-    public String submitContact(HttpServletRequest request)  {
-        String fullname= request.getParameter("fullname");
-        String email= request.getParameter("email");
-        String subject= request.getParameter("subject");
-        String content= request.getParameter("content");
-
-
-       SimpleMailMessage message = new SimpleMailMessage();
-
-//        MimeMessage message=javaMailSender.createMimeMessage();
+//    @GetMapping("/contact")
+//    public String showContact(){
+//        return "contact-form";
+//    }
+//    @PostMapping("/contact")
+//    public String submitContact(HttpServletRequest request) throws MessagingException {
+//        String fullname= request.getParameter("fullname");
+//        String email= request.getParameter("email");
+//        String subject= request.getParameter("subject");
+//        String content= request.getParameter("content");
+//
+//
+//
+////SimpleMailMessage message = new SimpleMailMessage();
+//        MimeMessage message=mailSender.createMimeMessage();
 //        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-
-        message.setFrom("ddinhhoang29@gmail.com");
-        message.setTo("nar9591@gmail.com");
-
-        String mailSubject= fullname+"has sent a message";
-        String mailContent="Sender name: "+fullname+"\n";
-        mailContent+="Sender Email: "+email+"\n";
-        mailContent+="Subject: "+subject+"\n";
-        mailContent+="Content: "+content+"\n";
-
-
-
-        message.setSubject(mailSubject);
-        message.setText(mailContent);
-
-        mailSender.send(message);
-        return "mail-message";
-    }
+//
+//        String mailSubject= fullname+" has sent a message";
+//        String mailContent="<p><b>Sender name: </b> "+fullname+ "</p>";
+//        mailContent+="<p><b>Sender Email: </b>"+email+"</p>";
+//        mailContent+="<p><b>Subject: </b>"+subject+"</p>";
+//        mailContent+="<p><b>Content: </b>"+content+"</p>";
+//
+//
+//
+//        helper.setFrom("styematic@gmail.com");
+//        helper.setTo("nar9591@gmail.com");
+//        helper.setSubject(mailSubject);
+//        helper.setText(mailContent,true);
+//
+//        mailSender.send(message);
+//        return "mail-message";
+//    }
 }

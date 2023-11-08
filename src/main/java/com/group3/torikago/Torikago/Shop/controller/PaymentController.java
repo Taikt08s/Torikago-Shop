@@ -8,6 +8,10 @@ import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.OrderService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -24,7 +28,7 @@ import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 
 @Controller
 public class PaymentController {
-    
+    private JavaMailSender mailSender;
     private UserService userService;
     private OrderService orderService;
     private ShoppingCartService shoppingCartService;
@@ -32,11 +36,12 @@ public class PaymentController {
 
     @Autowired
     public PaymentController(UserService userService, OrderService orderService,
-            ShoppingCartService shoppingCartService, ProductService productService) {
+            ShoppingCartService shoppingCartService, ProductService productService,JavaMailSender mailSender) {
         this.userService = userService;
         this.orderService = orderService;
         this.shoppingCartService = shoppingCartService;
         this.productService = productService;
+        this.mailSender=mailSender;
     }
     
     @GetMapping("/torikago/payment/vnpay")
@@ -161,7 +166,7 @@ public class PaymentController {
     
     @GetMapping("/torikago/payment/success")
     public String showPaymentSuccess(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
-                                     Model model){
+                                     Model model) throws MessagingException {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         Order order=new Order();
@@ -170,6 +175,9 @@ public class PaymentController {
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("order", order);
         model.addAttribute("user", user);
+
+
+
         return "shopping-order-success";
     }
     

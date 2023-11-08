@@ -144,7 +144,7 @@ public class ManagerController {
             return "create-voucher";
         }
         voucherService.saveVoucher(voucherDTO);
-        return "redirect:/vouchers";
+        return "redirect:/manager/vouchers";
     }
     @RolesAllowed({"MANAGER"})
     @GetMapping("/manager/vouchers/{id}")
