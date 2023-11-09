@@ -23,11 +23,11 @@ public class VoucherImplement implements VoucherService {
         this.voucherRepository = voucherRepository;
     }
 
-//    @Override
-//    public List<VoucherDTO> findAllVouchers() {
-//        List<Voucher> vouchers = voucherRepository.findAll();
-//        return vouchers.stream().map((voucher) -> mapToVoucherDTO(voucher)).collect(Collectors.toList());
-//    }
+    @Override
+    public List<Voucher> findAllVouchers() {
+        List<Voucher> vouchers = voucherRepository.findAll();
+        return vouchers;
+    }
 
     @Override
     public Voucher saveVoucher(VoucherDTO voucherDTO) {

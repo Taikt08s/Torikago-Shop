@@ -12,16 +12,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 @Entity 
 @Table(name = "voucher")
-
 public class Voucher {
-
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
-
     private Long id;
     @Column(name = "voucher_name",length = 50)
     private String voucherName;
@@ -33,7 +29,7 @@ public class Voucher {
     private LocalDateTime expiredTime;
     @Column(name = "voucher_status")
     private Boolean status;
-    @Column(name = "voucher_maxValue",length=5)
+    @Column(name = "voucher_maxValue")
     private double maxValue;
 //    @OneToOne(mappedBy = "voucher")
 //    private Order birdCageOrder;

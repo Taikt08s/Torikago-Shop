@@ -18,13 +18,13 @@ public class VoucherDTO {
     private Long id;
     @Length(max = 50,message = "No more than 50 characters")
     private String voucherName;
-    @NotNull
+//    @NotNull
     private float voucherValue;
-    @NotNull
+//    @NotNull
     private LocalDateTime createdTime;
-    @NotNull
+//    @NotNull
     private LocalDateTime expiredTime;
-    @NotNull
+//    @NotNull
     private double maxValue;
     private Boolean status;
 

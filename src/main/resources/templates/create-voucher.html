@@ -12,7 +12,7 @@
 <body>
 <div class="container">
     <h2>Create Voucher</h2>
-    <form  th:action="@{/manager/vouchers/new}" th:object="${voucher}" method="post">
+    <form action="#" th:action="@{/manager/vouchers/new}" th:object="${voucher}" method="post">
         <div class="form-group">
             <label for="voucherName">Voucher Name:</label>
             <input type="text" class="form-control" id="voucherName" th:field="*{voucherName}" placeholder="Enter Voucher Name">

@@ -11659,3 +11659,23 @@ footer.bg-white.py-4.mt-auto {
 .expanded-row.show + .expandable-row .toggle-button i {
     transform: rotate(180deg);
 }
+
+.sidebar-logo {
+    max-height: 40px; /* Adjust the max height as needed */
+}
+
+.sidebar-brand-text img {
+    display: inline-block;
+}
+
+.sidebar-brand-text span {
+    display: none;
+}
+
+.sidebar-brand.collapsed .sidebar-brand-text img {
+    display: none;
+}
+
+.sidebar-brand.collapsed .sidebar-brand-text span {
+    display: inline-block;
+}
