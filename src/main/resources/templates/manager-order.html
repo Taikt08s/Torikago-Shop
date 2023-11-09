@@ -22,6 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none"
            th:href="@{/torikago}">
+            <img th:src="@{/img/torikago-logo.png}" alt="Logo" class="img-fluid sidebar-logo">
             <div class="sidebar-brand-text mx-3">Torikago Shop</div>
         </a>
         <hr class="sidebar-divider my-0">
@@ -177,8 +178,8 @@
                 </div>
             </div>
         </div>
-        <div class="p-2">
-                <div class="card card-body">
+        <div class="p-3">
+                <div class="card card-body shadow">
                     <h3 class="font-weight-bolder">Orders</h3>
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
@@ -194,7 +195,7 @@
                         </div>
                     </form>
                 </div>
-            <div class="card card-body mt-3">
+            <div class="card card-body mt-3 shadow">
                 <div style="padding-bottom: 500px;">
                     <table class="table">
                         <thead>
@@ -246,26 +247,38 @@
                             </td>
                             <td>
                                 <div class="dropdown mb-4">
-                                    <form>
-                                        <button class="btn btn-sm dropdown-toggle rounded-pill" type="button"
-                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                            <span id="selectedOption">Default Status</span>
-                                        </button>
-                                        <div class="dropdown-menu animated--fade-in"
-                                             aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#"
-                                               onclick="updateDropdown('Default Status')">Default
-                                                Status</a>
-                                            <a class="dropdown-item" href="#"
-                                               onclick="updateDropdown('Pending')">Pending</a>
-                                            <a class="dropdown-item" href="#" onclick="updateDropdown('Processing')">Processing</a>
-                                            <a class="dropdown-item" href="#"
-                                               onclick="updateDropdown('Shipping')">Shipping</a>
-                                            <a class="dropdown-item" href="#" onclick="updateDropdown('Delivered')">Delivered</a>
-                                            <a class="dropdown-item" href="#" onclick="updateDropdown('Cancelled')">Cancelled</a>
-                                        </div>
-                                    </form>
+                                    <form th:action="@{/manager/orders/{orderId}(orderId = ${order.id})}" method="post" th:id="'statusForm_'+${order.id}">
+<!--                                    <button class="btn btn-sm dropdown-toggle rounded-pill" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <span id="selectedOption">Default Status</span>
+                                    </button>-->
+                                    <!--<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">-->
+<!--                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Default Status')">Default
+                                            Status</a>
+                                        <a class="dropdown-item" href="#"
+                                           onclick="updateDropdown('Pending')">Pending</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Processing')">Processing</a>
+                                        <a class="dropdown-item" href="#"
+                                           onclick="updateDropdown('Shipping')">Shipping</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Delivered')">Delivered</a>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Cancelled')">Cancelled</a>-->                                          
+                                    <!--</div>-->
+                                    <select class="form-select" id="status" name="orderStatus" th:onchange="'submitForm(\'' + ${order.id} + '\')'">
+                                        <option value="Pending"
+                                                th:selected="${order.status == 'Pending'}">Pending</option>
+                                        <option value="Processing"
+                                                th:selected="${order.status == 'Processing'}">Processing</option>
+                                        <option value="Shipping"
+                                                th:selected="${order.status == 'Shipping'}">Shipping</option>
+                                        <option value="Delivered"
+                                                th:selected="${order.status == 'Delivered'}">Delivered</option>
+                                        <option value="Cancelled"
+                                                th:selected="${order.status == 'Cancelled'}">Cancelled</option>
+                                    </select>
+                                    <input type="hidden" name="previousUrl" id="previousUrl">
+                                </form>
+
                                 </div>
                             </td>
                             <td>
@@ -437,6 +450,16 @@
 
     function updateDropdown(status) {
         document.getElementById('selectedOption').innerText = status;
+    }
+    
+        function submitForm(orderId) {
+        document.getElementById('statusForm_' + orderId).submit();
+    }
+    
+//    document.getElementById('previousUrl').value = window.location.href;
+    var elements = document.querySelectorAll('input[id="previousUrl"]');
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].value = window.location.href;
     }
 </script>
 <style>

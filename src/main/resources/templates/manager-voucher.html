@@ -22,6 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none"
            th:href="@{/torikago}">
+            <img th:src="@{/img/torikago-logo.png}" alt="Logo" class="img-fluid sidebar-logo">
             <div class="sidebar-brand-text mx-3">Torikago Shop</div>
         </a>
         <hr class="sidebar-divider my-0">
@@ -177,52 +178,122 @@
                 </div>
             </div>
         </div>
-        <div class="p-2">
-            <div class="card card-body">
+        <div class="p-3">
+            <div class="card card-body shadow">
                 <div class="row">
-                <h3 class="font-weight-bolder"><i class="far fa-edit"></i> Vouchers</h3>
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small"
-                               name="keyword"
-                               placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
+                    <h3 class="font-weight-bolder"><i class="far fa-edit"></i> Vouchers</h3>
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small"
+                                   name="keyword"
+                                   placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                    <a class="btn btn-primary ml-auto" th:href="@{/manager/vouchers/new}"><i class="far fa-edit"></i> Create voucher</a>
+                    </form>
+                    <a class="btn btn-primary ml-auto" th:href="@{/manager/vouchers/new}"><i class="far fa-edit"></i>
+                        Create voucher</a>
                 </div>
             </div>
-            <div class="card card-body mt-3" style="padding-bottom: 800px;">
-                <table>
+            <div class="card card-body mt-3 shadow" style="padding-bottom: 800px;">
+                <table class="table table-striped" id="dataTable">
+                    <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Value (%)</th>
-                        <th>Created Time</th>
-                        <th>Expired Time</th>
+                        <th>
+                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                No
+                                <span th:if="${sortField eq 'id'}"
+                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                            </a></th>
+                        <th>
+                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                Name
+                                <span th:if="${sortField eq 'id'}"
+                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                            </a></th>
+                        <th>
+                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                Value (%)
+                                <span th:if="${sortField eq 'id'}"
+                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                            </a></th>
+                        <th>
+                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                Created Time
+                                <span th:if="${sortField eq 'id'}"
+                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                Expired Time
+                                <span th:if="${sortField eq 'id'}"
+                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                            </a>
+                        </th>
                         <th>Status</th>
                         <th>Max Value</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <tr th:each="voucher : ${vouchers}">
                         <td th:text="${voucher.id}">ID</td>
-                        <td th:text="${voucher.voucherName}">Voucher Name</td>
-                        <td th:text="${voucher.voucherValue}">Voucher Value</td>
-                        <td th:text="${voucher.createdTime}">Created Time</td>
-                        <td th:text="${voucher.expiredTime}">Expired Time</td>
-                        <td th:text="${voucher.status} ">Status</td>
-                        <td th:text="${voucher.maxValue} ">MaxValue</td>
-                        <td>
-                            <a th:href="@{/manager/vouchers/edit/{id}(id=${voucher.id})}">Update</a>
-                            <a th:href="@{/manager/vouchers/delete/{id}(id=${voucher.id})}">Delete</a>
-                        </td>
+                        <td th:text="${voucher.voucherName}"></td>
+                        <td th:text="${#numbers.formatDecimal(voucher.getVoucherValue(), 0, 'POINT', 0, 'POINT')}+'%'"></td>
+                        <td th:text="${#temporals.format(voucher.getCreatedTime(), 'yyyy-MM-dd')}"></td>
+                        <td th:text="${#temporals.format(voucher.getExpiredTime(), 'yyyy-MM-dd')}"></td>
+                        <td th:text="${voucher.status} "></td>
+                        <td th:text="${'₫' +#numbers.formatDecimal(voucher.getMaxValue(), 0, 'POINT', 0, 'POINT')}"></td>
+                        <th>
+                            <a th:href="@{/manager/vouchers/edit/{id}(id=${voucher.id})}"
+                               class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-pen-square"></i>
+                                        </span>
+                                <span class="text">Edit</span>
+                            </a>
+                        </th>
+                        <th>
+                            <a  th:href="@{/manager/vouchers/delete/{id}(id=${voucher.id})}"
+                               class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                <span class="text">Remove</span>
+                            </a>
+                        </th>
                     </tr>
+                    </tbody>
                 </table>
-
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li th:class="${vouchers.first} ? 'page-item disabled' : 'page-item'">
+                            <a th:if="${not vouchers.first}"
+                               th:href="@{/manager/vouchers(pageNumber=1, sortField=${sortField}, sortDir=${sortDir})}"
+                               class="page-link" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(1, vouchers.totalPages)}"
+                            th:class="${i == vouchers.number + 1} ? 'page-item active' : 'page-item'">
+                            <a th:href="@{/manager/vouchers(pageNumber=${i}, sortField=${sortField}, sortDir=${sortDir}, keyword=${keyword!=null ? keyword : ''})}"
+                               class="page-link" th:text="${i}"></a>
+                        </li>
+                        <li th:class="${vouchers.last} ? 'page-item disabled' : 'page-item'">
+                            <a th:if="${not vouchers.last}"
+                               th:href="@{/manager/vouchers(pageNumber=${vouchers.totalPages}, sortField=${sortField}, sortDir=${sortDir})}"
+                               class="page-link" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -232,10 +303,10 @@
 </a>
 </body>
 <div th:insert="~{admin-layout :: footer}"></div>
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="js/sb-admin-2.min.js"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script src="vendor/chart.js/Chart.min.js"></script>
 <script src="js/demo/chart-area-demo.js"></script>
 <script src="js/demo/chart-pie-demo.js"></script>

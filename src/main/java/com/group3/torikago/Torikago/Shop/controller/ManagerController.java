@@ -50,7 +50,11 @@ public class ManagerController {
     
     @GetMapping("/manager")
     @RolesAllowed({"MANAGER"})
-    public String managerPage() {
+    public String managerPage(Model model) {
+        model.addAttribute("Pending", orderService.totalPendingOrders());
+        model.addAttribute("Shipping", orderService.totalShippingOrders());
+        model.addAttribute("Delivered", orderService.totalDeliveredOrders());
+        model.addAttribute("Cancelled", orderService.totalCancelledOrders());
         return "manager-dashboard";
     }
 
@@ -208,10 +212,13 @@ public class ManagerController {
         return "manager-order";
     }
     
-    @GetMapping("/manager/orders/{orderId}/edit")
+    @PostMapping("/manager/orders/{orderId}")
     @RolesAllowed({"MANAGER"})
-    public String editOrder(Model model, @PathVariable("orderId") Long orderId) {
-        return "";
+    public String editOrder(Model model, @PathVariable("orderId") Long orderId,
+            @RequestParam(name = "orderStatus") String status,
+            @RequestParam(name = "previousUrl") String previousUrl) {
+        orderService.editOrderStatus(orderId, status);
+        return "redirect:" + previousUrl;
 
     }
 }

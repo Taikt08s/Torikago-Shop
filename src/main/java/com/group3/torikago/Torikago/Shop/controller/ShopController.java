@@ -191,10 +191,4 @@ public class ShopController {
         return "redirect:/torikago/product/{id}?openCompareModal=true";
     }
 
-    @GetMapping("/vouchers")
-    public String shoppingOrderVoucher(Model model) {
-        List<Voucher> voucher = voucherService.findAllVouchers();
-        model.addAttribute("vouchers", voucher);
-        return "shopping-view-order";
-    }
 }
