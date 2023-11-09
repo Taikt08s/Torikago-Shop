@@ -48,6 +48,8 @@ public class BirdCageImplement implements BirdCageService {
                 .birdWingSpan(birdCageDTO.getBirdWingSpan())
                 .barSpacing(birdCageDTO.getBarSpacing())
                 .description(birdCageDTO.getDescription())
+                .material(birdCageDTO.getMaterial())
+                .color(birdCageDTO.getColor())
                 .build();
         return birdCage;
     }
