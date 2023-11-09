@@ -6,14 +6,14 @@ import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.repository.CartItemRepository;
 import com.group3.torikago.Torikago.Shop.repository.CustomizedBirdCageRepository;
 import com.group3.torikago.Torikago.Shop.repository.ProductRepository;
-import com.group3.torikago.Torikago.Shop.service.ShoppingCartServices;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.group3.torikago.Torikago.Shop.service.ShoppingCartService;
 
 @Service
-public class ShoppingCartImplement implements ShoppingCartServices{
+public class ShoppingCartImplement implements ShoppingCartService{
     private CartItemRepository cartItemRepository;
     private ProductRepository productRepository;
 
@@ -23,12 +23,12 @@ public class ShoppingCartImplement implements ShoppingCartServices{
     public ShoppingCartImplement(CartItemRepository cartItemRepository, ProductRepository productRepository, CustomizedBirdCageRepository customizedBirdCageRepository) {
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
-        this.customizedBirdCageRepository = customizedBirdCageRepository;
+         this.customizedBirdCageRepository = customizedBirdCageRepository;
     }
 
     @Override
     public List<CartItems> listCartItems(User user) {
-         return cartItemRepository.findByUserId(user);
+        return cartItemRepository.findByUserId(user);
     }
 
     @Override
@@ -54,6 +54,7 @@ public class ShoppingCartImplement implements ShoppingCartServices{
             cartItem.setQuantity(quantity);
             cartItem.setProductId(product);
         }
+
         cartItemRepository.save(cartItem);
         return addedQuantity;
     }

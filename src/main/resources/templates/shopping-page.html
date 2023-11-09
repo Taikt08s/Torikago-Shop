@@ -142,6 +142,7 @@
                                                 style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
                                             <span class="text-primary"
                                                   th:text="' ₫'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"></span>
+                                            <span href="" value="5" style="color: gold;">5.0★★★★★</span>
                                         </a>
                                     </div>
                                 </div>
@@ -200,10 +201,13 @@
                     <form>
                         <div class="mb-3">
                             <label for="category"><i class="fas fa-layer-group"></i> By Category</label>
-                            <select class="form-select" id="category">
-                                <option value="all">All</option>
-                                <option value="electronics">Bird Cage</option>
-                                <option value="clothing">Accessory</option>
+                            <select class="form-select" id="category" name="productType">
+                                <option value="all"
+                                        th:selected="${type == 'all'}">All</option>
+                                <option value="Bird Cage"
+                                        th:selected="${type == 'Bird Cage'}">Bird Cage</option>
+                                <option value="Accessory"
+                                        th:selected="${type == 'Accessory'}">Accessory</option>
                                 <!-- Add more options as needed -->
                             </select>
                         </div>
@@ -211,16 +215,14 @@
                         <form th:action="@{/torikago}" method="get" id="filterForm">
                             <div class="mb-3">
                                 <label for="priceFrom">Price Range</label>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <input type="number" class="form-control" id="priceFrom" name="priceFrom"
-                                               placeholder="From" min="0">
+                                               placeholder="From" min="0" th:value="${#numbers.formatDecimal(priceFrom, 0, 'NONE', 0, 'NONE')}">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-4">
                                         <input type="number" class="form-control" id="priceTo" name="priceTo"
-                                               placeholder="To" min="0">
+                                               placeholder="To" min="0" th:value="${#numbers.formatDecimal(priceTo, 0, 'NONE', 0, 'NONE')}">
                                     </div>
-                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Apply</button>
                         </form>
@@ -275,6 +277,7 @@
                                     style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
                                 <p class="card-text pl-2 row"
                                    th:text="' ₫'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"></p>
+                                <span href="" value="5" style="color: gold;">5.0★★★★★</span>
                             </div>
                             <div class="card-border"></div>
                         </a>

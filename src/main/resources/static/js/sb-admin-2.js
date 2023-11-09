@@ -62,6 +62,7 @@ function hoverCard(card) {
 function unhoverCard(card) {
     card.querySelector('.card-border').classList.remove('card-border-hover');
 }
+
 $(document).ready(function () {
     // Disable the default option when the dropdown is opened
     $('#price').on('click', function () {
@@ -100,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 function formatCurrency(input) {
     const value = input.value.replace(/\s+/g, ''); // Remove existing spaces
     input.value = addSpaces(value);

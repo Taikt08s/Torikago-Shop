@@ -46,7 +46,7 @@
 <div th:insert="~{user-layout :: header}"></div>
 <body class="bg-gray-200">
 <section class="h-100 h-custom">
-    <div class="container py-3 h-100">
+    <div class="container py-2 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
                 <div class="card card-registration card-registration-2">
@@ -85,16 +85,18 @@
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="p-4 col-md-8">
+
                                 <table class="table table-borderless table-striped">
                                     <thead>
                                     <tr>
                                         <th>
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <a th:href="@{/}" class="text-decoration-none">
-                                                    <h4 class="fw-bold mb-0 text-black">Product</h4>
+                                                <a class="text-decoration-none">
+                                                    <h5 class="fw-none mb-0 text-black fw-bold">Product</h5>
                                                 </a>
                                             </div>
                                         </th>
+                                        <th></th>
                                         <th>
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <a class="text-decoration-none">
@@ -105,7 +107,7 @@
                                         <th>
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <a class="text-decoration-none">
-                                                    <h6 class="fw-none mb-0 text-black">Amount</h6>
+                                                    <h6 class="fw-none mb-0 text-black">Quantity</h6>
                                                 </a>
                                             </div>
                                         </th>
@@ -118,48 +120,109 @@
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td>John Doe</td>
-                                        <td>john@example.com</td>
-                                        <td>john@example.com</td>
-                                    </tr>
-                                    </tbody>
+                                    <th:block th:each="item, status : ${cartItems}"
+                                              th:with="product = ${item.productId}">
+                                        <tbody>
+                                        <tr>
+                                            <td><img th:src="@{${product.getMainImage()}}"
+                                                     class="img-fluid rounded-2" alt="Product Image"
+                                                     style="width: 50px; height: auto;"></td>
+                                            <td>
+                                                <a th:title="${product.productName}">
+                                                    <h6 class="text-black mt-3"
+                                                        th:text="${#strings.length(product.productName) > 30 ? #strings.substring(product.productName, 0, 30) + '...' : product.productName}"></h6>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <p class="mt-2">
+                                                    [[${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0,
+                                                    'POINT')}]]₫</p>
+                                            </td>
+                                            <td><p class="mt-2" th:text="${item.quantity}"></p></td>
+                                            <td>
+                                                <p class="mt-2">
+                                                    [[${#numbers.formatDecimal(item.getSubtotal, 0, 'POINT', 0,
+                                                    'POINT')}]]₫</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </th:block>
                                 </table>
                             </div>
                             <div class="col-lg-4 bg-grey">
                                 <div class="p-4">
-                                    <h4 class="fw-bold mb-5 mt-2 pt-1">Summary</h4>
+                                    <h4 class="fw-bold mb-2 mt-2 pt-1">Summary</h4>
                                     <hr class="my-4">
-                                    <h6 class="text-uppercase mb-3">Shipping</h6>
-                                    <div class="mb-4 pb-2">
-                                            <form method="get">
-                                                <select class="form-select" id="shipping" name="shipping" onchange="submitForm()">
-                                                    <option selected disabled style="display:none;">Choose</option>
-                                                    <option value="cod">Cash on delivery (recommend)</option>
-                                                    <option value="advancePayment">Advance Payment</option>
-                                                </select>
-                                            </form>
+                                    <h6 class="text mb-2">Coupon</h6>
+                                    <div class="mb-2">
+                                        <form method="get">
+                                            <button class="btn btn-block  dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <span id="selectedOption">Torikgo Voucher</span>
+                                            </button>
+                                            <div class="dropdown-menu animated--fade-in"
+                                                 aria-labelledby="dropdownMenuButton">
+                                                <th:block th:each="voucher : ${vouchers}">
+                                                    <a class="dropdown-item" href="#"
+                                                       onclick="updateDropdown('${voucher.voucherName}')"
+                                                       style="width: 300px">
+                                                        <div>
+                                                            <a href="#" class="btn btn-light btn-icon-split p-1">
+                                                                <img th:src="@{/img/voucher.png}" class="img-fluid"
+                                                                     alt="Voucher Image" style="height: 50px; width: auto;"/>
+                                                                <h4 class="text text-danger font-weight-bolder mt-2" th:text="${voucher.voucherValue}%">10%</h4>
+                                                                <span class="text mt-2" th:text="${voucher.voucherName}">Welcome voucher</span>
+                                                            </a>
+                                                        </div>
+                                                    </a>
+                                                </th:block>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <h6 class="text-uppercase mb-3">Coupon</h6>
-                                    <div class="mb-5">
-                                        <div class="form-outline">
-                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                                            <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                    <hr class="my-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="text">Product price</h6>
+                                        <h6 class="text-danger"
+                                            th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]), 0, 'POINT', 0, 'POINT')} + '₫'">
+                                            ₫</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <h6 class="text">Shipping fee</h6>
+                                            <div class="position-sticky ms-2 mb-2">
+                                                <i class="fas fa-info-circle text-primary" data-bs-toggle="tooltip"
+                                                   data-bs-placement="top"
+                                                   title="Shipping fee will based on GHTK tariff."></i>
+                                            </div>
                                         </div>
+                                        <h6 class="text-danger"
+                                            th:text="${#numbers.formatDecimal(shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
+                                            ₫
+                                        </h6>
                                     </div>
-
-                                    <hr class="my-4">
-
-                                    <div class="d-flex justify-content-between mb-5">
+                                    <div class="d-flex justify-content-between mb-2">
                                         <h5 class="text-uppercase">Total price</h5>
-                                        <h5>€ 137.00</h5>
+                                        <h5 class="text-danger"
+                                            th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]) + shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
+                                            ₫</h5>
                                     </div>
-
-                                    <a type="button" class="btn btn-dark btn-block btn-lg"
-                                            data-mdb-ripple-color="dark" th:href="@{/torikago/payment}">Place order</a>
-
+                                    <a type="submit" class="btn btn-danger btn-block btn-md"
+                                       data-mdb-ripple-color="dark"
+                                       th:href="@{/torikago/payment/cod?amount={value}&shipping_Fee={shipFee}(value = ${#aggregates.sum(cartItems.![getSubtotal()])}, shipFee = ${shippingFee})}">
+                                        <img th:src="@{/img/ghtk.png}" class="img-fluid rounded-2"
+                                             alt="GHTK Image" style="width: 60px; height: auto;"/> Cash on delivery
+                                    </a>
+                                    <h5 class="text-center">or</h5>
+                                    <a type="submit" class="btn btn-outline-primary btn-block btn-md"
+                                       data-mdb-ripple-color="dark" th:href="@{/torikago/payment/vnpay}">
+                                        <img th:src="@{/img/VNPAY-QR.webp}" class="img-fluid rounded-2"
+                                             alt="VNPAY Image" style="width: 30px; height: auto;"/>
+                                        Advance Payment
+                                    </a>
+                                    <p class="font-weight-lighter text-gray-700 mt-2" style="font-size: 14px"><em>*By
+                                        placing an order, you have
+                                        agreed to our terms and conditions.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -182,6 +245,9 @@
     function submitForm() {
         document.getElementById("sortForm").submit();
     }
-</script>
 
+    $(document).ready(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+</script>
 </html>

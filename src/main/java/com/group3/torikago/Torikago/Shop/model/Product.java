@@ -6,17 +6,15 @@ import jakarta.persistence.OneToOne;
 import java.util.List;
 import java.util.UUID;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "Product")
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +34,8 @@ public class Product {
     private String extraImage3;
     @Column(name = "unit_price", length = 10)
     private double unitPrice;
+    @Column(name = "unit_weight", length = 10)
+    private Double unitWeight;
     @Column(name = "unit_in_stock", length = 11)
     private int unitsInStock;
     @Column(name = "unit_on_order", length = 10)

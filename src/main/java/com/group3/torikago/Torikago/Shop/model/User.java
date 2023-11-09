@@ -48,7 +48,7 @@ public class User {
     @JoinColumn(name = "role", referencedColumnName = "name")
     private Role role;
     @OneToMany(mappedBy = "userOrder")
-    private List<BirdCageOrder> birdCageOrders;
+    private List<Order> birdCageOrders;
     @Enumerated(EnumType.STRING)
     @Column(name = "oauth_provider", length = 15)
     private AuthenticationProvider authProvider;

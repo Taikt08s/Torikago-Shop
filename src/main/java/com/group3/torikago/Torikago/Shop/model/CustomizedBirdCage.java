@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "CustomizedBirdCage")
+@Table(name = "customized_bird_cage")
 public class CustomizedBirdCage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

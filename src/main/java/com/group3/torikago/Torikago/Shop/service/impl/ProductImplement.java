@@ -40,33 +40,13 @@ public class ProductImplement implements ProductService {
                 .extraImage3(product.getExtraImage3())
                 .status(product.getStatus())
                 .unitPrice(product.getUnitPrice())
+                .unitWeight(product.getUnitWeight())
                 .unitsOnOrder(product.getUnitsOnOrder())
                 .unitsInStock(product.getUnitsInStock())
                 .featureProduct(product.getFeatureProduct())
                 .build();
         return productDTO;
     }
-
-
-//    @Override
-//    public Product saveProduct(ProductDTO productDTO) {
-//        Product product = mapToProduct(productDTO);
-//        return productRepository.save(product);
-//    }
-
-
-//    @Override
-//    public void updateProduct(ProductDTO productDTO) {
-////        Product product=mapToProduct(productDTO);
-////        productRepository.save(product);
-//    }
-
-
-//    @Override
-//    public void deleteProduct(Long productId) {
-////        productRepository.deleteById(productId);
-//    }
-
 
     @Override
     public Page<ProductDTO> findPaginatedProducts(int pageNumber, int pageSize, String sortField, String sortDir,String keyword) {
@@ -128,6 +108,7 @@ public class ProductImplement implements ProductService {
                 .extraImage3(productDTO.getExtraImage3())
                 .status(productDTO.getStatus())
                 .unitPrice(productDTO.getUnitPrice())
+                .unitWeight(productDTO.getUnitWeight())
                 .unitsOnOrder(productDTO.getUnitsOnOrder())
                 .unitsInStock(productDTO.getUnitsInStock())
                 .featureProduct(productDTO.getFeatureProduct())

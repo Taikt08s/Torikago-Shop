@@ -47,7 +47,7 @@
                 <span>Managers</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" th:href="@{/admin/users-table}">
                 <i class="fas fa-fw fa-user-shield"></i>
                 <span>Users</span></a>
         </li>
@@ -233,6 +233,17 @@
                                                         </label>
                                                     </div>
                                                 </div>
+                                                <div class="form-group" style="margin-bottom: 20px;">
+                                                    <label>Product Weight(kg)</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control form-control-user"
+                                                        id="productWeight"
+                                                        name="productWeight"
+                                                        maxlength="10"
+                                                        placeholder="Enter weight"
+                                                        th:field="*{birdCage.unitWeight}"/>
+                                                </div>
                                                 <div class="form-group row">
                                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                                         <label>Dimension</label>
@@ -326,7 +337,7 @@
                                                             style="height: 500px;"
                                                             id="description"
                                                             name="description"
-                                                            maxlength="200"
+                                                            maxlength="2000"
                                                             placeholder="Description..."
                                                             th:field="*{birdCageDetail.description}">
                                                 </textarea>

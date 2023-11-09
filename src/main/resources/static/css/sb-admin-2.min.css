@@ -11586,3 +11586,76 @@ footer.bg-white.py-4.mt-auto {
         font-size: 14px;
     }
 }
+
+.overlay-cart {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+#addToCartMessageSuccess {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+    z-index: 10000;
+}
+
+#addToCartMessageFailed {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+    z-index: 10000;
+}
+.button-line-container {
+    position: relative;
+    display: flex;
+}
+
+.button-with-line {
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.selected-line {
+    height: 2px;
+    background-color: #4e73df;
+    position: absolute;
+    bottom: 0;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+
+.button-with-line.selected {
+    color: #4e73df;
+}
+.expanded-row {
+    display: none;
+}
+
+.expanded-row.show {
+    display: table-row;
+}
+
+.toggle-button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 20px;
+}
+
+.toggle-button i {
+    transition: transform 0.3s;
+}
+
+.expanded-row.show + .expandable-row .toggle-button i {
+    transform: rotate(180deg);
+}

@@ -1,11 +1,11 @@
 package com.group3.torikago.Torikago.Shop.service.impl;
 
-import com.group3.torikago.Torikago.Shop.model.BirdCageOrder;
+import com.group3.torikago.Torikago.Shop.model.Order;
 import com.group3.torikago.Torikago.Shop.model.OrderDetails;
 import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.User;
-import com.group3.torikago.Torikago.Shop.repository.BirdCageOrderRepository;
-import com.group3.torikago.Torikago.Shop.repository.OrderItemRepository;
+import com.group3.torikago.Torikago.Shop.repository.OrderDetailsRepository;
+import com.group3.torikago.Torikago.Shop.repository.OrderRepository;
 import com.group3.torikago.Torikago.Shop.repository.UserRepository;
 import com.group3.torikago.Torikago.Shop.service.DashBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +20,26 @@ public class DashBoardImplement implements DashBoardService {
 
     private UserRepository userRepository;
 
-    private BirdCageOrderRepository birdCageOrderRepository;
+    private OrderRepository orderRepository;
 
-    private OrderItemRepository orderItemRepository;
+    private OrderDetailsRepository orderDetailsRepository;
     public DashBoardImplement(){}
 
     @Autowired
-    public DashBoardImplement(UserRepository userRepository, BirdCageOrderRepository birdCageOrderRepository, OrderItemRepository orderItemRepository){
-        this.birdCageOrderRepository = birdCageOrderRepository;
+    public DashBoardImplement(UserRepository userRepository, OrderRepository orderRepository, OrderDetailsRepository orderDetailsRepository){
+        this.orderRepository = orderRepository;
         this.userRepository = userRepository;
-        this.orderItemRepository = orderItemRepository;
+        this.orderDetailsRepository = orderDetailsRepository;
     }
     @Override
     public double Revenue() {
         double result = 0;
-        List<BirdCageOrder> list = birdCageOrderRepository.findAll();
-        for(BirdCageOrder birdCageOrder : list){
-            result += birdCageOrder.getOrderValue();
+        List<Order> list = orderRepository.findAll();
+
+        for(Order order : list){
+            if(order.getStatus().equals("Delivered")){
+                result += order.getOrderValue();
+            }
         }
         return result;
     }
@@ -46,23 +49,25 @@ public class DashBoardImplement implements DashBoardService {
         Product product1 = null;
         int max = 0;
         HashMap<Product, Integer> myHashMap = new HashMap<Product, Integer>();
-        List<BirdCageOrder> orderList= birdCageOrderRepository.findAll();
-        List<OrderDetails> orderDetailsList = orderItemRepository.findAll();
-        for(BirdCageOrder birdCageOrder : orderList){
-            if(birdCageOrder.getOrderDate().getMonth() == LocalDateTime.now().getMonth() &&
-               birdCageOrder.getOrderDate().getYear() == LocalDateTime.now().getYear()){
-                for(OrderDetails orderDetails : orderDetailsList){
-                    if(orderDetails.getOrder().getOrderId() == birdCageOrder.getOrderId()){
-                        boolean flag = false;
-                        if(!myHashMap.containsKey(orderDetails.getProduct())){
-                            myHashMap.put(orderDetails.getProduct(), orderDetails.getQuantity());
+        List<Order> orderList= orderRepository.findAll();
+        List<OrderDetails> orderDetailsList = orderDetailsRepository.findAll();
+        for(Order order : orderList){
+            if(order.getStatus().equals("Delivered")){
+                if(order.getOrderDate().getMonth() == LocalDateTime.now().getMonth() &&
+                        order.getOrderDate().getYear() == LocalDateTime.now().getYear()){
+                    for(OrderDetails orderDetails : orderDetailsList){
+                        if(orderDetails.getOrder().getId() == order.getId()){
+                            boolean flag = false;
+                            if(!myHashMap.containsKey(orderDetails.getProduct())){
+                                myHashMap.put(orderDetails.getProduct(), orderDetails.getQuantity());
+                            }else{
+                                flag = true;
+                                //update lại hashmap
+                                myHashMap.put(orderDetails.getProduct(), myHashMap.get(orderDetails.getProduct()) + orderDetails.getQuantity());
+                            }
                         }else{
-                            flag = true;
-                            //update lại hashmap
-                            myHashMap.put(orderDetails.getProduct(), myHashMap.get(orderDetails.getProduct()) + orderDetails.getQuantity());
-                        }
-                    }else{
 
+                        }
                     }
                 }
             }
@@ -92,10 +97,10 @@ public class DashBoardImplement implements DashBoardService {
     @Override
     public int TotalOrders() {
         int count = 0;
-        List<BirdCageOrder> list = birdCageOrderRepository.findAll();
-        for(BirdCageOrder birdCageOrder : list){
-            if(birdCageOrder.getOrderDate().getMonth() == LocalDateTime.now().getMonth() &&
-                    birdCageOrder.getOrderDate().getYear() == LocalDateTime.now().getYear()){
+        List<Order> list = orderRepository.findAll();
+        for(Order order : list){
+            if(order.getOrderDate().getMonth() == LocalDateTime.now().getMonth() &&
+                    order.getOrderDate().getYear() == LocalDateTime.now().getYear()){
                 count ++;
             }
         }

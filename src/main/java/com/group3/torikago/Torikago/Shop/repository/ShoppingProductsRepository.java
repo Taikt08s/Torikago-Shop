@@ -20,11 +20,10 @@ public interface ShoppingProductsRepository extends JpaRepository<Product, Long>
     @Query("SELECT p FROM Product p WHERE " +
             "(p.unitPrice >= :priceFrom OR :priceFrom IS NULL) AND " +
             "(p.unitPrice <= :priceTo OR :priceTo IS NULL) AND " +
-            "p.productName LIKE %:search% AND " +
-            "(p.productType LIKE '%Accessory%' OR p.productType LIKE '%Bird%')")
-    Page<Product> findAllByPriceRange(@Param("search") String search,
-                                      @Param("priceFrom") Double priceFrom,
+            "(p.productType LIKE CONCAT('%', :type, '%') OR :type IS NULL)")
+    Page<Product> findAllByPriceRangeAndType(@Param("priceFrom") Double priceFrom,
                                       @Param("priceTo") Double priceTo,
+                                      @Param("type") String type,
                                       Pageable pageable);
 
     @Query("SELECT p FROM Product p " +

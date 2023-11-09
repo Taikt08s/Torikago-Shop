@@ -10,13 +10,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Torikago Shop</title>
-    <link rel="icon" type="image/x-icon" href="img/Arisu_(Maid).png"/>
-    <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
-    <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" th:src="@{/img/Arisu_(Maid).png}"/>
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome-free/css/all.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
     <script>
         "use strict";
         !function () {
@@ -52,9 +51,9 @@
             <div class="card shadow mb-4">
                 <div class="card-body">
                     <div class="card">
-                        <a class="nav-link " th:href="@{/profile}" id="userDropdown">
+                        <a class="nav-link " th:href="@{/user/profile}" id="userDropdown">
                             <img class="img-profile rounded-circle w-25"
-                                 src="img/undraw_profile.svg">
+                                 th:src="@{/img/undraw_profile.svg}">
                             <span class=" d-none d-lg-inline text-gray-600 small"
                                   th:text="${#authentication.name}"></span>
                         </a>
@@ -68,9 +67,9 @@
                             <i class="fas fa-key"></i>
                             <a class="text-decoration-none" th:href="@{/user/profile/password}">Change Password</a>
                         </li>
-                        <li class="list-group-item text-gray-700" href="">
+                        <li class="list-group-item text-gray-700">
                             <i class="fas fa-receipt"></i>
-                            <a>Order History</a>
+                            <a class="text-decoration-none" th:href="@{/user/purchase}">Order History</a>
                         </li>
                     </ul>
                 </div>
@@ -80,7 +79,7 @@
             <div class="card shadow">
                 <div class="card-body p-5">
                     <div class="text-left">
-                        <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-user-cog"></i> My profile</h1>
+                        <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-user-cog"></i> Account Information</h1>
                     </div>
                     <div th:if="${param.success}" class="alert alert-success">
                         Information Updated
@@ -211,10 +210,10 @@
 </div>
 </body>
 <div th:insert="~{user-layout :: footer}"></div>
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="js/sb-admin-2.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
 </html>
