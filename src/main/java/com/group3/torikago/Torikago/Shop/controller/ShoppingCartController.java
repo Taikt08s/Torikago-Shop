@@ -1,12 +1,8 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
-import com.group3.torikago.Torikago.Shop.model.BirdCageDetail;
-import com.group3.torikago.Torikago.Shop.model.CartItems;
-import com.group3.torikago.Torikago.Shop.model.CustomizedBirdCage;
-import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.model.*;
 import com.group3.torikago.Torikago.Shop.service.*;
-import com.group3.torikago.Torikago.Shop.model.Product;
 import com.group3.torikago.Torikago.Shop.model.User;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
@@ -30,14 +26,15 @@ public class ShoppingCartController {
     private UserService userService;
     private ProductService productService;
     private CustomizedBirdCageService customizedBirdCageService;
+    private VoucherService voucherService;
 
     @Autowired
-    public ShoppingCartController(ShoppingCartService shoppingCartService, UserService userService,
-                                  CustomizedBirdCageService customizedBirdCageService, ProductService productService) {
-        this.shoppingCartServices = shoppingCartService;
+    public ShoppingCartController(ShoppingCartService shoppingCartServices, UserService userService, ProductService productService, CustomizedBirdCageService customizedBirdCageService, VoucherService voucherService) {
+        this.shoppingCartServices = shoppingCartServices;
         this.userService = userService;
-        this.customizedBirdCageService = customizedBirdCageService;
         this.productService = productService;
+        this.customizedBirdCageService = customizedBirdCageService;
+        this.voucherService = voucherService;
     }
 
     @GetMapping("/torikago/cart")
@@ -89,6 +86,7 @@ public class ShoppingCartController {
         String email = myUserDetails.getUsername();
         User user = userService.findByEmail(email);
         List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+        List<Voucher> vouchers = voucherService.findAllVouchers();
         if (cartItems.size() != 0) {
             String errorUrl = "";
             double orderWeight = 0;
@@ -108,6 +106,8 @@ public class ShoppingCartController {
                         shippingFee += 5000 * (int) orderWeight * 2 - 5000;
                     }
                 }
+
+                model.addAttribute("vouchers", vouchers);
                 model.addAttribute("shippingFee", shippingFee);
                 model.addAttribute("cartItems", cartItems);
                 model.addAttribute("user", user);
