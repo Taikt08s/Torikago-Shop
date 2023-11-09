@@ -13,6 +13,7 @@ import com.group3.torikago.Torikago.Shop.repository.OrderDetailsRepository;
 import com.group3.torikago.Torikago.Shop.repository.OrderRepository;
 import com.group3.torikago.Torikago.Shop.service.OrderService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -123,5 +124,12 @@ public class OrderImplement implements OrderService{
     @Override
     public int totalCancelledOrders() {
         return orderRepository.findAllCancelledOrders().size();
+    }
+
+    @Override
+    public void editOrderStatus(Long orderId, String status) {
+         Order order = orderRepository.findById(orderId).get();
+         order.setStatus(status);
+         orderRepository.save(order);
     }
 }

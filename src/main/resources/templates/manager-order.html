@@ -245,14 +245,14 @@
                         </td>
                         <td>
                             <div class="dropdown mb-4">
-                                <form>
-                                    <button class="btn btn-sm dropdown-toggle rounded-pill" type="button"
+                                <form th:action="@{/manager/orders/{orderId}(orderId = ${order.id})}" method="post" th:id="'statusForm_'+${order.id}">
+<!--                                    <button class="btn btn-sm dropdown-toggle rounded-pill" type="button"
                                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                         <span id="selectedOption">Default Status</span>
-                                    </button>
-                                    <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Default Status')">Default
+                                    </button>-->
+                                    <!--<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">-->
+<!--                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Default Status')">Default
                                             Status</a>
                                         <a class="dropdown-item" href="#"
                                            onclick="updateDropdown('Pending')">Pending</a>
@@ -260,8 +260,21 @@
                                         <a class="dropdown-item" href="#"
                                            onclick="updateDropdown('Shipping')">Shipping</a>
                                         <a class="dropdown-item" href="#" onclick="updateDropdown('Delivered')">Delivered</a>
-                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Cancelled')">Cancelled</a>
-                                    </div>
+                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Cancelled')">Cancelled</a>-->                                          
+                                    <!--</div>-->
+                                    <select class="form-select" id="status" name="orderStatus" th:onchange="'submitForm(\'' + ${order.id} + '\')'">
+                                        <option value="Pending"
+                                                th:selected="${order.status == 'Pending'}">Pending</option>
+                                        <option value="Processing"
+                                                th:selected="${order.status == 'Processing'}">Processing</option>
+                                        <option value="Shipping"
+                                                th:selected="${order.status == 'Shipping'}">Shipping</option>
+                                        <option value="Delivered"
+                                                th:selected="${order.status == 'Delivered'}">Delivered</option>
+                                        <option value="Cancelled"
+                                                th:selected="${order.status == 'Cancelled'}">Cancelled</option>
+                                    </select>
+                                    <input type="hidden" name="previousUrl" id="previousUrl">
                                 </form>
                             </div>
                         </td>
@@ -281,9 +294,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Qty</th>
-                                        <th scope="col">Disc.</th>
                                         <th scope="col">Total</th>
-                                        <th scope="col"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -309,14 +320,12 @@
                                             </p>
                                         </td>
                                         <td>
-                                        </td>
-                                        <td>
                                             <p class="text-gray-800 mt-4"
                                                th:text="'₫'+ ${#numbers.formatDecimal(order_detail.unitPrice, 0, 'POINT', 0, 'POINT')}">
                                             </p>
                                         </td>
                                     </tr>
-<!--                                    <tr th:object="${order}">
+                                    <tr th:object="${order}">
                                         <th scope="row">Full name</th>
                                         <td>
                                             <p class="text-gray-900 font-weight-bold"
@@ -324,7 +333,11 @@
                                         </td>
                                         <td>Subtotal:</td>
                                         <td></td>
-                                        <td></td>
+                                        <td>
+                                            <p class="font-weight-bold text-gray-900"
+                                               th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue - order.shippingFee, 0, 'POINT', 0, 'POINT')}">
+                                            </p>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Address</th>
@@ -334,7 +347,6 @@
                                             </p>
                                         </td>
                                         <td>Shipping:</td>
-                                        <td></td>
                                         <td></td>
                                         <td>
                                             <p class="font-weight-bold text-gray-900"
@@ -351,26 +363,20 @@
                                         <td>Discount:</td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                     </tr>
                                     <tr>
                                         <th scope="row"></th>
-                                        <td>
-                                            <a class="btn btn-primary btn-sm">
-                                                Edit Information
-                                            </a>
-                                        </td>
-                                        <td><p class="font-weight-bold text-gray-900">Total:</p></td>
                                         <td></td>
+                                        <td><p class="font-weight-bold text-gray-900">Total:</p></td>
                                         <td></td>
                                         <td><p class="font-weight-bold text-gray-900"
                                                th:text="' ₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"
                                                th:classappend="${order.paymentMethod == 'VNPay'} ? 'strike-through' : ''">
                                         </p></td>
-                                    </tr>-->
+                                    </tr>
                                     </tbody>
                                 </table>
-                                <form>
+<!--                                <form>
                                     <div class="row">
                                         <div style="display: inline-block;">Full name:</div>
                                         <div style="display: inline-block; margin-left: 20px;">[[${order.userOrder.fname + '  ' + order.userOrder.lname}]]</div>
@@ -390,7 +396,7 @@
                                         <button type="submit">Save</button>
                                         <div style="display: inline-block; margin-right: 20px;">Total:[[${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}]]</div>
                                     </div>
-                                </form>
+                                </form>-->
                             </div>
                         </td>
                     </tr>
@@ -454,6 +460,16 @@
 
     function updateDropdown(status) {
         document.getElementById('selectedOption').innerText = status;
+    }
+    
+    function submitForm(orderId) {
+        document.getElementById('statusForm_' + orderId).submit();
+    }
+    
+//    document.getElementById('previousUrl').value = window.location.href;
+    var elements = document.querySelectorAll('input[id="previousUrl"]');
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].value = window.location.href;
     }
 </script>
 <style>

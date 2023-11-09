@@ -24,4 +24,6 @@ public interface OrderService {
     int totalDeliveredOrders();
     
     int totalCancelledOrders();
+    
+    void editOrderStatus(Long orderId, String status);
 }
