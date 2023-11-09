@@ -57,6 +57,9 @@
         </div>
         <div class="container-fluid">
             <div class="table-container" style="padding-bottom: 500px;">
+                <div th:if="${param.success}" class="alert alert-success">
+                    User information updated successfully.
+                </div>
                 <h1 class="h3 mb-2 text-gray-800">Torikago Users</h1>
                 <div class="card shadow mb-4">
                     <div class="d-flex justify-content-between card-header py-3">

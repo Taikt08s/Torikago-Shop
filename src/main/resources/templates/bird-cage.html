@@ -235,14 +235,6 @@
                                                             <option value="64x81x89">64x81x89</option>
                                                             <option value="89x100x130">89x100x130</option>
                                                         </select>
-<!--                                                        <input type="text"-->
-<!--                                                               class="form-control form-control-user"-->
-<!--                                                               id="dimension"-->
-<!--                                                               name="dimension"-->
-<!--                                                               maxlength="50"-->
-<!--                                                               placeholder="Dimension (e.g. 61cm x 91.5cm x 122cm)"-->
-<!--                                                               th:field="*{birdCageDetail.dimension}">-->
-
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label>Cage Shape</label>
@@ -292,7 +284,7 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.material')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.material}"></label>
-                                                        <select class="form-select" th:field="*{birdCageDetail.material}" id="material">
+                                                        <select class="ml-3 btn btn-sm rounded-pill form-select" th:field="*{birdCageDetail.material}" id="material">
                                                             <option value="wood" selected>Wood</option>
                                                             <option value="aluminum">Aluminum</option>
                                                             <option value="steel">Steel</option>
@@ -300,11 +292,11 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <label>Color</label>
+                                                        <label>Color </label>
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.color')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.color}"></label>
-                                                        <select class="form-select" th:field="*{birdCageDetail.color}" id="color">
+                                                        <select class="ml-3 btn btn-sm rounded-pill form-select" th:field="*{birdCageDetail.color}" id="color">
                                                             <option value="black" selected>Black</option>
                                                             <option value="white" selected>White</option>
                                                             <option value="red" selected>Red</option>

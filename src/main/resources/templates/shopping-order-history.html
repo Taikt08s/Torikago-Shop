@@ -132,9 +132,6 @@
                                     <p>Status: <span class="btn btn-danger btn-sm" th:text="${order.status}"></span></p>
                                 </div>
                             </div>
-                            <div th:if="${order.status == 'Delivered'}">
-                                <a class="btn btn-outline-primary">Review</a>
-                            </div>
                             <button class="ml-auto toggle-button" onclick="toggleExpansion(this)"
                                     th:if="${order.status == 'Pending'}">
                                 <div style="display: flex; align-items: center;">
@@ -202,9 +199,6 @@
                                     <p>Status: <span class="btn btn-warning btn-sm" th:text="${order.status}"></span>
                                     </p>
                                 </div>
-                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
-                                    <a class="btn btn-outline-primary">Review</a>
-                                </div>
                                 <button class="ml-auto toggle-button" onclick="toggleExpansion(this)"
                                         th:if="${order.status == 'Pending'}">
                                     <div style="display: flex; align-items: center;">
@@ -270,9 +264,6 @@
                                 <div class=" mt-4">
                                     <p>Status: <span class="btn btn-info btn-sm" th:text="${order.status}"></span></p>
                                 </div>
-                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
-                                    <a class="btn btn-outline-primary">Review</a>
-                                </div>
                                 <div class="ml-auto">
                                     <h6>Total:</h6>
                                     <h5 class="text-danger"
@@ -307,9 +298,6 @@
                                 <div class=" mt-4">
                                     <p>Status: <span class="btn btn-primary btn-sm" th:text="${order.status}"></span>
                                     </p>
-                                </div>
-                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
-                                    <a class="btn btn-outline-primary">Review</a>
                                 </div>
                                 <div class="ml-auto">
                                     <h6>Total:</h6>
@@ -346,9 +334,6 @@
                                     <p>Status: <span class="btn btn-success btn-sm" th:text="${order.status}"></span>
                                     </p>
                                 </div>
-                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
-                                    <a class="btn btn-outline-primary">Review</a>
-                                </div>
                                 <div class="ml-auto">
                                     <h6>Total:</h6>
                                     <h5 class="text-danger"
@@ -382,9 +367,6 @@
                             <div class="d-flex">
                                 <div class=" mt-4">
                                     <p>Status: <span class="btn btn-danger btn-sm" th:text="${order.status}"></span></p>
-                                </div>
-                                <div th:if="${order.status == 'Delivered'}" class="ml-auto mt-3">
-                                    <a class="btn btn-outline-primary">Review</a>
                                 </div>
                                 <div class="ml-auto">
                                     <h6>Total:</h6>

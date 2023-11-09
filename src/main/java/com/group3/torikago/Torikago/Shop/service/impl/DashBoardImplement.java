@@ -84,13 +84,13 @@ public class DashBoardImplement implements DashBoardService {
     @Override
     public int NewUsers() {
         int count = 0;
-        List<User> list = userRepository.findAll();
-        for(User user : list){
-            if(user.getCreateDate().getMonth() == LocalDateTime.now().getMonth() &&
-                user.getCreateDate().getYear() == LocalDateTime.now().getYear()){
-                count ++;
-            }
-        }
+//        List<User> list = userRepository.findAll();
+//        for(User user : list){
+//            if(user.getCreateDate().getMonth() == LocalDateTime.now().getMonth() &&
+//                user.getCreateDate().getYear() == LocalDateTime.now().getYear()){
+//                count ++;
+//            };
+//        }
         return count;
     }
 
