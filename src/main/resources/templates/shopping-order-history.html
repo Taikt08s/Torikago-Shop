@@ -158,6 +158,7 @@
                                        id="address"
                                        name="address"
                                        maxlength="250"
+                                       th:value="${order.userOrder.address}"
                                        placeholder="Address...">
                             </div>
                             <div class="form-group">
@@ -166,6 +167,7 @@
                                        id="phone"
                                        name="phone"
                                        maxlength="11"
+                                       th:value="${order.userOrder.phoneNumber}"
                                        placeholder="Phone...">
                             </div>
                             <a class="btn btn-outline-primary btn-user btn-block">

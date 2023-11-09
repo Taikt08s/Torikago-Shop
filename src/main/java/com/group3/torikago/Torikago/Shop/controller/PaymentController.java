@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -36,16 +37,16 @@ public class PaymentController {
 
     @Autowired
     public PaymentController(UserService userService, OrderService orderService,
-            ShoppingCartService shoppingCartService, ProductService productService,JavaMailSender mailSender) {
+                             ShoppingCartService shoppingCartService, ProductService productService, JavaMailSender mailSender) {
         this.userService = userService;
         this.orderService = orderService;
         this.shoppingCartService = shoppingCartService;
         this.productService = productService;
-        this.mailSender=mailSender;
+        this.mailSender = mailSender;
     }
-    
+
     @GetMapping("/torikago/payment/vnpay")
-    public String getPaymentVNPay(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) 
+    public String getPaymentVNPay(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails)
             throws UnsupportedEncodingException {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
@@ -58,14 +59,14 @@ public class PaymentController {
             orderWeight += product.getUnitWeight() * cartItem.getQuantity();
         }
         double shippingFee = 32000;
-            if (orderWeight > 0.5){
-                if (orderWeight * 2 - (int)orderWeight * 2 != 0) {
-                    shippingFee += 5000 * (int)orderWeight * 2;
-                } else {
-                    shippingFee += 5000 * (int)orderWeight * 2 - 5000;
-                }
+        if (orderWeight > 0.5) {
+            if (orderWeight * 2 - (int) orderWeight * 2 != 0) {
+                shippingFee += 5000 * (int) orderWeight * 2;
+            } else {
+                shippingFee += 5000 * (int) orderWeight * 2 - 5000;
             }
-        totalPrice += shippingFee;  
+        }
+        totalPrice += shippingFee;
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
@@ -137,64 +138,60 @@ public class PaymentController {
         String paymentUrl = PaymentConfig.vnp_PayUrl + "?" + queryUrl;
         return "redirect:" + paymentUrl;
     }
-    
+
     @GetMapping("/torikago/payment/vnpay/info")
     public String saveOrderInfoVNPay(@RequestParam("vnp_Amount") String orderValue,
-                                  @RequestParam("vnp_ResponseCode") String rspCode,
-                                  @RequestParam("vnp_OrderInfo") String orderInfo,
-                                  @RequestParam("vnp_TransactionStatus") String tranStatus,
-                                  @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails){
+                                     @RequestParam("vnp_ResponseCode") String rspCode,
+                                     @RequestParam("vnp_OrderInfo") String orderInfo,
+                                     @RequestParam("vnp_TransactionStatus") String tranStatus,
+                                     @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         if (rspCode.equals("00")) {
-        String userName = myUserDetails.getUsername();
-        User user = userService.findByEmail(userName);       
-        orderService.saveOrderVNPay(user, orderValue);
-        return "redirect:/torikago/payment/success";
+            String userName = myUserDetails.getUsername();
+            User user = userService.findByEmail(userName);
+            orderService.saveOrderVNPay(user, orderValue);
+            return "redirect:/torikago/payment/success";
         } else {
             return "redirect:/torikago/payment/fail";
-        }        
+        }
     }
-    
+
     @GetMapping("/torikago/payment/cod")
     public String saveOrderInfoCod(@RequestParam("amount") String orderValue,
-                                  @RequestParam("shipping_Fee") String shippingFee,
-                                  @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails){
+                                   @RequestParam("shipping_Fee") String shippingFee,
+                                   @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails) {
         String userName = myUserDetails.getUsername();
-        User user = userService.findByEmail(userName);       
+        User user = userService.findByEmail(userName);
         orderService.saveOrderCod(user, orderValue, shippingFee);
-        return "redirect:/torikago/payment/success";   
+        return "redirect:/torikago/payment/success";
     }
-    
+
     @GetMapping("/torikago/payment/success")
     public String showPaymentSuccess(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
                                      Model model) throws MessagingException {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
-        Order order=new Order();
+        Order order = new Order();
         List<CartItems> cartItems = shoppingCartService.listCartItems(user);
-
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("order", order);
         model.addAttribute("user", user);
-
         String mailSubject = " has ordered " + "2 cai gi do";
         String mailContent = "vui long order";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setFrom("styematic@gmail.com");
-        helper.setTo("nar9591@gmail.com");
+        helper.setFrom("styematic*gmail.com");
+        helper.setTo(myUserDetails.getUsername());
         helper.setSubject(mailSubject);
         helper.setText(mailContent, true);
-
         mailSender.send(message);
-
         return "shopping-order-success";
     }
-    
+
     @GetMapping("/torikago/payment/fail")
     public String showPaymentFail(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
-                                  Model model){
+                                  Model model) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         List<CartItems> cartItems = shoppingCartService.listCartItems(user);
