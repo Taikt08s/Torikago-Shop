@@ -97,14 +97,14 @@ public class AuthController {
         return "user-profile";
     }
 
-    @PostMapping("/profile")
+    @PostMapping("/user/profile")
     public String saveUser(User user, HttpSession session) {
         userService.updateAccountOfUser(user);
         user.setFname(user.getFname());
         user.setLname(user.getLname());
         session.setAttribute("updateInformationTime", LocalDateTime.now());
         session.setAttribute("updateProfileSuccess", "Profile information updated");
-        return "redirect:/profile?success";
+        return "redirect:/user/profile?success";
     }
 
     @GetMapping("/user/profile/password")

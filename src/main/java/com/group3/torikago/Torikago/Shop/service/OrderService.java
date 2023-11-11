@@ -26,6 +26,6 @@ public interface OrderService {
     int totalCancelledOrders();
     
     void editOrderStatus(Long orderId, String status);
-    
+
     Order findByOrderId(Long id);
 }

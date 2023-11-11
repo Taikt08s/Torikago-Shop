@@ -24,6 +24,5 @@ public class OrderDetails {
     @Column(name = "quantity", length = 10)
     private int quantity;
     @Column(name = "unit_price", length = 10)
-    private double unitPrice; 
-    
+    private double unitPrice;
 }

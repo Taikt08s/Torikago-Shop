@@ -4,10 +4,7 @@ import com.group3.torikago.Torikago.Shop.dto.AccessoryDTO;
 import com.group3.torikago.Torikago.Shop.dto.BirdCageDTO;
 import com.group3.torikago.Torikago.Shop.dto.ProductDTO;
 import com.group3.torikago.Torikago.Shop.model.*;
-import com.group3.torikago.Torikago.Shop.service.AccessoryService;
-import com.group3.torikago.Torikago.Shop.service.BirdCageService;
-import com.group3.torikago.Torikago.Shop.service.ProductService;
-import com.group3.torikago.Torikago.Shop.service.UserService;
+import com.group3.torikago.Torikago.Shop.service.*;
 import com.group3.torikago.Torikago.Shop.util.CloudinaryUpload;
 import com.group3.torikago.Torikago.Shop.util.FileUploadUtil;
 import jakarta.annotation.security.RolesAllowed;
@@ -30,10 +27,19 @@ import java.util.List;
 public class AdminController {
     @GetMapping("/admin")
     @RolesAllowed({"ADMIN"})
-    public String adminPage() {
+    public String adminPage(Model model) {
+        double revenue = dashBoardService.Revenue();
+        Product bestSeller = dashBoardService.BestSeller();
+        int newUsers = dashBoardService.NewUsers();
+        int totalOrders = dashBoardService.TotalOrders();
+        model.addAttribute("Revenue", revenue);
+        model.addAttribute("BestSeller", bestSeller);
+        model.addAttribute("NewUsers", newUsers);
+        model.addAttribute("TotalOrders", totalOrders);
         return "admin-dashboard";
     }
 
+    private DashBoardService dashBoardService;
     private ProductService productService;
     private UserService userService;
     private BirdCageService birdCageService;
@@ -43,13 +49,14 @@ public class AdminController {
     private CloudinaryUpload cloudinaryUpload;
 
     @Autowired
-    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService, AccessoryService accessoryService, PasswordEncoder passwordEncoder, CloudinaryUpload cloudinaryUpload) {
+    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService, AccessoryService accessoryService, PasswordEncoder passwordEncoder, CloudinaryUpload cloudinaryUpload, DashBoardService dashBoardService) {
         this.productService = productService;
         this.userService = userService;
         this.birdCageService = birdCageService;
         this.accessoryService = accessoryService;
         this.passwordEncoder = passwordEncoder;
         this.cloudinaryUpload = cloudinaryUpload;
+        this.dashBoardService = dashBoardService;
     }
 
     @GetMapping("/admin/product-table")
@@ -115,7 +122,7 @@ public class AdminController {
         productDTO.setUnitsOnOrder(0);
 
         birdCageService.saveBirdCage(birdCageDTO, productDTO);
-        return "redirect:/admin/product-table";
+        return "redirect:/admin/product-table?success";
     }
 
 
@@ -166,7 +173,7 @@ public class AdminController {
         accessoryService.saveAccessory(accessoryDTO, productDTO);
 
 
-        return "redirect:/admin/product-table";
+        return "redirect:/admin/product-table?success";
     }
 
     @GetMapping("/admin/product-table/{productType}/{productId}/edit")
@@ -272,7 +279,6 @@ public class AdminController {
         productDTO.setId(productId);
         productDTO.setProductType("Bird Cage");
         productDTO.setUnitsOnOrder(birdCageDetail.getBirdCage().getUnitsOnOrder());
-
         birdCageService.updateBirdCage(birdCageDTO, productDTO);
         return "redirect:/admin/product-table";
     }
@@ -306,7 +312,7 @@ public class AdminController {
     @PostMapping("/users/save")
     public String saveUserEditedByAdmin(User user) {
         userService.saveUserEditedByAdmin(user);
-        return "redirect:/admin/users-table";
+        return "redirect:/admin/users-table?success";
     }
 }
 

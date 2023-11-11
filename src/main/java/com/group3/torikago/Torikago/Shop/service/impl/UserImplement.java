@@ -149,6 +149,7 @@ public class UserImplement implements UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
         }
+        userRepository.save(user);
     }
 
     @Override

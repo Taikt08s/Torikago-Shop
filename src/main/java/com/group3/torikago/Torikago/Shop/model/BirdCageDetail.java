@@ -5,12 +5,10 @@
 package com.group3.torikago.Torikago.Shop.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -32,6 +30,10 @@ public class BirdCageDetail {
     private double barSpacing;
     @Column(name = "bird_wingspan", length = 10)
     private double birdWingSpan;
+    @Column(name = "material", length = 50)
+    private String material;
+    @Column(name = "color", length = 50)
+    private String color;
     @Column(name = "description", length = 2000)
     private String description;
 }

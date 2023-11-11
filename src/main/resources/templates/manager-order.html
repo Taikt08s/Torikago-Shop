@@ -179,22 +179,22 @@
             </div>
         </div>
         <div class="p-3">
-                <div class="card card-body shadow">
-                    <h3 class="font-weight-bolder">Orders</h3>
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small"
-                                   name="keyword"
-                                   placeholder="Search for..."
-                                   aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
+            <div class="card card-body shadow">
+                <h3 class="font-weight-bolder">Orders</h3>
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small"
+                               name="keyword"
+                               placeholder="Search for..."
+                               aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+            </div>
             <div class="card card-body mt-3 shadow">
                 <div style="padding-bottom: 500px;">
                     <table class="table">
@@ -247,37 +247,28 @@
                             </td>
                             <td>
                                 <div class="dropdown mb-4">
-                                    <form th:action="@{/manager/orders/{orderId}(orderId = ${order.id})}" method="post" th:id="'statusForm_'+${order.id}">
-<!--                                    <button class="btn btn-sm dropdown-toggle rounded-pill" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <span id="selectedOption">Default Status</span>
-                                    </button>-->
-                                    <!--<div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">-->
-<!--                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Default Status')">Default
-                                            Status</a>
-                                        <a class="dropdown-item" href="#"
-                                           onclick="updateDropdown('Pending')">Pending</a>
-                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Processing')">Processing</a>
-                                        <a class="dropdown-item" href="#"
-                                           onclick="updateDropdown('Shipping')">Shipping</a>
-                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Delivered')">Delivered</a>
-                                        <a class="dropdown-item" href="#" onclick="updateDropdown('Cancelled')">Cancelled</a>-->                                          
-                                    <!--</div>-->
-                                    <select class="form-select" id="status" name="orderStatus" th:onchange="'submitForm(\'' + ${order.id} + '\')'">
-                                        <option value="Pending"
-                                                th:selected="${order.status == 'Pending'}">Pending</option>
-                                        <option value="Processing"
-                                                th:selected="${order.status == 'Processing'}">Processing</option>
-                                        <option value="Shipping"
-                                                th:selected="${order.status == 'Shipping'}">Shipping</option>
-                                        <option value="Delivered"
-                                                th:selected="${order.status == 'Delivered'}">Delivered</option>
-                                        <option value="Cancelled"
-                                                th:selected="${order.status == 'Cancelled'}">Cancelled</option>
-                                    </select>
-                                    <input type="hidden" name="previousUrl" id="previousUrl">
-                                </form>
+                                    <form th:action="@{/manager/orders/{orderId}(orderId = ${order.id})}" method="post"
+                                          th:id="'statusForm_'+${order.id}">
+                                        <select class="btn btn-sm rounded-pill form-select" id="status"
+                                                name="orderStatus" th:onchange="'submitForm(\'' + ${order.id} + '\')'">
+                                            <option class="dropdown-item" value="Pending"
+                                                    th:selected="${order.status == 'Pending'}">Pending
+                                            </option>
+                                            <option class="dropdown-item" value="Processing"
+                                                    th:selected="${order.status == 'Processing'}">Processing
+                                            </option>
+                                            <option class="dropdown-item" value="Shipping"
+                                                    th:selected="${order.status == 'Shipping'}">Shipping
+                                            </option>
+                                            <option class="dropdown-item" value="Delivered"
+                                                    th:selected="${order.status == 'Delivered'}">Delivered
+                                            </option>
+                                            <option class="dropdown-item" value="Cancelled"
+                                                    th:selected="${order.status == 'Cancelled'}">Cancelled
+                                            </option>
+                                        </select>
+                                        <input type="hidden" name="previousUrl" id="previousUrl">
+                                    </form>
 
                                 </div>
                             </td>
@@ -372,17 +363,16 @@
                                         <tr>
                                             <th scope="row"></th>
                                             <td>
-                                                <a class="btn btn-primary btn-sm">
-                                                    Edit Information
-                                                </a>
                                             </td>
                                             <td><p class="font-weight-bold text-gray-900">Total:</p></td>
                                             <td></td>
                                             <td></td>
-                                            <td><p class="font-weight-bold text-gray-900"
+                                            <td>
+                                                <p class="font-weight-bold text-gray-900"
                                                    th:text="' ₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"
                                                    th:classappend="${order.paymentMethod == 'VNPay'} ? 'strike-through' : ''">
-                                            </p></td>
+                                                </p>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -451,12 +441,12 @@
     function updateDropdown(status) {
         document.getElementById('selectedOption').innerText = status;
     }
-    
-        function submitForm(orderId) {
+
+    function submitForm(orderId) {
         document.getElementById('statusForm_' + orderId).submit();
     }
-    
-//    document.getElementById('previousUrl').value = window.location.href;
+
+    //    document.getElementById('previousUrl').value = window.location.href;
     var elements = document.querySelectorAll('input[id="previousUrl"]');
     for (var i = 0; i < elements.length; i++) {
         elements[i].value = window.location.href;

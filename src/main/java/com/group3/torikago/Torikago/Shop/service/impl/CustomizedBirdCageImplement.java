@@ -46,6 +46,8 @@ public class CustomizedBirdCageImplement implements CustomizedBirdCageService {
                 .barSpacing(customizedBirdCageDTO.getBarSpacing())
                 .description(customizedBirdCageDTO.getDescription())
                 .status(customizedBirdCageDTO.getStatus())
+                .material(customizedBirdCageDTO.getMaterial())
+                .color(customizedBirdCageDTO.getColor())
                 .cartStatus(customizedBirdCageDTO.getCartStatus())
                 .build();
         customizedBirdCage.getCustomizedBirdCage().setId(null);

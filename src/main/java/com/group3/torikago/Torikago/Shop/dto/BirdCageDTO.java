@@ -27,6 +27,11 @@ public class BirdCageDTO {
     @Digits(integer = 3, fraction = 2, message = "Invalid number format")
     private double birdWingSpan;
     @NotEmpty(message = "*Required")
+    @Length(max = 50, message = "No more than 50 characters")
+    private String material;
+    @Length(max = 50, message = "No more than 50 characters")
+    private String color;
+    @NotEmpty(message = "*Required")
     @Length(max = 2000, message = "No more than 2000 characters")
     private String description;
 }
