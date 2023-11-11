@@ -36,7 +36,7 @@ public class OrderImplement implements OrderService{
     }
 
     @Override
-    public void saveOrderVNPay(User user, String orderValue) {
+    public Order saveOrderVNPay(User user, String orderValue) {
         Order newOrder = new Order();
         List<CartItems> listItems = cartItemRepository.findByUserId(user);
         newOrder.setOrderValue(Double.parseDouble(orderValue)/100);
@@ -49,7 +49,7 @@ public class OrderImplement implements OrderService{
             productPrice += listItem.getSubtotal();
         }
         newOrder.setShippingFee(Double.parseDouble(orderValue)/100 - productPrice);
-        orderRepository.save(newOrder);
+        Order order = orderRepository.save(newOrder);
         for (CartItems listItem : listItems) {
             OrderDetails orderDetails = new OrderDetails();
             orderDetails.setOrder(newOrder);
@@ -59,10 +59,11 @@ public class OrderImplement implements OrderService{
             orderDetailsRepository.save(orderDetails);
             cartItemRepository.delete(listItem);
         }
+        return order;
     }  
 
     @Override
-    public void saveOrderCod(User user, String orderValue, String shippingFee) {
+    public Order saveOrderCod(User user, String orderValue, String shippingFee) {
         Order newOrder = new Order();
         List<CartItems> listItems = cartItemRepository.findByUserId(user);
         newOrder.setOrderValue(Double.parseDouble(orderValue) + Double.parseDouble(shippingFee));
@@ -71,7 +72,7 @@ public class OrderImplement implements OrderService{
         newOrder.setStatus("Pending");
         newOrder.setPaymentMethod("Cash on delivery");
         newOrder.setShippingFee(Double.parseDouble(shippingFee));
-        orderRepository.save(newOrder);
+        Order order = orderRepository.save(newOrder);
         for (CartItems listItem : listItems) {
             OrderDetails orderDetails = new OrderDetails();
             orderDetails.setOrder(newOrder);
@@ -81,6 +82,7 @@ public class OrderImplement implements OrderService{
             orderDetailsRepository.save(orderDetails);
             cartItemRepository.delete(listItem);
         }
+        return order;
     }
 
     @Override
@@ -131,5 +133,11 @@ public class OrderImplement implements OrderService{
          Order order = orderRepository.findById(orderId).get();
          order.setStatus(status);
          orderRepository.save(order);
+    }
+
+    @Override
+    public Order findByOrderId(Long id) {
+        Order order = orderRepository.findById(id).get();
+        return order;
     }
 }

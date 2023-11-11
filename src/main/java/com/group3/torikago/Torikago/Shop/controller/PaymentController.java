@@ -147,8 +147,8 @@ public class PaymentController {
         if (rspCode.equals("00")) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);       
-        orderService.saveOrderVNPay(user, orderValue);
-        return "redirect:/torikago/payment/success";
+        Order order = orderService.saveOrderVNPay(user, orderValue);
+        return "redirect:/torikago/payment/success" + "?" + order.getId();
         } else {
             return "redirect:/torikago/payment/fail";
         }        
@@ -160,21 +160,20 @@ public class PaymentController {
                                   @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails){
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);       
-        orderService.saveOrderCod(user, orderValue, shippingFee);
-        return "redirect:/torikago/payment/success";   
+         Order order = orderService.saveOrderCod(user, orderValue, shippingFee);
+        return "redirect:/torikago/payment/success" + "?orderId=" + order.getId();   
     }
     
     @GetMapping("/torikago/payment/success")
     public String showPaymentSuccess(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
+                                     @RequestParam("orderId") Long orderId,
                                      Model model) throws MessagingException {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
-        Order order=new Order();
         List<CartItems> cartItems = shoppingCartService.listCartItems(user);
+        orderService.findByOrderId(orderId);
 
         model.addAttribute("cartItems", cartItems);
-        model.addAttribute("order", order);
-        model.addAttribute("user", user);
 
         String mailSubject = " has ordered " + "2 cai gi do";
         String mailContent = "vui long order";
@@ -183,7 +182,7 @@ public class PaymentController {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         helper.setFrom("styematic@gmail.com");
-        helper.setTo("nar9591@gmail.com");
+        helper.setTo(myUserDetails.getUsername());
         helper.setSubject(mailSubject);
         helper.setText(mailContent, true);
 

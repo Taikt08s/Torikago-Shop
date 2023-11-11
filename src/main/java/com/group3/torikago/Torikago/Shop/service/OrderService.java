@@ -9,9 +9,9 @@ import org.springframework.data.domain.Page;
 
 public interface OrderService {
     
-    void saveOrderVNPay(User user, String orderValue);
+    Order saveOrderVNPay(User user, String orderValue);
 
-    void saveOrderCod(User user, String orderValue, String shippingFee);
+    Order saveOrderCod(User user, String orderValue, String shippingFee);
 
     List<Order> listOrders(User user);
 
@@ -26,4 +26,6 @@ public interface OrderService {
     int totalCancelledOrders();
     
     void editOrderStatus(Long orderId, String status);
+    
+    Order findByOrderId(Long id);
 }

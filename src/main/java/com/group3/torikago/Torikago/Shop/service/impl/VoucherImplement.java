@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class VoucherImplement implements VoucherService {
     private final VoucherRepository voucherRepository;
+    
     @Autowired
     public VoucherImplement(VoucherRepository voucherRepository) {
         this.voucherRepository = voucherRepository;
