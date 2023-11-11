@@ -1,10 +1,7 @@
 package com.group3.torikago.Torikago.Shop.controller;
 
 import com.group3.torikago.Torikago.Shop.config.PaymentConfig;
-import com.group3.torikago.Torikago.Shop.model.CartItems;
-import com.group3.torikago.Torikago.Shop.model.Order;
-import com.group3.torikago.Torikago.Shop.model.Product;
-import com.group3.torikago.Torikago.Shop.model.User;
+import com.group3.torikago.Torikago.Shop.model.*;
 import com.group3.torikago.Torikago.Shop.service.OrderService;
 import com.group3.torikago.Torikago.Shop.service.ProductService;
 import com.group3.torikago.Torikago.Shop.service.UserService;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -172,12 +170,19 @@ public class PaymentController {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         List<CartItems> cartItems = shoppingCartService.listCartItems(user);
-        orderService.findByOrderId(orderId);
+        Order order = orderService.findByOrderId(orderId);
 
+        double orderSubtotal = 0.0;
+        for (OrderDetails orderDetails : order.getOrderdetails()) {
+            double productPrice = orderDetails.getProduct().getUnitPrice();
+            int quantity = orderDetails.getQuantity();
+            orderSubtotal += productPrice * quantity;
+        }
 
         String subject = "[Torikago Shop] Order Information " + orderId;
         String senderName = "Customer Service Team at Torikago";
-        String mailContent = "<body class=\"body\" style=\"width:100%;height:100%;padding:0;Margin:0\">\n" +
+        StringBuilder mailContent = new StringBuilder();
+        mailContent.append("<body class=\"body\" style=\"width:100%;height:100%;padding:0;Margin:0\">\n" +
                 "<div dir=\"ltr\" class=\"es-wrapper-color\" lang=\"und\" style=\"background-color:#B3E0F2\"> <!--[if gte mso 9]>\n" +
                 "    <v:background xmlns:v=\"urn:schemas-microsoft-com:vml\" fill=\"t\">\n" +
                 "        <v:fill type=\"tile\" color=\"#B3E0F2\"></v:fill>\n" +
@@ -320,77 +325,77 @@ public class PaymentController {
                 "                                                                style=\"padding:0;Margin:0;padding-right:20px;padding-left:20px;padding-top:40px\">\n" +
                 "                                                                <h3 class=\"b_title\"\n" +
                 "                                                                    style=\"Margin:0;font-family:Raleway, Arial, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:24px;font-style:normal;font-weight:normal;line-height:29px;color:#001F3F\">\n" +
-                "                                                                    ORDER NO.&nbsp;"+orderId+"</h3></td>\n" +
+                "                                                                    ORDER NO.&nbsp;" + orderId + "</h3></td>\n" +
                 "                                                        </tr>\n" +
                 "                                                    </table>\n" +
                 "                                                </td>\n" +
                 "                                            </tr>\n" +
                 "                                        </table>\n" +
                 "                                    </td>\n" +
-                "                                </tr>\n" +
-                "                                <tr>\n" +
-                "                                    <td align=\"left\"\n" +
-                "                                        style=\"padding:0;Margin:0;padding-right:20px;padding-left:20px;padding-bottom:40px\">\n" +
-                "                                        <!--[if mso]>\n" +
-                "                                        <table style=\"width:560px\" cellpadding=\"0\" cellspacing=\"0\">\n" +
-                "                                            <tr>\n" +
-                "                                                <td style=\"width:195px\" valign=\"top\"><![endif]-->\n" +
-                "                                        <table cellpadding=\"0\" cellspacing=\"0\" class=\"es-left\" align=\"left\" role=\"none\"\n" +
-                "                                               style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left\">\n" +
-                "                                            <tr>\n" +
-                "                                                <td align=\"left\" class=\"es-m-p20b\"\n" +
-                "                                                    style=\"padding:0;Margin:0;width:195px\">\n" +
-                "                                                    <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"\n" +
-                "                                                           role=\"presentation\"\n" +
-                "                                                           style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px\">\n" +
-                "                                                        <tr>\n" +
-                "                                                            <td align=\"center\" style=\"padding:0;Margin:0;font-size:0px\">\n" +
-                "                                                                <a target=\"_blank\" href=\"https://viewstripo.email\"\n" +
-                "                                                                   style=\"mso-line-height-rule:exactly;text-decoration:underline;color:#6A994E;font-size:16px\"><img\n" +
-                "                                                                        class=\"adapt-img p_image\"\n" +
-                "                                                                        src=\"https://ecoswzi.stripocdn.email/content/guids/CABINET_128e4efa46af80b67022aaf8a3e25095/images/micheiledotcomz5lmmhnorgqunsplash.jpeg\"\n" +
-                "                                                                        alt=\"\"\n" +
-                "                                                                        style=\"display:block;font-size:16px;border:0;outline:none;text-decoration:none;border-radius:10px\"\n" +
-                "                                                                        width=\"195\" height=\"195\"></a></td>\n" +
-                "                                                        </tr>\n" +
-                "                                                    </table>\n" +
-                "                                                </td>\n" +
-                "                                            </tr>\n" +
-                "                                        </table>\n" +
-                "                                        <!--[if mso]></td>\n" +
-                "                                    <td style=\"width:20px\"></td>\n" +
-                "                                    <td style=\"width:345px\" valign=\"top\"><![endif]-->\n" +
-                "                                        <table cellpadding=\"0\" cellspacing=\"0\" class=\"es-right\" align=\"right\"\n" +
-                "                                               role=\"none\"\n" +
-                "                                               style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right\">\n" +
-                "                                            <tr>\n" +
-                "                                                <td align=\"left\" style=\"padding:0;Margin:0;width:345px\">\n" +
-                "                                                    <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"\n" +
-                "                                                           style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-left:1px solid #386641;border-right:1px solid #386641;border-top:1px solid #386641;border-bottom:1px solid #386641;border-radius:10px\"\n" +
-                "                                                           role=\"presentation\">\n" +
-                "                                                        <tr>\n" +
-                "                                                            <td align=\"left\" class=\"es-m-txt-c\"\n" +
-                "                                                                style=\"Margin:0;padding-right:20px;padding-left:20px;padding-top:25px;padding-bottom:25px\">\n" +
-                "                                                                <h3 class=\"p_name\"\n" +
-                "                                                                    style=\"Margin:0;font-family:Raleway, Arial, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:24px;font-style:normal;font-weight:normal;line-height:36px;color:#001F3F\">\n" +
-                "                                                                    Woman's set</h3>\n" +
-                "                                                                <p class=\"p_description\"\n" +
-                "                                                                   style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#4D4D4D;font-size:16px\">\n" +
-                "                                                                    COLOUR: BEIGE</p>\n" +
-                "                                                                <p style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#4D4D4D;font-size:16px\">\n" +
-                "                                                                    SIZE: XS</p>\n" +
-                "                                                                <p style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#4D4D4D;font-size:16px\">\n" +
-                "                                                                    QTY:&nbsp;1</p>\n" +
-                "                                                                <h3 style=\"Margin:0;font-family:Raleway, Arial, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:24px;font-style:normal;font-weight:normal;line-height:36px;color:#001F3F\"\n" +
-                "                                                                    class=\"p_price\">$45.00</h3></td>\n" +
-                "                                                        </tr>\n" +
-                "                                                    </table>\n" +
-                "                                                </td>\n" +
-                "                                            </tr>\n" +
-                "                                        </table>\n" +
-                "                                        <!--[if mso]></td></tr></table><![endif]--></td>\n" +
-                "                                </tr>\n" +
-                "                                <tr>\n" +
+                "                                </tr>\n");
+        for (OrderDetails orderDetails : order.getOrderdetails()) {
+            mailContent.append("                                <tr>\n" +
+                    "                             <td align=\"left\"\n" +
+                    "                                        style=\"padding:0;Margin:0;padding-right:20px;padding-left:20px;padding-bottom:40px\">\n" +
+                    "                                        <!--[if mso]>\n" +
+                    "                                        <table style=\"width:560px\" cellpadding=\"0\" cellspacing=\"0\">\n" +
+                    "                                            <tr>\n" +
+                    "                                                <td style=\"width:195px\" valign=\"top\"><![endif]-->\n" +
+                    "                                        <table cellpadding=\"0\" cellspacing=\"0\" class=\"es-left\" align=\"left\" role=\"none\"\n" +
+                    "                                               style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left\">\n" +
+                    "                                            <tr>\n" +
+                    "                                                <td align=\"left\" class=\"es-m-p20b\"\n" +
+                    "                                                    style=\"padding:0;Margin:0;width:195px\">\n" +
+                    "                                                    <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"\n" +
+                    "                                                           role=\"presentation\"\n" +
+                    "                                                           style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px\">\n" +
+                    "                                                        <tr>\n" +
+                    "                                                            <td align=\"center\" style=\"padding:0;Margin:0;font-size:0px\">\n" +
+                    "                                                                <a target=\"_blank\"" +
+                    "                                                                   style=\"mso-line-height-rule:exactly;text-decoration:underline;color:#6A994E;font-size:16px\"><img\n" +
+                    "                                                                        class=\"adapt-img p_image\"\n" +
+                    "                                                                        src=\"" + orderDetails.getProduct().getMainImage() + "\"\n" +
+                    "                                                                        alt=\"\"\n" +
+                    "                                                                        style=\"display:block;font-size:16px;border:0;outline:none;text-decoration:none;border-radius:10px\"\n" +
+                    "                                                                        width=\"195\" height=\"195\"></a></td>\n" +
+                    "                                                        </tr>\n" +
+                    "                                                    </table>\n" +
+                    "                                                </td>\n" +
+                    "                                            </tr>\n" +
+                    "                                        </table>\n" +
+                    "                                        <!--[if mso]></td>\n" +
+                    "                                    <td style=\"width:20px\"></td>\n" +
+                    "                                    <td style=\"width:345px\" valign=\"top\"><![endif]-->\n" +
+                    "                                        <table cellpadding=\"0\" cellspacing=\"0\" class=\"es-right\" align=\"right\"\n" +
+                    "                                               role=\"none\"\n" +
+                    "                                               style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right\">\n" +
+                    "                                                      <tr>\n" +
+                    "                <td align=\"left\" style=\"padding:0;Margin:0;width:345px\">\n" +
+                    "                    <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"\n" +
+                    "                           style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-left:1px solid #386641;border-right:1px solid #386641;border-top:1px solid #386641;border-bottom:1px solid #386641;border-radius:10px\"\n" +
+                    "                           role=\"presentation\">\n" +
+                    "                        <tr>\n" +
+                    "                            <td align=\"left\" class=\"es-m-txt-c\"\n" +
+                    "                                style=\"Margin:0;padding-right:20px;padding-left:20px;padding-top:25px;padding-bottom:25px\">\n" +
+                    "                                <h3 class=\"p_name\"\n" +
+                    "                                    style=\"Margin:0;font-family:Raleway, Arial, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:24px;font-style:normal;font-weight:normal;line-height:36px;color:#001F3F\">\n" +
+                    "                                    " + orderDetails.getProduct().getProductName() + "</h3>\n" +
+                    "                                <p style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#4D4D4D;font-size:16px\">\n" +
+                    "                                    WGT: " + formatWeight(orderDetails.getProduct().getUnitWeight()) + "</p>\n" +
+                    "                                <p style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#4D4D4D;font-size:16px\">\n" +
+                    "                                    QTY:&nbsp;" + orderDetails.getQuantity() + "</p>\n" +
+                    "                                <h3 style=\"Margin:0;font-family:Raleway, Arial, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:24px;font-style:normal;font-weight:normal;line-height:36px;color:#001F3F\"\n" +
+                    "                                    class=\"p_price\">" +formatCurrency(orderDetails.getProduct().getUnitPrice()) + "</h3></td>\n" +
+                    "                        </tr>\n" +
+                    "                    </table>\n" +
+
+                    "                </td>\n" +
+                    "            </tr>\n" +
+                    "                                        </table>\n" +
+                    "                                        <!--[if mso]></td></tr></table><![endif]--></td>\n" +
+                    "                                </tr>\n");
+        }
+        mailContent.append("                                <tr>\n" +
                 "                                    <td align=\"left\"\n" +
                 "                                        style=\"Margin:0;padding-right:20px;padding-bottom:30px;padding-left:20px;padding-top:40px\">\n" +
                 "                                        <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" role=\"none\"\n" +
@@ -448,7 +453,7 @@ public class PaymentController {
                 "                                                                    <tr>\n" +
                 "                                                                        <td align=\"right\" style=\"padding:0;Margin:0\"><p\n" +
                 "                                                                                style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#001F3F;font-size:16px\">\n" +
-                "                                                                            $90.00<br>$00.00<br>$00.00</p></td>\n" +
+                "                                                                            "+formatCurrency(orderSubtotal)+"<br>$00.00<br>"+formatCurrency(order.getShippingFee())+"</p></td>\n" +
                 "                                                                    </tr>\n" +
                 "                                                                </table>\n" +
                 "                                                            </td>\n" +
@@ -526,7 +531,7 @@ public class PaymentController {
                 "                                                                        <td align=\"right\" class=\"es-m-txt-r\"\n" +
                 "                                                                            style=\"padding:0;Margin:0\"><h3\n" +
                 "                                                                                style=\"Margin:0;font-family:Raleway, Arial, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:24px;font-style:normal;font-weight:normal;line-height:29px;color:#386641\">\n" +
-                "                                                                            $90.00</h3></td>\n" +
+                "                                                                            "+formatCurrency(order.getOrderValue())+"</h3></td>\n" +
                 "                                                                    </tr>\n" +
                 "                                                                </table>\n" +
                 "                                                            </td>\n" +
@@ -576,7 +581,7 @@ public class PaymentController {
                 "                                                                    style=\"Margin:0;font-family:Raleway, Arial, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:24px;font-style:normal;font-weight:normal;line-height:29px;color:#001F3F\">\n" +
                 "                                                                Payment&nbsp;Method</h3>\n" +
                 "                                                                <p style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#4D4D4D;font-size:16px\">\n" +
-                "                                                                    Mastercard&nbsp;(••••••••••••1234)</p></td>\n" +
+                "                                                                    "+order.getPaymentMethod()+"</p></td>\n" +
                 "                                                        </tr>\n" +
                 "                                                    </table>\n" +
                 "                                                </td>\n" +
@@ -596,9 +601,9 @@ public class PaymentController {
                 "                                                        <tr>\n" +
                 "                                                            <td align=\"left\" style=\"padding:0;Margin:0\"><h3\n" +
                 "                                                                    style=\"Margin:0;font-family:Raleway, Arial, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:24px;font-style:normal;font-weight:normal;line-height:29px;color:#001F3F\">\n" +
-                "                                                                Shipping Method</h3>\n" +
+                "                                                                Shipping Address</h3>\n" +
                 "                                                                <p style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#4D4D4D;font-size:16px\">\n" +
-                "                                                                    FedEx Home Delivery</p></td>\n" +
+                "                                                                   "+order.getShippedAddress()+"</p></td>\n" +
                 "                                                        </tr>\n" +
                 "                                                    </table>\n" +
                 "                                                </td>\n" +
@@ -614,7 +619,7 @@ public class PaymentController {
                 "        </tr>\n" +
                 "    </table>\n" +
                 "</div>\n" +
-                "</body>";
+                "</body>");
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -622,7 +627,7 @@ public class PaymentController {
         helper.setFrom("styematic@gmail.com", senderName);
         helper.setTo(myUserDetails.getUsername());
         helper.setSubject(subject);
-        helper.setText(mailContent, true);
+        helper.setText(mailContent.toString(), true);
 
         mailSender.send(message);
         model.addAttribute("cartItems", cartItems);
@@ -641,4 +646,17 @@ public class PaymentController {
         return "shopping-order-failed";
     }
 
+    private String formatWeight(double weight) {
+        return String.format("%.0f KG", weight);
+    }
+
+    private String formatCurrency(double amount) {
+        Locale locale = new Locale("vi", "VN");
+        Currency currency = Currency.getInstance(locale);
+
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+        currencyFormat.setCurrency(currency);
+
+        return currencyFormat.format(amount);
+    }
 }
