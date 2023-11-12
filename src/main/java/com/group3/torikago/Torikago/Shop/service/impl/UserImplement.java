@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -68,6 +69,7 @@ public class UserImplement implements UserService {
         user.setPhoneNumber(registerDTO.getPhoneNumber());
         user.setGender(registerDTO.getGender());
         user.setEnabled(false);
+        user.setCreateDate(LocalDateTime.now());
         Role role = roleRepository.findByName("USER");
         user.setRole(role);
 //set randomVerificationCode in to a random string with length 64
@@ -144,12 +146,13 @@ public class UserImplement implements UserService {
     }
 
     @Override
-    public void saveUserEditedByAdmin(User user) {
+    public String saveUserEditedByAdmin(User user) {
+        String oldData= user.getPassword();
         if (!user.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
         }
-        userRepository.save(user);
+        return oldData;
     }
 
     @Override
