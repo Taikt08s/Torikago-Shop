@@ -68,6 +68,9 @@
             </nav>
         </div>
         <div class="container-fluid">
+            <div th:if="${param.success}" class="alert alert-success">
+                New product added.
+            </div>
             <div class="table-container" style="padding-bottom: 500px;">
                 <h1 class="h3 mb-2 text-gray-800">Torikago Products</h1>
                 <div class="card shadow mb-4">

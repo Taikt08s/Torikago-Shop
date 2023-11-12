@@ -305,7 +305,7 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.material')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.material}"></label>
-                                                        <select class="form-select" aria-label="Default select example" th:field="*{birdCageDetail.material}" id="material">
+                                                        <select class="ml-3 btn btn-sm rounded-pill form-select" aria-label="Default select example" th:field="*{birdCageDetail.material}" id="material">
                                                             <option value="wood" selected>Wood</option>
                                                             <option value="aluminum">Aluminum</option>
                                                             <option value="steel">Steel</option>
@@ -317,7 +317,7 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.color')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.color}"></label>
-                                                        <select class="form-select" th:field="*{birdCageDetail.color}" id="color">
+                                                        <select class="ml-3 btn btn-sm rounded-pill form-select" th:field="*{birdCageDetail.color}" id="color">
                                                             <option value="black" selected>Black</option>
                                                             <option value="white" selected>White</option>
                                                             <option value="red" selected>Red</option>

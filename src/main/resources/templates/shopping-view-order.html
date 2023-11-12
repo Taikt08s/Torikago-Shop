@@ -163,8 +163,9 @@
                                         <div class="dropdown-menu animated--fade-in"
                                              aria-labelledby="dropdownMenuButton">
                                             <div th:each="voucher : ${vouchers}">
-                                                <a class="dropdown-item" href="#" style="width: 300px">
-                                                    <a class="btn btn-light btn-icon-split">
+                                                <form th:action="@{/manager/orders}" method="post" th:id="'statusForm_'">
+                                                <!--<a class="dropdown-item" href="#" style="width: 300px">-->
+                                                <button class="btn btn-light btn-icon-split" type="submit">
                                                         <img th:src="@{/img/voucher.png}" class="img-fluid mt-3"
                                                              alt="Voucher Image" style="height: 100px; width: auto;"/>
                                                         <div class="text-left p-2">
@@ -181,8 +182,9 @@
                                                             <label class="custom-control-label"
                                                                    for="voucherCheckbox"></label>
                                                         </div>
-                                                    </a>
-                                                </a>
+                                                    </button>
+<!--                                                </a>-->
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

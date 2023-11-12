@@ -124,7 +124,7 @@ public class AdminController {
         productDTO.setUnitsOnOrder(0);
 
         birdCageService.saveBirdCage(birdCageDTO, productDTO);
-        return "redirect:/admin/product-table";
+        return "redirect:/admin/product-table?success";
     }
 
 
@@ -175,7 +175,7 @@ public class AdminController {
         accessoryService.saveAccessory(accessoryDTO, productDTO);
 
 
-        return "redirect:/admin/product-table";
+        return "redirect:/admin/product-table?success";
     }
 
     @GetMapping("/admin/product-table/{productType}/{productId}/edit")
@@ -314,7 +314,7 @@ public class AdminController {
     @PostMapping("/users/save")
     public String saveUserEditedByAdmin(User user) {
         userService.saveUserEditedByAdmin(user);
-        return "redirect:/admin/users-table";
+        return "redirect:/admin/users-table?success";
     }
 }
 

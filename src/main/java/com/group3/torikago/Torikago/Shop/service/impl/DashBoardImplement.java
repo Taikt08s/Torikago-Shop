@@ -133,7 +133,7 @@ public class DashBoardImplement implements DashBoardService {
             if(user.getCreateDate().getMonth() == LocalDateTime.now().getMonth() &&
                 user.getCreateDate().getYear() == LocalDateTime.now().getYear()){
                 count ++;
-            }
+            };
         }
         return count;
     }
