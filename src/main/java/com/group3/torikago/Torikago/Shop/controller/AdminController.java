@@ -28,18 +28,18 @@ public class AdminController {
     @GetMapping("/admin")
     @RolesAllowed({"ADMIN"})
     public String adminPage(Model model) {
-        double revenue = dashBoardService.Revenue();
-        Product bestSeller = dashBoardService.BestSeller();
-        int newUsers = dashBoardService.NewUsers();
-        int totalOrders = dashBoardService.TotalOrders();
-        model.addAttribute("Revenue", revenue);
-        model.addAttribute("BestSeller", bestSeller);
-        model.addAttribute("NewUsers", newUsers);
-        model.addAttribute("TotalOrders", totalOrders);
+//        double revenue = dashBoardService.Revenue();
+//        Product bestSeller = dashBoardService.BestSeller();
+//        int newUsers = dashBoardService.NewUsers();
+//        int totalOrders = dashBoardService.TotalOrders();
+//        model.addAttribute("Revenue", revenue);
+//        model.addAttribute("BestSeller", bestSeller);
+//        model.addAttribute("NewUsers", newUsers);
+//        model.addAttribute("TotalOrders", totalOrders);
         return "admin-dashboard";
     }
 
-    private DashBoardService dashBoardService;
+//    private DashBoardService dashBoardService;
     private ProductService productService;
     private UserService userService;
     private BirdCageService birdCageService;
@@ -49,14 +49,14 @@ public class AdminController {
     private CloudinaryUpload cloudinaryUpload;
 
     @Autowired
-    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService, AccessoryService accessoryService, PasswordEncoder passwordEncoder, CloudinaryUpload cloudinaryUpload, DashBoardService dashBoardService) {
+    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService, AccessoryService accessoryService, PasswordEncoder passwordEncoder, CloudinaryUpload cloudinaryUpload) {
         this.productService = productService;
         this.userService = userService;
         this.birdCageService = birdCageService;
         this.accessoryService = accessoryService;
         this.passwordEncoder = passwordEncoder;
         this.cloudinaryUpload = cloudinaryUpload;
-        this.dashBoardService = dashBoardService;
+//        this.dashBoardService = dashBoardService;
     }
 
     @GetMapping("/admin/product-table")
