@@ -25,20 +25,6 @@ import java.util.List;
 
 @Controller
 public class AdminController {
-    @GetMapping("/admin")
-    @RolesAllowed({"ADMIN"})
-    public String adminPage(Model model) {
-        double revenue = dashBoardService.Revenue();
-        Product bestSeller = dashBoardService.BestSeller();
-        int newUsers = dashBoardService.NewUsers();
-        int totalOrders = dashBoardService.TotalOrders();
-        model.addAttribute("Revenue", revenue);
-        model.addAttribute("BestSeller", bestSeller);
-        model.addAttribute("NewUsers", newUsers);
-        model.addAttribute("TotalOrders", totalOrders);
-        return "admin-dashboard";
-    }
-
     private DashBoardService dashBoardService;
     private ProductService productService;
     private UserService userService;
@@ -57,6 +43,20 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
         this.cloudinaryUpload = cloudinaryUpload;
         this.dashBoardService = dashBoardService;
+    }
+
+    @GetMapping("/admin")
+    @RolesAllowed({"ADMIN"})
+    public String adminPage(Model model) {
+        double revenue = dashBoardService.Revenue();
+        Product bestSeller = dashBoardService.BestSeller();
+        int newUsers = dashBoardService.NewUsers();
+        int totalOrders = dashBoardService.TotalOrders();
+        model.addAttribute("Revenue", revenue);
+        model.addAttribute("BestSeller", bestSeller);
+        model.addAttribute("NewUsers", newUsers);
+        model.addAttribute("TotalOrders", totalOrders);
+        return "admin-dashboard";
     }
 
     @GetMapping("/admin/product-table")
