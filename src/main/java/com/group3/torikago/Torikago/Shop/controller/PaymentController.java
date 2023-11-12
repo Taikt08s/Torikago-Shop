@@ -183,7 +183,7 @@ public class PaymentController {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         helper.setFrom("styematic@gmail.com");
-        helper.setTo("nar9591@gmail.com");
+        helper.setTo(myUserDetails.getUsername());
         helper.setSubject(mailSubject);
         helper.setText(mailContent, true);
 

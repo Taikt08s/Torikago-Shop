@@ -230,18 +230,13 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.dimension')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.dimension}"></label>
-                                                        <select class="form-select" th:field="*{birdCageDetail.dimension}" id="dimension">
-                                                            <option value="51x61x61">51x61x61</option>
-                                                            <option value="64x81x89">64x81x89</option>
-                                                            <option value="89x100x130">89x100x130</option>
-                                                        </select>
-<!--                                                        <input type="text"-->
-<!--                                                               class="form-control form-control-user"-->
-<!--                                                               id="dimension"-->
-<!--                                                               name="dimension"-->
-<!--                                                               maxlength="50"-->
-<!--                                                               placeholder="Dimension (e.g. 61cm x 91.5cm x 122cm)"-->
-<!--                                                               th:field="*{birdCageDetail.dimension}">-->
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="dimension"
+                                                               name="dimension"
+                                                               maxlength="50"
+                                                               placeholder="Dimension (e.g. 61cm x 91.5cm x 122cm)"
+                                                               th:field="*{birdCageDetail.dimension}">
 
                                                     </div>
                                                     <div class="col-sm-6">
@@ -293,7 +288,8 @@
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.material}"></label>
                                                         <select class="form-select" th:field="*{birdCageDetail.material}" id="material">
-                                                            <option value="wood" selected>Wood</option>
+                                                            <option value="choose" selected></option>
+                                                            <option value="wood" >Wood</option>
                                                             <option value="aluminum">Aluminum</option>
                                                             <option value="steel">Steel</option>
                                                             <option value="plastic">Plastic</option>
@@ -305,12 +301,13 @@
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.color}"></label>
                                                         <select class="form-select" th:field="*{birdCageDetail.color}" id="color">
-                                                            <option value="black" selected>Black</option>
-                                                            <option value="white" selected>White</option>
-                                                            <option value="red" selected>Red</option>
-                                                            <option value="blue" selected>Blue</option>
-                                                            <option value="purple" selected>Purple</option>
-                                                            <option value="yellow" selected>Yellow</option>
+                                                            <option value="choose" selected></option>
+                                                            <option value="black" >Black</option>
+                                                            <option value="white" >White</option>
+                                                            <option value="red" >Red</option>
+                                                            <option value="blue" >Blue</option>
+                                                            <option value="purple" >Purple</option>
+                                                            <option value="yellow" >Yellow</option>
                                                         </select>
                                                     </div>
                                                 </div>

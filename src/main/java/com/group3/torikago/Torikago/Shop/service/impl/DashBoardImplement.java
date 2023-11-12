@@ -45,6 +45,45 @@ public class DashBoardImplement implements DashBoardService {
     }
 
     @Override
+    public int NumberOfBestSeller(){
+        Product product1 = null;
+        int max = 0;
+        HashMap<Product, Integer> myHashMap = new HashMap<Product, Integer>();
+        List<Order> orderList= orderRepository.findAll();
+        List<OrderDetails> orderDetailsList = orderDetailsRepository.findAll();
+        for(Order order : orderList){
+            if(order.getStatus().equals("Delivered")){
+                if(order.getOrderDate().getMonth() == LocalDateTime.now().getMonth() &&
+                        order.getOrderDate().getYear() == LocalDateTime.now().getYear()){
+                    for(OrderDetails orderDetails : orderDetailsList){
+                        if(orderDetails.getOrder().getId() == order.getId()){
+                            boolean flag = false;
+                            if(!myHashMap.containsKey(orderDetails.getProduct())){
+                                myHashMap.put(orderDetails.getProduct(), orderDetails.getQuantity());
+                            }else{
+                                flag = true;
+                                //update lại hashmap
+                                myHashMap.put(orderDetails.getProduct(), myHashMap.get(orderDetails.getProduct()) + orderDetails.getQuantity());
+                            }
+                        }else{
+                        }
+                    }
+                }
+            }
+        }
+        for(Product product : myHashMap.keySet()){
+            if(myHashMap.get(product) >= max){
+                max = myHashMap.get(product);
+                product1 = product;
+            }
+        }
+        if(product1 == null){
+            max = 0;
+            return max;
+        }
+        return max;
+    }
+    @Override
     public Product BestSeller() {
         Product product1 = null;
         int max = 0;
@@ -66,7 +105,6 @@ public class DashBoardImplement implements DashBoardService {
                                 myHashMap.put(orderDetails.getProduct(), myHashMap.get(orderDetails.getProduct()) + orderDetails.getQuantity());
                             }
                         }else{
-
                         }
                     }
                 }
@@ -77,6 +115,12 @@ public class DashBoardImplement implements DashBoardService {
                 max = myHashMap.get(product);
                 product1 = product;
             }
+        }
+        if(product1 == null){
+            product1 = new Product();
+            product1.setProductName("");
+
+            return product1;
         }
         return product1;
     }

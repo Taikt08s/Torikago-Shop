@@ -33,7 +33,7 @@ public interface UserService {
 
     List<Role> getRoles();
 
-    void saveUserEditedByAdmin(User user);
+    String saveUserEditedByAdmin(User user);
 
     User updateAccountOfUser(User user);
 

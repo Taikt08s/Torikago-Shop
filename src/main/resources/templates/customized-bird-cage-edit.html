@@ -168,17 +168,30 @@
                                                         </label>
                                                     </div>
                                                 </div>
+                                                <div class="form-group" style="margin-bottom: 20px;">
+                                                    <label>Product Weight(kg)</label>
+                                                    <input readonly
+                                                            type="text"
+                                                            class="form-control form-control-user"
+                                                            id="productWeight"
+                                                            name="productWeight"
+                                                            maxlength="10"
+                                                            placeholder="Enter weight"
+                                                            th:field="*{birdCage.unitWeight}"/>
+                                                </div>
                                                 <div class="form-group row">
                                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                                         <label>Dimension</label>
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.dimension')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.dimension}"></label>
-                                                        <select class="form-select" th:field="*{birdCageDetail.dimension}" id="dimension">
-                                                            <option value="51x61x61">51x61x61</option>
-                                                            <option value="64x81x89">64x81x89</option>
-                                                            <option value="89x100x130">89x100x130</option>
-                                                        </select>
+                                                        <input type="text"
+                                                               class="form-control form-control-user"
+                                                               id="dimension"
+                                                               name="dimension"
+                                                               maxlength="50"
+                                                               placeholder="Dimension (e.g. 61cm x 91.5cm x 122cm)"
+                                                               th:field="*{birdCageDetail.dimension}">
 
                                                     </div>
                                                     <div class="col-sm-6">

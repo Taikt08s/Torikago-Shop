@@ -30,9 +30,11 @@ public class AdminController {
     public String adminPage(Model model) {
         double revenue = dashBoardService.Revenue();
         Product bestSeller = dashBoardService.BestSeller();
+        int numberOfBestSeller = dashBoardService.NumberOfBestSeller();
         int newUsers = dashBoardService.NewUsers();
         int totalOrders = dashBoardService.TotalOrders();
         model.addAttribute("Revenue", revenue);
+        model.addAttribute("NumberOfBestSeller", numberOfBestSeller);
         model.addAttribute("BestSeller", bestSeller);
         model.addAttribute("NewUsers", newUsers);
         model.addAttribute("TotalOrders", totalOrders);
