@@ -14,6 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CheckOutController {
@@ -33,7 +35,8 @@ public class CheckOutController {
     }
     
     @GetMapping("/torikago/checkout")
-    public String checkOut(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails, Model model) {
+    public String checkOut(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails, Model model,
+            @RequestParam(value = "voucherId", required = false) Long voucherId) {
         String email = myUserDetails.getUsername();
         User user = userService.findByEmail(email);
         List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
@@ -71,5 +74,41 @@ public class CheckOutController {
         }
     }
     
+    @PostMapping("/torikago/checkout/add-voucher")
+    public String addVoucher(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails, Model model,
+            @RequestParam(value = "voucherId", required = false) Long voucherId) {
+        String email = myUserDetails.getUsername();
+        User user = userService.findByEmail(email);
+        List<CartItems> cartItems = shoppingCartServices.listCartItems(user);
+        List<Voucher> vouchers = voucherService.findAllVouchers();
+        if (cartItems.size() != 0) {
+            String errorUrl = "";
+            double orderWeight = 0;
+            for (CartItems cartItem : cartItems) {
+                Product product = productService.findProductById(cartItem.getProductId().getId());
+                if (product.getUnitsInStock() < cartItem.getQuantity()) {
+                    errorUrl = errorUrl + "&q" + product.getId() + "=" + product.getUnitsInStock();
+                }
+                orderWeight += product.getUnitWeight() * cartItem.getQuantity();
+            }
+            if (errorUrl.isEmpty()) {
+                double shippingFee = 32000;
+                if (orderWeight > 0.5) {
+                    if (orderWeight * 2 - (int) orderWeight * 2 != 0) {
+                        shippingFee += 5000 * (int) orderWeight * 2;
+                    } else {
+                        shippingFee += 5000 * (int) orderWeight * 2 - 5000;
+                    }
+                }
+
+                model.addAttribute("vouchers", vouchers);
+                model.addAttribute("shippingFee", shippingFee);
+                model.addAttribute("cartItems", cartItems);
+                model.addAttribute("user", user);
+                return "shopping-view-order";
+            }
+        }
+            return "redirect:/torikago/checkout";
+    }
     
 }

@@ -163,8 +163,9 @@
                                         <div class="dropdown-menu animated--fade-in"
                                              aria-labelledby="dropdownMenuButton">
                                             <div th:each="voucher : ${vouchers}">
-                                                <form th:action="@{/manager/orders}" method="post" th:id="'statusForm_'">
+                                                <form th:action="@{/torikago/checkout/add-voucher}" method="post">
                                                 <!--<a class="dropdown-item" href="#" style="width: 300px">-->
+                                                <input type="hidden" name="voucherId" th:value="${voucher.id}"/>
                                                 <button class="btn btn-light btn-icon-split" type="submit">
                                                         <img th:src="@{/img/voucher.png}" class="img-fluid mt-3"
                                                              alt="Voucher Image" style="height: 100px; width: auto;"/>
@@ -208,6 +209,12 @@
                                             th:text="${#numbers.formatDecimal(shippingFee, 0, 'POINT', 0, 'POINT')} + '₫'">
                                             ₫
                                         </h6>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="text">Discount</h6>
+                                        <h6 class="text-danger"
+                                            th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![getSubtotal()]), 0, 'POINT', 0, 'POINT')} + '₫'">
+                                            ₫</h6>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <h5 class="text-uppercase">Total price</h5>

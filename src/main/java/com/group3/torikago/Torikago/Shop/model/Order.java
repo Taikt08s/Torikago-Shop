@@ -38,9 +38,9 @@ public class Order {
     private List<OrderDetails> orderdetails;
     @OneToOne(mappedBy = "orderFeedback")
     private Feedback feedback;
-    //    @OneToOne
-//    @JoinColumn(name = "voucher_id", referencedColumnName = "id")
-//    private Voucher voucher;
+    @OneToOne
+    @JoinColumn(name = "voucher_id", referencedColumnName = "id")
+    private Voucher voucher;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User userOrder;

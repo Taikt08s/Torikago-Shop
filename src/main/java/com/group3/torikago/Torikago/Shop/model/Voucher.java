@@ -31,7 +31,7 @@ public class Voucher {
     private Boolean status;
     @Column(name = "voucher_maxValue")
     private double maxValue;
-//    @OneToOne(mappedBy = "voucher")
-//    private Order birdCageOrder;
+    @OneToOne(mappedBy = "voucher")
+    private Order birdCageOrder;
 
 }
