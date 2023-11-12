@@ -38,6 +38,7 @@ public class AdminController {
         model.addAttribute("BestSeller", bestSeller);
         model.addAttribute("NewUsers", newUsers);
         model.addAttribute("TotalOrders", totalOrders);
+
         return "admin-dashboard";
     }
 
@@ -51,7 +52,7 @@ public class AdminController {
     private CloudinaryUpload cloudinaryUpload;
 
     @Autowired
-    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService, AccessoryService accessoryService, PasswordEncoder passwordEncoder, CloudinaryUpload cloudinaryUpload, DashBoardService dashBoardService) {
+    public AdminController(ProductService productService, UserService userService, BirdCageService birdCageService, AccessoryService accessoryService, PasswordEncoder passwordEncoder, CloudinaryUpload cloudinaryUpload,DashBoardService dashBoardService) {
         this.productService = productService;
         this.userService = userService;
         this.birdCageService = birdCageService;
