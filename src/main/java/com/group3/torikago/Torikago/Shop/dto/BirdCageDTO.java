@@ -29,6 +29,7 @@ public class BirdCageDTO {
     @NotEmpty(message = "*Required")
     @Length(max = 50, message = "No more than 50 characters")
     private String material;
+    @NotEmpty(message = "*Required")
     @Length(max = 50, message = "No more than 50 characters")
     private String color;
     @NotEmpty(message = "*Required")

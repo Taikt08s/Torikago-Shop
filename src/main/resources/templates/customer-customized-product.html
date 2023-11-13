@@ -22,18 +22,147 @@
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small"
-                               placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2" style="width: 300px;">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" >
-                                <i class="fas fa-search fa-sm" ></i>
-                            </button>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none"
+                   th:href="@{/}">
+                    <div class="sidebar-brand-text mx-3">Torikago Shop</div>
+                </a>
+                <form th:action="@{/torikago}"
+                      class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+
+                </form>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                             aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small"
+                                           placeholder="Search for..." aria-label="Search"
+                                           aria-describedby="basic-addon2" th:value="${search}">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown no-arrow mx-1" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link dropdown-toggle" th:href="@{/torikago/cart}" role="button">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span th:if="${cartItems}" class="badge badge-danger badge-counter"
+                                  th:text="${#lists.size(cartItems)}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown no-arrow mx-1" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-bell"></i>
+                            <!--                    <span class="badge badge-danger badge-counter">3+</span>-->
+                            <span id="notificationBadge" class="badge badge-danger badge-counter">3+</span>
+                        </a>
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="alertsDropdown">
+                            <h6 class="dropdown-header">
+                                <i class="far fa-bell"></i> Notifications
+                            </h6>
+                            <a th:if="${session.changePasswordSuccess}" class="dropdown-item d-flex align-items-center"
+                               href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-warning">
+                                        <i class="fas fa-key text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500"
+                                         th:text="${#temporals.format(session.changePasswordTime, 'yyyy-MM-dd HH:mm')}"></div>
+                                    <span class="font-weight-bold" th:text="${session.changePasswordSuccess}"></span>
+                                </div>
+                            </a>
+                            <a th:if="${session.updateProfileSuccess}" class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-success">
+                                        <i class="fas fa-id-card text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500"
+                                         th:text="${#temporals.format(session.updateInformationTime, 'yyyy-MM-dd HH:mm')}"></div>
+                                    <span class="font-weight-bold" th:text="${session.updateProfileSuccess}"></span>
+                                </div>
+                            </a>
+                            <a class="dropdown-item text-center small text-gray-500" href="#">Clear All Notifications</a>
+                        </div>
+                    </li>
+                    <div class="topbar-divider d-none d-sm-block"></div>
+                    <li th:if="${#authorization.expression('!isAuthenticated()')}" class="nav-item">
+                        <a class="nav-link" th:href="@{/login}">Login</a></li>
+                    <li th:if="${#authorization.expression('!isAuthenticated()')}" class="nav-item">
+                        <a class="nav-link" th:href="@{/register}">Register</a></li>
+                    <li th:if="${#authorization.expression('isAuthenticated()')}" class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.name}"></span>
+                            <img class="img-profile rounded-circle"
+                                 th:src="@{/img/undraw_profile.svg}">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" th:href="@{/user/profile}">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"
+                               th:href="@{/admin}">
+                                <i class="fas fa-solid fa-user-tie fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Admin Dashboard
+                            </a>
+                            <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''MANAGER'')')}"
+                               th:href="@{/manager}">
+
+                                <i class="fas fa-solid fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Manager Dashboard
+                            </a>
+                            <a class="dropdown-item" th:if="${#authorization.expression('hasAuthority(''USER'')')}"
+                               href="/customer/customized-product">
+                                <i class="fas fa-solid fa-user-shield fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Customized Product
+                            </a>
+                            <a class="dropdown-item" th:href="@{/user/purchase}">
+                                <i class="fas fa-solid fa-receipt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                My Order
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
+                            </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </nav>
         </div>
         <div class="container-fluid">
@@ -64,7 +193,7 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            <a th:href="@{/manager/custom-orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                            <a th:href="@{/customer/customized-product(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
                                                 Product ID
                                                 <span th:if="${sortField eq 'id'}"
                                                       th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
@@ -72,7 +201,7 @@
                                         </th>
                                         <th>Type</th>
                                         <th>
-                                            <a th:href="@{/manager/custom-orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                            <a th:href="@{/customer/customized-product(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
                                                 Name
                                                 <span th:if="${sortField eq 'id'}"
                                                       th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
@@ -80,21 +209,28 @@
                                         </th>
                                         <th>Image</th>
                                         <th>
-                                            <a th:href="@{/manager/custom-orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                            <a th:href="@{/customer/customized-product(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                                Dimension
+                                                <span th:if="${sortField eq 'id'}"
+                                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a th:href="@{/customer/customized-product(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
                                                 Price(VND)
                                                 <span th:if="${sortField eq 'id'}"
                                                       th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
                                             </a>
                                         </th>
                                         <th>
-                                            <a th:href="@{/manager/custom-orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                            <a th:href="@{/customer/customized-product(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
                                                 In stock
                                                 <span th:if="${sortField eq 'id'}"
                                                       th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
                                             </a>
                                         </th>
                                         <th>
-                                            <a th:href="@{/manager/custom-orders(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
+                                            <a th:href="@{/customer/customized-product(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
                                                 On order
                                                 <span th:if="${sortField eq 'id'}"
                                                       th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
@@ -110,6 +246,7 @@
                                         <td th:text="${product.productName}"></td>
                                         <td><img th:src="@{${product.getMainImage()}}" alt="Product Image"
                                                  width="100"/></td>
+                                        <td th:text="${product.getCustomizedBirdCage().dimension}"></td>
                                         <td th:text="${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 1, 'POINT')}"></td>
                                         <td th:text="${product.unitsInStock}"></td>
                                         <td th:text="${product.unitsOnOrder}"></td>

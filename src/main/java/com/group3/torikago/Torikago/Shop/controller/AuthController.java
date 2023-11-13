@@ -144,6 +144,7 @@ public class AuthController {
             return "redirect:/user/profile/password?isUpperCase";
         } else {
             user.setPassword(encodedNewPassword);
+            user.setUpdatedDate(LocalDateTime.now());
             userService.saveUserChangePassword(user);
             session.setAttribute("changePasswordTime", LocalDateTime.now());
             session.setAttribute("changePasswordSuccess", "Password changed successfully");

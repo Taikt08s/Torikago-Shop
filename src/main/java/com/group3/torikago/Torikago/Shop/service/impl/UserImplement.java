@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,11 +47,11 @@ public class UserImplement implements UserService {
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        if(keyword!=null){
-            Page<User> vouchersPage =  userRepository.findAll(pageable,keyword);
+        if (keyword != null) {
+            Page<User> vouchersPage = userRepository.findAll(pageable, keyword);
             return vouchersPage;
         }
-        Page<User> vouchersPage  = userRepository.findAll(pageable);
+        Page<User> vouchersPage = userRepository.findAll(pageable);
         return vouchersPage;
 
     }
@@ -68,6 +69,7 @@ public class UserImplement implements UserService {
         user.setPhoneNumber(registerDTO.getPhoneNumber());
         user.setGender(registerDTO.getGender());
         user.setEnabled(false);
+        user.setCreateDate(LocalDateTime.now());
         Role role = roleRepository.findByName("USER");
         user.setRole(role);
 //set randomVerificationCode in to a random string with length 64
@@ -144,19 +146,21 @@ public class UserImplement implements UserService {
     }
 
     @Override
-    public void saveUserEditedByAdmin(User user) {
+    public String saveUserEditedByAdmin(User user) {
+        String oldData = user.getPassword();
         if (!user.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
         }
-        userRepository.save(user);
+        return oldData;
     }
 
     @Override
     public User updateAccountOfUser(User user) {
-
+        user.setUpdatedDate(LocalDateTime.now());
         return userRepository.save(user);
     }
+
     @Override
     public void saveUserChangePassword(User user) {
         userRepository.save(user);

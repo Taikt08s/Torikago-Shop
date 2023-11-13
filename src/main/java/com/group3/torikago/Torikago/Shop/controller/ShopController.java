@@ -28,7 +28,6 @@ public class ShopController {
     private ShoppingProductService shoppingProductService;
     private ShoppingCartService shoppingCartServices;
     private UserService userService;
-
     private VoucherService voucherService;
 
     @Autowired

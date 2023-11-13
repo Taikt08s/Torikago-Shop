@@ -56,4 +56,6 @@ public class User {
     private List<CartItems> cartItems;
     @Column(name = "create_date",length = 10)
     private LocalDateTime createDate;
+    @Column(name = "update_date",length = 10)
+    private LocalDateTime updatedDate;
 }

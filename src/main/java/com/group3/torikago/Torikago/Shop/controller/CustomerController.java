@@ -33,8 +33,8 @@ public class CustomerController {
         this.customizedBirdCageService = customizedBirdCageService;
     }
     @GetMapping("/customer/customized-product")
-    @RolesAllowed({"CUSTOMER"})
-    public String customizedProductPage(Model model,                                 @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+    @RolesAllowed({"USER"})
+    public String customizedProductPage(Model model, @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
                                         @RequestParam(name = "pageSize", defaultValue = "8") int pageSize,
                                         @RequestParam(name = "sortField", defaultValue = "id") String sortField,
                                         @RequestParam(name = "sortDir", defaultValue = "asc") String sortDir,
@@ -53,13 +53,13 @@ public class CustomerController {
     }
 
     @PostMapping("/customer")
-    @RolesAllowed({"CUSTOMER"})
+    @RolesAllowed({"USER"})
     public String viewCustomizedProduct(){
         return "Hello world again SOS";
     }
 
     @GetMapping("/customer/customized-product/{productId}/add")
-    @RolesAllowed({"CUSTOMER"})
+    @RolesAllowed({"USER"})
     public String addCustomizedProductToCart(Model model, @PathVariable("productId") Long productId) {
         CustomizedBirdCage customizedBirdCage = customizedBirdCageService.findByCustomizedBirdCage_Id(productId);
         if(customizedBirdCage.getStatus().equals("Pending") || customizedBirdCage.getStatus().equals("Rejected")){
