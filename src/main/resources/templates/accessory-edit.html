@@ -227,6 +227,9 @@
                                                         </div>
                                                         <div class="form-group" style="margin-bottom: 20px;">
                                                             <label>Description</label>
+                                                            <label th:if="${#fields.hasErrors('accessoryDetail.description')}"
+                                                                   class="text-danger"
+                                                                   th:errors="*{accessoryDetail.description}"></label>
                                                             <textarea
                                                                 class="form-control"
                                                                 style="height: 500px;"

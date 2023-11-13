@@ -182,7 +182,6 @@
                                 <p th:if="${#fields.hasErrors('gender')}" class="text-danger"
                                    th:errors="*{gender}"></p>
                             </div>
-
                             <div class="gender-options col-sm-6" style="margin-top: 12px"
                                  th:each="role: ${listRoles}">
 
@@ -192,8 +191,8 @@
                                            value="USER"
                                            th:field="*{role.name}">
                                 </label>
-
                             </div>
+                            <input type="hidden" th:field="*{createDate}"/>
                         </div>
                         <button type="submit" class="btn btn-primary btn-user">
                             Save

@@ -202,7 +202,31 @@
                                                                placeholder="Units In Stock..."
                                                                th:field="*{birdCage.unitsInStock}">
                                                     </div>
-                                                    <div class="col-sm-3 mt-2">
+                                                    <div class="col-sm-6 mt-3">
+                                                        <label>Add to Feature Product
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                       id="customCheck1" value="true"
+                                                                       th:field="*{birdCage.featureProduct}"/>
+                                                                <label class="custom-control-label" for="customCheck1">
+                                                                </label>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" style="margin-bottom: 20px;">
+                                                    <div class="col-sm-6">
+                                                        <label>Product Weight(kg)</label>
+                                                        <input
+                                                                type="text"
+                                                                class="form-control form-control-user"
+                                                                id="productWeight"
+                                                                name="productWeight"
+                                                                maxlength="10"
+                                                                placeholder="Enter weight"
+                                                                th:field="*{birdCage.unitWeight}"/>
+                                                    </div>
+                                                    <div class="col-sm-6 mt-2">
                                                         <label>Status</label></br>
                                                         <label for="available">
                                                             <input type="radio"
@@ -221,27 +245,6 @@
                                                         <p th:if="${#fields.hasErrors('birdCage.status')}"
                                                            class="text-danger" th:errors="*{birdCage.status}"></p>
                                                     </div>
-                                                    <div class="col-sm-3 mt-3">
-                                                        <label>Add to Feature Product
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                       id="customCheck1" value="true" th:field="*{birdCage.featureProduct}"/>
-                                                                <label class="custom-control-label" for="customCheck1">
-                                                                </label>
-                                                            </div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group" style="margin-bottom: 20px;">
-                                                    <label>Product Weight(kg)</label>
-                                                    <input
-                                                        type="text"
-                                                        class="form-control form-control-user"
-                                                        id="productWeight"
-                                                        name="productWeight"
-                                                        maxlength="10"
-                                                        placeholder="Enter weight"
-                                                        th:field="*{birdCage.unitWeight}"/>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -305,8 +308,10 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.material')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.material}"></label>
-                                                        <select class="ml-3 btn btn-sm rounded-pill form-select" aria-label="Default select example" th:field="*{birdCageDetail.material}" id="material">
-                                                            <option value="wood" >Wood</option>
+                                                        <select class="ml-3 btn btn-sm rounded-pill form-select"
+                                                                aria-label="Default select example"
+                                                                th:field="*{birdCageDetail.material}" id="material">
+                                                            <option value="wood">Wood</option>
                                                             <option value="aluminum">Aluminum</option>
                                                             <option value="steel">Steel</option>
                                                             <option value="plastic">Plastic</option>
@@ -317,13 +322,14 @@
                                                         <label th:if="${#fields.hasErrors('birdCageDetail.color')}"
                                                                class="text-danger"
                                                                th:errors="*{birdCageDetail.color}"></label>
-                                                        <select class="ml-3 btn btn-sm rounded-pill form-select" th:field="*{birdCageDetail.color}" id="color">
-                                                            <option value="black" >Black</option>
-                                                            <option value="white" >White</option>
-                                                            <option value="red" >Red</option>
-                                                            <option value="blue" >Blue</option>
-                                                            <option value="purple" >Purple</option>
-                                                            <option value="yellow" >Yellow</option>
+                                                        <select class="ml-3 btn btn-sm rounded-pill form-select"
+                                                                th:field="*{birdCageDetail.color}" id="color">
+                                                            <option value="black">Black</option>
+                                                            <option value="white">White</option>
+                                                            <option value="red">Red</option>
+                                                            <option value="blue">Blue</option>
+                                                            <option value="purple">Purple</option>
+                                                            <option value="yellow">Yellow</option>
                                                         </select>
                                                     </div>
                                                 </div>
