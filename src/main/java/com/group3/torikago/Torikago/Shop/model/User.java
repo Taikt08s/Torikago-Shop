@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.List;

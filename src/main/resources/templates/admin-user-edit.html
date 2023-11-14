@@ -56,6 +56,12 @@
 
             </nav>
         </div>
+        <div th:if="${param.fail}" class="alert alert-danger">
+            All field must type
+        </div>
+        <div th:if="${param.phone}" class="alert alert-danger">
+            Please enter a valid (+84) phone number
+        </div>
         <div class="container" style=" margin-bottom: 100px">
             <div class="row">
                 <div class="col-md-9">
@@ -65,22 +71,18 @@
                                 <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-user-edit"></i> Users profile</h1>
                             </div>
                             <hr>
-                            <form th:action="@{/users/save}" th:object="${user}"
+                            <form th:action="@{/users/save/{id}(id=${user.id})}" th:object="${user}"
                                   method="post" style="max-width: 600px; margin: 0 auto;">
                                 <input type="hidden" th:field="*{id}"/>
                                 <input type="hidden" th:field="*{role.id}"/>
+                                <input type="hidden" th:field="*{userName}"/>
+                                <input type="hidden" th:field="*{password}"/>
+                                <input type="hidden" th:field="*{createDate}"/>
                                 <div class="m-3">
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">E-mail</label>
                                         <div class="col-8">
-                                            <input type="email" th:field="*{email}" class="form-control" required/>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Password</label>
-                                        <div class="col-8">
-                                            <input type="password" th:field="*{password}" class="form-control"/>
+                                            <input type="hidden" th:text="*{email}" th:field="*{email}" class="form-control" required/>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -96,12 +98,6 @@
                                             <input type="text" th:field="*{phoneNumber}" class="form-control"/>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">User name </label>
-                                        <div class="col-8">
-                                            <input type="text" th:field="*{userName}" class="form-control"/>
-                                        </div>
-                                    </div>
 
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">First Name </label>
@@ -114,12 +110,6 @@
                                         <label class="col-4 col-form-label">Last Name </label>
                                         <div class="col-8">
                                             <input type="text" th:field="*{lname}" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-4 col-form-label">Create Date: </label>
-                                        <div class="col-8">
-                                            <input type="text" th:field="*{createDate}" class="form-control"/>
                                         </div>
                                     </div>
                                     <div class="form-group row">

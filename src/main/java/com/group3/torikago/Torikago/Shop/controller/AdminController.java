@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class AdminController {
@@ -312,8 +313,13 @@ public class AdminController {
         return "admin-user-edit";
     }
 
-    @PostMapping("/users/save")
+    @PostMapping("/users/save/{id}")
     public String saveUserEditedByAdmin(User user) {
+        if(user.getEmail().isEmpty() || user.getFname().isEmpty() || user.getLname().isEmpty() || user.getAddress().isEmpty() || user.getPhoneNumber().isEmpty()){
+            return "redirect:/users/edit/{id}?fail";
+        }else if (!Pattern.matches("^(84|0)(9|3|5|7|8)[0-9]{8}$", user.getPhoneNumber())) {
+            return "redirect:/users/edit/{id}?phone";
+        }
         userService.saveUserEditedByAdmin(user);
         return "redirect:/admin/users-table?success";
     }
