@@ -119,38 +119,40 @@
         </div>
     </div>
     <div class="container">
-        <div th:if="${param.search == null or param.search == ''}">
-            <h5 class="col-md-12 text-center text-gray-800">Feature Products</h5>
-            <hr style="border: 2px solid #000000; margin-bottom: 15px; width: 50px; margin-left: auto; margin-right: auto;">
-            <div class="card mb-4">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-md-12 p-3">
-                        <div class="d-flex flex-nowrap overflow-hidden" id="featureProductScroll">
-                            <button class="btn btn-secondary btn-circle btn-sm carousel-control-prev"
-                                    onclick="scrollProducts('left')" style="margin-top: 180px">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <div th:each="product, iterStat : ${products.content}" th:if="${product.featureProduct}"
-                                 class="mb-2">
-                                <div class="card mx-2" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <a class="text-decoration-none"
-                                           th:href="@{/torikago/product/{productId}(productId=${product.id})}">
-                                            <img th:src="@{${product.getMainImage()}}" class="card-img-top"
-                                                 alt="Product Image" style="width: 100%; height: auto;">
-                                            <h5 class="card-title text-gray-800" th:text="${product.productName}"
-                                                style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
-                                            <span class="text-primary"
-                                                  th:text="' ₫'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"></span>
-                                            <span href="" value="5" style="color: gold;">5.0★★★★★</span>
-                                        </a>
+        <div th:if="${products.number == 0}">
+            <div th:if="${param.search == null or param.search == ''}">
+                <h5 class="col-md-12 text-center text-gray-800">Feature Products</h5>
+                <hr style="border: 2px solid #000000; margin-bottom: 15px; width: 50px; margin-left: auto; margin-right: auto;">
+                <div class="card mb-4">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-12 p-3">
+                            <div class="d-flex flex-nowrap overflow-hidden" id="featureProductScroll">
+                                <button class="btn btn-secondary btn-circle btn-sm carousel-control-prev"
+                                        onclick="scrollProducts('left')" style="margin-top: 180px">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <div th:each="product, iterStat : ${products.content}" th:if="${product.featureProduct}"
+                                     class="mb-2">
+                                    <div class="card mx-2" style="width: 18rem;">
+                                        <div class="card-body">
+                                            <a class="text-decoration-none"
+                                               th:href="@{/torikago/product/{productId}(productId=${product.id})}">
+                                                <img th:src="@{${product.getMainImage()}}" class="card-img-top"
+                                                     alt="Product Image" style="width: 100%; height: auto;">
+                                                <h5 class="card-title text-gray-800" th:text="${product.productName}"
+                                                    style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></h5>
+                                                <span class="text-primary"
+                                                      th:text="' ₫'+ ${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')}"></span>
+                                                <span href="" value="5" style="color: gold;">5.0★★★★★</span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
+                                <button class="btn btn-secondary btn-circle btn-sm carousel-control-next"
+                                        onclick="scrollProducts('right')" style="margin-top: 180px">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
                             </div>
-                            <button class="btn btn-secondary btn-circle btn-sm carousel-control-next"
-                                    onclick="scrollProducts('right')" style="margin-top: 180px">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -203,11 +205,14 @@
                             <label for="category"><i class="fas fa-layer-group"></i> By Category</label>
                             <select class="form-select" id="category" name="productType">
                                 <option value="all"
-                                        th:selected="${type == 'all'}">All</option>
+                                        th:selected="${type == 'all'}">All
+                                </option>
                                 <option value="Bird Cage"
-                                        th:selected="${type == 'Bird Cage'}">Bird Cage</option>
+                                        th:selected="${type == 'Bird Cage'}">Bird Cage
+                                </option>
                                 <option value="Accessory"
-                                        th:selected="${type == 'Accessory'}">Accessory</option>
+                                        th:selected="${type == 'Accessory'}">Accessory
+                                </option>
                                 <!-- Add more options as needed -->
                             </select>
                         </div>
@@ -215,14 +220,16 @@
                         <form th:action="@{/torikago}" method="get" id="filterForm">
                             <div class="mb-3">
                                 <label for="priceFrom">Price Range</label>
-                                    <div class="col-md-12">
-                                        <input type="number" class="form-control" id="priceFrom" name="priceFrom"
-                                               placeholder="From" min="0" th:value="${#numbers.formatDecimal(priceFrom, 0, 'NONE', 0, 'NONE')}">
-                                    </div>
-                                    <div class="col-md-12 mt-4">
-                                        <input type="number" class="form-control" id="priceTo" name="priceTo"
-                                               placeholder="To" min="0" th:value="${#numbers.formatDecimal(priceTo, 0, 'NONE', 0, 'NONE')}">
-                                    </div>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control" id="priceFrom" name="priceFrom"
+                                           placeholder="From" min="0"
+                                           th:value="${#numbers.formatDecimal(priceFrom, 0, 'NONE', 0, 'NONE')}">
+                                </div>
+                                <div class="col-md-12 mt-4">
+                                    <input type="number" class="form-control" id="priceTo" name="priceTo"
+                                           placeholder="To" min="0"
+                                           th:value="${#numbers.formatDecimal(priceTo, 0, 'NONE', 0, 'NONE')}">
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Apply</button>
                         </form>
