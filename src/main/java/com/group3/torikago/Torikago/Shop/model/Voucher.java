@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -31,7 +32,7 @@ public class Voucher {
     private Boolean status;
     @Column(name = "voucher_maxValue")
     private double maxValue;
-    @OneToOne(mappedBy = "voucher")
-    private Order birdCageOrder;
+    @OneToMany(mappedBy = "voucher")
+    private List<Order> birdCageOrder;
 
 }

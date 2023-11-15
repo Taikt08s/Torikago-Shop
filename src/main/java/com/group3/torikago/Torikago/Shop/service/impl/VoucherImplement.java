@@ -66,6 +66,11 @@ public class VoucherImplement implements VoucherService {
         Page<Voucher> productsPage = voucherRepository.findAll(pageable);
         return productsPage.map(this::mapToVoucherDTO);
     }
+    
+    @Override
+    public Voucher findByVId(Long id) {
+        return voucherRepository.findById(id).get();
+    }
 
     private Voucher mapToVoucher(VoucherDTO voucherDTO) {
         Voucher voucher =Voucher.builder()

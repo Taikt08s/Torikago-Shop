@@ -94,7 +94,7 @@ public class ProductImplement implements ProductService {
 
     @Override
     public Product findProductById(Long productId) {
-        return productRepository.findById(productId);
+        return productRepository.findById(productId).get();
     }
 
     public Product mapToProduct(ProductDTO productDTO) {

@@ -12,6 +12,8 @@ public interface VoucherService {
     Voucher saveVoucher(VoucherDTO voucherDTO);
 
     VoucherDTO findById(Long id);
+    
+    Voucher findByVId(Long id);
 
     void updateVoucher(VoucherDTO voucher);
 

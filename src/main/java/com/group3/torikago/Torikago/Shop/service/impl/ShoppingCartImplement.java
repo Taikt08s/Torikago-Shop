@@ -39,7 +39,7 @@ public class ShoppingCartImplement implements ShoppingCartService{
     @Override
     public int addProduct(Long productId, int quantity, User user) {
         int addedQuantity = quantity;
-        Product product = productRepository.findById(productId);
+        Product product = productRepository.findById(productId).get();
         CartItems cartItem = cartItemRepository.findByUserIdAndProductId(user, product);
         if (cartItem != null) {
             addedQuantity = cartItem.getQuantity() + quantity;
@@ -66,7 +66,7 @@ public class ShoppingCartImplement implements ShoppingCartService{
 
     @Override
     public void removeProduct(Long productId, User user) {
-        Product product = productRepository.findById(productId);
+        Product product = productRepository.findById(productId).get();
         if(product.getCustomizedBirdCage() != null ){
             product.getCustomizedBirdCage().setCartStatus(false);
             customizedBirdCageRepository.save(product.getCustomizedBirdCage());
