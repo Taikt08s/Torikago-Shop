@@ -75,6 +75,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-9 mb-4">
             <div class="card shadow">
                 <div class="card-body p-5">
@@ -83,6 +84,12 @@
                     </div>
                     <div th:if="${param.success}" class="alert alert-success">
                         Information Updated
+                    </div>
+                    <div th:if="${param.fail}" class="alert alert-danger">
+                        All field must type
+                    </div>
+                    <div th:if="${param.phone}" class="alert alert-danger">
+                        Please enter a valid (+84) phone number
                     </div>
                     <hr>
                     <form class="user" method="post" role="form" th:action="@{/user/profile}" th:object="${user}">

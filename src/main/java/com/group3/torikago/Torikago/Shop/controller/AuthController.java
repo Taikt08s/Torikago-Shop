@@ -99,6 +99,11 @@ public class AuthController {
 
     @PostMapping("/user/profile")
     public String saveUser(User user, HttpSession session) {
+        if(user.getEmail().isEmpty() || user.getFname().isEmpty() || user.getLname().isEmpty() || user.getAddress().isEmpty() || user.getPhoneNumber().isEmpty()){
+            return "redirect:/user/profile?fail";
+        }else if (!Pattern.matches("^(84|0)(9|3|5|7|8)[0-9]{8}$", user.getPhoneNumber())) {
+            return "redirect:/user/profile?phone";
+        }
         userService.updateAccountOfUser(user);
         user.setFname(user.getFname());
         user.setLname(user.getLname());
