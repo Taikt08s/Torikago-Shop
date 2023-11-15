@@ -218,14 +218,14 @@
                             </a></th>
                         <th>
                             <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                Created Time
+                                Start Date
                                 <span th:if="${sortField eq 'id'}"
                                       th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
                             </a>
                         </th>
                         <th>
                             <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                Expired Time
+                                Expire Date
                                 <span th:if="${sortField eq 'id'}"
                                       th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
                             </a>

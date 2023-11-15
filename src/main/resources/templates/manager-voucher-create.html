@@ -216,7 +216,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <label for="createdTime">Created Time</label>
+                                <label for="createdTime">Start Date</label>
                                 <label th:if="${#fields.hasErrors('createdTime')}"
                                        class="text-danger"
                                        th:errors="*{createdTime}"></label>
@@ -227,7 +227,7 @@
                                        placeholder="Choose created time...">
                             </div>
                             <div class="col-sm-6">
-                                <label for="expiredTime">Expired Time</label>
+                                <label for="expiredTime">Expire Date</label>
                                 <label th:if="${#fields.hasErrors('expiredTime')}"
                                        class="text-danger"
                                        th:errors="*{expiredTime}"></label>
