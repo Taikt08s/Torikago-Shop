@@ -38,7 +38,7 @@
             CRUD
         </div>
         <li class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" th:href="@{/manager/orders}">
                 <i class="fas fa-fw fa-boxes"></i>
                 <span>Orders</span></a>
         </li>
@@ -312,11 +312,9 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group" style="margin-bottom: 20px;">
+                                                <div class="form-group" style="margin-bottom: 20px; border: 1px solid #ddd; padding: 10px;">
                                                     <label>Description</label>
-                                                    <label th:if="${#fields.hasErrors('birdCageDetail.description')}"
-                                                           class="text-danger"
-                                                           th:errors="*{birdCageDetail.description}"></label>
+                                                    <label th:if="${#fields.hasErrors('birdCageDetail.description')}" class="text-danger" th:errors="*{birdCageDetail.description}"></label>
                                                     <div style="white-space: pre-wrap;">
                                                         <span th:utext="*{birdCageDetail.description}"></span>
                                                     </div>
