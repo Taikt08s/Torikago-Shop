@@ -75,20 +75,20 @@
                                   method="post" style="max-width: 600px; margin: 0 auto;">
                                 <input type="hidden" th:field="*{id}"/>
                                 <input type="hidden" th:field="*{role.id}"/>
-<!--                                <input type="hidden" th:field="*{userName}"/>-->
                                 <input type="hidden" th:field="*{password}"/>
-<!--                                <input type="hidden" th:field="*{createDate}"/>-->
                                 <div class="m-3">
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">E-mail</label>
                                         <div class="col-8">
-                                            <input type="hidden" th:text="*{email}" th:field="*{email}" class="form-control" required/>
+                                            <input type="hidden" th:text="*{email}" th:field="*{email}"
+                                                   class="form-control" required/>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Username</label>
                                         <div class="col-8">
-                                            <input type="hidden" th:text="*{userName}" th:field="*{userName}" class="form-control" required/>
+                                            <input type="hidden" th:text="*{userName}" th:field="*{userName}"
+                                                   class="form-control" required/>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -121,7 +121,15 @@
                                     <div class="form-group row">
                                         <label class="col-4 col-form-label">Create Date: </label>
                                         <div class="col-8">
-                                            <input type="text" th:field="*{createDate}" class="form-control"/>
+                                            <input type="text" readonly="" th:field="*{createDate}"
+                                                   class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-4 col-form-label">Updated Date: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly="" th:field="*{updatedDate}"
+                                                   class="form-control"/>
                                         </div>
                                     </div>
                                     <div class="form-group row">

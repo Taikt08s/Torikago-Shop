@@ -25,6 +25,7 @@ public class ProductDTO {
     private String extraImage3;
     @NotNull(message = "*Required")
     private Double unitPrice;
+    @NotNull(message = "*Required")
     private Double unitWeight;
     @NotNull(message = "*Required")
     @Min(value = 0, message = "*Greater or equal to 0")

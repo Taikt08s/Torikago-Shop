@@ -203,6 +203,9 @@
                                                         </div>
                                                         <div class="form-group" style="margin-bottom: 20px;">
                                                             <label>Product Weight(kg)</label>
+                                                            <label th:if="${#fields.hasErrors('accessory.unitWeight')}"
+                                                                   class="text-danger"
+                                                                   th:errors="*{accessory.unitWeight}"></label>
                                                             <input
                                                                 type="text"
                                                                 class="form-control form-control-user"

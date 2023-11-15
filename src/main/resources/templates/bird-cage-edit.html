@@ -217,6 +217,9 @@
                                                 <div class="form-group row" style="margin-bottom: 20px;">
                                                     <div class="col-sm-6">
                                                         <label>Product Weight(kg)</label>
+                                                        <label th:if="${#fields.hasErrors('birdCage.unitWeight')}"
+                                                               class="text-danger"
+                                                               th:errors="*{birdCage.unitWeight}"></label>
                                                         <input
                                                                 type="text"
                                                                 class="form-control form-control-user"

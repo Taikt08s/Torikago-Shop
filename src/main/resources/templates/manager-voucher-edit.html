@@ -176,7 +176,8 @@
         <div class="p-3">
             <div class="card card-body shadow">
                 <div class="row">
-                    <a th:href="@{/manager}" class="text-decoration-none"><h3 class="font-weight-bolder"><i class="far fa-edit"></i> Vouchers</h3></a>
+                    <a th:href="@{/manager/vouchers}" class="text-decoration-none"><h3 class="font-weight-bolder"><i
+                            class="far fa-edit"></i> Edit Voucher</h3></a>
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small"
@@ -190,122 +191,83 @@
                             </div>
                         </div>
                     </form>
-                    <a class="btn btn-primary ml-auto" th:href="@{/manager/vouchers/new}"><i class="far fa-edit"></i>
-                        Create voucher</a>
                 </div>
             </div>
-            <div class="card card-body mt-3 shadow" style="padding-bottom: 800px;">
-                <table class="table table-striped" id="dataTable">
-                    <thead>
-                    <tr>
-                        <th>
-                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                No
-                                <span th:if="${sortField eq 'id'}"
-                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
-                            </a></th>
-                        <th>
-                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                Name
-                                <span th:if="${sortField eq 'id'}"
-                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
-                            </a></th>
-                        <th>
-                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                Value (%)
-                                <span th:if="${sortField eq 'id'}"
-                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
-                            </a></th>
-                        <th>
-                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                Created Time
-                                <span th:if="${sortField eq 'id'}"
-                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a th:href="@{/manager/vouchers(pageNumber=1, sortField='id', sortDir=${sortField eq 'id' and sortDir eq 'asc' ? 'desc' : 'asc'})}">
-                                Expired Time
-                                <span th:if="${sortField eq 'id'}"
-                                      th:text="${sortDir eq 'asc' ? '↑' : '↓'}"></span>
-                            </a>
-                        </th>
-                        <th>Status</th>
-                        <th>Max Value</th>
-                        <th>Edit</th>
-                        <th>Remove</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="voucher : ${vouchers}">
-                        <td th:text="${voucher.id}">ID</td>
-                        <td th:text="${voucher.voucherName}"></td>
-                        <td th:text="${#numbers.formatDecimal(voucher.getVoucherValue(), 0, 'POINT', 0, 'POINT')}+'%'"></td>
-                        <td th:text="${#temporals.format(voucher.getCreatedTime(), 'yyyy-MM-dd')}"></td>
-                        <td th:text="${#temporals.format(voucher.getExpiredTime(), 'yyyy-MM-dd')}"></td>
-                        <td th:text="${voucher.status} "></td>
-                        <td th:text="${'₫' +#numbers.formatDecimal(voucher.getMaxValue(), 0, 'POINT', 0, 'POINT')}"></td>
-                        <th>
-                            <a th:href="@{/manager/vouchers/edit/{id}(id=${voucher.id})}"
-                               class="btn btn-info btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-pen-square"></i>
-                                        </span>
-                                <span class="text">Edit</span>
-                            </a>
-                        </th>
-                        <th>
-                            <a class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                <span class="text">Remove</span>
-                            </a>
-                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalDelete">Delete this Voucher?</h5>
-                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">Select "Delete" below if you sure you want to delete the voucher.</div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                            <a class="btn btn-danger" th:href="@{/manager/vouchers/delete/{id}(id=${voucher.id})}"><i class="fas fa-trash"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
+            <div style="padding-bottom: 700px;height: 1px">
+                <div class="card card-body mt-3 shadow col-md-6 mx-auto">
+                    <form th:action="@{/manager/vouchers/edit/{id}(id=${voucher.id})}" th:object="${voucher}"
+                          method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <label for="voucherName">Voucher Name</label>
+                                <label th:if="${#fields.hasErrors('voucherName')}"
+                                       class="text-danger"
+                                       th:errors="*{voucherName}"></label>
+                                <input type="text" class="form-control form-control-user" id="voucherName"
+                                       th:field="*{voucherName}"
+                                       placeholder="Enter Voucher Name...">
+                                <span th:if="${#fields.hasErrors('voucherName')}"
+                                      th:errors="*{voucherName}">Error message</span>
                             </div>
-                        </th>
-                    </tr>
-                    </tbody>
-                </table>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li th:class="${vouchers.first} ? 'page-item disabled' : 'page-item'">
-                            <a th:if="${not vouchers.first}"
-                               th:href="@{/manager/vouchers(pageNumber=1, sortField=${sortField}, sortDir=${sortDir})}"
-                               class="page-link" aria-label="First">
-                                <span aria-hidden="true">First</span>
-                            </a>
-                        </li>
-                        <li th:each="i : ${#numbers.sequence(1, vouchers.totalPages)}"
-                            th:class="${i == vouchers.number + 1} ? 'page-item active' : 'page-item'">
-                            <a th:href="@{/manager/vouchers(pageNumber=${i}, sortField=${sortField}, sortDir=${sortDir}, keyword=${keyword!=null ? keyword : ''})}"
-                               class="page-link" th:text="${i}"></a>
-                        </li>
-                        <li th:class="${vouchers.last} ? 'page-item disabled' : 'page-item'">
-                            <a th:if="${not vouchers.last}"
-                               th:href="@{/manager/vouchers(pageNumber=${vouchers.totalPages}, sortField=${sortField}, sortDir=${sortDir})}"
-                               class="page-link" aria-label="Last">
-                                <span aria-hidden="true">Last</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                            <div class="col-sm-6">
+                                <label for="voucherValue">Voucher Value (%)</label>
+                                <label th:if="${#fields.hasErrors('voucherValue')}"
+                                       class="text-danger"
+                                       th:errors="*{voucherValue}"></label>
+                                <input type="number" class="form-control" id="voucherValue" th:field="*{voucherValue}"
+                                       placeholder="Enter Voucher Value..">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <label for="createdTime">Created Time <span th:text="*{createdTime}"></span></label>
+                                <label th:if="${#fields.hasErrors('createdTime')}"
+                                       class="text-danger"
+                                       th:errors="*{createdTime}"></label>
+                                <input type="datetime-local"
+                                       id="createdTime"
+                                       class="form-control form-control-user"
+                                       th:field="*{createdTime}"
+                                       placeholder="Choose created time...">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="expiredTime">Expired Time <span th:text="*{expiredTime}"></span></label>
+                                <label th:if="${#fields.hasErrors('expiredTime')}"
+                                       class="text-danger"
+                                       th:errors="*{expiredTime}"></label>
+                                <input type="datetime-local"
+                                       id="expiredTime"
+                                       class="form-control form-control-user"
+                                       th:field="*{expiredTime}"
+                                       placeholder="Choose expired time...">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <label for="maxValue">Max Value (₫)</label>
+                                <label th:if="${#fields.hasErrors('maxValue')}"
+                                       class="text-danger"
+                                       th:errors="*{maxValue}"></label>
+                                <input type="text"
+                                       class="form-control form-control-user"
+                                       id="maxValue"
+                                       th:field="*{maxValue}"
+                                       oninput="formatCurrency(this)"
+                                       placeholder="Maximum value voucher apply..."
+                                       maxlength="40">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="status">Status</label>
+                                <select class="form-control" id="status" th:field="*{status}">
+                                    <option th:value="true">Active</option>
+                                    <option th:value="false">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -322,4 +284,26 @@
 <script src="vendor/chart.js/Chart.min.js"></script>
 <script src="js/demo/chart-area-demo.js"></script>
 <script src="js/demo/chart-pie-demo.js"></script>
+<script>
+    function formatCurrency(input) {
+        const value = input.value.replace(/\s+/g, ''); // Remove existing spaces
+        input.value = addSpaces(value);
+    }
+    function addSpaces(str) {
+        let result = '';
+        let count = 0;
+
+        for (let i = str.length - 1; i >= 0; i--) {
+            result = str.charAt(i) + result;
+            count++;
+
+            if (count === 3 && i !== 0) {
+                result = ' ' + result;
+                count = 0;
+            }
+        }
+
+        return result;
+    }
+</script>
 </html>

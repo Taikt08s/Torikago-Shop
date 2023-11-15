@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -320,6 +321,7 @@ public class AdminController {
         }else if (!Pattern.matches("^(84|0)(9|3|5|7|8)[0-9]{8}$", user.getPhoneNumber())) {
             return "redirect:/users/edit/{id}?phone";
         }
+        user.setUpdatedDate(LocalDateTime.now());
         userService.saveUserEditedByAdmin(user);
         return "redirect:/admin/users-table?success";
     }
