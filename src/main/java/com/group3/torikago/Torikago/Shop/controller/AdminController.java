@@ -21,27 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class AdminController {
-    @GetMapping("/admin")
-    @RolesAllowed({"ADMIN"})
-    public String adminPage(Model model) {
-        double revenue = dashBoardService.Revenue();
-        Product bestSeller = dashBoardService.BestSeller();
-        int numberOfBestSeller = dashBoardService.NumberOfBestSeller();
-        int newUsers = dashBoardService.NewUsers();
-        int totalOrders = dashBoardService.TotalOrders();
-        model.addAttribute("Revenue", revenue);
-        model.addAttribute("NumberOfBestSeller", numberOfBestSeller);
-        model.addAttribute("BestSeller", bestSeller);
-        model.addAttribute("NewUsers", newUsers);
-        model.addAttribute("TotalOrders", totalOrders);
-
-        return "admin-dashboard";
-    }
-
     private DashBoardService dashBoardService;
     private ProductService productService;
     private UserService userService;
@@ -60,6 +45,23 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
         this.cloudinaryUpload = cloudinaryUpload;
         this.dashBoardService = dashBoardService;
+    }
+
+    @GetMapping("/admin")
+    @RolesAllowed({"ADMIN"})
+    public String adminPage(Model model) {
+        double revenue = dashBoardService.Revenue();
+        Product bestSeller = dashBoardService.BestSeller();
+        int numberOfBestSeller = dashBoardService.NumberOfBestSeller();
+        int newUsers = dashBoardService.NewUsers();
+        int totalOrders = dashBoardService.TotalOrders();
+        model.addAttribute("Revenue", revenue);
+        model.addAttribute("NumberOfBestSeller", numberOfBestSeller);
+        model.addAttribute("BestSeller", bestSeller);
+        model.addAttribute("NewUsers", newUsers);
+        model.addAttribute("TotalOrders", totalOrders);
+
+        return "admin-dashboard";
     }
 
     @GetMapping("/admin/product-table")
@@ -312,8 +314,14 @@ public class AdminController {
         return "admin-user-edit";
     }
 
-    @PostMapping("/users/save")
+    @PostMapping("/users/save/{id}")
     public String saveUserEditedByAdmin(User user) {
+        if(user.getEmail().isEmpty() || user.getFname().isEmpty() || user.getLname().isEmpty() || user.getAddress().isEmpty() || user.getPhoneNumber().isEmpty()){
+            return "redirect:/users/edit/{id}?fail";
+        }else if (!Pattern.matches("^(84|0)(9|3|5|7|8)[0-9]{8}$", user.getPhoneNumber())) {
+            return "redirect:/users/edit/{id}?phone";
+        }
+        user.setUpdatedDate(LocalDateTime.now());
         userService.saveUserEditedByAdmin(user);
         return "redirect:/admin/users-table?success";
     }

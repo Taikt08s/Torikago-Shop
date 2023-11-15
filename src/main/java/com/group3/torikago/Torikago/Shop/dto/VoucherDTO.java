@@ -1,6 +1,9 @@
 package com.group3.torikago.Torikago.Shop.dto;
 
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,15 +20,18 @@ import java.time.LocalDateTime;
 public class VoucherDTO {
     private Long id;
     @Length(max = 50,message = "No more than 50 characters")
+    @NotEmpty(message = "*Required")
     private String voucherName;
-//    @NotNull
-    private float voucherValue;
-//    @NotNull
+    @NotNull(message = "*Required")
+    @Min(value = 0, message = "*Greater than 0%")
+    @Max(value = 100, message = "*Less than 100%")
+    private Float voucherValue;
+    @NotNull(message = "*Required")
     private LocalDateTime createdTime;
-//    @NotNull
+    @NotNull(message = "*Required")
     private LocalDateTime expiredTime;
-//    @NotNull
-    private double maxValue;
+    @NotNull(message = "*Required")
+    private Double maxValue;
     private Boolean status;
 
 

@@ -47,11 +47,11 @@ public class UserImplement implements UserService {
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        if(keyword!=null){
-            Page<User> vouchersPage =  userRepository.findAll(pageable,keyword);
+        if (keyword != null) {
+            Page<User> vouchersPage = userRepository.findAll(pageable, keyword);
             return vouchersPage;
         }
-        Page<User> vouchersPage  = userRepository.findAll(pageable);
+        Page<User> vouchersPage = userRepository.findAll(pageable);
         return vouchersPage;
 
     }
@@ -146,20 +146,18 @@ public class UserImplement implements UserService {
     }
 
     @Override
-    public String saveUserEditedByAdmin(User user) {
-        String oldData= user.getPassword();
-        if (!user.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        }
-        return oldData;
+    public User saveUserEditedByAdmin(User user) {
+
+            return userRepository.save(user);
+
     }
 
     @Override
     public User updateAccountOfUser(User user) {
-
+        user.setUpdatedDate(LocalDateTime.now());
         return userRepository.save(user);
     }
+
     @Override
     public void saveUserChangePassword(User user) {
         userRepository.save(user);

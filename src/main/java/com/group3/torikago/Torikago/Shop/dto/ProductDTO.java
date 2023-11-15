@@ -25,11 +25,12 @@ public class ProductDTO {
     private String extraImage3;
     @NotNull(message = "*Required")
     private Double unitPrice;
+    @NotNull(message = "*Required")
     private Double unitWeight;
     @NotNull(message = "*Required")
     @Min(value = 0, message = "*Greater or equal to 0")
-    private int unitsInStock;
-    private int unitsOnOrder;
+    private Integer unitsInStock;
+    private Integer unitsOnOrder;
     @NotNull(message = "*Required")
     private Boolean status;
     private Boolean featureProduct;

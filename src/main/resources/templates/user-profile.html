@@ -75,6 +75,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-9 mb-4">
             <div class="card shadow">
                 <div class="card-body p-5">
@@ -83,6 +84,12 @@
                     </div>
                     <div th:if="${param.success}" class="alert alert-success">
                         Information Updated
+                    </div>
+                    <div th:if="${param.fail}" class="alert alert-danger">
+                        Cannot leave an empty field
+                    </div>
+                    <div th:if="${param.phone}" class="alert alert-danger">
+                        Please enter a valid (+84) phone number
                     </div>
                     <hr>
                     <form class="user" method="post" role="form" th:action="@{/user/profile}" th:object="${user}">
@@ -182,7 +189,6 @@
                                 <p th:if="${#fields.hasErrors('gender')}" class="text-danger"
                                    th:errors="*{gender}"></p>
                             </div>
-
                             <div class="gender-options col-sm-6" style="margin-top: 12px"
                                  th:each="role: ${listRoles}">
 
@@ -192,8 +198,8 @@
                                            value="USER"
                                            th:field="*{role.name}">
                                 </label>
-
                             </div>
+                            <input type="hidden" th:field="*{createDate}"/>
                         </div>
                         <button type="submit" class="btn btn-primary btn-user">
                             Save

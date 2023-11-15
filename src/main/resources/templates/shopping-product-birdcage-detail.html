@@ -61,7 +61,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a th:href="@{/torikago/category/birdcage}">Bird Cage</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/?productType=Bird+Cage}">Bird Cage</a></li>
                 <li class="breadcrumb-item active" aria-current="page">
                     <span th:text="${#strings.length(product.productName) > 40 ? #strings.substring(product.productName, 0, 40) + '...' : product.productName}"></span>
                 </li>

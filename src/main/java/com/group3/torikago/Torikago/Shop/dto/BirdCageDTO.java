@@ -22,10 +22,10 @@ public class BirdCageDTO {
     private String cageShape;
     @NotNull(message = "*Required")
     @Digits(integer = 3, fraction = 2, message = "Invalid number format")
-    private double barSpacing;
+    private Double barSpacing;
     @NotNull(message = "*Required")
     @Digits(integer = 3, fraction = 2, message = "Invalid number format")
-    private double birdWingSpan;
+    private Double birdWingSpan;
     @NotEmpty(message = "*Required")
     @Length(max = 50, message = "No more than 50 characters")
     private String material;

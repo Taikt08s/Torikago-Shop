@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.List;
@@ -56,4 +58,6 @@ public class User {
     private List<CartItems> cartItems;
     @Column(name = "create_date",length = 10)
     private LocalDateTime createDate;
+    @Column(name = "update_date",length = 10)
+    private LocalDateTime updatedDate;
 }
