@@ -317,15 +317,9 @@
                                                     <label th:if="${#fields.hasErrors('birdCageDetail.description')}"
                                                            class="text-danger"
                                                            th:errors="*{birdCageDetail.description}"></label>
-                                                    <textarea readonly
-                                                              class="form-control"
-                                                              style="height: 500px;"
-                                                              id="description"
-                                                              name="description"
-                                                              maxlength="200"
-                                                              placeholder="Description..."
-                                                              th:utext="*{birdCageDetail.description}">
-                                                    </textarea>
+                                                    <div style="white-space: pre-wrap;">
+                                                        <span th:utext="*{birdCageDetail.description}"></span>
+                                                    </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                                     Confirm
