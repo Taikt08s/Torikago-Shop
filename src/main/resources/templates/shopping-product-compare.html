@@ -55,19 +55,19 @@
     <div class="row">
         <div class="col-md-12 p-2">
             <div class="card shadow">
-                <div class="card-body p-5">
+                <div class="card-body p-2">
                     <th:block th:if="${#lists.isEmpty(comparisonList)}">
                         <h4 class="mt-3 mb-2 text-center">Your bird cage comparison is currently empty.</h4>
                         <p class="text-muted text-center">Explore our amazing bird cages and add some companionship for your feathered friends!</p>
                         <img th:src="@{/img/comparison.jpg}" alt="Comparison" class="img-fluid justify-content-center" height="200" width="auto">
                     </th:block>
                     <div class="d-flex flex-nowrap overflow-auto">
-                        <div th:each="product : ${comparisonList}" class="card m-2" style="min-width: 280px;">
+                        <div th:each="product : ${comparisonList}" class="card m-2" style="min-width: 370px;">
                             <a th:href="@{/compare/product/delete/{id}(id=${product.id})}" class="text-danger">
                                 <i class="far fa-trash-alt"></i>
                             </a>
                             <div class="card-body">
-                                <img th:src="${product.getMainImage()}" class="img-fluid" alt="Product Image">
+                                <img th:src="${product.getMainImage()}" class="img-fluid" alt="Product Image" style="width: 280px">
                                 <h5 th:text="${product.productName}"></h5>
                                 <h5 th:text="${#numbers.formatDecimal(product.unitPrice, 0, 'POINT', 0, 'POINT')+'₫'}"
                                       class="text-danger product-price"></h5><br>
