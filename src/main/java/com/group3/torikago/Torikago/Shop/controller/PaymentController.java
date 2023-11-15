@@ -39,7 +39,7 @@ public class PaymentController {
 
     @Autowired
     public PaymentController(UserService userService, OrderService orderService, VoucherService voucherService,
-            ShoppingCartService shoppingCartService, ProductService productService, JavaMailSender mailSender) {
+                             ShoppingCartService shoppingCartService, ProductService productService, JavaMailSender mailSender) {
         this.userService = userService;
         this.orderService = orderService;
         this.voucherService = voucherService;
@@ -50,7 +50,7 @@ public class PaymentController {
 
     @PostMapping("/torikago/payment/vnpay")
     public String getPaymentVNPay(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
-            @RequestParam("discount") double discount)
+                                  @RequestParam("discount") double discount)
             throws UnsupportedEncodingException {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
@@ -144,16 +144,17 @@ public class PaymentController {
 
     @GetMapping("/torikago/payment/vnpay/info")
     public String saveOrderInfoVNPay(@RequestParam("vnp_Amount") String orderValue,
-            @RequestParam("vnp_ResponseCode") String rspCode,
-            @RequestParam("vnp_OrderInfo") String orderInfo,
-            @RequestParam("vnp_TransactionStatus") String tranStatus,
-            @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails)
+                                     @RequestParam("vnp_ResponseCode") String rspCode,
+                                     @RequestParam("vnp_OrderInfo") String orderInfo,
+                                     @RequestParam("vnp_TransactionStatus") String tranStatus,
+                                     @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails
+                                     )
             throws MessagingException, UnsupportedEncodingException {
         if (rspCode.equals("00")) {
             String userName = myUserDetails.getUsername();
             User user = userService.findByEmail(userName);
             Order order = orderService.saveOrderVNPay(user, orderValue);
-            sendEmailAfterOrderSuccessfully(myUserDetails, order);
+            sendEmailAfterOrderSuccessfully(myUserDetails, order, 0);
             return "redirect:/torikago/payment/success";
         } else {
             return "redirect:/torikago/payment/fail";
@@ -162,25 +163,25 @@ public class PaymentController {
 
     @PostMapping("/torikago/payment/cod")
     public String saveOrderInfoCod(@RequestParam("amount") double orderValue,
-            @RequestParam("shipping_Fee") double shippingFee,
-            @RequestParam("discount") double discount,
-            @RequestParam(value = "voucherId", required = false) Long voucherId,
-            @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails)
+                                   @RequestParam("shipping_Fee") double shippingFee,
+                                   @RequestParam("discount") double discount,
+                                   @RequestParam(value = "voucherId", required = false) Long voucherId,
+                                   @AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails)
             throws MessagingException, UnsupportedEncodingException {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         Voucher voucher = null;
         if (voucherId != null) {
             voucher = voucherService.findByVId(voucherId);
-        }   
+        }
         Order order = orderService.saveOrderCod(user, orderValue - discount, shippingFee, voucher);
-        sendEmailAfterOrderSuccessfully(myUserDetails, order);
+        sendEmailAfterOrderSuccessfully(myUserDetails, order, discount);
         return "redirect:/torikago/payment/success";
     }
 
     @GetMapping("/torikago/payment/success")
     public String showPaymentSuccess(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
-            Model model) {
+                                     Model model) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         List<CartItems> cartItems = shoppingCartService.listCartItems(user);
@@ -192,7 +193,7 @@ public class PaymentController {
 
     @GetMapping("/torikago/payment/fail")
     public String showPaymentFail(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
-            Model model) {
+                                  Model model) {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
         List<CartItems> cartItems = shoppingCartService.listCartItems(user);
@@ -202,16 +203,17 @@ public class PaymentController {
     }
 
     private void sendEmailAfterOrderSuccessfully(@AuthenticationPrincipal org.springframework.security.core.userdetails.User myUserDetails,
-            Order order) throws MessagingException, UnsupportedEncodingException {
-
+                                                 Order order, double discount) throws MessagingException, UnsupportedEncodingException {
         String userName = myUserDetails.getUsername();
         User user = userService.findByEmail(userName);
+
         double orderSubtotal = 0.0;
         for (OrderDetails orderDetails : order.getOrderdetails()) {
             double productPrice = orderDetails.getProduct().getUnitPrice();
             int quantity = orderDetails.getQuantity();
             orderSubtotal += productPrice * quantity;
         }
+
         String subject = "[Torikago Shop] Order Information " + order.getId();
         String senderName = "Customer Service Team at Torikago";
         StringBuilder mailContent = new StringBuilder();
@@ -485,7 +487,7 @@ public class PaymentController {
                 + "                                                                    <tr>\n"
                 + "                                                                        <td align=\"right\" style=\"padding:0;Margin:0\"><p\n"
                 + "                                                                                style=\"Margin:0;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:24px;letter-spacing:0;color:#001F3F;font-size:16px\">\n"
-                + "                                                                            " + formatCurrency(orderSubtotal) + "<br>$00.00<br>" + formatCurrency(order.getShippingFee()) + "</p></td>\n"
+                + "                                                                            " + formatCurrency(orderSubtotal) + "<br>" +"-"+ formatCurrency(discount) + "<br>" + formatCurrency(order.getShippingFee()) + "</p></td>\n"
                 + "                                                                    </tr>\n"
                 + "                                                                </table>\n"
                 + "                                                            </td>\n"

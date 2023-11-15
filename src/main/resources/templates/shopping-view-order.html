@@ -163,7 +163,7 @@
                                                 </button>
                                                 <div class="dropdown-menu animated--fade-in"
                                                      aria-labelledby="dropdownMenuButton">
-                                                    <div th:each="voucher : ${vouchers}">
+                                                    <div th:if="${voucher.status == true}" th:each="voucher : ${vouchers}">
                                                         <form th:action="@{/torikago/checkout}" method="get">
                                                                 <button class="btn btn-light btn-icon-split" type="submit">
                                                                     <img th:src="@{/img/voucher.png}" class="img-fluid mt-3"
@@ -211,7 +211,7 @@
                                             <div class="d-flex justify-content-between mb-2">
                                                 <h6 class="text">Discount</h6>
                                                 <h6 class="text-danger"
-                                                    th:text="${#numbers.formatDecimal(discount, 0, 'POINT', 0, 'POINT')} + '₫'">
+                                                    th:text="${'-'+#numbers.formatDecimal(discount, 0, 'POINT', 0, 'POINT')} + '₫'">
                                                     </h6>
                                             </div>
                                             <div class="d-flex justify-content-between mb-2">
