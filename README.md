@@ -1,5 +1,5 @@
-# Torikago-Shop [![Shop](<img src="https://cdn5.vectorstock.com/i/1000x1000/67/64/birdhouse-with-bird-circle-icon-vector-8846764.jpg" width="40">
-)](https://torikago.onrender.com/) 
+# Torikago-Shop <img src="https://cdn5.vectorstock.com/i/1000x1000/67/64/birdhouse-with-bird-circle-icon-vector-8846764.jpg" width="40">
+(https://torikago.onrender.com/) 
 Welcome to Torikago-Shop, your one-stop online bird cage eCommerce platform!
 
 ## Group 3 <img src="https://media.tenor.com/T8pE5uK3nKAAAAAC/aris-dancing-arisu-blue-archive.gif" width="40" >
