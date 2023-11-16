@@ -1,4 +1,4 @@
-# Torikago-Shop [![Shop](https://cdn5.vectorstock.com/i/1000x1000/67/64/birdhouse-with-bird-circle-icon-vector-8846764.jpg)](https://torikago.onrender.com/){:width="40"}
+# Torikago-Shop [![Shop](https://cdn5.vectorstock.com/i/1000x1000/67/64/birdhouse-with-bird-circle-icon-vector-8846764.jpg)](https://torikago.onrender.com/) <img src="https://cdn5.vectorstock.com/i/1000x1000/67/64/birdhouse-with-bird-circle-icon-vector-8846764.jpg" width="40">
 
 Welcome to Torikago-Shop, your one-stop online bird cage eCommerce platform!
 
