@@ -95,7 +95,14 @@
             <div class="card-content mt-2 " id="card-1">
                 <th:block th:each="order : ${orders}">
                     <div class="card card-body mt-2">
-                        <span th:text="'#'+ ${order.getId()}"></span>
+                        <div class="d-flex">
+                            <div class="">
+                                <span class="text-gray-900" th:text="'#'+ ${order.getId()}"></span>
+                            </div>
+                            <div class="ml-auto">
+                                <span class="text-gray-900" th:text="${#temporals.format(order.orderDate, 'MM/dd/yyyy HH:mm')}"></span>
+                            </div>
+                        </div>
                         <th:block th:each="order_details : ${order.orderdetails}">
                             <div class="d-flex align-items-center">
                                 <img th:src="@{${order_details.product.getMainImage()}}"
@@ -141,6 +148,9 @@
                                 <i class="fas fa-angle-down"></i>
                             </button>
                             <div class="ml-auto">
+                                <span>Shipping:</span>
+                                <h6 class="text-danger"
+                                    th:text="'₫'+ ${#numbers.formatDecimal(order.shippingFee, 0, 'POINT', 0, 'POINT')}"></h6>
                                 <h6>Total:</h6>
                                 <h5 class="text-danger"
                                     th:text="'₫'+ ${#numbers.formatDecimal(order.orderValue, 0, 'POINT', 0, 'POINT')}"></h5>

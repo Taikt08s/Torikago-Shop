@@ -124,7 +124,7 @@
                                         <td><img class="img-profile rounded-circle"
                                                  th:src="@{/img/undraw_profile.svg}" width="30"/></td>
                                         <td th:text="${user.role}"></td>
-                                        <td th:text="${user.isEnabled()}"></td>
+                                        <td th:text="${user.isEnabled() ? 'Enable' : 'Not Enable'}"></td>
                                         <th><a th:href="@{'/users/edit/' + ${user.id}}"
                                                class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">

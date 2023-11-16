@@ -242,7 +242,7 @@
                         <td th:text="${#numbers.formatDecimal(voucher.getVoucherValue(), 0, 'POINT', 0, 'POINT')}+'%'"></td>
                         <td th:text="${#temporals.format(voucher.getCreatedTime(), 'yyyy-MM-dd')}"></td>
                         <td th:text="${#temporals.format(voucher.getExpiredTime(), 'yyyy-MM-dd')}"></td>
-                        <td th:text="${voucher.status} "></td>
+                        <td th:text="${voucher.status ? 'Active' : 'Inactive'}"></td>
                         <td th:text="${'₫' +#numbers.formatDecimal(voucher.getMaxValue(), 0, 'POINT', 0, 'POINT')}"></td>
                         <th>
                             <a th:href="@{/manager/vouchers/edit/{id}(id=${voucher.id})}"

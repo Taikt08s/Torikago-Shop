@@ -155,7 +155,7 @@
                                         <td th:text="${#numbers.formatDecimal(product.unitPrice, 0, 'WHITESPACE', 1, 'POINT')}"></td>
                                         <td th:text="${product.unitsInStock}"></td>
                                         <td th:text="${product.unitsOnOrder}"></td>
-                                        <th th:text="${product.status}"></th>
+                                        <th th:text="${product.status ? 'Available' : 'Unavailable'}"></th>
                                         <th><a th:href="@{/admin/product-table/{productType}/{productId}/edit(productType=${product.productType}, productId=${product.id})}"
                                                class="btn btn-info btn-icon-split">
                                         <span class="icon text-white-50">
